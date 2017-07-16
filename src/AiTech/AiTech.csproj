@@ -64,6 +64,7 @@
     <Compile Include="Database\DatabaseAction.cs" />
     <Compile Include="Database\DatabaseCredential.cs" />
     <Compile Include="Database\SqlDataWriter.cs" />
+    <Compile Include="Database\SqlMainDataWriter.cs" />
     <Compile Include="Database\SqlUpdateQueryBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

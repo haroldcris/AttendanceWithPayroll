@@ -10,93 +10,73 @@ using System.Threading.Tasks;
 
 namespace Dll.Contacts
 {
-    public class PersonDataWriter 
+    public class PersonDataWriter : SqlDataWriter<Person, PersonCollection>
     {
-        protected PersonCollection _List;
-        protected string DataWriterUsername;
+        public PersonDataWriter(string username, Person item) : base(username, item) { }
+        public PersonDataWriter(string username, IEnumerable<Person> items) : base(username, items) { }
 
-        public PersonDataWriter(string username, Person item)
+        public override bool SaveChanges(SqlConnection db, SqlTransaction trn)
         {
-            _List = new PersonCollection();
-
-            DataWriterUsername = username;
-            if (_List == null) throw new ArgumentNullException();
-
-            _List.Attach(item);
-        }
-
-        public PersonDataWriter(string username, IEnumerable<Person> items)
-        {
-            _List = new PersonCollection();
-
-            DataWriterUsername = username;
-
-            _List.AttachRange(items);
-        }
-
-
-        public bool SaveChanges(SqlConnection db = null, SqlTransaction trn = null)
-        {
-            bool localDb = (db == null);
-
-            if (localDb)
-            {
-                try
-                {
-                    db = Connection.CreateConnection();
-                    db.Open();
-
-                    trn = db.BeginTransaction();
-
-                } catch(Exception ex)
-                {
-                    throw new InvalidOperationException("Can not establish connection to server", ex);
-                }
-            }
-
             try
             {
+                var affectedRecords = 0;
+
                 // Delete All Marked Items
                 var deletedItems = _List.Items.Where(_ => _.RowStatus == RecordStatus.DeletedRecord);
                 if (deletedItems.Count() != 0)
-                    DatabaseAction.ExecuteDeleteQuery<Person>(DataWriterUsername, deletedItems, db, trn);
+                    if (DatabaseAction.ExecuteDeleteQuery<Person>(DataWriterUsername, deletedItems, db, trn))
+                        affectedRecords++;
 
 
+                var cmd = new SqlCommand();
                 foreach (var item in _List.Items)
                 {
-                    switch(item.Id)
+                    switch (item.Id)
                     {
                         case 0: //New
-                            ExecuteInsertCommand(item, db, trn);
+                            var insertQuery = CreateSqlInsertQuery();
+                            cmd = new SqlCommand(insertQuery, db, trn);
+
+                            CreateSqlInsertCommandParameters(cmd, item);
+
+                            if (ExecuteCommand(cmd, item, item.Name.FullnameWithLastnameFirst()))
+                                affectedRecords++;
                             break;
 
-                        default: // Update
-                            //DatabaseAction.ExecuteUpdateQuery<Person>(DataWriterUsername, item.Name.FullnameWithLastnameFirst(), item, db, trn);
-                            ExecuteUpdateCommand(item, db, trn);
+
+                        default: //Update
+                            if (item.RowStatus == RecordStatus.DeletedRecord) continue;
+
+                            var updateQuery = CreateSqlUpdateQuery(item);
+                            cmd = new SqlCommand(updateQuery, db, trn);
+
+                            CreateSqlUpdateCommandParameters(cmd, item);
+
+                            if (ExecuteCommand(cmd, item, item.Name.FullnameWithLastnameFirst()))
+                                affectedRecords++;
                             break;
                     }
 
-                    //Save SubClass Here;
-                    
                 }
 
-                if (localDb) trn.Commit();
                 return true;
             }
             catch
             {
-                if (localDb) trn.Rollback();
                 throw;
-            }
-            finally
-            {
-                if (localDb) db.Close();
             }
         }
 
+        protected override string CreateSqlInsertQuery()
+        {
+            return @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
+				INSERT INTO [Persons] ([Lastname],[Firstname],[MiddleName],[Mi],[NameExtension],[Gender],[BirthDate],[Street],[Barangay],[Town],[Province],[CreatedBy],[ModifiedBy]) 
+				    OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
+				VALUES (@Lastname,@Firstname,@MiddleName,@Mi,@NameExtension,@Gender,@BirthDate,@Street,@Barangay,@Town,@Province,@CreatedBy,@ModifiedBy)
+				SELECT * from @output";
+        }
 
-
-        private void CreateSqlCommandParameters(SqlCommand cmd, Person item)
+        protected override void CreateSqlInsertCommandParameters(SqlCommand cmd, Person item)
         {
             cmd.Parameters.Clear();
 
@@ -139,65 +119,7 @@ namespace Dll.Contacts
             cmd.Parameters["@CreatedBy"].Value = DataWriterUsername;
             cmd.Parameters["@ModifiedBy"].Value = DataWriterUsername;
         }
-      
 
-
-        private void ExecuteInsertCommand(Person item, SqlConnection db, SqlTransaction trn)
-        {
-            try
-            {
-                using (var cmd = new SqlCommand(@"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
-						  INSERT INTO [Persons] ([Lastname],[Firstname],[MiddleName],[Mi],[NameExtension],[Gender],[BirthDate],[Street],[Barangay],[Town],[Province],[CreatedBy],[ModifiedBy]) 
-							 OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
-						  VALUES (@Lastname,@Firstname,@MiddleName,@Mi,@NameExtension,@Gender,@BirthDate,@Street,@Barangay,@Town,@Province,@CreatedBy,@ModifiedBy)
-						  SELECT * from @output", db, trn))
-                {
-
-                    CreateSqlCommandParameters(cmd, item);
-
-                    using (var reader = cmd.ExecuteReader(CommandBehavior.SingleRow))
-                    {
-                        DatabaseAction.UpdateItemRecordInfo(item, reader);
-                    }
-                }
-            }
-            catch(Exception ex)
-            {
-                throw new ArgumentException("Error Saving " + item.Name.FullnameWithFirstnameFirst(), ex);
-            }
-        }
-
-
-        private void ExecuteUpdateCommand(Person item, SqlConnection db, SqlTransaction trn)
-        {
-            var builder = new SqlUpdateQueryBuilder(item);
-            var query = builder.GetQueryString();
-
-            try
-            {
-                using (var cmd = new SqlCommand(query, db, trn))
-                {
-
-                    CreateSqlCommandParameters(cmd, item);
-
-                    //Add Id
-                    cmd.Parameters.Add(new SqlParameter("@Id", SqlDbType.Int));
-                    cmd.Parameters["@Id"].Value = item.Id;
-
-                    using (var reader = cmd.ExecuteReader(CommandBehavior.SingleRow))
-                    {
-                        DatabaseAction.UpdateItemRecordInfo(item, reader);
-                    }
-                }
-            }
-
-            catch (Exception ex)
-
-            {
-                throw new ArgumentException("Error Saving " + item.Name.FullnameWithFirstnameFirst(), ex);
-            }
-
-        }
 
     }
 }
