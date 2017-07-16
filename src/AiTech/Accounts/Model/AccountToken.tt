@@ -1,0 +1,79 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+<# 
+	var fields = new Dictionary<string, string>();
+	
+	//Enter your Database Table Name	
+	//*******************************
+	var tableName = "AccountTokens";
+	
+	//Enter Name of the Class
+	//****************************
+	var className = "AccountToken";
+	
+
+	//Enter Fields To Be Generated
+	//****************************
+	fields.Add ("Username", "string");
+	fields.Add ("Token","string");
+	fields.Add ("Expiration","DateTime");
+
+	fields.Add("WindowsUsername", "string");
+	fields.Add("MachineName", "string");
+	fields.Add("IpAddress", "string");
+
+
+
+#>
+using System;
+using System.Collections.Generic;
+using Dapper.Contrib.Extensions;
+using AiTech.CrudPattern;
+
+namespace AiTech.Accounts
+{
+    [Table("<#= tableName #>")]
+    public class <#= className #>: Entity
+    {		
+		Dictionary<string,object> OriginalValues;
+
+		#region Default Properties
+		<#foreach( var item in fields) {#>        		
+        public <#= item.Value + " " + item.Key #> {get; set;}<#} #>
+	
+		
+		#endregion
+	
+		protected void InitializeTrackingChanges()
+		{
+			OriginalValues = new Dictionary<string,object>();
+			<#foreach( var item in fields) {#>        
+		 	OriginalValues.Add("<#= item.Key #>", this.<#= item.Key #>);<#} #>
+		
+		}
+
+		override public Dictionary<string, object> GetChanges()
+		{
+			var changes = new Dictionary<string, object>();
+
+			if(this.RowStatus == RecordStatus.DeletedRecord) return changes;
+
+			<#foreach( var item in fields) {#>        		 	
+			if(!Equals(this.<#= item.Key #>, OriginalValues["<#= item.Key #>"]))
+				changes.Add("<#= item.Key #>", this.<#= item.Key #>);
+			<#} #>
+            
+			if (changes.Count > 0) this.RowStatus = RecordStatus.ModifiedRecord;
+            return changes;
+		}
+
+		
+	}
+
+
+	
+}

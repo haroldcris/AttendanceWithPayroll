@@ -1,0 +1,101 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".txt" #>
+<# 
+	var fields = new Dictionary<string, ClassType>();
+	
+	//Enter your Database Table Name	
+	//*******************************
+	var tableName = "MTOP_Toda";
+	
+	//Enter Name of the Class
+	//****************************
+	var className = "Toda";
+	
+
+	//Enter Fields To Be Generated
+	//****************************
+	fields.Add ("Code"			 , new ClassType("string") );
+	fields.Add ("Description"	 , new ClassType("object", true) );
+
+
+#>
+using System;
+using System.Collections.Generic;
+using Dapper.Contrib.Extensions;
+using AiTech.CrudPattern;
+
+namespace Dll.MTOP
+{
+	public interface I<#= className #>
+    {   <#foreach( var item in fields) {#>        		
+        <#= item.Value.DataType + " " + item.Key #> {get; set;}<#} #>	
+    }
+
+
+
+    [Table("<#= tableName #>")]
+    public class <#= className #>: Entity, I<#= className #>
+    {		
+		Dictionary<string,object> OriginalValues;
+
+		#region Default Properties
+		<#foreach( var item in fields) {#>        		
+        public <#= item.Value.DataType + " " + item.Key #> {get; set;}<#} #>
+	
+		
+		#endregion
+		
+
+		public <#= className #> (): base()
+        { <# foreach( var item in fields ) { if(!item.Value.IsObject) continue;  #>        		
+		  <#= item.Key + " =  new " + item.Value.DataType + "();"#> <#} #>	
+        }
+
+
+		public void InitializeTrackingChanges()
+		{
+			OriginalValues = new Dictionary<string,object>();
+			<#foreach( var item in fields) { if(item.Value.IsObject) continue; #>        
+		 	OriginalValues.Add("<#= item.Key #>", this.<#= item.Key #>);<#} #>
+		
+		}
+
+		override public Dictionary<string,object> GetChanges()
+		{
+			var changes = new Dictionary<string, object>();
+
+			<#foreach( var item in fields) { if(item.Value.IsObject) continue; #>        		 	
+			if(!Equals(this.<#= item.Key #>, OriginalValues["<#= item.Key #>"]))
+				changes.Add("<#= item.Key #>", this.<#= item.Key #>);
+			<#} #>
+            
+			
+            return changes;
+		}
+
+		
+	}
+
+
+	
+}
+
+<#+
+	
+	class ClassType
+	{
+		public string DataType {get; set;}
+		public bool IsObject {get; set;}
+
+		public ClassType(string type, bool isObject = false)
+		{
+			DataType = type;
+			IsObject = isObject;
+		}
+	}
+
+#>
