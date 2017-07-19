@@ -66,6 +66,7 @@
     <Folder Include="_General\Location" />
     <Folder Include="_General\Location\Seeder" />
     <Folder Include="Payroll" />
+    <Folder Include="School Year" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="UserWithPassword.sql" />
@@ -78,6 +79,10 @@
     <Build Include="_General\Location\Location_Barangays.sql" />
     <None Include="_General\Location\Seeder\Barangays.sql" />
     <Build Include="Payroll\Employee.sql" />
+    <Build Include="School Year\Batch.sql" />
+    <Build Include="School Year\Courses.sql" />
+    <Build Include="School Year\OfferedCourses.sql" />
+    <Build Include="School Year\Sections.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="localDB.publish.xml" />

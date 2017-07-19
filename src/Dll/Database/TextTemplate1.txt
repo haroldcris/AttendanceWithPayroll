@@ -1,4 +1,6 @@
 ﻿<#@ Include File="TableGenerator.Config.ttinclude" #>
+
+
 <#@ Assembly Name="System.Core" #>
 <#@ Assembly Name="System.Data" #>
 <#@ Assembly Name="System.Xml" #>
@@ -63,6 +65,8 @@ WHERE t.object_id = @TableId";
 
             foreach (var table in tables)
             {
+				if (table.Name != TableToGenerate ) continue;
+
                 using (var sqlCommand = new SqlCommand(sqlGetColumns, sqlConnection))
                 {
                     sqlCommand.Parameters.AddWithValue("@TableId", table.TableId);
@@ -83,16 +87,30 @@ WHERE t.object_id = @TableId";
 
                             if (IsClassOkToGenerate(table))
                             {
-                                OutputClass(NameSpaceName, table);
-                                var fileName = FileNameFormat.Replace("{table}", table.Name).Replace("{schema}", table.Schema).Replace("{database}", DatabaseName);
-                                if (!fileName.EndsWith(".cs"))
-                                    fileName += ".cs";
-
-                                var path = SaveOutput(fileName);
-                                // total hack but it adds the newly written file into the current visual studio instance
+								// total hack but it adds the newly written file into the current visual studio instance
                                 var project = GetCurrentProject();
+								var fileName = "";
+								var path = "";
 
-                                project.ProjectItems.AddFromFile(path);
+                                // OutputClass(NameSpaceName, table);
+								OutputClass2(NameSpaceName, table);
+
+									fileName = FileNameFormat.Replace("{table}", ClassBaseName ).Replace("{schema}", table.Schema).Replace("{database}", DatabaseName);
+										if (!fileName.EndsWith(".cs")) fileName += ".cs";
+
+									path = SaveOutput(fileName);                                
+									project.ProjectItems.AddFromFile(path);
+
+
+								OutputCollection (NameSpaceName, table);
+									
+									fileName = FileNameFormat.Replace("{table}", ClassBaseName + "Collection").Replace("{schema}", table.Schema).Replace("{database}", DatabaseName);
+										if (!fileName.EndsWith(".cs")) fileName += ".cs";
+
+									path = SaveOutput(fileName);                                
+									project.ProjectItems.AddFromFile(path);
+
+								
                             }
                         }
                     }
@@ -381,6 +399,10 @@ WHERE t.object_id = @TableId";
         return outputFilePath;
     }
 
+
+
+
+
     void OutputClass( string namespaceName, Table table )
     {
         if (ShowHeaderComment)
@@ -403,7 +425,7 @@ WHERE t.object_id = @TableId";
         {
             Out("using ProtoBuf;");
         }
-	   Out("");
+	    Out("");
         Out( CreateNamespaceSignature( namespaceName, table, UseSchemaForNamespace ) );
         Out( "{" );
         PushIndent( "\t" );
@@ -472,6 +494,141 @@ WHERE t.object_id = @TableId";
         PopIndent();
         Out( "}" );
     }
+
+
+
+
+	/******************************
+		OUTPUT CLASS 2
+	*/
+	void OutputCollection (string namespaceName, Table table)
+	{
+		PopIndent();
+		Out ("using System.Linq;");
+		Out ("using Dapper;");
+		Out ("using AiTech.Database;");
+		Out ("using AiTech.Entities;");
+		Out ("");
+		Out ("namespace Dll.Course");
+		Out ("{");
+	
+		PushIndent ("\t");
+			Out ("public class " + ClassBaseName + "Collection : EntityCollection<" + ClassBaseName + ">");
+			Out ("{");
+			PushIndent ("\t");
+			PopIndent();
+			Out ("}");
+			Out ("");
+			PopIndent(); 
+			PopIndent();
+		Out ("}");	 
+	}
+
+	void OutputClass2 (string namespaceName, Table table)
+	{
+		string[] excludeField = {"Id", "Created", "CreatedBy", "Modified","ModifiedBy"};
+		
+		PopIndent();
+		Out ("using System;");
+		Out ("using System.Collections.Generic;");
+		Out ("using Dapper.Contrib.Extensions;");
+		Out ("using AiTech.Entities;");
+
+		Out("");
+		
+        Out ( CreateNamespaceSignature( namespaceName, table, UseSchemaForNamespace ) );
+        Out ( "{" );
+		
+				PushIndent ( "\t");
+				Out ("");		
+
+				Out ("[Table(\"" + table.Name +  "\")]");
+				Out ("public partial class " + ClassBaseName  + " : Entity");
+				Out ("{");
+							PushIndent ( "\t");
+							PushIndent( "" );
+
+							Out ("");
+							Out ("#region Default Properties");
+							Out ("");
+							// Properties.
+							var properties = "";
+							foreach (var c in table.Columns)
+							{
+								if (!excludeField.Contains (c.Name)) properties += OutputProperty(c) + System.Environment.NewLine + System.Environment.NewLine;
+							}
+
+							Out (properties);
+							//var properties = GatherProperties(table.Columns);
+							//Out(String.Join(System.Environment.NewLine + System.Environment.NewLine, properties));
+							
+							Out ("");
+							Out ("#endregion");
+							Out ("");
+							Out ("");
+
+							Out ("public override void StartTrackingChanges()");
+							Out ("{");
+									PushIndent ("\t");
+									Out ("OriginalValues = new Dictionary<string, object>();");
+									Out ( "" );
+
+									
+									foreach(var c in table.Columns)
+									{
+										if (!excludeField.Contains(c.Name))
+											Out ("OriginalValues.Add(\""+ c.Name +"\", this."+ c.Name +");");
+									}
+									
+							PopIndent ();
+							Out ("}");
+							Out ("");
+							Out ("");
+							
+							Out ("public override Dictionary<string, object> GetChangedValues()");
+							Out ("{");
+									PushIndent ("\t");
+									Out ("var changes = new Dictionary<string, object>();");
+									Out ( "" );
+									
+									var template = "if (!Equals(this.{field}, OriginalValues[\"{field}\"])) changes.Add(\"{field}\", this.{field});";
+									foreach(var c in table.Columns)
+									{
+										if (!excludeField.Contains(c.Name))
+											Out ( template.Replace("{field}", c.Name));
+									}
+									Out ("");
+									Out ("return changes;");
+									
+							PopIndent ();
+							Out ("}");
+
+							PopIndent(); PopIndent();
+				Out ("}");	 
+
+		PopIndent();
+		Out( "}" );
+
+	}
+
+
+	
+	/******************************
+		end out put class
+	*/
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public class Table
     {

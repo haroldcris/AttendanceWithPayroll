@@ -13,7 +13,7 @@ namespace Dll.Employee
     public class EmployeeDataWriter: SqlMainDataWriter<Employee, EmployeeCollection>
     {
         public EmployeeDataWriter(string username, Employee item) : base(username, item) { }
-        public EmployeeDataWriter(string username, EmployeeCollection items) : base(username, items.Items) { }
+        public EmployeeDataWriter(string username, EmployeeCollection items) : base(username, items) { }
 
 
         public  override bool SaveChanges()

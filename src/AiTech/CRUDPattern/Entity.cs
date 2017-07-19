@@ -188,8 +188,10 @@ namespace AiTech.Entities
                 ItemCollection.Remove(item);
 
             foreach (var item in ItemCollection)
+            {
                 item.RowStatus = RecordStatus.NoChanges;
-            //ClearStatusAndTrackingChanges();
+                item.StartTrackingChanges();
+            }  
         }
 
         public void RollBackChanges()
@@ -199,6 +201,23 @@ namespace AiTech.Entities
                 if (item.RowStatus == RecordStatus.NewRecord) item.Id = 0;
             }
         }
+
+
+        /// <summary>
+        /// Call this Method right after LoadItemsFromDb to Transfer data to ItemCollection
+        /// </summary>
+        /// <param name="items"></param>
+        protected internal void LoadItems(IEnumerable<TEntityName> items)
+        {
+            ItemCollection.Clear();
+            foreach (var item in items)
+            {
+                item.RowStatus = RecordStatus.NoChanges;
+                item.StartTrackingChanges();
+                ItemCollection.Add(item);
+            }
+        }
+
 
         public IEnumerable<TEntityName> GetDirtyItems()
         {

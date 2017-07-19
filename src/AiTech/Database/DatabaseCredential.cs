@@ -7,5 +7,10 @@
         public string Password { get; set; }
         public string DatabaseName { get; set; }
         public bool IntegratedSecurity { get; set; }
+
+        public string DatabasePath ()
+        {
+            return $"{ServerName}\\{DatabaseName}";
+        }
     }
 }

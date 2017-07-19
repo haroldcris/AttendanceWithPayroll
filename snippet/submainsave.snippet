@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>submainsave</Title>
+			<Shortcut>submainsave</Shortcut>
+			<Description>Code snippet for property and backing field</Description>
+			<Author>Harold Cris</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal>
+					<ID>entity</ID>
+					<ToolTip>Name of Entity</ToolTip>
+					<Default>Entity</Default>
+				</Literal>
+				<Literal>
+					<ID>errordescription</ID>
+					<ToolTip>Error Message Tag</ToolTip>
+					<Default>item.Id</Default>
+				</Literal>
+				<Literal>
+					<ID>field</ID>
+					<ToolTip>The variable backing this property</ToolTip>
+					<Default>myVar</Default>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[var affectedRecords = 0;
+			
+			try
+			{
+				// Delete All Marked Items
+				var deletedItems = _List.Items.Where(_ => _.RowStatus == RecordStatus.DeletedRecord);
+				if (deletedItems.Count() != 0)
+					if (DatabaseAction.ExecuteDeleteQuery<$entity$>(DataWriterUsername, deletedItems, db, trn))
+						affectedRecords += deletedItems.Count();
+
+
+				SqlCommand cmd;
+				foreach (var item in _List.Items)
+				{
+					switch (item.Id)
+					{
+						case 0:  // New RECORD
+							item.RowStatus = RecordStatus.NewRecord;
+
+							var insertQuery = CreateSqlInsertQuery();
+							cmd = new SqlCommand(insertQuery, db, trn);
+
+							CreateSqlInsertCommandParameters(cmd, item);
+
+							if (ExecuteCommand(cmd, item, $errordescription$))
+								affectedRecords++;
+							break;
+
+
+						default: // UPDATE
+
+							if (item.RowStatus == RecordStatus.DeletedRecord) continue;
+
+							var updateQuery = CreateSqlUpdateQuery(item);
+							cmd = new SqlCommand(updateQuery, db, trn);
+
+							CreateSqlUpdateCommandParameters(cmd, item);
+
+							if (ExecuteCommand(cmd, item, $errordescription$) )
+								affectedRecords++;
+
+
+							break;
+					}
+					//
+					// Save SubClass Here;
+					//                               							
+
+				}
+
+				return affectedRecords > 0;
+			}
+			catch
+			{
+				throw;
+			}
+	$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

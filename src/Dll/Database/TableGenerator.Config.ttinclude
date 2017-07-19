@@ -1,4 +1,6 @@
-﻿<#@ template language="C#" hostspecific="true" Debug="false" #>
+﻿<#@ Include File="TextTemplate1.txt" #>
+
+<#@ template language="C#" hostspecific="true" Debug="false" #>
 <#@ Assembly Name="System.Data" #>
 <#@ Assembly Name="System.Configuration" #>
 <#@ Assembly Name="System.Web" #>
@@ -14,13 +16,20 @@
     // ******************************************************
     // Required settings:
     // ******************************************************
-    const string NameSpaceName          = @"Database.Tables";
+    const string NameSpaceName          = @"Dll";
+
+	const string TableToGenerate		= @"_";
+	const string ClassBaseName			= @"_";
+
     const string ServerName             = @"localhost";
     const string DatabaseName           = @"amwp";
     
     // Where the files go. E.g.: "Models" or "Models/SubModels"
     // THIS PATH MUST EXIST
     const string TargetPath             = @"Tables"; 
+
+
+
 
     // By default Windows Auth is used.
     // If you want to use sql authentication fill out these two variables...

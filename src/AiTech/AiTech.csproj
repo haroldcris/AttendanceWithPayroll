@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\_Output\Debug\</OutputPath>
+    <OutputPath>..\..\_Output\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\Credential.cs" />
+    <Compile Include="Account\AccountToken.cs" />
+    <Compile Include="Account\AccountUserCollection.cs" />
+    <Compile Include="Account\AccountUser.cs" />
+    <Compile Include="Account\TokenGenerator.cs" />
+    <Compile Include="Account\UserCollection.cs" />
     <Compile Include="CRUDPattern\Entity.cs" />
     <Compile Include="CRUDPattern\EntityGenerator\ST4bby.Config1.cs">
       <AutoGen>True</AutoGen>
@@ -63,6 +69,7 @@
     <Compile Include="Database\Database.cs" />
     <Compile Include="Database\DatabaseAction.cs" />
     <Compile Include="Database\DatabaseCredential.cs" />
+    <Compile Include="Database\DataWriter.cs" />
     <Compile Include="Database\SqlDataWriter.cs" />
     <Compile Include="Database\SqlMainDataWriter.cs" />
     <Compile Include="Database\SqlUpdateQueryBuilder.cs" />
@@ -72,6 +79,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="_Library\Network.cs" />
     <Compile Include="_Library\Password.cs" />
     <Compile Include="_Library\SimpleAES.cs" />
   </ItemGroup>

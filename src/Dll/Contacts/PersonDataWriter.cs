@@ -13,7 +13,7 @@ namespace Dll.Contacts
     public class PersonDataWriter : SqlDataWriter<Person, PersonCollection>
     {
         public PersonDataWriter(string username, Person item) : base(username, item) { }
-        public PersonDataWriter(string username, IEnumerable<Person> items) : base(username, items) { }
+        public PersonDataWriter(string username, PersonCollection items) : base(username, items) { }
 
         public override bool SaveChanges(SqlConnection db, SqlTransaction trn)
         {
@@ -98,8 +98,6 @@ namespace Dll.Contacts
                         new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
 
                     });
-
-
 
             cmd.Parameters["@Lastname"].Value = item.Name.Lastname;
             cmd.Parameters["@Firstname"].Value = item.Name.Firstname;
