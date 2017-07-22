@@ -156,6 +156,29 @@ namespace Winform.Payroll
             //    flexGrid.RemoveItem(flexGrid.Row);
             //}
         }
-       
+
+        private void btnPayAdd_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+
+
+            //var newItem = new Batch();
+            var frm = new frmEmployeesAdd();
+
+            var result = frm.ShowDialog();
+            frm.Dispose();
+
+            if (result == DialogResult.OK)
+            {
+            //    BatchItems.Add(newItem);
+             //   DirtyStatus.SetDirty();
+             //   FlexGridHelper.DoGridInsert(flexGrid, newItem, DisplayItemOnCurrentRowExt);
+            }
+        }
+
+        private void btnPayPosition_Click(object sender, EventArgs e)
+        {
+            My.App.MainForm.OpenForm(new frmPositions(), "Position Management");
+        }
     }
 }

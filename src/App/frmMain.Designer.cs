@@ -46,8 +46,8 @@
             this.btnSections = new DevComponents.DotNetBar.ButtonItem();
             this.btnStudents = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBarUserAccounts = new DevComponents.DotNetBar.RibbonBar();
-            this.btnEmployees = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayMasterList = new DevComponents.DotNetBar.ButtonItem();
+            this.btnEmployees = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
             this.btnContacts = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonPanel1 = new DevComponents.DotNetBar.RibbonPanel();
@@ -270,9 +270,9 @@
             this.RibbonBarStudent.Dock = System.Windows.Forms.DockStyle.Left;
             this.RibbonBarStudent.DragDropSupport = true;
             this.RibbonBarStudent.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnStudents,
             this.itemContainer2,
-            this.itemContainer3,
-            this.btnStudents});
+            this.itemContainer3});
             this.RibbonBarStudent.Location = new System.Drawing.Point(227, 0);
             this.RibbonBarStudent.Name = "RibbonBarStudent";
             this.RibbonBarStudent.Size = new System.Drawing.Size(332, 95);
@@ -388,15 +388,15 @@
             this.ribbonBarUserAccounts.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBarUserAccounts.DragDropSupport = true;
             this.ribbonBarUserAccounts.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnEmployees,
-            this.btnPayMasterList});
+            this.btnPayMasterList,
+            this.btnEmployees});
             this.ribbonBarUserAccounts.Location = new System.Drawing.Point(66, 0);
             this.ribbonBarUserAccounts.Name = "ribbonBarUserAccounts";
             this.ribbonBarUserAccounts.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("ribbonBarUserAccounts.OverflowButtonImage")));
             this.ribbonBarUserAccounts.Size = new System.Drawing.Size(161, 95);
             this.ribbonBarUserAccounts.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBarUserAccounts.TabIndex = 6;
-            this.ribbonBarUserAccounts.Text = "Employees";
+            this.ribbonBarUserAccounts.Text = "Payroll";
             // 
             // 
             // 
@@ -405,6 +405,15 @@
             // 
             // 
             this.ribbonBarUserAccounts.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // btnPayMasterList
+            // 
+            this.btnPayMasterList.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayMasterList.Image = global::Winform.Properties.Resources.Money_Transfer_40px;
+            this.btnPayMasterList.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayMasterList.Name = "btnPayMasterList";
+            this.btnPayMasterList.SubItemsExpandWidth = 14;
+            this.btnPayMasterList.Text = "Payroll Master List";
             // 
             // btnEmployees
             // 
@@ -416,15 +425,7 @@
             this.btnEmployees.RibbonWordWrap = false;
             this.btnEmployees.SubItemsExpandWidth = 14;
             this.btnEmployees.Text = "Employees";
-            // 
-            // btnPayMasterList
-            // 
-            this.btnPayMasterList.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayMasterList.Image = global::Winform.Properties.Resources.Money_Transfer_40px;
-            this.btnPayMasterList.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayMasterList.Name = "btnPayMasterList";
-            this.btnPayMasterList.SubItemsExpandWidth = 14;
-            this.btnPayMasterList.Text = "Payroll Master List";
+            this.btnEmployees.Visible = false;
             // 
             // ribbonBar2
             // 
@@ -587,7 +588,7 @@
             this.superTabControl1.ReorderTabsEnabled = false;
             this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Segoe UI", 9.75F);
             this.superTabControl1.SelectedTabIndex = 7;
-            this.superTabControl1.Size = new System.Drawing.Size(911, 596);
+            this.superTabControl1.Size = new System.Drawing.Size(911, 593);
             this.superTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Left;
             this.superTabControl1.TabFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.superTabControl1.TabHorizontalSpacing = 16;
@@ -608,7 +609,7 @@
             this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel3.Location = new System.Drawing.Point(236, 0);
             this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(675, 596);
+            this.superTabControlPanel3.Size = new System.Drawing.Size(675, 593);
             this.superTabControlPanel3.TabIndex = 3;
             this.superTabControlPanel3.TabItem = this.superTabItem3;
             // 
@@ -627,7 +628,7 @@
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel2.Location = new System.Drawing.Point(236, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(675, 596);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(675, 593);
             this.superTabControlPanel2.TabIndex = 2;
             this.superTabControlPanel2.TabItem = this.superTabItem2;
             // 
@@ -770,7 +771,7 @@
             this.lblStatus,
             this.lblServer,
             this.lblVersion});
-            this.StatusBar.Location = new System.Drawing.Point(5, 570);
+            this.StatusBar.Location = new System.Drawing.Point(5, 566);
             this.StatusBar.Name = "StatusBar";
             this.StatusBar.Size = new System.Drawing.Size(903, 22);
             this.StatusBar.TabIndex = 18;
@@ -867,7 +868,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(913, 594);
+            this.ClientSize = new System.Drawing.Size(913, 590);
             this.Controls.Add(this.superTabControl1);
             this.Controls.Add(this.mdiTab);
             this.Controls.Add(this.StatusBar);

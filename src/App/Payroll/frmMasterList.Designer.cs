@@ -29,55 +29,31 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMasterFile));
-            this.btnEdit = new DevComponents.DotNetBar.ButtonItem();
-            this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
             this.SGrid = new DevComponents.DotNetBar.SuperGrid.SuperGridControl();
             this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn2 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.ribbonBarMergeContainer1 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
-            this.RibbonPayProcess = new DevComponents.DotNetBar.RibbonBar();
-            this.btnPayCheck = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem10 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem13 = new DevComponents.DotNetBar.ButtonItem();
-            this.btnPayGenerate = new DevComponents.DotNetBar.ButtonItem();
             this.RibbonPayTables = new DevComponents.DotNetBar.RibbonBar();
-            this.itemContainer2 = new DevComponents.DotNetBar.ItemContainer();
             this.btnPayPosition = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayTax = new DevComponents.DotNetBar.ButtonItem();
-            this.itemContainer3 = new DevComponents.DotNetBar.ItemContainer();
-            this.btnPayPayment = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayDeduction = new DevComponents.DotNetBar.ButtonItem();
+            this.btnPayPayment = new DevComponents.DotNetBar.ButtonItem();
             this.RibbonPayMasterList = new DevComponents.DotNetBar.RibbonBar();
             this.btnPayViewProfile = new DevComponents.DotNetBar.ButtonItem();
             this.groupPayButtons = new DevComponents.DotNetBar.ItemContainer();
             this.btnPayAdd = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayDelete = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayRefresh = new DevComponents.DotNetBar.ButtonItem();
+            this.RibbonPayProcess = new DevComponents.DotNetBar.RibbonBar();
+            this.btnPayCheck = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem10 = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
+            this.buttonItem13 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnPayGenerate = new DevComponents.DotNetBar.ButtonItem();
+            this.btnEdit = new DevComponents.DotNetBar.ButtonItem();
+            this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBarMergeContainer1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnEdit.Image = global::Winform.Properties.Resources.Edit_File_24px;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.RibbonWordWrap = false;
-            this.btnEdit.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
-            this.btnEdit.SubItemsExpandWidth = 14;
-            this.btnEdit.Text = "Modify";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnDelete.Image = global::Winform.Properties.Resources.Delete_File_24px;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.RibbonWordWrap = false;
-            this.btnDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
-            this.btnDelete.SubItemsExpandWidth = 14;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // SGrid
             // 
@@ -105,9 +81,9 @@
             // ribbonBarMergeContainer1
             // 
             this.ribbonBarMergeContainer1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.ribbonBarMergeContainer1.Controls.Add(this.RibbonPayProcess);
             this.ribbonBarMergeContainer1.Controls.Add(this.RibbonPayTables);
             this.ribbonBarMergeContainer1.Controls.Add(this.RibbonPayMasterList);
+            this.ribbonBarMergeContainer1.Controls.Add(this.RibbonPayProcess);
             this.ribbonBarMergeContainer1.Location = new System.Drawing.Point(48, 100);
             this.ribbonBarMergeContainer1.Name = "ribbonBarMergeContainer1";
             this.ribbonBarMergeContainer1.RibbonTabText = "ACTION";
@@ -127,6 +103,176 @@
             this.ribbonBarMergeContainer1.TabIndex = 21;
             this.ribbonBarMergeContainer1.Visible = false;
             // 
+            // RibbonPayTables
+            // 
+            this.RibbonPayTables.AutoOverflowEnabled = true;
+            // 
+            // 
+            // 
+            this.RibbonPayTables.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.RibbonPayTables.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.RibbonPayTables.ContainerControlProcessDialogKey = true;
+            this.RibbonPayTables.Dock = System.Windows.Forms.DockStyle.Left;
+            this.RibbonPayTables.DragDropSupport = true;
+            this.RibbonPayTables.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnPayPosition,
+            this.btnPayTax,
+            this.btnPayDeduction,
+            this.btnPayPayment});
+            this.RibbonPayTables.Location = new System.Drawing.Point(359, 0);
+            this.RibbonPayTables.Name = "RibbonPayTables";
+            this.RibbonPayTables.Size = new System.Drawing.Size(303, 99);
+            this.RibbonPayTables.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.RibbonPayTables.TabIndex = 11;
+            this.RibbonPayTables.Text = "Tables";
+            // 
+            // 
+            // 
+            this.RibbonPayTables.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.RibbonPayTables.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // btnPayPosition
+            // 
+            this.btnPayPosition.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayPosition.Image = global::Winform.Properties.Resources.Front_Desk_40px;
+            this.btnPayPosition.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayPosition.Name = "btnPayPosition";
+            this.btnPayPosition.SubItemsExpandWidth = 14;
+            this.btnPayPosition.Text = "Positions";
+            this.btnPayPosition.Click += new System.EventHandler(this.btnPayPosition_Click);
+            // 
+            // btnPayTax
+            // 
+            this.btnPayTax.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayTax.Image = global::Winform.Properties.Resources.Customs_Officer_40px;
+            this.btnPayTax.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayTax.Name = "btnPayTax";
+            this.btnPayTax.SubItemsExpandWidth = 14;
+            this.btnPayTax.Text = "Tax Table";
+            // 
+            // btnPayDeduction
+            // 
+            this.btnPayDeduction.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayDeduction.Image = global::Winform.Properties.Resources.Tax_40px;
+            this.btnPayDeduction.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayDeduction.Name = "btnPayDeduction";
+            this.btnPayDeduction.SubItemsExpandWidth = 14;
+            this.btnPayDeduction.Text = "Deductions";
+            // 
+            // btnPayPayment
+            // 
+            this.btnPayPayment.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayPayment.Image = global::Winform.Properties.Resources.Paper_Money_40px;
+            this.btnPayPayment.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayPayment.Name = "btnPayPayment";
+            this.btnPayPayment.SubItemsExpandWidth = 14;
+            this.btnPayPayment.Text = "Payment Types";
+            this.btnPayPayment.Visible = false;
+            // 
+            // RibbonPayMasterList
+            // 
+            this.RibbonPayMasterList.AutoOverflowEnabled = true;
+            this.RibbonPayMasterList.AutoSizeItems = false;
+            // 
+            // 
+            // 
+            this.RibbonPayMasterList.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.RibbonPayMasterList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.RibbonPayMasterList.ContainerControlProcessDialogKey = true;
+            this.RibbonPayMasterList.Dock = System.Windows.Forms.DockStyle.Left;
+            this.RibbonPayMasterList.DragDropSupport = true;
+            this.RibbonPayMasterList.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnPayViewProfile,
+            this.groupPayButtons,
+            this.btnPayRefresh});
+            this.RibbonPayMasterList.Location = new System.Drawing.Point(114, 0);
+            this.RibbonPayMasterList.Name = "RibbonPayMasterList";
+            this.RibbonPayMasterList.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("RibbonPayMasterList.OverflowButtonImage")));
+            this.RibbonPayMasterList.Size = new System.Drawing.Size(245, 99);
+            this.RibbonPayMasterList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.RibbonPayMasterList.TabIndex = 10;
+            this.RibbonPayMasterList.Text = "Master List";
+            // 
+            // 
+            // 
+            this.RibbonPayMasterList.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.RibbonPayMasterList.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // btnPayViewProfile
+            // 
+            this.btnPayViewProfile.BeginGroup = true;
+            this.btnPayViewProfile.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayViewProfile.Image = ((System.Drawing.Image)(resources.GetObject("btnPayViewProfile.Image")));
+            this.btnPayViewProfile.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayViewProfile.Name = "btnPayViewProfile";
+            this.btnPayViewProfile.RibbonWordWrap = false;
+            this.btnPayViewProfile.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F5);
+            this.btnPayViewProfile.SubItemsExpandWidth = 14;
+            this.btnPayViewProfile.SymbolColor = System.Drawing.Color.Green;
+            this.btnPayViewProfile.Text = "Open Profile";
+            // 
+            // groupPayButtons
+            // 
+            // 
+            // 
+            // 
+            this.groupPayButtons.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.groupPayButtons.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
+            this.groupPayButtons.Name = "groupPayButtons";
+            this.groupPayButtons.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnPayAdd,
+            this.btnPayDelete});
+            // 
+            // 
+            // 
+            this.groupPayButtons.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // btnPayAdd
+            // 
+            this.btnPayAdd.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnPayAdd.Image")));
+            this.btnPayAdd.Name = "btnPayAdd";
+            this.btnPayAdd.RibbonWordWrap = false;
+            this.btnPayAdd.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
+            this.btnPayAdd.SubItemsExpandWidth = 14;
+            this.btnPayAdd.Text = "Add Employee";
+            this.btnPayAdd.Click += new System.EventHandler(this.btnPayAdd_Click);
+            // 
+            // btnPayDelete
+            // 
+            this.btnPayDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayDelete.Image = global::Winform.Properties.Resources.Delete_File_24px;
+            this.btnPayDelete.Name = "btnPayDelete";
+            this.btnPayDelete.RibbonWordWrap = false;
+            this.btnPayDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
+            this.btnPayDelete.SubItemsExpandWidth = 14;
+            this.btnPayDelete.Text = "Delete";
+            // 
+            // btnPayRefresh
+            // 
+            this.btnPayRefresh.BeginGroup = true;
+            this.btnPayRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayRefresh.Image = global::Winform.Properties.Resources.Process_40px;
+            this.btnPayRefresh.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayRefresh.Name = "btnPayRefresh";
+            this.btnPayRefresh.RibbonWordWrap = false;
+            this.btnPayRefresh.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F5);
+            this.btnPayRefresh.SubItemsExpandWidth = 14;
+            this.btnPayRefresh.SymbolColor = System.Drawing.Color.Green;
+            this.btnPayRefresh.Text = "Refresh";
+            // 
             // RibbonPayProcess
             // 
             this.RibbonPayProcess.AutoOverflowEnabled = true;
@@ -144,9 +290,9 @@
             this.RibbonPayProcess.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnPayCheck,
             this.btnPayGenerate});
-            this.RibbonPayProcess.Location = new System.Drawing.Point(456, 0);
+            this.RibbonPayProcess.Location = new System.Drawing.Point(0, 0);
             this.RibbonPayProcess.Name = "RibbonPayProcess";
-            this.RibbonPayProcess.Size = new System.Drawing.Size(154, 99);
+            this.RibbonPayProcess.Size = new System.Drawing.Size(114, 99);
             this.RibbonPayProcess.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.RibbonPayProcess.TabIndex = 12;
             this.RibbonPayProcess.Text = "Process";
@@ -206,198 +352,27 @@
             this.btnPayGenerate.SymbolColor = System.Drawing.Color.Green;
             this.btnPayGenerate.Text = "Generate Payroll";
             // 
-            // RibbonPayTables
-            // 
-            this.RibbonPayTables.AutoOverflowEnabled = true;
-            // 
-            // 
-            // 
-            this.RibbonPayTables.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.RibbonPayTables.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.RibbonPayTables.ContainerControlProcessDialogKey = true;
-            this.RibbonPayTables.Dock = System.Windows.Forms.DockStyle.Left;
-            this.RibbonPayTables.DragDropSupport = true;
-            this.RibbonPayTables.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.itemContainer2,
-            this.itemContainer3});
-            this.RibbonPayTables.Location = new System.Drawing.Point(245, 0);
-            this.RibbonPayTables.Name = "RibbonPayTables";
-            this.RibbonPayTables.Size = new System.Drawing.Size(211, 99);
-            this.RibbonPayTables.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.RibbonPayTables.TabIndex = 11;
-            this.RibbonPayTables.Text = "Tables";
-            // 
-            // 
-            // 
-            this.RibbonPayTables.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.RibbonPayTables.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // itemContainer2
-            // 
-            // 
-            // 
-            // 
-            this.itemContainer2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.itemContainer2.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
-            this.itemContainer2.Name = "itemContainer2";
-            this.itemContainer2.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnPayPosition,
-            this.btnPayTax});
-            // 
-            // 
-            // 
-            this.itemContainer2.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnPayPosition
-            // 
-            this.btnPayPosition.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayPosition.Image = ((System.Drawing.Image)(resources.GetObject("btnPayPosition.Image")));
-            this.btnPayPosition.Name = "btnPayPosition";
-            this.btnPayPosition.SubItemsExpandWidth = 14;
-            this.btnPayPosition.Text = "Positions";
-            // 
-            // btnPayTax
-            // 
-            this.btnPayTax.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayTax.Image = ((System.Drawing.Image)(resources.GetObject("btnPayTax.Image")));
-            this.btnPayTax.Name = "btnPayTax";
-            this.btnPayTax.SubItemsExpandWidth = 14;
-            this.btnPayTax.Text = "Tax Table";
-            // 
-            // itemContainer3
-            // 
-            // 
-            // 
-            // 
-            this.itemContainer3.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.itemContainer3.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
-            this.itemContainer3.Name = "itemContainer3";
-            this.itemContainer3.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnPayPayment,
-            this.btnPayDeduction});
-            // 
-            // 
-            // 
-            this.itemContainer3.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnPayPayment
-            // 
-            this.btnPayPayment.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayPayment.Image = ((System.Drawing.Image)(resources.GetObject("btnPayPayment.Image")));
-            this.btnPayPayment.Name = "btnPayPayment";
-            this.btnPayPayment.SubItemsExpandWidth = 14;
-            this.btnPayPayment.Text = "Payment Types";
-            // 
-            // btnPayDeduction
-            // 
-            this.btnPayDeduction.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayDeduction.Image = ((System.Drawing.Image)(resources.GetObject("btnPayDeduction.Image")));
-            this.btnPayDeduction.Name = "btnPayDeduction";
-            this.btnPayDeduction.SubItemsExpandWidth = 14;
-            this.btnPayDeduction.Text = "Deductions";
-            // 
-            // RibbonPayMasterList
-            // 
-            this.RibbonPayMasterList.AutoOverflowEnabled = true;
-            this.RibbonPayMasterList.AutoSizeItems = false;
-            // 
-            // 
-            // 
-            this.RibbonPayMasterList.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.RibbonPayMasterList.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.RibbonPayMasterList.ContainerControlProcessDialogKey = true;
-            this.RibbonPayMasterList.Dock = System.Windows.Forms.DockStyle.Left;
-            this.RibbonPayMasterList.DragDropSupport = true;
-            this.RibbonPayMasterList.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnPayViewProfile,
-            this.groupPayButtons,
-            this.btnPayRefresh});
-            this.RibbonPayMasterList.Location = new System.Drawing.Point(0, 0);
-            this.RibbonPayMasterList.Name = "RibbonPayMasterList";
-            this.RibbonPayMasterList.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("RibbonPayMasterList.OverflowButtonImage")));
-            this.RibbonPayMasterList.Size = new System.Drawing.Size(245, 99);
-            this.RibbonPayMasterList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.RibbonPayMasterList.TabIndex = 10;
-            this.RibbonPayMasterList.Text = "Master List";
-            // 
-            // 
-            // 
-            this.RibbonPayMasterList.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.RibbonPayMasterList.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnPayViewProfile
-            // 
-            this.btnPayViewProfile.BeginGroup = true;
-            this.btnPayViewProfile.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayViewProfile.Image = ((System.Drawing.Image)(resources.GetObject("btnPayViewProfile.Image")));
-            this.btnPayViewProfile.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayViewProfile.Name = "btnPayViewProfile";
-            this.btnPayViewProfile.RibbonWordWrap = false;
-            this.btnPayViewProfile.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F5);
-            this.btnPayViewProfile.SubItemsExpandWidth = 14;
-            this.btnPayViewProfile.SymbolColor = System.Drawing.Color.Green;
-            this.btnPayViewProfile.Text = "Open Profile";
-            // 
-            // groupPayButtons
-            // 
-            // 
-            // 
-            // 
-            this.groupPayButtons.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.groupPayButtons.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
-            this.groupPayButtons.Name = "groupPayButtons";
-            this.groupPayButtons.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnPayAdd,
-            this.btnPayDelete});
-            // 
-            // 
-            // 
-            this.groupPayButtons.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnPayAdd
-            // 
-            this.btnPayAdd.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnPayAdd.Image")));
-            this.btnPayAdd.Name = "btnPayAdd";
-            this.btnPayAdd.RibbonWordWrap = false;
-            this.btnPayAdd.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
-            this.btnPayAdd.SubItemsExpandWidth = 14;
-            this.btnPayAdd.Text = "Add Employee";
-            // 
-            // btnPayDelete
-            // 
-            this.btnPayDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayDelete.Image = global::Winform.Properties.Resources.Delete_File_24px;
-            this.btnPayDelete.Name = "btnPayDelete";
-            this.btnPayDelete.RibbonWordWrap = false;
-            this.btnPayDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
-            this.btnPayDelete.SubItemsExpandWidth = 14;
-            this.btnPayDelete.Text = "Delete";
-            // 
-            // btnPayRefresh
-            // 
-            this.btnPayRefresh.BeginGroup = true;
-            this.btnPayRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayRefresh.Image = global::Winform.Properties.Resources.Process_40px;
-            this.btnPayRefresh.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayRefresh.Name = "btnPayRefresh";
-            this.btnPayRefresh.RibbonWordWrap = false;
-            this.btnPayRefresh.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F5);
-            this.btnPayRefresh.SubItemsExpandWidth = 14;
-            this.btnPayRefresh.SymbolColor = System.Drawing.Color.Green;
-            this.btnPayRefresh.Text = "Refresh";
+            // btnEdit
+            // 
+            this.btnEdit.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnEdit.Image = global::Winform.Properties.Resources.Edit_File_24px;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.RibbonWordWrap = false;
+            this.btnEdit.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
+            this.btnEdit.SubItemsExpandWidth = 14;
+            this.btnEdit.Text = "Modify";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnDelete.Image = global::Winform.Properties.Resources.Delete_File_24px;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.RibbonWordWrap = false;
+            this.btnDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
+            this.btnDelete.SubItemsExpandWidth = 14;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // frmMasterFile
             // 
@@ -432,10 +407,8 @@
         private DevComponents.DotNetBar.ButtonItem buttonItem13;
         private DevComponents.DotNetBar.ButtonItem btnPayGenerate;
         private DevComponents.DotNetBar.RibbonBar RibbonPayTables;
-        private DevComponents.DotNetBar.ItemContainer itemContainer2;
         private DevComponents.DotNetBar.ButtonItem btnPayPosition;
         private DevComponents.DotNetBar.ButtonItem btnPayTax;
-        private DevComponents.DotNetBar.ItemContainer itemContainer3;
         private DevComponents.DotNetBar.ButtonItem btnPayPayment;
         private DevComponents.DotNetBar.ButtonItem btnPayDeduction;
         private DevComponents.DotNetBar.RibbonBar RibbonPayMasterList;
