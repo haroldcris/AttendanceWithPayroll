@@ -118,74 +118,86 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Subject_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Subject_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit_User_Male_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit User Male_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cancel_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cancel_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Address_Book_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Address Book-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Address_Book_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Address Book-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Add_List_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add List-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Add_List_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add List-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Add_List_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add List_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Add_User_Male_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Add User Male_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Administrator_Female_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Administrator Female-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Administrator_Male_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Administrator Male-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Box_Filled_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Box Filled-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Briefcase_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Briefcase-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Briefcase_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Briefcase-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Settings_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Settings-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Businesswoman_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Businesswoman-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cancel_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cancel-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Briefcase_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Briefcase-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cancel_2_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cancel 2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Gender_Neutral_User_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gender Neutral User_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cancel_2_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cancel 2-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Delete_File_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Delete File_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Cancel_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cancel-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Ok_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ok-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Checkmark_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Checkmark-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Courses_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Courses-40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Checkmark_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Checkmark-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Courses_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Courses-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Close_Window_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close Window-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Edit_File_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit File_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Close_Window_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Close Window-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Subject_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Subject_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Conference_Call_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Conference Call-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Sell_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sell_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Conference_Call_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Conference Call-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Survey_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Survey-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Conference_Call_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Conference Call_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Course_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Course_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Address_Book_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Address Book-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Literature_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Literature-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="People_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\People_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Database_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Database_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_User_Male_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add User Male_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ok_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ok_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="User_Credentials_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User Credentials_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Subject_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Subject_40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Process_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Process_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ok_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ok-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Contact_Card_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Contact Card-40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -193,106 +205,133 @@
   <data name="Courses_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Courses-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Courses_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Courses-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="User Groups_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\User Groups_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Courses_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Courses-40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Database_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Database_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Close_Window_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close Window-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Delete_File_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Delete File_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Delete_File_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Delete File_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit_File_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit File_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit_User_Male_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit User Male_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit_User_Male_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit User Male_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gender_Neutral_User_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gender Neutral User_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gender_Neutral_User_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gender Neutral User_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Literature_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Literature-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Literature_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Literature-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Lock_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Lock_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Manager_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Manager-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ok_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ok-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ok_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ok-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Parse_Resumes_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Parse Resumes-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Process_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Process_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Parse_Resumes_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Parse Resumes-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Process_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Process_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Conference_Call_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Conference Call_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Process_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Process_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Remove_User_Male_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Remove User Male_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Save_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Administrator_Female_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Administrator Female-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Save_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Save-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Settings_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Settings-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Address Book_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Address Book_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Subject_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Subject_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Classroom_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Classroom_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Subject_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Subject_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Save_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Save-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Subject_40" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Subject_40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Cancel_2_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cancel 2-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Manager_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Manager-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Gender_Neutral_User_16px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Gender Neutral User_16px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Literature_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Literature-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Classroom_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Classroom_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Remove_User_Male_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Remove User Male_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cancel_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cancel-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_List_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add List-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Survey_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Survey-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Survey_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Survey-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Briefcase_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Briefcase-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Tiles_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tiles-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Close_Window_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Close Window-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Tiles_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tiles-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Fingerprint Scan_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Fingerprint Scan_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Today_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Today-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Conference_Call_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Conference Call-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Money Transfer_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Money Transfer_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tiles_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tiles-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkmark_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Checkmark-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Conference_Call_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Conference Call-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Add_List_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add List-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Edit_User_Male_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Edit User Male_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Tiles_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tiles-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkmark_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Checkmark-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Briefcase_24px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Briefcase_24px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Parse_Resumes_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Parse Resumes-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Box_Filled_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Box Filled-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Administrator_Male_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Administrator Male-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Today_30" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Today-30.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="User_Credentials_30px" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\User Credentials_30px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Add_List_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Add List_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Lock_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Lock_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cancel_2_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cancel 2-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Cancel_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Cancel-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Employee Card_40px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Employee Card_40px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

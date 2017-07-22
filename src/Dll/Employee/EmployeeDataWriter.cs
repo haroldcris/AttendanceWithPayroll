@@ -53,7 +53,7 @@ namespace Dll.Employee
                                 if (item.PersonInfo.Id == 0)
                                 {
                                     var personWriter = new Contacts.PersonDataWriter(DataWriterUsername, item.PersonInfo);
-                                    personWriter.SaveChanges(db, trn);
+                                    personWriter.SaveChanges();
                                 }
 
                                 var insertQuery = CreateSqlInsertQuery();
@@ -82,8 +82,8 @@ namespace Dll.Employee
                                 //Save SubClass Here;
 
                                 // PersonInfo
-                                var personInfoWriter = new Contacts.PersonDataWriter(DataWriterUsername, item.PersonInfo);
-                                personInfoWriter.SaveChanges(db, trn);
+                                //var personInfoWriter = new Contacts.PersonDataWriter(DataWriterUsername, item.PersonInfo);
+                                //personInfoWriter.SaveChanges(db, trn);
 
 
                                 break;

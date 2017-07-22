@@ -33,7 +33,7 @@ namespace AiTech.Account
                     ModifiedBy = user.Username,
                 };
 
-                var ret = db.Query(@"INSERT INTO AccountTokens (Username, Token, WindowsUsername, MachineName, IpAddress, ModifiedBy, CreatedBy) VALUES 
+                var ret = db.Query(@"INSERT INTO AccountToken (Username, Token, WindowsUsername, MachineName, IpAddress, ModifiedBy, CreatedBy) VALUES 
                                     (@Username, @Token, @WindowsUsername, @MachineName, @IpAddress, @encoder, @encoder)",
                                 new
                                 {
@@ -69,7 +69,7 @@ namespace AiTech.Account
 
                 var encryptedPassword = Password.Encrypt(password);
 
-                var user = db.Query<AccountUser>("Select username from AccountUsers where username = @user and password = @pwd", new { user = userName, pwd = encryptedPassword }).FirstOrDefault();
+                var user = db.Query<AccountUser>("Select username from AccountUser where username = @user and password = @pwd", new { user = userName, pwd = encryptedPassword }).FirstOrDefault();
 
                 if (user == null) return null;
 

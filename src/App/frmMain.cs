@@ -47,9 +47,15 @@ namespace Winform
 
             My.App.MainForm = this;
 
+            this.btnPayMasterList.Click += btnPayMasterList_Click;
+
         }
 
-     
+        private void btnPayMasterList_Click(object sender, EventArgs e)
+        {
+            OpenForm(new Payroll.frmMasterFile(), "Payroll Master List");
+        }
+
         private void frmMain_Activated(object sender, EventArgs e)
         {
             if (!this.MdiChildren.Any())
@@ -130,10 +136,7 @@ namespace Winform
 
 
 
-
-
-
-
+        
 
 
 
@@ -182,11 +185,6 @@ namespace Winform
             //OpenForm(new frmSection());
         }
 
-        private void btnSubject_Click(object sender, EventArgs e)
-        {
-            //OpenForm(new frmSubject());
-        }
-
         private void btnUserAccounts_Click(object sender, EventArgs e)
         {
             //OpenForm(new frmUserAccounts());
@@ -218,6 +216,11 @@ namespace Winform
         {
             //var fSettings = new frmSettings();
             //fSettings.ShowDialog();
+        }
+
+        private void btnContacts_Click(object sender, EventArgs e)
+        {
+            OpenForm(new Contacts.frmContacts(), "Contacts Management");
         }
     }
 }

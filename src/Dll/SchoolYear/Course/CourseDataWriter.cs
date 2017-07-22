@@ -126,7 +126,7 @@ namespace Dll.SchoolYear
         protected override string CreateSqlInsertQuery()
         {
             return @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
-						  INSERT INTO [Courses] ([CourseCode],[Description],[CreatedBy],[ModifiedBy]) 
+						  INSERT INTO [Course] ([CourseCode],[Description],[CreatedBy],[ModifiedBy]) 
 							 OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
 						  VALUES (@CourseCode,@Description,@CreatedBy,@ModifiedBy)
 						  SELECT * from @output";

@@ -12,7 +12,7 @@ namespace Dll.SchoolYear
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                var sql = @"Select * from Courses";
+                var sql = @"Select * from Course";
                 var items = db.Query<Course>(sql).OrderBy(o => o.CourseCode);
                 LoadItems(items);
             }

@@ -6,7 +6,7 @@ using AiTech.Entities;
 namespace Dll.SchoolYear
 {
 	
-	[Table("Courses")]
+	[Table("Course")]
 	public partial class Course : Entity
 	{
 		

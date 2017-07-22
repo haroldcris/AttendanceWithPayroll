@@ -8,7 +8,7 @@ using Dll.SchoolYear;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using DevComponents.DotNetBar.SuperGrid;
 
-namespace Winform
+namespace Winform.Payroll
 {    
     public partial class frmMasterFile : MDIClientForm
     {        
@@ -19,15 +19,17 @@ namespace Winform
             InitializeComponent();
             Title = "PAYROLL MASTER LIST";
 
+            InitializeGrid();
             LoadItems();
         }
-
 
         private void InitializeGrid()
         {
             SGrid.ColumnGrouped += Grid_ColumnGrouped;
 
             SGrid.InitializeGrid();
+
+            SGrid.CreateColumn("Code", "Code", 100, Alignment.MiddleCenter);
 
             SGrid.CreateColumn("Code", "Code", 100, Alignment.MiddleCenter);
             SGrid.CreateColumn("Description", "Description", 150, Alignment.MiddleLeft);
@@ -38,6 +40,11 @@ namespace Winform
             SGrid.CreateColumn("Created", "Created", 130, Alignment.MiddleLeft);
             SGrid.CreateColumn("ModifiedBy", "Modified By", 90, Alignment.MiddleLeft);
             SGrid.CreateColumn("Modified", "Modified", 130, Alignment.MiddleLeft);
+
+            SGrid.PrimaryGrid.CheckBoxes = true;
+            SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
+            SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
+            SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
 
         }
         private void Grid_ColumnGrouped(object sender, GridColumnGroupedEventArgs e)

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Location_Barangays](
+﻿CREATE TABLE [dbo].[Location_Barangay](
     [Id] [int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
     [Province] [nvarchar](50) NOT NULL,
     [Town] [nvarchar](50) NOT NULL,

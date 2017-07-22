@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.68</AssemblyVersion>
+    <AssemblyVersion>1.0.0.110</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -64,6 +64,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contacts\frmContacts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contacts\frmContacts.Designer.cs">
+      <DependentUpon>frmContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts\frmContacts_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contacts\frmContacts_Add.Designer.cs">
+      <DependentUpon>frmContacts_Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Contacts\frmContacts_Open.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Contacts\frmContacts_Open.Designer.cs">
+      <DependentUpon>frmContacts_Open.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\MDIClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,8 +144,18 @@
     <Compile Include="_Library\FlexGridHelper.cs" />
     <Compile Include="_Library\GridHelper.cs" />
     <Compile Include="_Library\Interface.cs" />
+    <Compile Include="_Library\Location.cs" />
     <Compile Include="_Library\Message.cs" />
     <Compile Include="_Library\Helper\_Helper.cs" />
+    <EmbeddedResource Include="Contacts\frmContacts.resx">
+      <DependentUpon>frmContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contacts\frmContacts_Add.resx">
+      <DependentUpon>frmContacts_Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Contacts\frmContacts_Open.resx">
+      <DependentUpon>frmContacts_Open.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\MDIClientForm.resx">
       <DependentUpon>MDIClientForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -368,6 +396,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\Employee Card_40px.png" />
+    <None Include="Resources\Classroom_24px.png" />
+    <None Include="Resources\Course_24px.png" />
+    <None Include="Resources\Briefcase_24px.png" />
+    <None Include="Resources\Address Book_24px.png" />
+    <None Include="Resources\Fingerprint Scan_40px.png" />
+    <None Include="Resources\Ok_24px.png" />
+    <None Include="Resources\Cancel_24px.png" />
+    <None Include="Resources\Classroom_40px.png" />
+    <None Include="Resources\User Groups_40px.png" />
+    <None Include="Resources\Money Transfer_40px.png" />
+    <None Include="Resources\Sell_40px.png" />
+    <None Include="Resources\People_40px.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

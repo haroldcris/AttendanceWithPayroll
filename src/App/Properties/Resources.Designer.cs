@@ -113,6 +113,16 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Address_Book_24px {
+            get {
+                object obj = ResourceManager.GetObject("Address Book_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Address_Book_30 {
             get {
                 object obj = ResourceManager.GetObject("Address_Book_30", resourceCulture);
@@ -156,6 +166,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Briefcase_16 {
             get {
                 object obj = ResourceManager.GetObject("Briefcase_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Briefcase_24px {
+            get {
+                object obj = ResourceManager.GetObject("Briefcase_24px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -213,6 +233,16 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Cancel_24px {
+            get {
+                object obj = ResourceManager.GetObject("Cancel_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Cancel_30 {
             get {
                 object obj = ResourceManager.GetObject("Cancel_30", resourceCulture);
@@ -236,6 +266,26 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Checkmark_30 {
             get {
                 object obj = ResourceManager.GetObject("Checkmark_30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Classroom_24px {
+            get {
+                object obj = ResourceManager.GetObject("Classroom_24px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Classroom_40px {
+            get {
+                object obj = ResourceManager.GetObject("Classroom_40px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -296,6 +346,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Contact_Card_40 {
             get {
                 object obj = ResourceManager.GetObject("Contact_Card_40", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Course_24px {
+            get {
+                object obj = ResourceManager.GetObject("Course_24px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -393,6 +453,26 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Employee_Card_40px {
+            get {
+                object obj = ResourceManager.GetObject("Employee Card_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fingerprint_Scan_40px {
+            get {
+                object obj = ResourceManager.GetObject("Fingerprint Scan_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Gender_Neutral_User_16px {
             get {
                 object obj = ResourceManager.GetObject("Gender_Neutral_User_16px", resourceCulture);
@@ -453,9 +533,29 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Money_Transfer_40px {
+            get {
+                object obj = ResourceManager.GetObject("Money Transfer_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Ok_16 {
             get {
                 object obj = ResourceManager.GetObject("Ok_16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Ok_24px {
+            get {
+                object obj = ResourceManager.GetObject("Ok_24px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -486,6 +586,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Parse_Resumes_30 {
             get {
                 object obj = ResourceManager.GetObject("Parse_Resumes_30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap People_40px {
+            get {
+                object obj = ResourceManager.GetObject("People_40px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -536,6 +646,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Save_30 {
             get {
                 object obj = ResourceManager.GetObject("Save_30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sell_40px {
+            get {
+                object obj = ResourceManager.GetObject("Sell_40px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -646,6 +766,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap User_Credentials_30px {
             get {
                 object obj = ResourceManager.GetObject("User_Credentials_30px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap User_Groups_40px {
+            get {
+                object obj = ResourceManager.GetObject("User Groups_40px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

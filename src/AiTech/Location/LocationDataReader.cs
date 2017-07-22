@@ -7,35 +7,35 @@ using Dapper;
 
 namespace AiTech.Location
 {
-    public class LocationManager
+    public class LocationDataReader
     {
         public IEnumerable<Province> GetProvinces()
         {
             using (var db = Database.Connection.CreateConnection())
             {
                 db.Open();
-                return db.Query<Province>("Select Id, Province Name from Location_Provinces");
+                return db.Query<Province>("Select Id, Province Name from Location_Province");
             }
         }
 
-        public IEnumerable<Town> GetTowns(int provinceId)
+        public IEnumerable<Town> GetTownsOf(int provinceId)
         {
             using (var db = Database.Connection.CreateConnection())
             {
                 db.Open();
-                var sql = @"Select Id, Town Name, ZipCode from Location_Towns 
+                var sql = @"Select Id, Town Name, ZipCode from Location_Town 
                                 WHERE ProvinceId = @ProvinceId";
 
                 return db.Query<Town>(sql, new {ProvinceId = provinceId } );
             }
         }
 
-        public IEnumerable<Town> GetTowns(string province)
+        public IEnumerable<Town> GetTownsOf(string province)
         {
             using (var db = Database.Connection.CreateConnection())
             {
                 db.Open();
-                var sql = @"Select t.Id, Province, Town Name, ZipCode from Location_Towns t
+                var sql = @"Select t.Id, Province, Town Name, ZipCode from Location_Town t
                                 inner join Location_Provinces p on t.provinceId = p.Id
                                 WHERE Province = @ProvinceName";
 
@@ -44,12 +44,12 @@ namespace AiTech.Location
         }
 
 
-        public IEnumerable<Barangay> GetBarangays(string province, string town)
+        public IEnumerable<Barangay> GetBarangaysOf(string province, string town)
         {
             using (var db = Database.Connection.CreateConnection())
             {
                 db.Open();
-                var sql = @"Select Id, Province, Town, Barangay as Name from Location_Barangays b
+                var sql = @"Select Id, Province, Town, Barangay as Name from Location_Barangay b
                                 WHERE Province = @Province and Town = @Town";
 
                 return db.Query<Barangay>(sql, new { Province = province, Town = town });

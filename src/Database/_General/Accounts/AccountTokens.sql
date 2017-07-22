@@ -1,5 +1,5 @@
 ﻿
-CREATE TABLE [dbo].[AccountTokens](
+CREATE TABLE [dbo].[AccountToken](
 	[Id]			[bigint] IDENTITY(1,1)	NOT NULL,
 	[Username]		[nvarchar](20)			NOT NULL,
 	[Token]			[nvarchar](200)			NOT NULL,
@@ -19,8 +19,8 @@ CREATE TABLE [dbo].[AccountTokens](
 
 GO
 
-ALTER TABLE [dbo].[AccountTokens]  ADD  CONSTRAINT [FK_AccountToken_AccountUser] FOREIGN KEY([Username])
-REFERENCES [dbo].[AccountUsers] ([Username])
+ALTER TABLE [dbo].[AccountToken]  ADD  CONSTRAINT [FK_AccountToken_AccountUser] FOREIGN KEY([Username])
+REFERENCES [dbo].[AccountUser] ([Username])
 ON UPDATE CASCADE
 ON DELETE CASCADE
 GO

@@ -9,7 +9,7 @@ using DevComponents.DotNetBar;
 
 namespace Winform
 {
-    public partial class MDIClientForm : Form,ISave, IMDIForm //DevComponents.DotNetBar.OfficeForm, ISave, IMDIForm
+    public partial class MDIClientForm : Form, ISave, IMDIForm //DevComponents.DotNetBar.OfficeForm, ISave, IMDIForm
     {
         string _title;
         public string Title { get { return _title; } set { _title = value; this.Text = value; } }

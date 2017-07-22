@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Courses] (
+﻿CREATE TABLE [dbo].[Course] (
     [Id]          INT           IDENTITY (1, 1) NOT NULL,
     [CourseCode]  NVARCHAR (20) NOT NULL,
     [Description] NVARCHAR (50) NOT NULL,
@@ -15,5 +15,5 @@
 
 GO
 CREATE UNIQUE NONCLUSTERED INDEX [IX_Courses]
-    ON [dbo].[Courses]([CourseCode] ASC);
+    ON [dbo].[Course]([CourseCode] ASC);
 

@@ -8,7 +8,7 @@ using Dapper.Contrib.Extensions;
 
 namespace Dll.Contacts
 {
-    [Table("Persons")]
+    [Table("Person")]
     public partial class Person: AiTech.Entities.Entity
     {
         public PersonName Name { get; set; }

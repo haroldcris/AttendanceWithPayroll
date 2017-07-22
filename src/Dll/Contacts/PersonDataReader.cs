@@ -15,7 +15,7 @@ namespace Dll.Contacts
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                var items = db.Query<Person>("Select * from Persons");
+                var items = db.Query<Person>("Select * from Person");
 
                 foreach (var item in items) item.StartTrackingChanges();
 
@@ -29,7 +29,7 @@ namespace Dll.Contacts
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                var item = db.Query<Person>("Select * from Persons where Id = @id").FirstOrDefault();
+                var item = db.Query<Person>("Select * from Person where Id = @id").FirstOrDefault();
                 item.StartTrackingChanges();
                 return item;
             }

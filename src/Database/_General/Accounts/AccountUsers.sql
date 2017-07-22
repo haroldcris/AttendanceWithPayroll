@@ -1,5 +1,5 @@
 ﻿
-CREATE TABLE [dbo].[AccountUsers](
+CREATE TABLE [dbo].[AccountUser](
 	[Id] [bigint] IDENTITY(1,1) NOT NULL,
 	[Username] [nvarchar](20) NOT NULL,
 	[Password] [nvarchar](200) NOT NULL,
