@@ -16,10 +16,10 @@
     // ******************************************************
     // Required settings:
     // ******************************************************
-    const string NameSpaceName          = @"Dll";
+    const string NameSpaceName          = @"Dll.Payroll";
 
-	const string TableToGenerate		= @"_";
-	const string ClassBaseName			= @"_";
+	const string TableToGenerate		= @"__";
+	const string ClassBaseName			= @"PositionSalaryGrade";
 
     const string ServerName             = @"localhost";
     const string DatabaseName           = @"amwp";

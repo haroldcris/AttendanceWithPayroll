@@ -30,7 +30,7 @@ namespace My
             if (owner != null) formName = owner.Name;
 
             var stackmsg = "";
-            var stack = ex.GetBaseException().StackTrace.Split('\n');
+            var stack = ex.StackTrace.Split('\n');
             if (stack.Length != 0) stackmsg = stack[0];
 
             var info = new TaskDialogInfo()
@@ -71,8 +71,8 @@ namespace My
             {
                 Title = "Confirmation",
                 TaskDialogIcon = eTaskDialogIcon.Help,
-                Header = "Refresh Data from Server?",
-                Text = "Refreshing will remove all the pending changes you made? \n\n Do you want to continue?",
+                Header = "Cancel Changes and Refresh Data?",
+                Text = "Refreshing will <b>remove</b> all the pending changes you made? <br/><br/> Do you want to continue?",
                 DefaultButton = eTaskDialogButton.No,
                 DialogButtons = eTaskDialogButton.Yes | eTaskDialogButton.No
             };

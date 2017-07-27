@@ -13,6 +13,8 @@ namespace Winform
         {
             InitializeComponent();
 
+            
+
             MainRibbonControl.MdiSystemItemVisible = false;
             MainRibbonControl.FadeEffect = true;
 
@@ -20,6 +22,25 @@ namespace Winform
             lblVersion.Text = "Version : " + My.App.CurrentVersion();
 
             mdiTab.Tabs.Clear();
+
+
+            #region Event handler
+
+            btnContacts.Click += (s, ev) => { OpenForm(new Contacts.frmContacts(), "Contacts Management"); };
+
+            btnBatch.Click += (s, ev) => { OpenForm(new frmBatch(), "Batch Management"); };
+            btnCourse.Click += (s, ev) => { OpenForm(new frmCourse(), "Course Management"); };
+
+
+            btnPayMasterList.Click += (s, ev) => { OpenForm(new Payroll.frmMasterFile(), "Payroll Master List"); };
+            btnPayPositions.Click += (s, ev) => { OpenForm(new Payroll.frmPosition(), "Payroll Position Management"); };
+            btnPayDeductions.Click += (s, ev) => { OpenForm(new Payroll.frmDeduction(), "Payroll Deduction Management"); };
+            btnPayTax.Click += (s, ev) => { OpenForm(new Payroll.frmTaxTable(), "Payroll Tax Table"); };
+
+            btnPaySalarySchedule.Click += (s, ev) => { OpenForm(new Payroll.frmSalarySchedule(), "Payroll Salary Schedule"); };
+
+
+            #endregion
         }
 
         private void cmdSave_Executed(object sender, EventArgs e)
@@ -35,10 +56,8 @@ namespace Winform
         {
             AppButton.Visible = false;
 
-            
             btnProfile.Text = string.Format("Welcome {0} [{1}]", My.App.CurrentUser.User.Username.ToUpper(), "--");
 
-            ribbonHomeUserTab.Visible = true;
 
             //if (App.CurrentUser.SecurityLevel.ToLower() == "admin") {
             //    ribbonTabHomeAdmin.Select();
@@ -47,14 +66,8 @@ namespace Winform
 
             My.App.MainForm = this;
 
-            this.btnPayMasterList.Click += btnPayMasterList_Click;
-
         }
 
-        private void btnPayMasterList_Click(object sender, EventArgs e)
-        {
-            OpenForm(new Payroll.frmMasterFile(), "Payroll Master List");
-        }
 
         private void frmMain_Activated(object sender, EventArgs e)
         {
@@ -135,75 +148,6 @@ namespace Winform
         #endregion
 
 
-
-        
-
-
-
-        private void btnOpenClass_Click(object sender, EventArgs e)
-        {
-            //Cursor.Current = Cursors.WaitCursor;
-
-            //var fOpen = new frmOpenClass();
-            //var response  = fOpen.ShowDialog();
-            //if (response != DialogResult.OK) return;
-
-            //var selected = fOpen.SelectedHandledSubject;
-            //fOpen.Dispose();
-
-            //var section = selected.Section;
-            //section.LoadStudentsOfSubject(selected.SubjectId);
-
-            //var fClassRecord = new FrmClassRecord()
-            //{
-            //    CurrentSection = section
-            //};
-            //OpenForm(fClassRecord);
-
-
-        }
-
-
-        private void btnBatch_Click(object sender, EventArgs e)
-        {
-            OpenForm( new frmBatch(),"Batch Management");
-        }
-
-        private void btnCourse_Click(object sender, EventArgs e)
-        {
-            OpenForm(new frmCourse(), "Course Management");
-        }
-
-        private void btnCourseOffered_Click(object sender, EventArgs e)
-        {
-            //OpenForm(new frmOfferedCourse());
-        }
-
-      
-        private void btnSections_Click(object sender, EventArgs e)
-        {
-            //OpenForm(new frmSection());
-        }
-
-        private void btnUserAccounts_Click(object sender, EventArgs e)
-        {
-            //OpenForm(new frmUserAccounts());
-
-        }
-
-        private void btnChangePassword_Click(object sender, EventArgs e)
-        {
-            //var frm = new frmChangePassword();
-            //frm.ShowDialog();
-        }
-
-        private void btnStudents_Click(object sender, EventArgs e)
-        {
-            //var frm = new frmStudent();
-            //OpenForm(frm);
-
-        }
-
         private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach(var item in this.MdiChildren)
@@ -212,15 +156,5 @@ namespace Winform
             }
         }
 
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            //var fSettings = new frmSettings();
-            //fSettings.ShowDialog();
-        }
-
-        private void btnContacts_Click(object sender, EventArgs e)
-        {
-            OpenForm(new Contacts.frmContacts(), "Contacts Management");
-        }
     }
 }

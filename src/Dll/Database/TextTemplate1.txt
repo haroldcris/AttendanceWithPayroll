@@ -130,6 +130,7 @@ WHERE t.object_id = @TableId";
         { "smalldatetime","DateTime" },
         { "int","int" },
         { "smallint","short" },
+		{ "tinyint","int" },
         { "bigint","long" },
         { "varchar","string" },
         { "nchar","char" },
@@ -509,13 +510,44 @@ WHERE t.object_id = @TableId";
 		Out ("using AiTech.Database;");
 		Out ("using AiTech.Entities;");
 		Out ("");
-		Out ("namespace Dll.Course");
+		Out ( CreateNamespaceSignature( namespaceName, table, false ) );
 		Out ("{");
 	
 		PushIndent ("\t");
 			Out ("public class " + ClassBaseName + "Collection : EntityCollection<" + ClassBaseName + ">");
 			Out ("{");
 			PushIndent ("\t");
+
+
+			Out (@"public bool LoadItemsFromDb()" );
+			Out ("{");
+			PushIndent ("\t");
+
+            Out ("this.ItemCollection.Clear();");
+			Out ("");
+            Out ("using (var db = Connection.CreateConnection())");
+            Out ("{");
+				PushIndent ("\t");
+                Out ("db.Open();");
+                Out ("var sql = \"Select * from [" + table.Name + "]\";");
+                Out ("var items = db.Query<" + ClassBaseName + ">(sql);");
+
+                Out ("foreach (var item in items)");
+                Out ("{");
+					PushIndent ("\t");
+                    Out ("item.RowStatus = AiTech.Entities.RecordStatus.NoChanges;");
+                    Out ("item.StartTrackingChanges();");
+                    Out ("this.ItemCollection.Add(item);");
+					PopIndent();
+				Out ("}");
+				PopIndent();
+            Out ("}");
+            Out ("return true;");
+			PopIndent();
+
+        Out ("}");
+
+
 			PopIndent();
 			Out ("}");
 			Out ("");

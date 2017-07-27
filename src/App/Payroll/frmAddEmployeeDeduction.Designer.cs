@@ -58,7 +58,8 @@
             // 
             // 
             this.HeaderCaption.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.HeaderCaption.Size = new System.Drawing.Size(375, 47);
+            this.HeaderCaption.Location = new System.Drawing.Point(76, 5);
+            this.HeaderCaption.Size = new System.Drawing.Size(437, 54);
             this.HeaderCaption.Text = "<div><h3><font color=\'blue\'><b>UPDATE DEDUCTION INFORMATION</b></font></h3>\r\n</di" +
     "v><div>\r\nAllows you to add and update employee\'s deduction records from the data" +
     "base\r\n</div>";
@@ -66,6 +67,8 @@
             // HeaderPicture
             // 
             this.HeaderPicture.Image = global::Winform.Properties.Resources.Tax_40px;
+            this.HeaderPicture.Location = new System.Drawing.Point(10, 3);
+            this.HeaderPicture.Size = new System.Drawing.Size(59, 55);
             // 
             // groupBox4
             // 
@@ -73,9 +76,9 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.dtBirthdate);
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Location = new System.Drawing.Point(14, 174);
+            this.groupBox4.Location = new System.Drawing.Point(16, 201);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(144, 117);
+            this.groupBox4.Size = new System.Drawing.Size(168, 135);
             this.groupBox4.TabIndex = 26;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Range:";
@@ -93,7 +96,7 @@
             this.dateTimeInput1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dateTimeInput1.ForeColor = System.Drawing.Color.Black;
             this.dateTimeInput1.IsPopupCalendarOpen = false;
-            this.dateTimeInput1.Location = new System.Drawing.Point(15, 81);
+            this.dateTimeInput1.Location = new System.Drawing.Point(17, 93);
             // 
             // 
             // 
@@ -123,7 +126,7 @@
             this.dateTimeInput1.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.dateTimeInput1.MonthCalendar.TodayButtonVisible = true;
             this.dateTimeInput1.Name = "dateTimeInput1";
-            this.dateTimeInput1.Size = new System.Drawing.Size(113, 22);
+            this.dateTimeInput1.Size = new System.Drawing.Size(132, 22);
             this.dateTimeInput1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dateTimeInput1.TabIndex = 33;
             // 
@@ -132,9 +135,9 @@
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(13, 65);
+            this.label2.Location = new System.Drawing.Point(15, 75);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(49, 13);
+            this.label2.Size = new System.Drawing.Size(53, 15);
             this.label2.TabIndex = 32;
             this.label2.Text = "Date To:";
             // 
@@ -151,7 +154,7 @@
             this.dtBirthdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtBirthdate.ForeColor = System.Drawing.Color.Black;
             this.dtBirthdate.IsPopupCalendarOpen = false;
-            this.dtBirthdate.Location = new System.Drawing.Point(15, 32);
+            this.dtBirthdate.Location = new System.Drawing.Point(17, 37);
             // 
             // 
             // 
@@ -181,7 +184,7 @@
             this.dtBirthdate.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.dtBirthdate.MonthCalendar.TodayButtonVisible = true;
             this.dtBirthdate.Name = "dtBirthdate";
-            this.dtBirthdate.Size = new System.Drawing.Size(113, 22);
+            this.dtBirthdate.Size = new System.Drawing.Size(132, 22);
             this.dtBirthdate.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtBirthdate.TabIndex = 29;
             // 
@@ -190,9 +193,9 @@
             this.label9.AutoSize = true;
             this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label9.ForeColor = System.Drawing.Color.Black;
-            this.label9.Location = new System.Drawing.Point(13, 16);
+            this.label9.Location = new System.Drawing.Point(15, 18);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(59, 13);
+            this.label9.Size = new System.Drawing.Size(68, 15);
             this.label9.TabIndex = 28;
             this.label9.Text = "Date From:";
             // 
@@ -202,9 +205,9 @@
             this.groupBox3.Controls.Add(this.labelX4);
             this.groupBox3.Controls.Add(this.buttonX3);
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
-            this.groupBox3.Location = new System.Drawing.Point(14, 65);
+            this.groupBox3.Location = new System.Drawing.Point(16, 75);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(416, 103);
+            this.groupBox3.Size = new System.Drawing.Size(485, 119);
             this.groupBox3.TabIndex = 25;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Deduction Info";
@@ -217,9 +220,9 @@
             // 
             // 
             this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(15, 44);
+            this.labelX4.Location = new System.Drawing.Point(17, 51);
             this.labelX4.Name = "labelX4";
-            this.labelX4.Size = new System.Drawing.Size(382, 44);
+            this.labelX4.Size = new System.Drawing.Size(446, 51);
             this.labelX4.TabIndex = 26;
             this.labelX4.Text = "<font color=\'blue\'>\r\n0002<br/>\r\n<b>DEDUCTION FULL DESCRIPTION</b>\r\n</font>";
             this.labelX4.TextLineAlignment = System.Drawing.StringAlignment.Near;
@@ -230,10 +233,10 @@
             this.buttonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.buttonX3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonX3.Image = global::Winform.Properties.Resources.Open_16px;
-            this.buttonX3.Location = new System.Drawing.Point(15, 16);
+            this.buttonX3.Location = new System.Drawing.Point(17, 18);
             this.buttonX3.Name = "buttonX3";
             this.buttonX3.ShowSubItems = false;
-            this.buttonX3.Size = new System.Drawing.Size(60, 19);
+            this.buttonX3.Size = new System.Drawing.Size(70, 22);
             this.buttonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.buttonX3.TabIndex = 24;
             this.buttonX3.Text = "Select...";
@@ -245,9 +248,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxX1);
             this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Location = new System.Drawing.Point(164, 174);
+            this.groupBox1.Location = new System.Drawing.Point(191, 201);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(266, 117);
+            this.groupBox1.Size = new System.Drawing.Size(310, 135);
             this.groupBox1.TabIndex = 27;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Account:";
@@ -257,9 +260,9 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(10, 64);
+            this.label3.Location = new System.Drawing.Point(12, 74);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(52, 13);
+            this.label3.Size = new System.Drawing.Size(60, 15);
             this.label3.TabIndex = 35;
             this.label3.Text = "Remarks:";
             // 
@@ -268,9 +271,9 @@
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(10, 22);
+            this.label1.Location = new System.Drawing.Point(12, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.Size = new System.Drawing.Size(52, 15);
             this.label1.TabIndex = 33;
             this.label1.Text = "Amount:";
             // 
@@ -284,18 +287,18 @@
             this.textBoxX1.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.textBoxX1.DisabledBackColor = System.Drawing.Color.White;
             this.textBoxX1.ForeColor = System.Drawing.Color.Black;
-            this.textBoxX1.Location = new System.Drawing.Point(13, 80);
+            this.textBoxX1.Location = new System.Drawing.Point(15, 92);
             this.textBoxX1.Name = "textBoxX1";
             this.textBoxX1.PreventEnterBeep = true;
-            this.textBoxX1.Size = new System.Drawing.Size(240, 20);
+            this.textBoxX1.Size = new System.Drawing.Size(280, 21);
             this.textBoxX1.TabIndex = 34;
             // 
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(13, 37);
+            this.numericUpDown1.Location = new System.Drawing.Point(15, 43);
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(116, 24);
+            this.numericUpDown1.Size = new System.Drawing.Size(135, 24);
             this.numericUpDown1.TabIndex = 32;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.numericUpDown1.ThousandsSeparator = true;
@@ -308,10 +311,10 @@
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::Winform.Properties.Resources.Cancel_24px;
-            this.btnCancel.Location = new System.Drawing.Point(357, 304);
+            this.btnCancel.Location = new System.Drawing.Point(416, 351);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.ShowSubItems = false;
-            this.btnCancel.Size = new System.Drawing.Size(69, 34);
+            this.btnCancel.Size = new System.Drawing.Size(80, 39);
             this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnCancel.TabIndex = 29;
             this.btnCancel.Text = "Cancel";
@@ -324,29 +327,30 @@
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnOk.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOk.Image = global::Winform.Properties.Resources.Ok_24px;
-            this.btnOk.Location = new System.Drawing.Point(280, 304);
+            this.btnOk.Location = new System.Drawing.Point(327, 351);
             this.btnOk.Name = "btnOk";
             this.btnOk.ShowSubItems = false;
-            this.btnOk.Size = new System.Drawing.Size(71, 34);
+            this.btnOk.Size = new System.Drawing.Size(83, 39);
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 28;
             this.btnOk.Text = "Done";
             this.btnOk.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
             // 
-            // frmDeduction
+            // frmAddEmployeeDeduction
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(443, 356);
+            this.ClientSize = new System.Drawing.Size(517, 411);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "frmDeduction";
+            this.Name = "frmAddEmployeeDeduction";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Deduction Info";
             this.Controls.SetChildIndex(this.groupBox3, 0);

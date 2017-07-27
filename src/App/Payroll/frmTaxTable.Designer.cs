@@ -1,6 +1,6 @@
 ﻿namespace Winform.Payroll
 {
-    partial class frmPositions
+    partial class frmTaxTable
     {
         /// <summary>
         /// Required designer variable.
@@ -80,6 +80,7 @@
             // 
             // gridColumn1
             // 
+            this.gridColumn1.HeaderText = "";
             this.gridColumn1.Name = "gridColumn1";
             // 
             // gridColumn2
@@ -196,7 +197,6 @@
             this.btnEdit.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
             this.btnEdit.SubItemsExpandWidth = 14;
             this.btnEdit.Text = "Modify";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // btnDelete
             // 
@@ -236,7 +236,7 @@
             this.progressBarX1.Text = "Loading Data...";
             this.progressBarX1.TextVisible = true;
             // 
-            // frmPositions
+            // frmTaxTable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -245,9 +245,10 @@
             this.Controls.Add(this.ribbonBarMergeContainer1);
             this.Controls.Add(this.SGrid);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Header = " POSITION MANAGEMENT";
-            this.HeaderColor = System.Drawing.Color.RoyalBlue;
-            this.Name = "frmPositions";
+            this.Header = " TAX TABLE MANAGEMENT";
+            this.HeaderColor = System.Drawing.Color.Gold;
+            this.HeaderTextColor = System.Drawing.Color.Black;
+            this.Name = "frmTaxTable";
             this.ShowIcon = false;
             this.Text = "Form";
             this.Load += new System.EventHandler(this.Form_Load);

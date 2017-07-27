@@ -16,8 +16,9 @@ namespace Winform
 
         public string Header { get { return lblHeader.Text; } set { lblHeader.Text = value; } }
 
-        Color _headerColor;
-        public Color HeaderColor { get { return _headerColor; } set { PanelHead.BackColor = value; _headerColor = value; } }
+        public Color HeaderColor { get { return PanelHead.BackColor; } set { PanelHead.BackColor = value; } }
+
+        public Color HeaderTextColor { get { return lblHeader.ForeColor;  } set { lblHeader.ForeColor = value; } }
 
         public DirtyChecker DirtyStatus { get; private set; }
         public MDIClientForm()
@@ -87,6 +88,8 @@ namespace Winform
         {
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
+
                 if (!DirtyStatus.IsDirty) return true;
                 action();
                 DirtyStatus.Clear();

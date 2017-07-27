@@ -17,7 +17,6 @@ namespace Winform.Payroll
         public frmMasterFile()
         {
             InitializeComponent();
-            Title = "PAYROLL MASTER LIST";
 
             InitializeGrid();
             LoadItems();
@@ -25,16 +24,18 @@ namespace Winform.Payroll
 
         private void InitializeGrid()
         {
-            SGrid.ColumnGrouped += Grid_ColumnGrouped;
-
             SGrid.InitializeGrid();
 
-            SGrid.CreateColumn("Code", "Code", 100, Alignment.MiddleCenter);
+            SGrid.CreateColumn("Empnum", "Employee No.", 100, Alignment.MiddleCenter);
 
-            SGrid.CreateColumn("Code", "Code", 100, Alignment.MiddleCenter);
-            SGrid.CreateColumn("Description", "Description", 150, Alignment.MiddleLeft);
-            SGrid.CreateColumn("Barangay", "Barangay", 100, Alignment.MiddleLeft);
-            SGrid.CreateColumn("Route", "Route", 450, Alignment.MiddleLeft);
+            
+            SGrid.CreateColumn("Name", "Name", 300, Alignment.MiddleLeft);
+            SGrid.CreateColumn("Gender", "Gender", 80, Alignment.MiddleCenter);
+
+            SGrid.CreateColumn("Position", "Position", 120, Alignment.MiddleLeft);
+            SGrid.CreateColumn("Department", "Department", 100, Alignment.MiddleLeft);
+            
+            SGrid.CreateColumn("Exemption", "Tax Exemption", 120, Alignment.MiddleLeft);
 
             SGrid.CreateColumn("CreatedBy", "Created By", 90, Alignment.MiddleLeft);
             SGrid.CreateColumn("Created", "Created", 130, Alignment.MiddleLeft);
@@ -46,15 +47,15 @@ namespace Winform.Payroll
             SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
             SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
 
-        }
-        private void Grid_ColumnGrouped(object sender, GridColumnGroupedEventArgs e)
-        {
-            //throw new NotImplementedException();
-            var total = e.GridGroup.Rows.Count();
 
-            e.GridGroup.Text = e.GridGroup.Text.ToUpper() + "  - " + total + (total < 2 ? " item" : " items");
-        }
+            SGrid.ColumnGrouped += (s, e) =>
+            {
+                var total = e.GridGroup.Rows.Count();
+                e.GridGroup.Text = e.GridGroup.Text.ToUpper() + "  - " + total + (total < 2 ? " item" : " items");
+            };
 
+
+        }
 
         private void LoadItems()
         {
@@ -63,25 +64,6 @@ namespace Winform.Payroll
         }
               
         
-       
-
-        private void btnAdd_Click (object sender, EventArgs e)
-        {
-            //var newItem = new Batch();
-            //var frm = new frmBatch_Add(this);
-            //frm.Batch = newItem;
-
-            //var result = frm.ShowDialog();
-            //frm.Dispose();
-
-            //if (result == DialogResult.OK)
-            //{
-            //    BatchItems.Add(newItem);
-            //    DirtyStatus.SetDirty();
-            //    FlexGridHelper.DoGridInsert(flexGrid, newItem, DisplayItemOnCurrentRowExt);
-            //}
-        }
-
         private void btnEdit_Click(object sender, EventArgs e)
         {
             //if (flexGrid.Rows.Count < 2) return;
@@ -116,11 +98,6 @@ namespace Winform.Payroll
             });
         }
 
-
-        private void flexGrid_DoubleClick(object sender, EventArgs e)
-        {
-            //btnEdit.RaiseClick(eEventSource.Code);
-        }
 
         internal bool ContainsData(Batch item)
         {
@@ -174,11 +151,6 @@ namespace Winform.Payroll
              //   DirtyStatus.SetDirty();
              //   FlexGridHelper.DoGridInsert(flexGrid, newItem, DisplayItemOnCurrentRowExt);
             }
-        }
-
-        private void btnPayPosition_Click(object sender, EventArgs e)
-        {
-            My.App.MainForm.OpenForm(new frmPositions(), "Position Management");
         }
     }
 }

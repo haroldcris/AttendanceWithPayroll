@@ -313,6 +313,16 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Community_Grants_40px {
+            get {
+                object obj = ResourceManager.GetObject("Community Grants_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Conference_Call_16 {
             get {
                 object obj = ResourceManager.GetObject("Conference_Call_16", resourceCulture);
@@ -426,6 +436,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Delete_File_40px {
             get {
                 object obj = ResourceManager.GetObject("Delete_File_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap DeleteFlat_16px {
+            get {
+                object obj = ResourceManager.GetObject("DeleteFlat_16px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

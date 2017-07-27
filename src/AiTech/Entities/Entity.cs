@@ -90,7 +90,6 @@ namespace AiTech.Entities
 
 
     #region Collection Definition
-
     /// <summary>
     /// 
     /// </summary>

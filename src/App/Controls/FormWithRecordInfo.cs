@@ -8,11 +8,8 @@ namespace Winform
         public FormWithRecordInfo()
         {
             InitializeComponent();
-        }
 
-        private void Form_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            Helper.HandleEnterKey(this, e);
+            this.KeyPress += (s, e) => { Helper.HandleEnterKey(this, e); };
         }
 
         protected void ShowFileInfo(IRecordInfo info)

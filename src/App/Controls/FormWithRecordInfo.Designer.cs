@@ -169,7 +169,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form";
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Form_KeyPress);
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).EndInit();
             this.ResumeLayout(false);
 

@@ -33,11 +33,6 @@
             this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn2 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.ribbonBarMergeContainer1 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
-            this.RibbonPayTables = new DevComponents.DotNetBar.RibbonBar();
-            this.btnPayPosition = new DevComponents.DotNetBar.ButtonItem();
-            this.btnPayTax = new DevComponents.DotNetBar.ButtonItem();
-            this.btnPayDeduction = new DevComponents.DotNetBar.ButtonItem();
-            this.btnPayPayment = new DevComponents.DotNetBar.ButtonItem();
             this.RibbonPayMasterList = new DevComponents.DotNetBar.RibbonBar();
             this.btnPayViewProfile = new DevComponents.DotNetBar.ButtonItem();
             this.groupPayButtons = new DevComponents.DotNetBar.ItemContainer();
@@ -81,7 +76,6 @@
             // ribbonBarMergeContainer1
             // 
             this.ribbonBarMergeContainer1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.Office2007;
-            this.ribbonBarMergeContainer1.Controls.Add(this.RibbonPayTables);
             this.ribbonBarMergeContainer1.Controls.Add(this.RibbonPayMasterList);
             this.ribbonBarMergeContainer1.Controls.Add(this.RibbonPayProcess);
             this.ribbonBarMergeContainer1.Location = new System.Drawing.Point(48, 100);
@@ -102,78 +96,6 @@
             this.ribbonBarMergeContainer1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.ribbonBarMergeContainer1.TabIndex = 21;
             this.ribbonBarMergeContainer1.Visible = false;
-            // 
-            // RibbonPayTables
-            // 
-            this.RibbonPayTables.AutoOverflowEnabled = true;
-            // 
-            // 
-            // 
-            this.RibbonPayTables.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.RibbonPayTables.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.RibbonPayTables.ContainerControlProcessDialogKey = true;
-            this.RibbonPayTables.Dock = System.Windows.Forms.DockStyle.Left;
-            this.RibbonPayTables.DragDropSupport = true;
-            this.RibbonPayTables.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnPayPosition,
-            this.btnPayTax,
-            this.btnPayDeduction,
-            this.btnPayPayment});
-            this.RibbonPayTables.Location = new System.Drawing.Point(359, 0);
-            this.RibbonPayTables.Name = "RibbonPayTables";
-            this.RibbonPayTables.Size = new System.Drawing.Size(303, 99);
-            this.RibbonPayTables.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.RibbonPayTables.TabIndex = 11;
-            this.RibbonPayTables.Text = "Tables";
-            // 
-            // 
-            // 
-            this.RibbonPayTables.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // 
-            // 
-            this.RibbonPayTables.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            // 
-            // btnPayPosition
-            // 
-            this.btnPayPosition.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayPosition.Image = global::Winform.Properties.Resources.Front_Desk_40px;
-            this.btnPayPosition.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayPosition.Name = "btnPayPosition";
-            this.btnPayPosition.SubItemsExpandWidth = 14;
-            this.btnPayPosition.Text = "Positions";
-            this.btnPayPosition.Click += new System.EventHandler(this.btnPayPosition_Click);
-            // 
-            // btnPayTax
-            // 
-            this.btnPayTax.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayTax.Image = global::Winform.Properties.Resources.Customs_Officer_40px;
-            this.btnPayTax.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayTax.Name = "btnPayTax";
-            this.btnPayTax.SubItemsExpandWidth = 14;
-            this.btnPayTax.Text = "Tax Table";
-            // 
-            // btnPayDeduction
-            // 
-            this.btnPayDeduction.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayDeduction.Image = global::Winform.Properties.Resources.Tax_40px;
-            this.btnPayDeduction.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayDeduction.Name = "btnPayDeduction";
-            this.btnPayDeduction.SubItemsExpandWidth = 14;
-            this.btnPayDeduction.Text = "Deductions";
-            // 
-            // btnPayPayment
-            // 
-            this.btnPayPayment.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayPayment.Image = global::Winform.Properties.Resources.Paper_Money_40px;
-            this.btnPayPayment.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayPayment.Name = "btnPayPayment";
-            this.btnPayPayment.SubItemsExpandWidth = 14;
-            this.btnPayPayment.Text = "Payment Types";
-            this.btnPayPayment.Visible = false;
             // 
             // RibbonPayMasterList
             // 
@@ -406,11 +328,6 @@
         private DevComponents.DotNetBar.ButtonItem buttonItem12;
         private DevComponents.DotNetBar.ButtonItem buttonItem13;
         private DevComponents.DotNetBar.ButtonItem btnPayGenerate;
-        private DevComponents.DotNetBar.RibbonBar RibbonPayTables;
-        private DevComponents.DotNetBar.ButtonItem btnPayPosition;
-        private DevComponents.DotNetBar.ButtonItem btnPayTax;
-        private DevComponents.DotNetBar.ButtonItem btnPayPayment;
-        private DevComponents.DotNetBar.ButtonItem btnPayDeduction;
         private DevComponents.DotNetBar.RibbonBar RibbonPayMasterList;
         private DevComponents.DotNetBar.ItemContainer groupPayButtons;
         private DevComponents.DotNetBar.ButtonItem btnPayAdd;

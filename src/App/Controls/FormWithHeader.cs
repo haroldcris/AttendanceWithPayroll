@@ -16,5 +16,10 @@ namespace Winform
         {
             InitializeComponent();
         }
+
+        protected void ConvertEnterKeyToTab()
+        {
+            this.KeyPress += (s, e) => { Helper.HandleEnterKey(this, e); };
+        }
     }
 }
