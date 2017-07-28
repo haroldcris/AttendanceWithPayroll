@@ -10,6 +10,7 @@ using System.Dynamic;
 using AiTech.Entities;
 using System.Data;
 
+
 namespace AiTech.Database
 {
     public class DatabaseAction
@@ -136,14 +137,44 @@ namespace AiTech.Database
 
         internal static void UpdateItemRecordInfo(Entity item, SqlDataReader reader)
         {
-            if (!reader.Read()) throw new Exception("Error Inserting New Item");
+            if (!reader.Read()) return; //throw new Exception("Error Inserting New Item");
 
-            item.Id = reader.GetInt32(reader.GetOrdinal("Id"));
+            var col = -1;
 
-            item.Created = reader.GetDateTime(reader.GetOrdinal("Created"));
-            item.CreatedBy = reader["CreatedBy"].ToString();
-            item.Modified = reader.GetDateTime(reader.GetOrdinal("Modified"));
-            item.ModifiedBy = reader["ModifiedBy"].ToString();
+            if (reader.HasField("Id", out col))
+                item.Id = reader.GetInt32(col);
+
+            if (reader.HasField("Created", out col))
+                item.Created = reader.GetDateTime(col);
+
+            if (reader.HasField("CreatedBy", out col))
+                item.CreatedBy = reader[col].ToString();
+
+            if (reader.HasField("Modified", out col))
+                item.Modified = reader.GetDateTime(col);
+
+            if (reader.HasField("ModifiedBy", out col))
+                item.ModifiedBy = reader[col].ToString();
+        }
+
+       
+    }
+
+
+    public static class DatabaseExtension
+    {
+        public static bool HasField(this SqlDataReader reader, string name, out int col)
+        {
+            try
+            {
+                col = reader.GetOrdinal(name);
+                return true;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                col = -1;
+                return false;
+            }
         }
     }
 }

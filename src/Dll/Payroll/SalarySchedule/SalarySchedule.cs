@@ -12,18 +12,26 @@ namespace Dll.Payroll
 		
 		#region Default Properties
 		
-		public string Effectivity { get; set; }
+		public DateTime Effectivity { get; set; }
 		
 		public string Remarks { get; set; }
 
-        public PositionSalaryGradeCollection PositionSalaryGrades { get; set; }
+        public PositionSalaryGradeCollection PositionSalaryGrades{ get; set; }
+        public SalaryGradeCollection SalaryGrades { get; set; }
 
         #endregion
 
         public SalarySchedule()
         {
-            this.PositionSalaryGrades = new PositionSalaryGradeCollection(this);
+            PositionSalaryGrades = new PositionSalaryGradeCollection();
+            PositionSalaryGrades.SetParentTo(this);
+
+            SalaryGrades = new SalaryGradeCollection();
+            SalaryGrades.SetParentTo(this);
+
+            Effectivity = DateTime.Today;
         }
+
 
         public override void StartTrackingChanges()
 		{

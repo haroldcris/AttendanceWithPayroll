@@ -52,43 +52,43 @@
                         if (DatabaseAction.ExecuteDeleteQuery<$entity$>(DataWriterUsername, deletedItems, db, trn))
                             affectedRecords += deletedItems.Count();
 
-
                     SqlCommand cmd;
                     foreach (var item in _List.Items)
                     {
-                        switch (item.Id)
-                        {
-                            case 0:  // New RECORD
-                                item.RowStatus = RecordStatus.NewRecord;
+                        if (item.RowStatus == RecordStatus.DeletedRecord) continue;
 
+                        switch (item.RowStatus)
+                        {
+                            case RecordStatus.DeletedRecord: break;
+
+                            case RecordStatus.NewRecord:
                                 var insertQuery = CreateSqlInsertQuery();
                                 cmd = new SqlCommand(insertQuery, db, trn);
 
                                 CreateSqlInsertCommandParameters(cmd, item);
 
-                                if (ExecuteCommand(cmd, item, $errordescription$))
+                                if (ExecuteCommand(cmd, item, item.Description))
                                     affectedRecords++;
                                 break;
 
 
                             default: // UPDATE
 
-                                if (item.RowStatus == RecordStatus.DeletedRecord) continue;
-
                                 var updateQuery = CreateSqlUpdateQuery(item);
+                                if (string.IsNullOrEmpty(updateQuery)) continue;
                                 cmd = new SqlCommand(updateQuery, db, trn);
 
                                 CreateSqlUpdateCommandParameters(cmd, item);
 
-                                if (ExecuteCommand(cmd, item, $errordescription$) )
+                                if (ExecuteCommand(cmd, item, item.Description))
                                     affectedRecords++;
-
 
                                 break;
                         }
-						//
-						// Save SubClass Here;
-						//                               							
+
+                        //
+                        // Save SubClass Here;
+                        //                               							
 
                     }
 

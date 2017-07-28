@@ -217,6 +217,10 @@ namespace AiTech.Entities
             }
         }
 
+        /// <summary>
+        /// Switch to check if previously loaded from Database
+        /// </summary>
+        public bool HasReadFromDb { get; protected set; }
 
         public IEnumerable<TEntityName> GetDirtyItems()
         {
@@ -241,6 +245,19 @@ namespace AiTech.Entities
 
     }
 
+
+    [Serializable]
+    public abstract class EntityChildCollection <TEntityName, TParent> : EntityCollection<TEntityName>
+        where TEntityName : Entity
+    {
+        public TParent Parent { get; private set; }
+
+        public void SetParentTo(TParent parent)
+        {
+            Parent = parent;
+        }
+
+    }
     #endregion
 
 

@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.297</AssemblyVersion>
+    <AssemblyVersion>1.0.0.400</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -139,6 +139,12 @@
     <Compile Include="LogIn\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Payroll\frmDeduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\frmDeduction.Designer.cs">
+      <DependentUpon>frmDeduction.cs</DependentUpon>
+    </Compile>
     <Compile Include="Payroll\frmSalarySchedule_Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,12 +193,6 @@
     <Compile Include="Payroll\frmPayrollMasterList.Designer.cs">
       <DependentUpon>frmPayrollMasterList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmDeduction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Payroll\frmDeduction.Designer.cs">
-      <DependentUpon>frmDeduction.cs</DependentUpon>
-    </Compile>
     <Compile Include="Payroll\frmPosition.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -224,6 +224,12 @@
     </Compile>
     <Compile Include="School Year\frmCourse_Add.Designer.cs">
       <DependentUpon>frmCourse_Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SMS\frmSMS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SMS\frmSMS.Designer.cs">
+      <DependentUpon>frmSMS.cs</DependentUpon>
     </Compile>
     <Compile Include="_Library\App.cs" />
     <Compile Include="_Library\Helper\BatchHelper.cs" />
@@ -270,6 +276,9 @@
     <EmbeddedResource Include="LogIn\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\frmDeduction.resx">
+      <DependentUpon>frmDeduction.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmSalarySchedule_Add.resx">
       <DependentUpon>frmSalarySchedule_Add.cs</DependentUpon>
     </EmbeddedResource>
@@ -293,9 +302,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmPayrollMasterList.resx">
       <DependentUpon>frmPayrollMasterList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmDeduction.resx">
-      <DependentUpon>frmDeduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmPosition.resx">
       <DependentUpon>frmPosition.cs</DependentUpon>
@@ -322,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="School Year\frmCourse_Add.resx">
       <DependentUpon>frmCourse_Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SMS\frmSMS.resx">
+      <DependentUpon>frmSMS.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -525,6 +534,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\Signal_24px.png" />
+    <None Include="Resources\SMS_40px.png" />
+    <None Include="Resources\Community Grants_24px.png" />
+    <None Include="Resources\Tax_24px.png" />
+    <None Include="Resources\Customs Officer_24px.png" />
+    <None Include="Resources\Front Desk_24px.png" />
     <None Include="Resources\DeleteFlat_16px.png" />
     <None Include="Resources\Community Grants_40px.png" />
     <None Include="Resources\Paper Money_40px.png" />

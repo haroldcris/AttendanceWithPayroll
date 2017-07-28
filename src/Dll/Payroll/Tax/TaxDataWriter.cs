@@ -103,7 +103,7 @@ namespace Dll.Payroll
             cmd.Parameters.AddRange(new[]
               {
 
-                new SqlParameter( "@TaxID", SqlDbType.TinyInt) ,                new SqlParameter( "@Description", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@ShortDesc", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@Dependent", SqlDbType.TinyInt) ,                new SqlParameter( "@Exemption", SqlDbType.Decimal) ,                new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
+                new SqlParameter( "@TaxID", SqlDbType.Int) ,                new SqlParameter( "@Description", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@ShortDesc", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@Dependent", SqlDbType.TinyInt) ,                new SqlParameter( "@Exemption", SqlDbType.Decimal) ,                new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
 
               });
 

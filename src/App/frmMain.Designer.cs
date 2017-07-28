@@ -37,6 +37,7 @@
             this.buttonItem1 = new DevComponents.DotNetBar.ButtonItem();
             this.btnSettings = new DevComponents.DotNetBar.ButtonItem();
             this.btnUserAccounts = new DevComponents.DotNetBar.ButtonItem();
+            this.btnSms = new DevComponents.DotNetBar.ButtonItem();
             this.RibbonBarStudent = new DevComponents.DotNetBar.RibbonBar();
             this.btnStudents = new DevComponents.DotNetBar.ButtonItem();
             this.itemContainer2 = new DevComponents.DotNetBar.ItemContainer();
@@ -47,8 +48,10 @@
             this.btnSections = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBarUserAccounts = new DevComponents.DotNetBar.RibbonBar();
             this.btnPayMasterList = new DevComponents.DotNetBar.ButtonItem();
-            this.btnPayPositions = new DevComponents.DotNetBar.ButtonItem();
+            this.itemContainer4 = new DevComponents.DotNetBar.ItemContainer();
             this.btnPaySalarySchedule = new DevComponents.DotNetBar.ButtonItem();
+            this.btnPayPositions = new DevComponents.DotNetBar.ButtonItem();
+            this.itemContainer5 = new DevComponents.DotNetBar.ItemContainer();
             this.btnPayDeductions = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayTax = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBar2 = new DevComponents.DotNetBar.RibbonBar();
@@ -74,12 +77,13 @@
             this.lblStatus = new DevComponents.DotNetBar.LabelItem();
             this.lblServer = new DevComponents.DotNetBar.LabelItem();
             this.lblVersion = new DevComponents.DotNetBar.LabelItem();
-            this.mdiTab = new DevComponents.DotNetBar.TabStrip();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.closeAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mdiTab = new DevComponents.DotNetBar.TabStrip();
             this.tabItem1 = new DevComponents.DotNetBar.TabItem(this.components);
             this.tabItem2 = new DevComponents.DotNetBar.TabItem(this.components);
             this.tabItem3 = new DevComponents.DotNetBar.TabItem(this.components);
+            this.styleManager1 = new DevComponents.DotNetBar.StyleManager(this.components);
             this.MainRibbonControl.SuspendLayout();
             this.ribbonPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
@@ -203,11 +207,12 @@
             this.ribbonBar4.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.buttonItem1,
             this.btnSettings,
-            this.btnUserAccounts});
-            this.ribbonBar4.Location = new System.Drawing.Point(728, 0);
+            this.btnUserAccounts,
+            this.btnSms});
+            this.ribbonBar4.Location = new System.Drawing.Point(596, 0);
             this.ribbonBar4.Name = "ribbonBar4";
             this.ribbonBar4.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("ribbonBar4.OverflowButtonImage")));
-            this.ribbonBar4.Size = new System.Drawing.Size(210, 95);
+            this.ribbonBar4.Size = new System.Drawing.Size(295, 95);
             this.ribbonBar4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar4.TabIndex = 7;
             this.ribbonBar4.Text = "Devices && Settings";
@@ -250,6 +255,16 @@
             this.btnUserAccounts.SubItemsExpandWidth = 14;
             this.btnUserAccounts.Text = "User Accounts";
             // 
+            // btnSms
+            // 
+            this.btnSms.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnSms.Image = global::Winform.Properties.Resources.SMS_40px;
+            this.btnSms.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnSms.Name = "btnSms";
+            this.btnSms.SubItemsExpandWidth = 14;
+            this.btnSms.SymbolSize = 24F;
+            this.btnSms.Text = "SMS Message";
+            // 
             // RibbonBarStudent
             // 
             this.RibbonBarStudent.AutoOverflowEnabled = true;
@@ -268,9 +283,9 @@
             this.btnStudents,
             this.itemContainer2,
             this.itemContainer3});
-            this.RibbonBarStudent.Location = new System.Drawing.Point(396, 0);
+            this.RibbonBarStudent.Location = new System.Drawing.Point(336, 0);
             this.RibbonBarStudent.Name = "RibbonBarStudent";
-            this.RibbonBarStudent.Size = new System.Drawing.Size(332, 95);
+            this.RibbonBarStudent.Size = new System.Drawing.Size(260, 95);
             this.RibbonBarStudent.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.RibbonBarStudent.TabIndex = 5;
             this.RibbonBarStudent.Text = "School Record Management";
@@ -379,14 +394,12 @@
             this.ribbonBarUserAccounts.DragDropSupport = true;
             this.ribbonBarUserAccounts.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnPayMasterList,
-            this.btnPayPositions,
-            this.btnPaySalarySchedule,
-            this.btnPayDeductions,
-            this.btnPayTax});
+            this.itemContainer4,
+            this.itemContainer5});
             this.ribbonBarUserAccounts.Location = new System.Drawing.Point(66, 0);
             this.ribbonBarUserAccounts.Name = "ribbonBarUserAccounts";
             this.ribbonBarUserAccounts.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("ribbonBarUserAccounts.OverflowButtonImage")));
-            this.ribbonBarUserAccounts.Size = new System.Drawing.Size(330, 95);
+            this.ribbonBarUserAccounts.Size = new System.Drawing.Size(270, 95);
             this.ribbonBarUserAccounts.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBarUserAccounts.TabIndex = 6;
             this.ribbonBarUserAccounts.Text = "Payroll";
@@ -408,40 +421,66 @@
             this.btnPayMasterList.SubItemsExpandWidth = 14;
             this.btnPayMasterList.Text = "Payroll MasterList";
             // 
-            // btnPayPositions
+            // itemContainer4
             // 
-            this.btnPayPositions.BeginGroup = true;
-            this.btnPayPositions.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayPositions.Image = global::Winform.Properties.Resources.Front_Desk_40px;
-            this.btnPayPositions.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnPayPositions.Name = "btnPayPositions";
-            this.btnPayPositions.SubItemsExpandWidth = 14;
-            this.btnPayPositions.Text = "Payroll Positions";
+            // 
+            // 
+            // 
+            this.itemContainer4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemContainer4.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
+            this.itemContainer4.Name = "itemContainer4";
+            this.itemContainer4.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnPaySalarySchedule,
+            this.btnPayPositions});
+            // 
+            // 
+            // 
+            this.itemContainer4.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // btnPaySalarySchedule
             // 
             this.btnPaySalarySchedule.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPaySalarySchedule.Image = global::Winform.Properties.Resources.Community_Grants_40px;
-            this.btnPaySalarySchedule.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPaySalarySchedule.Image = global::Winform.Properties.Resources.Community_Grants_24px;
             this.btnPaySalarySchedule.Name = "btnPaySalarySchedule";
             this.btnPaySalarySchedule.SubItemsExpandWidth = 14;
-            this.btnPaySalarySchedule.Text = "Salary Schedule";
+            this.btnPaySalarySchedule.Text = "Salary Table";
+            // 
+            // btnPayPositions
+            // 
+            this.btnPayPositions.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnPayPositions.Image = global::Winform.Properties.Resources.Front_Desk_24px;
+            this.btnPayPositions.Name = "btnPayPositions";
+            this.btnPayPositions.SubItemsExpandWidth = 14;
+            this.btnPayPositions.Text = "Positions";
+            // 
+            // itemContainer5
+            // 
+            // 
+            // 
+            // 
+            this.itemContainer5.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.itemContainer5.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
+            this.itemContainer5.Name = "itemContainer5";
+            this.itemContainer5.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnPayDeductions,
+            this.btnPayTax});
+            // 
+            // 
+            // 
+            this.itemContainer5.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // btnPayDeductions
             // 
-            this.btnPayDeductions.BeginGroup = true;
             this.btnPayDeductions.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayDeductions.Image = global::Winform.Properties.Resources.Tax_40px;
-            this.btnPayDeductions.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayDeductions.Image = global::Winform.Properties.Resources.Tax_24px;
             this.btnPayDeductions.Name = "btnPayDeductions";
             this.btnPayDeductions.SubItemsExpandWidth = 14;
-            this.btnPayDeductions.Text = "Payroll Deductions";
+            this.btnPayDeductions.Text = "Deductions";
             // 
             // btnPayTax
             // 
             this.btnPayTax.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnPayTax.Image = global::Winform.Properties.Resources.Customs_Officer_40px;
-            this.btnPayTax.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnPayTax.Image = global::Winform.Properties.Resources.Customs_Officer_24px;
             this.btnPayTax.Name = "btnPayTax";
             this.btnPayTax.SubItemsExpandWidth = 14;
             this.btnPayTax.Text = "Tax Table";
@@ -539,7 +578,7 @@
             this.superTabControl1.ReorderTabsEnabled = false;
             this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Segoe UI", 9.75F);
             this.superTabControl1.SelectedTabIndex = 7;
-            this.superTabControl1.Size = new System.Drawing.Size(1059, 574);
+            this.superTabControl1.Size = new System.Drawing.Size(1059, 569);
             this.superTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Left;
             this.superTabControl1.TabFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.superTabControl1.TabHorizontalSpacing = 16;
@@ -560,7 +599,7 @@
             this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel3.Location = new System.Drawing.Point(236, 0);
             this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(823, 574);
+            this.superTabControlPanel3.Size = new System.Drawing.Size(823, 569);
             this.superTabControlPanel3.TabIndex = 3;
             this.superTabControlPanel3.TabItem = this.superTabItem3;
             // 
@@ -579,7 +618,7 @@
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel2.Location = new System.Drawing.Point(236, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(823, 574);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(823, 569);
             this.superTabControlPanel2.TabIndex = 2;
             this.superTabControlPanel2.TabItem = this.superTabItem2;
             // 
@@ -714,11 +753,10 @@
             this.lblStatus,
             this.lblServer,
             this.lblVersion});
-            this.StatusBar.Location = new System.Drawing.Point(5, 546);
+            this.StatusBar.Location = new System.Drawing.Point(5, 537);
             this.StatusBar.Name = "StatusBar";
-            this.StatusBar.Size = new System.Drawing.Size(1051, 22);
+            this.StatusBar.Size = new System.Drawing.Size(1051, 23);
             this.StatusBar.TabIndex = 18;
-            this.StatusBar.Text = "metroStatusBar1";
             // 
             // lblStatus
             // 
@@ -745,6 +783,20 @@
             this.lblVersion.Text = "Version: 00.00.000";
             this.lblVersion.TextAlignment = System.Drawing.StringAlignment.Far;
             this.lblVersion.Width = 100;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.closeAllToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(121, 26);
+            // 
+            // closeAllToolStripMenuItem
+            // 
+            this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
+            this.closeAllToolStripMenuItem.Text = "Close All";
+            this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.closeAllToolStripMenuItem_Click);
             // 
             // mdiTab
             // 
@@ -781,20 +833,6 @@
             this.mdiTab.Text = "tabStrip1";
             this.mdiTab.ThemeAware = true;
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.closeAllToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(121, 26);
-            // 
-            // closeAllToolStripMenuItem
-            // 
-            this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
-            this.closeAllToolStripMenuItem.Text = "Close All";
-            this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.closeAllToolStripMenuItem_Click);
-            // 
             // tabItem1
             // 
             this.tabItem1.Name = "tabItem1";
@@ -810,11 +848,17 @@
             this.tabItem3.Name = "tabItem3";
             this.tabItem3.Text = "tabItem3";
             // 
+            // styleManager1
+            // 
+            this.styleManager1.ManagerColorTint = System.Drawing.Color.White;
+            this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.VisualStudio2012Light;
+            this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(115)))), ((int)(((byte)(199))))));
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1061, 570);
+            this.ClientSize = new System.Drawing.Size(1061, 562);
             this.Controls.Add(this.superTabControl1);
             this.Controls.Add(this.mdiTab);
             this.Controls.Add(this.StatusBar);
@@ -837,6 +881,7 @@
             this.superTabControl1.ResumeLayout(false);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -891,5 +936,9 @@
         private DevComponents.DotNetBar.ButtonItem btnPayDeductions;
         private DevComponents.DotNetBar.ButtonItem btnPayTax;
         private DevComponents.DotNetBar.ButtonItem btnPaySalarySchedule;
+        private DevComponents.DotNetBar.ItemContainer itemContainer4;
+        private DevComponents.DotNetBar.ItemContainer itemContainer5;
+        private DevComponents.DotNetBar.ButtonItem btnSms;
+        private DevComponents.DotNetBar.StyleManager styleManager1;
     }
 }

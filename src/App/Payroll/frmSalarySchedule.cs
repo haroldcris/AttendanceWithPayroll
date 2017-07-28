@@ -15,44 +15,31 @@ using AiTech.Entities;
 
 namespace Winform.Payroll
 {
-    public partial class frmSalarySchedule : MDIClientForm
+    public partial class frmSalarySchedule : MDIClientFormWithCRUDButtons<SalarySchedule, SalaryScheduleCollection>
     {
-        private SalaryScheduleCollection ItemDataCollection = new SalaryScheduleCollection();
-
         public frmSalarySchedule()
         {
             InitializeComponent();
 
-            InitializeEventHandler();
-
             InitializeGrid();
-        }
 
-
-        private void InitializeEventHandler()
-        {
-            this.Shown += (s, e) => { RefreshData(); };
-
-            btnRefresh.Click += (s, e) => { RefreshData(); };
-            btnEdit.Click += (s, e) => { EditData(); };
-            btnAdd.Click += (s, e) => { NewData(); };
-            btnDelete.Click += (s, e) => { DeleteData(); };
-            SGrid.RowDoubleClick += (s, e) => { EditData(); };
+            this.Header = " PAYROLL SALARY SCHEDULE";
+            this.HeaderColor = System.Drawing.Color.LightSeaGreen;
         }
 
         public override bool FileSave()
         {
             return DoSave(() =>
             {
-                //var dataWriter = new DeductionDataWriter(My.App.CurrentUser.User.Username, ItemDataCollection);
-                //dataWriter.SaveChanges();
+                var dataWriter = new SalaryScheduleDataWriter(My.App.CurrentUser.User.Username, ItemDataCollection);
+                dataWriter.SaveChanges();
 
                 Show_Data();
             });
         }
 
 
-        private void InitializeGrid()
+        protected override void InitializeGrid()
         {
             SGrid.InitializeGrid();
 
@@ -61,156 +48,77 @@ namespace Winform.Payroll
 
             grid.GroupByRow.Visible = false;
 
-            col = grid.CreateColumn("Effectivity", "Effectivity", 100, Alignment.MiddleLeft);
+            col = grid.CreateColumn("Effectivity", "Effectivity", 180, Alignment.MiddleLeft);
             col.GroupBoxEffects = GroupBoxEffects.None;
 
             col = grid.CreateColumn("Remarks", "Remarks", 200, Alignment.MiddleLeft);
 
             grid.CreateRecordInfoColumns();
 
-            grid.SetSort(SGrid.PrimaryGrid.Columns["Effectivity"]);
+            grid.SetSort(SGrid.PrimaryGrid.Columns["Effectivity"], SortDirection.Descending);
         }
 
-        private void Form_Load(object sender, EventArgs e)
-        {
-            Console.WriteLine("Loading");
-            RefreshData();
-            Console.WriteLine("Exit RefreshData");
-        }
-
-        private void LoadItems()
+       
+        protected override void LoadItems()
         {
             ItemDataCollection.LoadItemsFromDb();
         }
 
-        private void RefreshData()
+
+        protected override void Show_DataOnRow(GridRow row, SalarySchedule item)
         {
-            DoRefresh(async () =>
-            {
-                progressBarX1.Visible = true;
-
-                var grid = SGrid.PrimaryGrid;
-                grid.Rows.Clear();
-
-                await Task.Factory.StartNew(() =>
-                {
-                    LoadItems();
-                });
-
-                progressBarX1.Visible = false;
-                Show_Data();
-            });
-        }
-
-        private void Show_Data()
-        {
-            var grid = SGrid.PrimaryGrid;
-            grid.Rows.Clear();
-
-            var counter = 0;
-            foreach (var item in ItemDataCollection.Items)
-            {
-                if (item.RowStatus == RecordStatus.DeletedRecord) continue;
-                counter++;
-
-                var row = grid.CreateNewRow(item);
-
-                Show_DataOnRow(row, item);
-            }
-        }
-
-
-
-        protected void Show_DataOnRow(GridRow row, SalarySchedule item)
-        {
-            row.Cells["Effectivity"].Value = item.Effectivity;
+            row.Cells["Effectivity"].Value = item.Effectivity.ToString("dd MMMM yyyy");
             row.Cells["Remarks"].Value = item.Remarks;
 
             GridHelper.ShowRecordInfo(row, item);
         }
 
 
-        private void NewData()
+
+        protected override SalarySchedule OnItemCreated()
         {
-            try
-            {
-                var newItem = new SalarySchedule();
+            Cursor.Current = Cursors.WaitCursor;
 
-                var frm = new frmSalarySchedule_Add(this);
-                frm.ItemData = newItem;
+            var newItem = new SalarySchedule();
 
-                if (frm.ShowDialog(this) != DialogResult.OK) return;
-                frm.Dispose();
+            var frm = new frmSalarySchedule_Add(this);
+            frm.ItemData = newItem;
 
-                ItemDataCollection.Add(newItem);
-                DirtyStatus.SetDirty();
-
-                var row = SGrid.PrimaryGrid.CreateNewRow(newItem);
-                Show_DataOnRow(row, newItem);
-                row.SetActive(true);
-                row.EnsureVisible();
-
-            }
-            catch (Exception ex)
-            {
-                My.Message.ShowError(ex, this);
-            }
-        }
-
-        private void EditData()
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-                var grid = SGrid.PrimaryGrid;
-                if (grid.ActiveRow == null) return;
-                var itemToEdit = (SalarySchedule)grid.ActiveRow.Tag;
-
-                var frm = new frmSalarySchedule_Add(this);
-                frm.ItemData = itemToEdit;
-
-                if (frm.ShowDialog(this) != DialogResult.OK) return;
-                frm.Dispose();
-
-                if (itemToEdit.Id != 0) itemToEdit.RowStatus = RecordStatus.ModifiedRecord;
-                DirtyStatus.SetDirty();
-                ((GridRow)grid.ActiveRow).RowDirty = true;
-                Show_DataOnRow((GridRow)grid.ActiveRow, itemToEdit);
-
-            }
-            catch (Exception ex)
-            {
-                My.Message.ShowError(ex, this);
-            }
-        }
-
-        private void DeleteData()
-        {
-            var grid = SGrid.PrimaryGrid;
-
-            if (grid.ActiveRow == null) return;
-
-            var item = (SalarySchedule)grid.ActiveRow.Tag;
-
-            var ret = My.Message.AskToDelete(item.Effectivity.ToString ());
-
-            if (ret != eTaskDialogResult.Yes) return;
-
-            ItemDataCollection.Remove(item);
-
-            grid.ActiveRow.IsDeleted = true;
-            grid.PurgeDeletedRows();
-
-            DirtyStatus.SetDirty();
+            if (frm.ShowDialog(this) != DialogResult.OK) return null;
+            frm.Dispose();
+            return newItem;
         }
 
 
-        internal bool ContainsData(string code, string rowId)
+        protected override SalarySchedule OnItemUpdated()
         {
-            //var foundItem = ItemDataCollection.Items.FirstOrDefault(x => x.Code == code &&
-            //                                                                 x.RowId != rowId);
-            //if (foundItem == null) return false;
+            Cursor.Current = Cursors.WaitCursor;
+
+            var itemToEdit = GetCurrentItemOnGrid();
+
+            var frm = new frmSalarySchedule_Add(this);
+            frm.ItemData = itemToEdit;
+
+            if (frm.ShowDialog(this) != DialogResult.OK) return null;
+            frm.Dispose();
+
+            return itemToEdit;
+        }
+
+        protected override string GetItemDeleteMessage()
+        {
+            var item = GetCurrentItemOnGrid();
+            if (item == null) return "";
+
+            return $"{item.Effectivity}";
+        }
+
+
+        internal bool ContainsData(DateTime effectivity, string rowId)
+        {
+            var foundItem = ItemDataCollection.Items.FirstOrDefault(x => x.Effectivity == effectivity &&
+                                                                             x.RowId != rowId);
+            if (foundItem == null) return false;
             return true;
         }
 

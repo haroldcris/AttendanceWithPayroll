@@ -19,7 +19,7 @@
     const string NameSpaceName          = @"Dll.Payroll";
 
 	const string TableToGenerate		= @"__";
-	const string ClassBaseName			= @"PositionSalaryGrade";
+	const string ClassBaseName			= @"SalaryGrade";
 
     const string ServerName             = @"localhost";
     const string DatabaseName           = @"amwp";

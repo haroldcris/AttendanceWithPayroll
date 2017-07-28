@@ -11,31 +11,18 @@ using Dll.Payroll;
 
 namespace Winform.Payroll
 {
-    public partial class frmPosition : MDIClientForm
+    public partial class frmPosition : MDIClientFormWithCRUDButtons<Position, PositionCollection>
     {
-        PositionCollection ItemDataCollection = new PositionCollection();
-
         public frmPosition()
         {
             InitializeComponent();
 
-            InitializeEventHandler();
-
             InitializeGrid();
-            
+
+            this.Header = " PAYROLL POSITION MANAGEMENT";
+            this.HeaderColor = System.Drawing.Color.RoyalBlue;
         }
-
-        private void InitializeEventHandler()
-        {
-            this.Shown += (s, e) => { RefreshData(); };
-
-            btnRefresh.Click += (s, e) => { RefreshData(); };
-            btnEdit.Click += (s, e) => { EditData(); };
-            btnAdd.Click += (s, e) => { NewData(); };
-            btnDelete.Click += (s, e) => { DeleteData(); };
-            SGrid.RowDoubleClick += (s, e) => { EditData(); };
-        }
-
+        
         public override bool FileSave()
         {
             return DoSave(() =>
@@ -47,8 +34,12 @@ namespace Winform.Payroll
             });
         }
 
+        protected override void LoadItems()
+        {
+            ItemDataCollection.LoadItemsFromDb();
+        }
 
-        private void InitializeGrid()
+        protected override void InitializeGrid()
         {
             SGrid.InitializeGrid();
 
@@ -64,57 +55,8 @@ namespace Winform.Payroll
             grid.SetSort(SGrid.PrimaryGrid.Columns["Code"]);
         }
 
-        private void Form_Load(object sender, EventArgs e)
-        {
-            Console.WriteLine("Loading");
-            RefreshData();
-            Console.WriteLine("Exit RefreshData");
-        }
-
-        private void LoadItems()
-        {
-            ItemDataCollection.LoadItemsFromDb();
-        }
-
-        private void RefreshData()
-        {
-            DoRefresh(async () =>
-            {
-                progressBarX1.Visible = true;
-
-                var grid = SGrid.PrimaryGrid;
-                grid.Rows.Clear();
-
-                await Task.Factory.StartNew(() =>
-                {
-                    LoadItems();
-                });
-
-                progressBarX1.Visible = false;
-                Show_Data();
-            });
-        }
-
-        private void Show_Data()
-        {
-            var grid = SGrid.PrimaryGrid;
-            grid.Rows.Clear();
-
-            var counter = 0;
-            foreach (var item in ItemDataCollection.Items)
-            {
-                if (item.RowStatus == RecordStatus.DeletedRecord) continue;
-                counter++;
-
-                var row = grid.CreateNewRow(item);
-
-                Show_DataOnRow(row, item);
-            }
-        }
-
-
-
-        protected void Show_DataOnRow(GridRow row, Position item)
+       
+        protected override void Show_DataOnRow(GridRow row, Position item)
         {
             row.Cells["Code"].Value = item.Code;
             row.Cells["Description"].Value = item.Description;
@@ -122,82 +64,46 @@ namespace Winform.Payroll
             GridHelper.ShowRecordInfo(row, item);
         }
 
-
-        private void NewData()
+        protected override Position OnItemCreated()
         {
-            try
-            {
-                var newItem = new Position();
-                var frm = new frmPosition_Add(this);
-                frm.ItemData = newItem;
+            Cursor.Current = Cursors.WaitCursor;
 
-                if (frm.ShowDialog(this) != DialogResult.OK) return;
-                frm.Dispose();
+            var newItem = new Position();
+            var frm = new frmPosition_Add(this);
+            frm.ItemData = newItem;
 
-                ItemDataCollection.Add(newItem);
-                DirtyStatus.SetDirty();
+            if (frm.ShowDialog(this) != DialogResult.OK) return null;
+            frm.Dispose();
 
-                var row = SGrid.PrimaryGrid.CreateNewRow(newItem);
-                Show_DataOnRow(row, newItem);
-                row.SetActive(true);
-                row.EnsureVisible();
-
-            }
-            catch (Exception ex)
-            {
-                My.Message.ShowError(ex, this);
-            }
+            return newItem;
         }
 
-        private void EditData()
+        protected override Position OnItemUpdated()
         {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
+            Cursor.Current = Cursors.WaitCursor;
 
-                var grid = SGrid.PrimaryGrid;
-                if (grid.ActiveRow == null) return;
-                var itemToEdit = (Position)grid.ActiveRow.Tag;
-
-                var frm = new frmPosition_Add(this);
-                frm.ItemData = itemToEdit;
-
-                if (frm.ShowDialog(this) != DialogResult.OK) return;
-                frm.Dispose();
-
-                if (itemToEdit.Id != 0) itemToEdit.RowStatus = RecordStatus.ModifiedRecord;
-                DirtyStatus.SetDirty();
-                ((GridRow)grid.ActiveRow).RowDirty = true;
-                Show_DataOnRow((GridRow)grid.ActiveRow, itemToEdit);
-
-            }
-            catch (Exception ex)
-            {
-                My.Message.ShowError(ex, this);
-            }
-        }
-
-        private void DeleteData()
-        {
             var grid = SGrid.PrimaryGrid;
+            if (grid.ActiveRow == null) return null;
+            var itemToEdit = (Position)grid.ActiveRow.Tag;
 
-            if (grid.ActiveRow == null) return;
+            var frm = new frmPosition_Add(this);
+            frm.ItemData = itemToEdit;
 
-            var item = (Position)grid.ActiveRow.Tag;
+            if (frm.ShowDialog(this) != DialogResult.OK) return null;
+            frm.Dispose();
 
-            var ret = My.Message.AskToDelete(item.Code);
-
-            if (ret != eTaskDialogResult.Yes) return;
-
-            ItemDataCollection.Remove(item);
-
-            grid.ActiveRow.IsDeleted = true;
-            grid.PurgeDeletedRows();
-
-            DirtyStatus.SetDirty();
+            return itemToEdit;
         }
 
-        
+
+        protected override string GetItemDeleteMessage()
+        {
+            var selectedItem = GetCurrentItemOnGrid();
+            if (selectedItem == null) return "";
+            return $"{selectedItem.Code} - {selectedItem.Description}";
+        }
+
+       
         internal bool ContainsData(string code, string rowId)
         {
             var foundItem = ItemDataCollection.Items.FirstOrDefault(x => x.Code == code &&

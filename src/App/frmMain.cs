@@ -13,7 +13,8 @@ namespace Winform
         {
             InitializeComponent();
 
-            
+
+            StatusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
 
             MainRibbonControl.MdiSystemItemVisible = false;
             MainRibbonControl.FadeEffect = true;
@@ -39,6 +40,7 @@ namespace Winform
 
             btnPaySalarySchedule.Click += (s, ev) => { OpenForm(new Payroll.frmSalarySchedule(), "Payroll Salary Schedule"); };
 
+            btnSms.Click += (s, e) => { var f = new SMS.frmSMS(); f.ShowDialog(); };
 
             #endregion
         }

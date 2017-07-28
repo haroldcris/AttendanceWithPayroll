@@ -19,11 +19,10 @@ namespace Dll.Payroll
 		public int SG { get; set; }
 
         public Position Position { get; set; }
-        public SalarySchedule SalarySchedule { get; set; }
-
 
         #endregion
 
+        public SalarySchedule SalarySchedule { get; set; }
 
         public override void StartTrackingChanges()
 		{

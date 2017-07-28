@@ -27,7 +27,7 @@ namespace Winform
 
             InitializeButtonEventHandler();
 
-            InitializeGrid();
+            //InitializeGrid();
             
         }
 
@@ -84,7 +84,7 @@ namespace Winform
             });
         }
 
-        protected virtual void Show_Data()
+        protected void Show_Data()
         {
             var grid = SGrid.PrimaryGrid;
             grid.Rows.Clear();
@@ -102,7 +102,7 @@ namespace Winform
         }
 
 
-        protected void Show_DataOnRow(GridRow row, T item)
+        protected virtual void Show_DataOnRow(GridRow row, T item)
         {
             //row.Cells["Code"].Value = item.Code;
             //row.Cells["Description"].Value = item.Description;
@@ -121,20 +121,16 @@ namespace Winform
 
         protected abstract T OnItemCreated();
         protected abstract T OnItemUpdated();
+        protected abstract string GetItemDeleteMessage();
 
         protected virtual void NewData()
         {
             try
             {
-                //var newItem = new Deduction();
-                //newItem.Active = true;
-
-                //var frm = new frmDeduction_Add(this);
-                //frm.ItemData = newItem;
-
-                //if (frm.ShowDialog(this) != DialogResult.OK) return;
-                //frm.Dispose();
+                
                 var newItem = OnItemCreated();
+
+                if (newItem == null) return;
 
                 ItemDataCollection.Add(newItem);
                 DirtyStatus.SetDirty();
@@ -149,6 +145,14 @@ namespace Winform
             {
                 My.Message.ShowError(ex, this);
             }
+        }
+
+
+        protected T GetCurrentItemOnGrid()
+        {
+            var grid = SGrid.PrimaryGrid;
+            if (grid.ActiveRow == null) return null;
+            return (T)grid.ActiveRow.Tag;
         }
 
         private void EditData()
@@ -167,10 +171,14 @@ namespace Winform
                 //if (frm.ShowDialog(this) != DialogResult.OK) return;
                 //frm.Dispose();
 
-                //if (itemToEdit.Id != 0) itemToEdit.RowStatus = RecordStatus.ModifiedRecord;
-                //DirtyStatus.SetDirty();
-                //((GridRow)grid.ActiveRow).RowDirty = true;
-                //Show_DataOnRow((GridRow)grid.ActiveRow, itemToEdit);
+                var itemToEdit = OnItemUpdated();
+                if (itemToEdit == null) return;
+
+                if (itemToEdit.Id != 0) itemToEdit.RowStatus = RecordStatus.ModifiedRecord;
+                DirtyStatus.SetDirty();
+                ((GridRow)SGrid.PrimaryGrid.ActiveRow).RowDirty = true;
+
+                Show_DataOnRow((GridRow)SGrid.PrimaryGrid.ActiveRow, itemToEdit);
 
             }
             catch (Exception ex)
@@ -187,7 +195,7 @@ namespace Winform
 
             var item = (T)grid.ActiveRow.Tag;
 
-            var ret = My.Message.AskToDelete(item.ToString());
+            var ret = My.Message.AskToDelete(GetItemDeleteMessage());
 
             if (ret != eTaskDialogResult.Yes) return;
 

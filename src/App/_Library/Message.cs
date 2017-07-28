@@ -153,7 +153,7 @@ namespace My
         /// <param name="errorMessage"></param>
         /// <param name="errorProvider"></param>
         /// <param name="highlighter"></param>
-        public static void ShowValidationError(Control control, string errorMessage, ErrorProvider errorProvider = null, Highlighter highlighter = null, int topMargin = 5)
+        public static void ShowValidationError(Control control, string errorMessage, ErrorProvider errorProvider = null, Highlighter highlighter = null, int topMargin = 5, bool focusControl = true)
         {
             ToastNotification.DefaultToastGlowColor = eToastGlowColor.Red;
             ToastNotification.ToastMargin.Top = topMargin;
@@ -170,7 +170,8 @@ namespace My
                 highlighter.SetHighlightColor(control, eHighlightColor.Red);
             }
 
-            control.Focus();
+
+            if (focusControl)  control.Focus();
         }
     }
 }

@@ -15,30 +15,23 @@ using AiTech.Entities;
 
 namespace Winform.Payroll
 {
-    public partial class frmDeduction : MDIClientForm
+    public partial class frmDeduction : MDIClientFormWithCRUDButtons<Deduction, DeductionCollection>
     {
-        DeductionCollection ItemDataCollection = new DeductionCollection();
-
         public frmDeduction()
         {
             InitializeComponent();
 
-            InitializeEventHandler();
-
             InitializeGrid();
+
+            this.Header = " PAYROLL DEDUCTIONS MANAGEMENT";
+            this.HeaderColor = System.Drawing.Color.Crimson;
         }
 
-
-        private void InitializeEventHandler()
+        protected override void LoadItems()
         {
-            this.Shown += (s, e) => { RefreshData(); };
-
-            btnRefresh.Click += (s, e) => { RefreshData(); };
-            btnEdit.Click += (s, e) => { EditData(); };
-            btnAdd.Click += (s, e) => { NewData(); };
-            btnDelete.Click += (s, e) => { DeleteData(); };
-            SGrid.RowDoubleClick += (s, e) => { EditData(); };
+            ItemDataCollection.LoadItemsFromDb();
         }
+
 
         public override bool FileSave()
         {
@@ -51,12 +44,12 @@ namespace Winform.Payroll
             });
         }
 
-
-        private void InitializeGrid()
+        protected override void InitializeGrid()
         {
             SGrid.InitializeGrid();
 
             var grid = SGrid.PrimaryGrid;
+
             var col = new GridColumn();
 
             col = grid.CreateColumn("Code", "Code", 80, Alignment.MiddleCenter);
@@ -79,57 +72,8 @@ namespace Winform.Payroll
             grid.SetSort(SGrid.PrimaryGrid.Columns["Code"]);
         }
 
-        private void Form_Load(object sender, EventArgs e)
-        {
-            Console.WriteLine("Loading");
-            RefreshData();
-            Console.WriteLine("Exit RefreshData");
-        }
 
-        private void LoadItems()
-        {
-            ItemDataCollection.LoadItemsFromDb();
-        }
-
-        private void RefreshData()
-        {
-            DoRefresh(async () =>
-            {
-                progressBarX1.Visible = true;
-
-                var grid = SGrid.PrimaryGrid;
-                grid.Rows.Clear();
-
-                await Task.Factory.StartNew(() =>
-                {
-                    LoadItems();
-                });
-
-                progressBarX1.Visible = false;
-                Show_Data();
-            });
-        }
-
-        private void Show_Data()
-        {
-            var grid = SGrid.PrimaryGrid;
-            grid.Rows.Clear();
-
-            var counter = 0;
-            foreach (var item in ItemDataCollection.Items)
-            {
-                if (item.RowStatus == RecordStatus.DeletedRecord) continue;
-                counter++;
-
-                var row = grid.CreateNewRow (item);
-
-                Show_DataOnRow(row, item);
-            }
-        }
-
-
-
-        protected void Show_DataOnRow(GridRow row, Deduction item)
+        protected override void Show_DataOnRow(GridRow row, Deduction item)
         {
             row.Cells["Code"].Value = item.Code;
             row.Cells["Description"].Value = item.Description;
@@ -143,85 +87,9 @@ namespace Winform.Payroll
             else
                 row.CellStyles.Default = new CellVisualStyle() { Background = new Background(System.Drawing.Color.LightGray) };
 
-            GridHelper.ShowRecordInfo(row, item);
+            base.Show_DataOnRow(row, item);
         }
-
-
-        //private void NewData()
-        //{
-        //    try
-        //    {
-        //        var newItem = new Deduction();
-        //        newItem.Active = true;
-
-        //        var frm = new frmDeduction_Add(this);
-        //        frm.ItemData = newItem;
-
-        //        if (frm.ShowDialog(this) != DialogResult.OK) return;
-        //        frm.Dispose();
-
-        //        ItemDataCollection.Add(newItem);
-        //        DirtyStatus.SetDirty();
-
-        //        var row = SGrid.PrimaryGrid.CreateNewRow(newItem);
-        //        Show_DataOnRow(row, newItem);
-        //        row.SetActive(true);
-        //        row.EnsureVisible();
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        My.Message.ShowError(ex, this);
-        //    }
-        //}
-
-        //private void EditData()
-        //{
-        //    try
-        //    {
-        //        Cursor.Current = Cursors.WaitCursor;
-
-        //        var grid = SGrid.PrimaryGrid;
-        //        if (grid.ActiveRow == null) return;
-        //        var itemToEdit = (Deduction)grid.ActiveRow.Tag;
-
-        //        var frm = new frmDeduction_Add(this);
-        //        frm.ItemData = itemToEdit;
-
-        //        if (frm.ShowDialog(this) != DialogResult.OK) return;
-        //        frm.Dispose();
-
-        //        if (itemToEdit.Id != 0) itemToEdit.RowStatus = RecordStatus.ModifiedRecord;
-        //        DirtyStatus.SetDirty();
-        //        ((GridRow)grid.ActiveRow).RowDirty = true;
-        //        Show_DataOnRow((GridRow)grid.ActiveRow, itemToEdit);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        My.Message.ShowError(ex, this);
-        //    }
-        //}
-
-        //private void DeleteData()
-        //{
-        //    var grid = SGrid.PrimaryGrid;
-
-        //    if (grid.ActiveRow == null) return;
-
-        //    var item = (Deduction)grid.ActiveRow.Tag;
-
-        //    var ret = My.Message.AskToDelete(item.Code);
-
-        //    if (ret != eTaskDialogResult.Yes) return;
-
-        //    ItemDataCollection.Remove(item);
-
-        //    grid.ActiveRow.IsDeleted = true;
-        //    grid.PurgeDeletedRows();
-
-        //    DirtyStatus.SetDirty();
-        //}
+       
 
 
         internal bool ContainsData(string code, string rowId)
@@ -233,5 +101,44 @@ namespace Winform.Payroll
         }
 
 
+        protected override Deduction OnItemCreated()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            var newItem = new Deduction();
+            newItem.Active = true;
+
+            var frm = new frmDeduction_Add(this);
+            frm.ItemData = newItem;
+
+            if (frm.ShowDialog(this) != DialogResult.OK) return null;
+            frm.Dispose();
+            return newItem;
+        }
+
+        protected override Deduction OnItemUpdated()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            var itemToEdit = this.GetCurrentItemOnGrid();
+
+            if (itemToEdit == null) return null;
+
+            var frm = new frmDeduction_Add(this);
+            frm.ItemData = itemToEdit;
+
+            if (frm.ShowDialog(this) != DialogResult.OK) return null;
+            frm.Dispose();
+
+            return itemToEdit;
+
+        }
+
+        protected override string GetItemDeleteMessage()
+        {
+            var selectedItem = GetCurrentItemOnGrid();
+            if (selectedItem == null) return "";
+            return selectedItem.Code + " - " + selectedItem.Description;
+        }
     }
 }

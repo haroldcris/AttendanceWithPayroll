@@ -128,6 +128,7 @@ WHERE t.object_id = @TableId";
         { "datetime","DateTime" },
         { "datetime2","DateTime" },
         { "smalldatetime","DateTime" },
+		{ "date","DateTime" },
         { "int","int" },
         { "smallint","short" },
 		{ "tinyint","int" },

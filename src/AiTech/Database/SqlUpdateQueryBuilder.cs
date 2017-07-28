@@ -23,7 +23,7 @@ namespace AiTech.Database
             Console.WriteLine(changes.Count);
             if (changes.Count() != 0)
             {
-                query.AppendLine(@"DECLARE @output table ( Id int, Created DateTime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); ");
+                query.AppendLine(@"DECLARE @output table ( Modified DateTime, ModifiedBy nvarchar(20)); ");
 
                 query.AppendLine("UPDATE [" + _Entity.TableName + "] SET ");
 
@@ -37,7 +37,7 @@ namespace AiTech.Database
                 //Add the modified
                 query.AppendLine(" , Modified = GetDate(), ");
                 query.AppendLine(" ModifiedBy = @ModifiedBy ");
-                query.AppendLine(" OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output ");
+                query.AppendLine(" OUTPUT inserted.Modified, inserted.ModifiedBy into @output ");
                 query.AppendLine($" WHERE {_Entity.PrimaryKey} = @Id");
 
                 query.AppendLine($" Select * from @output ");

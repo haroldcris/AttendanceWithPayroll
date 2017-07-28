@@ -35,6 +35,9 @@
             this.gridColumn4 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridRow1 = new DevComponents.DotNetBar.SuperGrid.GridRow();
             this.gridCell1 = new DevComponents.DotNetBar.SuperGrid.GridCell();
+            this.gridCell2 = new DevComponents.DotNetBar.SuperGrid.GridCell();
+            this.gridCell3 = new DevComponents.DotNetBar.SuperGrid.GridCell();
+            this.gridCell4 = new DevComponents.DotNetBar.SuperGrid.GridCell();
             this.gridRow2 = new DevComponents.DotNetBar.SuperGrid.GridRow();
             this.gridRow3 = new DevComponents.DotNetBar.SuperGrid.GridRow();
             this.ribbonBarMergeContainer1 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
@@ -45,9 +48,6 @@
             this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
             this.btnRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.progressBarX1 = new DevComponents.DotNetBar.Controls.ProgressBarX();
-            this.gridCell2 = new DevComponents.DotNetBar.SuperGrid.GridCell();
-            this.gridCell3 = new DevComponents.DotNetBar.SuperGrid.GridCell();
-            this.gridCell4 = new DevComponents.DotNetBar.SuperGrid.GridCell();
             this.ribbonBarMergeContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -242,7 +242,7 @@
             this.progressBarX1.Text = "Loading Data...";
             this.progressBarX1.TextVisible = true;
             // 
-            // frmDeduction
+            // MDIClientFormWithCRUDButtons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -253,7 +253,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Header = " PAYROLL DEDUCTIONS";
             this.HeaderColor = System.Drawing.Color.Crimson;
-            this.Name = "frmDeduction";
+            this.Name = "MDIClientFormWithCRUDButtons";
             this.ShowIcon = false;
             this.Text = "Form";
             this.Load += new System.EventHandler(this.Form_Load);
@@ -266,8 +266,6 @@
         }
 
         #endregion
-
-        private DevComponents.DotNetBar.SuperGrid.SuperGridControl SGrid;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn1;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn2;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn3;
@@ -287,5 +285,6 @@
         private DevComponents.DotNetBar.SuperGrid.GridCell gridCell2;
         private DevComponents.DotNetBar.SuperGrid.GridCell gridCell3;
         private DevComponents.DotNetBar.SuperGrid.GridCell gridCell4;
+        protected DevComponents.DotNetBar.SuperGrid.SuperGridControl SGrid;
     }
 }

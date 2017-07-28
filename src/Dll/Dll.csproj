@@ -57,10 +57,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contacts\Enums\GenderType.cs" />
-    <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGrade.cs" />
-    <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGradeCollection.cs" />
+    <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGradeDataWriter.cs" />
+    <Compile Include="Payroll\SalarySchedule\SalaryScheduleDataWriter.cs" />
+    <Compile Include="Payroll\SalarySchedule\SG\SalaryGrade.cs" />
+    <Compile Include="Payroll\SalarySchedule\SG\SalaryGradeCollection.cs" />
     <Compile Include="Payroll\SalarySchedule\SalarySchedule.cs" />
     <Compile Include="Payroll\SalarySchedule\SalaryScheduleCollection.cs" />
+    <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGrade.cs" />
+    <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGradeCollection.cs" />
+    <Compile Include="Payroll\SalarySchedule\SG\SalaryGradeDataWriter.cs" />
     <Compile Include="Payroll\Tax\TaxDataWriter.cs" />
     <Compile Include="Payroll\Tax\Tax.cs" />
     <Compile Include="Payroll\Tax\TaxCollection.cs" />
@@ -88,6 +93,9 @@
     <Compile Include="SchoolYear\Batch\BatchCollection.cs" />
     <Compile Include="SchoolYear\Batch\BatchDataWriter.cs" />
     <Compile Include="SchoolYear\Course\CourseDataWriter.cs" />
+    <Compile Include="SMS\SmsSender.cs" />
+    <Compile Include="SMS\ShortMessage.cs" />
+    <Compile Include="SMS\ShortMessageCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AiTech\AiTech.csproj">

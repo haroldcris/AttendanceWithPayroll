@@ -67,8 +67,5 @@ namespace AiTech.Database
             item.ModifiedBy = reader["ModifiedBy"].ToString();
         }
 
-
-
-
     }
 }
