@@ -11,9 +11,10 @@ namespace Winform
         public frmLogin()
         {
             InitializeComponent();
-            this.Text = "ATWPS";
+            this.Text = "Megabyte College";
 
-            lblStatus.Text = "Version : " + My.App.CurrentVersion();
+            lblStatus.Text = "";
+            //lblStatus.Text = "Version : " + My.App.CurrentVersion();
         }
 
 
@@ -45,6 +46,7 @@ namespace Winform
         {
             try
             {
+
                 lblError.Text = @"<b>Connecting to Server.</b><br/>Please Wait...";
                 OnConnectingProcess(true);
 

@@ -147,7 +147,7 @@ namespace Dll.Employee
         protected override string CreateSqlInsertQuery()
         {
             return @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
-						  INSERT INTO [Employees] ([PersonId],[CurrentPosition],[CreatedBy],[ModifiedBy]) 
+						  INSERT INTO [Employee] ([PersonId],[CurrentPosition],[CreatedBy],[ModifiedBy]) 
 							 OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
 						  VALUES (@PersonId,@CurrentPosition,@CreatedBy,@ModifiedBy)
 						  SELECT * from @output";

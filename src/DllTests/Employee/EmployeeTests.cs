@@ -34,16 +34,16 @@ namespace Dll.Employee.Tests
         [TestMethod()]
         public void AddEmployeeToDb()
         {
-            var emp = CreateEmployee();
+            //var emp = CreateEmployee();
 
-            var writer = new EmployeeDataWriter("username", emp);
+            //var writer = new EmployeeDataWriter("username", emp);
 
-            var result = writer.SaveChanges();
+            //var result = writer.SaveChanges();
 
-            Debug.WriteLine("Getting ID Number of Employee");
-            Debug.WriteLine(emp.Id);
+            //Debug.WriteLine("Getting ID Number of Employee");
+            //Debug.WriteLine(emp.Id);
 
-            Assert.AreEqual(true, result);
+            //Assert.AreEqual(true, result);
         }
 
 
@@ -77,21 +77,21 @@ namespace Dll.Employee.Tests
         [TestMethod()]
         public void CheckingForUpdateSql()
         {
-            var emp = CreateEmployee();
-            emp.StartTrackingChanges();
+            //var emp = CreateEmployee();
+            //emp.StartTrackingChanges();
 
-            emp.PersonInfo.Name.Firstname = "First8889";
-            emp.PersonInfo.Gender = Contacts.Enums.GenderType.Female;
-            emp.PersonInfo.BirthDate = new DateTime(1980, 2, 1);
+            //emp.PersonInfo.Name.Firstname = "First8889";
+            //emp.PersonInfo.Gender = Contacts.Enums.GenderType.Female;
+            //emp.PersonInfo.BirthDate = new DateTime(1980, 2, 1);
 
-            //var builder = new AiTech.Database.SqlUpdateQueryBuilder(emp);
-            //var query = builder.GetQueryString();
+            ////var builder = new AiTech.Database.SqlUpdateQueryBuilder(emp);
+            ////var query = builder.GetQueryString();
 
-            var writer = new EmployeeDataWriter("user1", emp);
+            //var writer = new EmployeeDataWriter("user1", emp);
 
-            var result = writer.SaveChanges();
+            //var result = writer.SaveChanges();
 
-            Assert.AreEqual(true, result);
+            //Assert.AreEqual(true, result);
 
         }
     }

@@ -19,7 +19,7 @@
     const string NameSpaceName          = @"Dll.Payroll";
 
 	const string TableToGenerate		= @"__";
-	const string ClassBaseName			= @"SalaryGrade";
+	const string ClassBaseName			= @"Transaction";
 
     const string ServerName             = @"localhost";
     const string DatabaseName           = @"amwp";
@@ -27,8 +27,6 @@
     // Where the files go. E.g.: "Models" or "Models/SubModels"
     // THIS PATH MUST EXIST
     const string TargetPath             = @"Tables"; 
-
-
 
 
     // By default Windows Auth is used.

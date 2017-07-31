@@ -203,14 +203,30 @@ namespace Dll.SMS
                 #region Execute Command
                 // Check connection
                 ExecCommand(port,"AT", 300, "No phone connected");
+                
                 // Use message format "Text mode"
                 ExecCommand(port,"AT+CMGF=1", 300, "Failed to set message format.");
+
                 // Use character set "PCCP437"
-                ExecCommand(port,"AT+CSCS=\"PCCP437\"", 300, "Failed to set character set.");
+                ExecCommand(port, "AT+CSCS=\"PCCP437\"", 300, "Failed to set character set.");
+
                 // Select SIM storage
                 ExecCommand(port,"AT+CPMS=\"SM\"", 300, "Failed to select message storage.");
+
                 // Read the messages
                 string input = ExecCommand(port, p_strCommand, 5000, "Failed to read the messages.");
+
+                #endregion
+
+                
+                #region Execute PDU Command
+                ExecCommand(port, "AT", 300, "No phone connected");
+                ExecCommand(port, "AT+CMGF=0", 300, "Failed to set message format.");  //PDU Format
+                var result = ExecCommand(port, "AT+CSCS=\"GSM\"", 300, "Failed to set character set.");
+                ExecCommand(port, "AT+CPMS=\"SM\"", 300, "Failed to select message storage.");
+
+                 input = ExecCommand(port, "AT+CMGL=4", 5000, "Failed to read the messages.");
+
                 #endregion
 
                 #region Parse messages
@@ -229,6 +245,9 @@ namespace Dll.SMS
                 return null;
         
         }
+
+
+
         public ShortMessageCollection ParseMessages(string input)
         {
             ShortMessageCollection messages = new ShortMessageCollection();
@@ -272,17 +291,17 @@ namespace Dll.SMS
             try
             {
                 
-                string recievedData = ExecCommand(port,"AT", 300, "No phone connected");
-                recievedData = ExecCommand(port,"AT+CMGF=1", 300, "Failed to set message format.");
+                string receivedData = ExecCommand(port,"AT", 300, "No phone connected");
+                receivedData = ExecCommand(port,"AT+CMGF=1", 300, "Failed to set message format.");
                 String command = "AT+CMGS=\"" + PhoneNo + "\"";
-                recievedData = ExecCommand(port,command, 300, "Failed to accept phoneNo");         
+                receivedData = ExecCommand(port,command, 300, "Failed to accept phoneNo");         
                 command = Message + char.ConvertFromUtf32(26) + "\r";
-                recievedData = ExecCommand(port,command, 3000, "Failed to send message"); //3 seconds
-                if (recievedData.EndsWith("\r\nOK\r\n"))
+                receivedData = ExecCommand(port,command, 3000, "Failed to send message"); //3 seconds
+                if (receivedData.EndsWith("\r\nOK\r\n"))
                 {
                     isSend = true;
                 }
-                else if (recievedData.Contains("ERROR"))
+                else if (receivedData.Contains("ERROR"))
                 {
                     isSend = false;
                 }
@@ -294,6 +313,8 @@ namespace Dll.SMS
             }
           
         }     
+
+
         static void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             try

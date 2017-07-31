@@ -187,6 +187,7 @@
             this.tabControl1.Tabs.Add(this.tabItem1);
             this.tabControl1.Tabs.Add(this.tabInbox);
             this.tabControl1.ThemeAware = true;
+            this.tabControl1.Visible = false;
             // 
             // tabControlPanel2
             // 
@@ -197,7 +198,7 @@
             this.tabControlPanel2.Name = "tabControlPanel2";
             this.tabControlPanel2.Padding = new System.Windows.Forms.Padding(5);
             this.tabControlPanel2.Size = new System.Drawing.Size(457, 292);
-            this.tabControlPanel2.Style.BackColor1.Color = System.Drawing.Color.White;
+            this.tabControlPanel2.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.tabControlPanel2.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
             this.tabControlPanel2.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tabControlPanel2.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 
@@ -223,6 +224,7 @@
             this.tabInbox.AttachedControl = this.tabControlPanel2;
             this.tabInbox.Name = "tabInbox";
             this.tabInbox.Text = "Inbox";
+            this.tabInbox.Visible = false;
             // 
             // tabControlPanel1
             // 
@@ -237,7 +239,7 @@
             this.tabControlPanel1.Name = "tabControlPanel1";
             this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(1);
             this.tabControlPanel1.Size = new System.Drawing.Size(457, 292);
-            this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.White;
+            this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
             this.tabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(211)))), ((int)(((byte)(211)))));
             this.tabControlPanel1.Style.BorderSide = ((DevComponents.DotNetBar.eBorderSide)(((DevComponents.DotNetBar.eBorderSide.Left | DevComponents.DotNetBar.eBorderSide.Right) 

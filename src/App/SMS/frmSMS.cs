@@ -17,13 +17,12 @@ namespace Winform.SMS
 {
     public partial class frmSMS : FormWithHeader
     {
-        private SerialPort Port;
+        private SerialPort Port = null;
         private SmsSender MySms = new SmsSender();
 
         public frmSMS()
         {
             InitializeComponent();
-
 
             //this.Load += (s, e) => { ShowData(); };
             //this.ConvertEnterKeyToTab();
@@ -38,7 +37,11 @@ namespace Winform.SMS
             }
             #endregion
 
-            btnConnect.Click += (s, e) => { Connect(); };
+            this.FormClosed += (s, e) => { Disconnect();  };
+
+            btnConnect.Click += (s, e) => { OnButtonConnectionClick(); };
+          
+
             btnSend.Click += (s, e) => { SendSMS(); };
 
             tabInbox.Click += (s, e) => { CheckInbox(); };
@@ -53,6 +56,32 @@ namespace Winform.SMS
             col = grid.CreateColumn("Message", "Message", 200);
         }
 
+        private void OnButtonConnectionClick()
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (string.IsNullOrEmpty(cboPort.Text))
+            {
+                My.Message.ShowValidationError(cboPort, "Select Port First");
+                return;
+            }
+
+            if (Port == null)
+            {
+                Connect();
+                btnConnect.Text = " Disconnect ";
+
+            } else
+            {
+                Disconnect();
+                btnConnect.Text = " Connect ";
+                
+                Port = null;
+            }
+
+            tabControl1.Visible = Port != null;
+
+        }
         private void CheckInbox()
         {
             try
@@ -109,12 +138,35 @@ namespace Winform.SMS
 
         private void Connect()
         {
-            Port = MySms.OpenPort(cboPort.Text);
+            try
+            {
+                Port = MySms.OpenPort(cboPort.Text);
 
-            lblStatus.Text = "Ready";
-            lblConnected.Text = "Connected";
+                lblStatus.Text = "Ready";
+                lblConnected.Text = "Connected";
 
-            status.Refresh();
+                status.Refresh();
+            }
+            catch (Exception ex)
+            {
+                My.Message.ShowError(ex, this);
+            }
+        }
+
+        private void Disconnect()
+        {
+            try
+            {
+                
+                if (Port == null) return;
+
+                if (Port.IsOpen)
+                    MySms.ClosePort(Port);
+            }
+            catch (Exception ex)
+            {
+                My.Message.ShowError(ex, this);
+            }
         }
     }
 }
