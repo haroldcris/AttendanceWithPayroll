@@ -1,99 +1,19 @@
-﻿using AiTech.Database;
-using AiTech.Entities;
-using System;
+﻿using AiTech.LiteOrm.Database;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace Dll.SchoolYear
 {
-    public class BatchDataWriter: AiTech.Database.SqlMainDataWriter<Batch, BatchCollection>
+    public class BatchDataWriter : SqlMainDataWriter<Batch, BatchCollection>
     {
         public BatchDataWriter(string username, Batch item) : base(username, item) { }
         public BatchDataWriter(string username, BatchCollection items) : base(username, items) { }
 
         public override bool SaveChanges()
         {
-            var affectedRecords = 0;
-
-            SqlTransaction trn;
-            using (var db = Connection.CreateConnection())
-            {
-                try
-                {
-                    db.Open();
-                    trn = db.BeginTransaction();
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException("Can not establish connection to server", ex);
-                }
-
-
-                try
-                {
-                    // Delete All Marked Items
-                    var deletedItems = _List.Items.Where(_ => _.RowStatus == RecordStatus.DeletedRecord);
-                    if (deletedItems.Count() != 0)
-                        if (DatabaseAction.ExecuteDeleteQuery<Batch>(DataWriterUsername, deletedItems, db, trn))
-                            affectedRecords += deletedItems.Count();
-
-
-                    SqlCommand cmd;
-                    foreach (var item in _List.Items)
-                    {
-                        switch (item.Id)
-                        {
-                            case 0:  // New RECORD
-                                item.RowStatus = RecordStatus.NewRecord;
-
-                                var insertQuery = CreateSqlInsertQuery();
-                                cmd = new SqlCommand(insertQuery, db, trn);
-
-                                CreateSqlInsertCommandParameters(cmd, item);
-
-                                if (ExecuteCommand(cmd, item, item.BatchName))
-                                    affectedRecords++;
-                                break;
-
-
-                            default: // UPDATE
-
-                                if (item.RowStatus == RecordStatus.DeletedRecord) continue;
-
-                                var updateQuery = CreateSqlUpdateQuery(item);
-                                cmd = new SqlCommand(updateQuery, db, trn);
-
-                                CreateSqlUpdateCommandParameters(cmd, item);
-
-                                if (ExecuteCommand(cmd, item, item.BatchName))
-                                    affectedRecords++;
-
-
-                                break;
-                        }
-                        //
-                        // Save SubClass Here;
-                        //                               							
-
-                    }
-
-                    trn.Commit();
-
-                    CommitChanges();
-                    return affectedRecords > 0;
-                }
-                catch
-                {
-                    trn.Rollback();
-                    RollbackChanges();
-                    throw;
-                }
-            }
+            return Write(_ => _.BatchName);
         }
 
-
-      
 
         protected override void CreateSqlInsertCommandParameters(SqlCommand cmd, Batch item)
         {
@@ -121,17 +41,5 @@ namespace Dll.SchoolYear
 						  SELECT * from @output";
         }
 
-
-        protected override void CommitChanges()
-        {
-            _List.CommitChanges();
-
-        }
-
-
-        protected override void RollbackChanges()
-        {
-            _List.RollBackChanges();
-        }
     }
 }

@@ -1,40 +1,31 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Data;
-using System.Linq;
-
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Controls;
+﻿using AiTech.LiteOrm;
 using DevComponents.DotNetBar.SuperGrid;
-using DevComponents.DotNetBar.SuperGrid.Style;
 using System;
 using System.Threading.Tasks;
-
-using Dll.Payroll;
-using AiTech.Entities;
+using System.Windows.Forms;
 
 namespace Winform
 {
-    public abstract partial class MDIClientFormWithCRUDButtons <T, TCol>: MDIClientForm
-        where T: Entity
+    public abstract partial class MdiClientFormWithCrudButtons<T, TCol> : MdiClientForm
+        where T : Entity
         where TCol : EntityCollection<T>, new()
     {
         protected TCol ItemDataCollection = new TCol();
 
-        public MDIClientFormWithCRUDButtons()
+        protected MdiClientFormWithCrudButtons()
         {
             InitializeComponent();
 
             InitializeButtonEventHandler();
 
             //InitializeGrid();
-            
+
         }
 
 
         protected void InitializeButtonEventHandler()
         {
-            this.Shown += (s, e) => { RefreshData(); };
+            Shown += (s, e) => { RefreshData(); };
 
             btnRefresh.Click += (s, e) => { RefreshData(); };
             btnEdit.Click += (s, e) => { EditData(); };
@@ -50,7 +41,17 @@ namespace Winform
             SGrid.InitializeGrid();
 
             var grid = SGrid.PrimaryGrid;
-                grid.CreateRecordInfoColumns();
+
+
+            grid.CreateRecordInfoColumns();
+
+            grid.Filter.Visible = true;
+            grid.EnableFiltering = true;
+
+            grid.EnableColumnFiltering = true;
+
+            grid.FilterMatchType = FilterMatchType.RegularExpressions;
+
         }
 
         private void Form_Load(object sender, EventArgs e)
@@ -74,10 +75,7 @@ namespace Winform
                 var grid = SGrid.PrimaryGrid;
                 grid.Rows.Clear();
 
-                await Task.Factory.StartNew(() =>
-                {
-                    LoadItems();
-                });
+                await Task.Factory.StartNew(LoadItems);
 
                 progressBarX1.Visible = false;
                 Show_Data();
@@ -95,7 +93,7 @@ namespace Winform
                 if (item.RowStatus == RecordStatus.DeletedRecord) continue;
                 counter++;
 
-                var row = grid.CreateNewRow (item);
+                var row = grid.CreateNewRow();
 
                 Show_DataOnRow(row, item);
             }
@@ -116,7 +114,7 @@ namespace Winform
             //else
             //    row.CellStyles.Default = new CellVisualStyle() { Background = new Background(System.Drawing.Color.LightGray) };
 
-            GridHelper.ShowRecordInfo(row, item);
+            row.ShowRecordInfo(item);
         }
 
         protected abstract T OnItemCreated();
@@ -127,7 +125,7 @@ namespace Winform
         {
             try
             {
-                
+
                 var newItem = OnItemCreated();
 
                 if (newItem == null) return;
@@ -135,7 +133,7 @@ namespace Winform
                 ItemDataCollection.Add(newItem);
                 DirtyStatus.SetDirty();
 
-                var row = SGrid.PrimaryGrid.CreateNewRow(newItem);
+                var row = SGrid.PrimaryGrid.CreateNewRow();
                 Show_DataOnRow(row, newItem);
                 row.SetActive(true);
                 row.EnsureVisible();
@@ -143,7 +141,7 @@ namespace Winform
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
         }
 
@@ -183,7 +181,7 @@ namespace Winform
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
         }
 
@@ -195,9 +193,9 @@ namespace Winform
 
             var item = (T)grid.ActiveRow.Tag;
 
-            var ret = My.Message.AskToDelete(GetItemDeleteMessage());
+            var ret = App.Message.AskToDelete(GetItemDeleteMessage());
 
-            if (ret != eTaskDialogResult.Yes) return;
+            if (ret != MessageDialogResult.Yes) return;
 
             ItemDataCollection.Remove(item);
 

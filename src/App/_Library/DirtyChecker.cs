@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
 
 /// <summary>
@@ -11,10 +8,11 @@ using System.Windows.Forms;
 /// </summary>
 public class DirtyChecker
 {
-    private ISave _form;
+    private readonly ISave _form;
     private bool _IsDirty;
+    private Color _defaultColor;
 
-    private Winform.frmMain MainMDIForm;
+    private readonly Winform.frmMain MainMDIForm;
 
     public bool IsDirty
     {
@@ -36,8 +34,8 @@ public class DirtyChecker
     {
         foreach (Control c in coll)
         {
-            if (c is TextBox  ||
-                c is ComboBox ) 
+            if (c is TextBox ||
+                c is ComboBox)
                 c.TextChanged += Control_TextChanged;
 
             if (c is DateTimePicker)
@@ -110,13 +108,17 @@ public class DirtyChecker
         if (leavingFocus)
         {
             //Clear Error
-            statusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
+            //statusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
             MainMDIForm.cmdSave.Enabled = false;
             MainMDIForm.lblStatus.Text = "Ready";
             statusBar.Refresh();
             return;
         }
 
+        if (statusBar.BackgroundStyle.BackColor != Color.Red)
+        {
+            _defaultColor = statusBar.BackgroundStyle.BackColor;
+        }
 
         if (_IsDirty)
         {
@@ -126,9 +128,10 @@ public class DirtyChecker
         }
         else
         {
+
             //Clear Error
             //statusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
-            statusBar.BackgroundStyle.BackColor = new System.Drawing.Color();
+            statusBar.BackgroundStyle.BackColor = _defaultColor;
             //statusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBorder;
             MainMDIForm.lblStatus.Text = "Ready";
         }

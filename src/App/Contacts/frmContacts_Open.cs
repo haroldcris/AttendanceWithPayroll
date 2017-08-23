@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Winform.Contacts
 {
-    
+
     public partial class frmContacts_Open : DevComponents.DotNetBar.Metro.MetroForm
     {
         public Dll.Contacts.Person MyContact { get; set; }
@@ -22,9 +15,9 @@ namespace Winform.Contacts
             InitializeGrid();
 
 
-            this.KeyPreview = true;
+            KeyPreview = true;
 
-            this.KeyDown += Form_KeyDown;
+            KeyDown += Form_KeyDown;
 
             cboSearchType.Items.Clear();
             cboSearchType.Items.Add("Contains");
@@ -58,7 +51,7 @@ namespace Winform.Contacts
 
         private void Form_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.F3)
+            if (e.KeyCode == Keys.F3)
                 txtSearch.Focus();
 
 
@@ -90,7 +83,7 @@ namespace Winform.Contacts
             //    return;
             //}
 
-            //MyContact = item;
+            //ItemData = item;
 
             //DialogResult = DialogResult.OK;
         }
@@ -101,14 +94,14 @@ namespace Winform.Contacts
 
             if (string.IsNullOrEmpty(txtSearch.Text))
             {
-                My.Message.ShowValidationError(txtSearch, "Enter item to search");
+                App.Message.ShowValidationError(txtSearch, "Enter item to search");
                 return;
             }
 
 
             if (cboSearchType.SelectedIndex == -1)
             {
-                My.Message.ShowValidationError(cboSearchType, "Select Type of Search");
+                App.Message.ShowValidationError(cboSearchType, "Select Type of Search");
                 return;
             }
 
@@ -146,6 +139,6 @@ namespace Winform.Contacts
 
         }
 
-        
+
     }
 }

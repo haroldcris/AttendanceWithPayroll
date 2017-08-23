@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using DevComponents.DotNetBar;
-using System.Linq;
-using System.Drawing;
 using Dll.SchoolYear;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform
-{    
-    public partial class frmBatch : MDIClientForm
-    {        
+{
+    public partial class frmBatch : MdiClientForm
+    {
         BatchCollection BatchItems = new BatchCollection();
 
         public frmBatch()
@@ -30,7 +29,7 @@ namespace Winform
             BatchItems.LoadItemsFromDb();
             FlexGridHelper.DisplayItemsToGrid(flexGrid, BatchItems.Items, DisplayItemOnCurrentRowExt);
         }
-              
+
         private void DisplayItemOnCurrentRowExt()
         {
             var grid = flexGrid;
@@ -41,9 +40,9 @@ namespace Winform
             grid[row, grid.Cols["semester"].Index] = item.Semester;
         }
 
-       
 
-        private void btnAdd_Click (object sender, EventArgs e)
+
+        private void btnAdd_Click(object sender, EventArgs e)
         {
             var newItem = new Batch();
             var frm = new frmBatch_Add(this);
@@ -82,9 +81,9 @@ namespace Winform
 
         public override bool FileSave()
         {
-            return DoSave(() => 
+            return DoSave(() =>
             {
-                var dataWriter = new BatchDataWriter(My.App.CurrentUser.User.Username, BatchItems);
+                var dataWriter = new BatchDataWriter(App.CurrentUser.User.Username, BatchItems);
 
                 var result = dataWriter.SaveChanges();
 
@@ -103,8 +102,8 @@ namespace Winform
         internal bool ContainsData(Batch item)
         {
 
-            var foundItem = BatchItems.Items.FirstOrDefault(x => x.BatchName == item.BatchName && 
-                                                                             x.Semester == item.Semester  &&
+            var foundItem = BatchItems.Items.FirstOrDefault(x => x.BatchName == item.BatchName &&
+                                                                             x.Semester == item.Semester &&
                                                                              x.RowId != item.RowId);
             if (foundItem == null) return false;
             //if (foundItem.Id == item.Id && foundItem.Id != 0) return false;
@@ -114,19 +113,19 @@ namespace Winform
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            DoRefresh(LoadItems);            
+            DoRefresh(LoadItems);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (flexGrid.Rows.Count == 1) return;
 
-            var item = (Batch) flexGrid.GetUserData(flexGrid.Row, 0);
+            var item = (Batch)flexGrid.GetUserData(flexGrid.Row, 0);
 
             if (item == null) return;
 
-            var result = My.Message.AskToDelete();
-            if (result == eTaskDialogResult.Yes)
+            var result = App.Message.AskToDelete();
+            if (result == MessageDialogResult.Yes)
             {
                 BatchItems.Remove(item);
                 DirtyStatus.SetDirty();
@@ -134,6 +133,6 @@ namespace Winform
                 flexGrid.RemoveItem(flexGrid.Row);
             }
         }
-       
+
     }
 }

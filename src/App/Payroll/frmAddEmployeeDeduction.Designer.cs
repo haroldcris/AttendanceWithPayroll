@@ -68,7 +68,7 @@
             // 
             this.HeaderPicture.Image = global::Winform.Properties.Resources.Tax_40px;
             this.HeaderPicture.Location = new System.Drawing.Point(10, 3);
-            this.HeaderPicture.Size = new System.Drawing.Size(59, 55);
+            this.HeaderPicture.Size = new System.Drawing.Size(59, 48);
             // 
             // groupBox4
             // 

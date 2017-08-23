@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 public static partial class Helper
 {
-    internal static Winform.frmMain MainForm { get; set; }
 
     internal static void ClearErrorDisplay(Control control, ErrorProvider errorProvider = null, Highlighter highlighter = null)
     {
@@ -56,7 +55,7 @@ public static partial class Helper
         //input if it's matched.
         e.Handled = !matched;
     }
- 
+
 
 
 

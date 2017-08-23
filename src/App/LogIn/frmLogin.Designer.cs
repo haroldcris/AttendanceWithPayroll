@@ -1,6 +1,6 @@
 ﻿namespace Winform
 {
-    partial class frmLogin
+    sealed partial class frmLogin
     {
         /// <summary>
         /// Required designer variable.

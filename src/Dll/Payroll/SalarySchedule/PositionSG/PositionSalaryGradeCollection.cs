@@ -1,97 +1,103 @@
-using System.Linq;
+using AiTech.LiteOrm;
+using AiTech.LiteOrm.Database;
 using Dapper;
-using AiTech.Database;
-using AiTech.Entities;
+using System;
 
 namespace Dll.Payroll
 {
-	public class PositionSalaryGradeCollection : EntityChildCollection<PositionSalaryGrade, SalarySchedule>
-	{
-		public bool LoadItemsFromDb()
-		{
-			this.ItemCollection.Clear();
-			
-			using (var db = Connection.CreateConnection())
-			{
-				db.Open();
-                var sql = @"Select IsNull(psg.Id,0) Id, p.Id PositionId, p.Code, p.Description, isnull(SG,0) SG from
-	                        Payroll_Position p left join  
-	                        (SELECT * FROM [Payroll_PositionSG] where SalaryScheduleId = @ParentId ) psg
-	                        on p.Id = psg.PositionId";
-                          
+    public class PositionSalaryGradeCollection : EntityCollection<PositionSalaryGrade>
+    {
+        public Func<int> OnSalarySchedIdRequest;
 
-                dynamic items = db.Query<dynamic>(sql, new { ParentId = Parent.Id });
-                
-				foreach (var row in items)
-				{
-                    var item = new PositionSalaryGrade();
+        public bool LoadItemsFromDb()
+        {
+            const string query = @"Select IsNull(psg.Id,0) Id, p.Id PositionId, p.Code, p.Description, isnull(SG,0) SG from
+                            Payroll_Position p left join  
+                            (SELECT * FROM [Payroll_PositionSG] where SalaryScheduleId = @SchedId ) psg
+                            on p.Id = psg.PositionId";
 
-                    item.Id = row.Id;
-                    item.PositionId = row.PositionId;
-                    item.Position = new Position()
+
+            ItemCollection.Clear();
+
+
+            if (OnSalarySchedIdRequest == null) throw new Exception("OnSalarySchedIdRequest Handler NOT set");
+
+            var salarySchedId = OnSalarySchedIdRequest();
+
+            using (var db = Connection.CreateConnection())
+            {
+                db.Open();
+
+                dynamic items = db.Query<dynamic>(query, new { SchedId = salarySchedId });
+
+                foreach (var row in items)
+                {
+                    var item = new PositionSalaryGrade
                     {
-                        Id = row.PositionId,
-                        Code = row.Code,
-                        Description = row.Description
+                        Id = row.Id,
+
+                        PositionId = row.PositionId,
+                        PositionCode = row.Code,
+                        PositionDescription = row.Description,
+
+                        SG = row.SG,
+
+                        SalaryScheduleId = salarySchedId,
+
+                        RowStatus = row.Id == 0 ? RecordStatus.NewRecord : RecordStatus.NoChanges
                     };
 
-                    item.SG = row.SG;
 
-                    item.SalaryScheduleId = Parent.Id;
-                    item.SalarySchedule = Parent;
+                    item.StartTrackingChanges();
 
-					item.RowStatus = row.Id == 0 ? RecordStatus.NewRecord : RecordStatus.NoChanges;
-					item.StartTrackingChanges();
-
-					this.ItemCollection.Add(item);
-				}
-			}
-
-            HasReadFromDb = true;
-			return true;
-		}
-
-
-        public void LoadDefaultItems()
-        {
-            this.ItemCollection.Clear();
-            try
-            {
-                using (var db = Connection.CreateConnection())
-                {
-                    db.Open();
-                    var sql = @"Select  p.Id PositionId, p.Code, p.Description, 0 SG from Payroll_Position p";
-
-                    dynamic items;
-                    items = db.Query<dynamic>(sql);
-
-
-                    foreach (var row in items)
-                    {
-                        var item = new PositionSalaryGrade();
-
-                        item.PositionId = row.PositionId;
-                        item.Position = new Position()
-                        {
-                            Id = row.PositionId,
-                            Code = row.Code,
-                            Description = row.Description
-                        };
-
-                        item.SG = row.SG;
-
-                        item.SalaryScheduleId = Parent.Id;
-                        item.SalarySchedule = Parent;
-
-                        item.RowStatus = RecordStatus.NewRecord;
-                        item.StartTrackingChanges();
-
-                        this.ItemCollection.Add(item);
-                    }
+                    ItemCollection.Add(item);
                 }
-            } catch { throw; }
+            }
+
+            //HasReadFromDb = true;
+            return true;
         }
 
-	}
-	
+
+        //public void LoadDefaultItems()
+        //{
+        //    const string query = @"Select  p.Id PositionId, p.Code, p.Description, 0 SG from Payroll_Position p";
+
+
+        //    ItemCollection.Clear();
+
+
+        //    using (var db = Connection.CreateConnection())
+        //    {
+        //        db.Open();
+
+        //        dynamic items = db.Query<dynamic>(query);
+
+        //        foreach (var row in items)
+        //        {
+        //            var item = new PositionSalaryGrade
+        //            {
+        //                Id = row.Id,
+
+        //                PositionId = row.PositionId,
+        //                PositionCode = row.Code,
+        //                PositionDescription = row.Description,
+
+        //                SG = row.SG,
+
+        //                SalaryScheduleId = salarySchedId,
+
+        //                RowStatus = RecordStatus.NewRecord
+        //            };
+
+
+        //            item.StartTrackingChanges();
+
+        //            ItemCollection.Add(item);
+        //        }
+        //    }
+        //}
+
+    }
+
 }

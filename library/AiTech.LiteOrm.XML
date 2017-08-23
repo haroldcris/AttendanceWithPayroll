@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AiTech.LiteOrm</name>
+    </assembly>
+    <members>
+        <member name="M:AiTech.LiteOrm.Database.DataWriter`2.CreateSqlUpdateQuery(`0)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.LiteOrm.Database.DataWriter`2.Write(System.Linq.Expressions.Expression{System.Func{`0,System.String}},System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            Write changes to the database
+            </summary>
+            <param name="ErrorDescription"></param>
+            <param name="db"></param>
+            <param name="trn"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AiTech.LiteOrm.Database.SqlDataWriter`2">
+            <summary>
+            Class responsible for writing data to database
+            </summary>
+            <typeparam name="TEntity"></typeparam>
+            <typeparam name="TCol"></typeparam>
+        </member>
+        <member name="M:AiTech.LiteOrm.Database.SqlDataWriter`2.#ctor(System.String,`0)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="username"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:AiTech.LiteOrm.Database.SqlDataWriter`2.#ctor(System.String,`1)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="username"></param>
+            <param name="items"></param>
+        </member>
+        <member name="M:AiTech.LiteOrm.Database.SqlDataWriter`2.SaveChanges(System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            Save Data specifying connection and transaction
+            </summary>
+            <param name="db"></param>
+            <param name="trn"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.LiteOrm.Database.Search.Search.SearchData``1(System.String,System.String,AiTech.LiteOrm.Database.Search.SearchStyleEnum)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="searchString"></param>
+            <param name="query">Must have @Criteria string</param>
+            <param name="searchStyle"></param>
+            <returns></returns>
+        </member>
+        <member name="F:AiTech.LiteOrm.Entity.TableName">
+            <summary>
+            Name of Table on Database
+            </summary>
+        </member>
+        <member name="M:AiTech.LiteOrm.Entity.GetTableName">
+            <summary>
+            Get The Table Name from Entity Attribute
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AiTech.LiteOrm.EntityCollection`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TEntityName">Name of the Entity inside Collection</typeparam>
+        </member>
+        <member name="M:AiTech.LiteOrm.EntityCollection`1.LoadItemsWith(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            Load items to collection setting each item rowstatus = NoChanges and StartTrackingChanges
+            </summary>
+            <param name="items"></param>
+        </member>
+        <member name="P:AiTech.LiteOrm.EntityCollection`1.HasReadFromDb">
+            <summary>
+            Switch to check if previously loaded from Database
+            </summary>
+        </member>
+    </members>
+</doc>

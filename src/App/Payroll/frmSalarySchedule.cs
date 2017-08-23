@@ -1,21 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Data;
-using System.Linq;
-
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Controls;
-using DevComponents.DotNetBar.SuperGrid;
+﻿using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
-using System;
-using System.Threading.Tasks;
-
 using Dll.Payroll;
-using AiTech.Entities;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
-    public partial class frmSalarySchedule : MDIClientFormWithCRUDButtons<SalarySchedule, SalaryScheduleCollection>
+    public partial class frmSalarySchedule : MdiClientFormWithCrudButtons<SalarySchedule, SalaryScheduleCollection>
     {
         public frmSalarySchedule()
         {
@@ -23,15 +15,15 @@ namespace Winform.Payroll
 
             InitializeGrid();
 
-            this.Header = " PAYROLL SALARY SCHEDULE";
-            this.HeaderColor = System.Drawing.Color.LightSeaGreen;
+            Header = " PAYROLL SALARY SCHEDULE";
+            HeaderColor = System.Drawing.Color.LightSeaGreen;
         }
 
         public override bool FileSave()
         {
             return DoSave(() =>
             {
-                var dataWriter = new SalaryScheduleDataWriter(My.App.CurrentUser.User.Username, ItemDataCollection);
+                var dataWriter = new SalaryScheduleDataWriter(App.CurrentUser.User.Username, ItemDataCollection);
                 dataWriter.SaveChanges();
 
                 Show_Data();
@@ -58,7 +50,7 @@ namespace Winform.Payroll
             grid.SetSort(SGrid.PrimaryGrid.Columns["Effectivity"], SortDirection.Descending);
         }
 
-       
+
         protected override void LoadItems()
         {
             ItemDataCollection.LoadItemsFromDb();
@@ -70,7 +62,7 @@ namespace Winform.Payroll
             row.Cells["Effectivity"].Value = item.Effectivity.ToString("dd MMMM yyyy");
             row.Cells["Remarks"].Value = item.Remarks;
 
-            GridHelper.ShowRecordInfo(row, item);
+            row.ShowRecordInfo(item);
         }
 
 

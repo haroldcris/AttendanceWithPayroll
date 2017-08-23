@@ -1,23 +1,23 @@
-using System.Linq;
+using AiTech.LiteOrm;
+using AiTech.LiteOrm.Database;
 using Dapper;
-using AiTech.Database;
-using AiTech.Entities;
+using System.Linq;
 
 namespace Dll.SchoolYear
 {
-	public class CourseCollection : EntityCollection<Course>
-	{
+    public class CourseCollection : EntityCollection<Course>
+    {
         public bool LoadItemsFromDb()
         {
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                var sql = @"Select * from Course";
-                var items = db.Query<Course>(sql).OrderBy(o => o.CourseCode);
-                LoadItems(items);
+                var items = db.Query<Course>(@"Select * from Course").OrderBy(o => o.CourseCode);
+
+                LoadItemsWith(items);
             }
             return true;
         }
     }
-	
+
 }

@@ -68,12 +68,6 @@
     <Compile Include="TransactionDataWriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AiTech\AiTech.csproj">
-      <Project>{0408e3a9-88ed-4b29-9e51-0f526be0c2ce}</Project>
-      <Name>AiTech</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

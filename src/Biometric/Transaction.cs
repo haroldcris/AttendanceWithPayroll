@@ -41,16 +41,16 @@ namespace AiTech.Biometric
 		{
 			OriginalValues = new Dictionary<string, object>();
 			
-			OriginalValues.Add("AutoID", this.AutoID);
-			OriginalValues.Add("CalendarDate", this.CalendarDate);
-			OriginalValues.Add("BiometricId", this.BiometricId);
-			OriginalValues.Add("TimeLog", this.TimeLog);
-			OriginalValues.Add("Station", this.Station);
-			OriginalValues.Add("IPAddress", this.IPAddress);
-			OriginalValues.Add("InOut", this.InOut);
-			OriginalValues.Add("EntryType", this.EntryType);
-			OriginalValues.Add("AutoInOut", this.AutoInOut);
-			OriginalValues.Add("SmsDate", this.SmsDate);
+			OriginalValues.Add("AutoID", AutoID);
+			OriginalValues.Add("CalendarDate", CalendarDate);
+			OriginalValues.Add("BiometricId", BiometricId);
+			OriginalValues.Add("TimeLog", TimeLog);
+			OriginalValues.Add("Station", Station);
+			OriginalValues.Add("IPAddress", IPAddress);
+			OriginalValues.Add("InOut", InOut);
+			OriginalValues.Add("EntryType", EntryType);
+			OriginalValues.Add("AutoInOut", AutoInOut);
+			OriginalValues.Add("SmsDate", SmsDate);
 		}
 		
 		
@@ -58,16 +58,16 @@ namespace AiTech.Biometric
 		{
 			var changes = new Dictionary<string, object>();
 			
-			if (!Equals(this.AutoID, OriginalValues["AutoID"])) changes.Add("AutoID", this.AutoID);
-			if (!Equals(this.CalendarDate, OriginalValues["CalendarDate"])) changes.Add("CalendarDate", this.CalendarDate);
-			if (!Equals(this.BiometricId, OriginalValues["BiometricId"])) changes.Add("BiometricId", this.BiometricId);
-			if (!Equals(this.TimeLog, OriginalValues["TimeLog"])) changes.Add("TimeLog", this.TimeLog);
-			if (!Equals(this.Station, OriginalValues["Station"])) changes.Add("Station", this.Station);
-			if (!Equals(this.IPAddress, OriginalValues["IPAddress"])) changes.Add("IPAddress", this.IPAddress);
-			if (!Equals(this.InOut, OriginalValues["InOut"])) changes.Add("InOut", this.InOut);
-			if (!Equals(this.EntryType, OriginalValues["EntryType"])) changes.Add("EntryType", this.EntryType);
-			if (!Equals(this.AutoInOut, OriginalValues["AutoInOut"])) changes.Add("AutoInOut", this.AutoInOut);
-			if (!Equals(this.SmsDate, OriginalValues["SmsDate"])) changes.Add("SmsDate", this.SmsDate);
+			if (!Equals(AutoID, OriginalValues["AutoID"])) changes.Add("AutoID", AutoID);
+			if (!Equals(CalendarDate, OriginalValues["CalendarDate"])) changes.Add("CalendarDate", CalendarDate);
+			if (!Equals(BiometricId, OriginalValues["BiometricId"])) changes.Add("BiometricId", BiometricId);
+			if (!Equals(TimeLog, OriginalValues["TimeLog"])) changes.Add("TimeLog", TimeLog);
+			if (!Equals(Station, OriginalValues["Station"])) changes.Add("Station", Station);
+			if (!Equals(IPAddress, OriginalValues["IPAddress"])) changes.Add("IPAddress", IPAddress);
+			if (!Equals(InOut, OriginalValues["InOut"])) changes.Add("InOut", InOut);
+			if (!Equals(EntryType, OriginalValues["EntryType"])) changes.Add("EntryType", EntryType);
+			if (!Equals(AutoInOut, OriginalValues["AutoInOut"])) changes.Add("AutoInOut", AutoInOut);
+			if (!Equals(SmsDate, OriginalValues["SmsDate"])) changes.Add("SmsDate", SmsDate);
 			
 			return changes;
 		}

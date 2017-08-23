@@ -1,6 +1,6 @@
 namespace Winform
 {
-    partial class MDIClientForm
+    partial class MdiClientForm
     {
         /// <summary>
         /// Required designer variable.
@@ -57,12 +57,12 @@ namespace Winform
             this.lblHeader.Text = "_";
             this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // MDIClientForm
+            // MdiClientForm
             // 
             this.ClientSize = new System.Drawing.Size(703, 440);
             this.Controls.Add(this.PanelHead);
             this.DoubleBuffered = true;
-            this.Name = "MDIClientForm";
+            this.Name = "MdiClientForm";
             this.Text = "MDIClientForm";
             this.Activated += new System.EventHandler(this.Form_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_Closing);

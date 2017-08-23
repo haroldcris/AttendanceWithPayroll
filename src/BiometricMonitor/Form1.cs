@@ -32,7 +32,7 @@ namespace BiometricMonitor
             // Add all port names to the combo box:
             foreach (string port in ports)
             {
-                this.cboPort.Items.Add(port);
+                cboPort.Items.Add(port);
             }
             #endregion
 
@@ -96,7 +96,7 @@ namespace BiometricMonitor
         private void MyDevice_Connected(object sender, EventArgs e)
         {
 
-            this.Invoke((MethodInvoker)delegate
+            Invoke((MethodInvoker)delegate
             {
                 btnConnect.Text = "Disconnect";
                 txtStatus.AppendText("Connected To Device\n");

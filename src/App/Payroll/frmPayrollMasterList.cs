@@ -1,17 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using DevComponents.DotNetBar;
-using System.Linq;
-using System.Drawing;
-using Dll.SchoolYear;
-using DevComponents.DotNetBar.SuperGrid.Style;
 using DevComponents.DotNetBar.SuperGrid;
+using DevComponents.DotNetBar.SuperGrid.Style;
+using Dll.SchoolYear;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Payroll
-{    
-    public partial class frmMasterFile : MDIClientForm
-    {        
+{
+    public partial class frmMasterFile : MdiClientForm
+    {
         BatchCollection BatchItems = new BatchCollection();
 
         public frmMasterFile()
@@ -28,13 +25,13 @@ namespace Winform.Payroll
 
             SGrid.CreateColumn("Empnum", "Employee No.", 100, Alignment.MiddleCenter);
 
-            
+
             SGrid.CreateColumn("Name", "Name", 300, Alignment.MiddleLeft);
             SGrid.CreateColumn("Gender", "Gender", 80, Alignment.MiddleCenter);
 
             SGrid.CreateColumn("Position", "Position", 120, Alignment.MiddleLeft);
             SGrid.CreateColumn("Department", "Department", 100, Alignment.MiddleLeft);
-            
+
             SGrid.CreateColumn("Exemption", "Tax Exemption", 120, Alignment.MiddleLeft);
 
             SGrid.CreateColumn("CreatedBy", "Created By", 90, Alignment.MiddleLeft);
@@ -62,8 +59,8 @@ namespace Winform.Payroll
             Cursor.Current = Cursors.WaitCursor;
             //BatchItems.LoadItemsFromDb();
         }
-              
-        
+
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
             //if (flexGrid.Rows.Count < 2) return;
@@ -86,7 +83,7 @@ namespace Winform.Payroll
 
         public override bool FileSave()
         {
-            return DoSave(() => 
+            return DoSave(() =>
             {
                 //var dataWriter = new BatchDataWriter(My.App.CurrentUser.User.Username, BatchItems);
 
@@ -113,7 +110,7 @@ namespace Winform.Payroll
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            DoRefresh(LoadItems);            
+            DoRefresh(LoadItems);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -147,9 +144,9 @@ namespace Winform.Payroll
 
             if (result == DialogResult.OK)
             {
-            //    BatchItems.Add(newItem);
-             //   DirtyStatus.SetDirty();
-             //   FlexGridHelper.DoGridInsert(flexGrid, newItem, DisplayItemOnCurrentRowExt);
+                //    BatchItems.Add(newItem);
+                //   DirtyStatus.SetDirty();
+                //   FlexGridHelper.DoGridInsert(flexGrid, newItem, DisplayItemOnCurrentRowExt);
             }
         }
     }

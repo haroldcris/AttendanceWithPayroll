@@ -1,30 +1,27 @@
+using DevComponents.DotNetBar;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
 
 namespace Winform
 {
-    public partial class MDIClientForm : Form, ISave, IMDIForm //DevComponents.DotNetBar.OfficeForm, ISave, IMDIForm
+    public partial class MdiClientForm : Form, ISave, IMDIForm //DevComponents.DotNetBar.OfficeForm, ISave, IMDIForm
     {
         string _title;
-        public string Title { get { return _title; } set { _title = value; this.Text = value; } }
+        public string Title { get { return _title; } set { _title = value; Text = value; } }
 
         public string Header { get { return lblHeader.Text; } set { lblHeader.Text = value; } }
 
         public Color HeaderColor { get { return PanelHead.BackColor; } set { PanelHead.BackColor = value; } }
 
-        public Color HeaderTextColor { get { return lblHeader.ForeColor;  } set { lblHeader.ForeColor = value; } }
+        public Color HeaderTextColor { get { return lblHeader.ForeColor; } set { lblHeader.ForeColor = value; } }
 
         public DirtyChecker DirtyStatus { get; private set; }
-        public MDIClientForm()
+        public MdiClientForm()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
         }
 
         public virtual bool FileSave() { return false; }
@@ -32,7 +29,7 @@ namespace Winform
         private void Form_Load(object sender, EventArgs e)
         {
             DirtyStatus = new DirtyChecker(this);
-            this.WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
         }
         private void Form_Activated(object sender, EventArgs e)
         {
@@ -46,7 +43,7 @@ namespace Winform
         }
 
 
-        private  void Form_Closing(object sender, FormClosingEventArgs e)
+        private void Form_Closing(object sender, FormClosingEventArgs e)
         {
             switch (e.CloseReason)
             {
@@ -55,15 +52,15 @@ namespace Winform
                 case CloseReason.UserClosing:
 
                     if (!DirtyStatus.IsDirty) return;
-                    var result = My.Message.AskToSave();
+                    var result = App.Message.AskToSave();
 
-                    if (result == eTaskDialogResult.Cancel)
+                    if (result == MessageDialogResult.Cancel)
                     {
                         e.Cancel = true;
                         return;
                     }
 
-                    if (result == eTaskDialogResult.Yes)
+                    if (result == MessageDialogResult.Yes)
                         if (!FileSave()) e.Cancel = true;
                     break;
             }
@@ -74,7 +71,7 @@ namespace Winform
         {
             if (DirtyStatus.IsDirty)
             {
-                if (My.Message.AskToRefresh() == eTaskDialogResult.No)
+                if (App.Message.AskToRefresh() == MessageDialogResult.No)
                     return;
             }
 
@@ -97,12 +94,12 @@ namespace Winform
             }
             catch (DuplicateNameException ex)
             {
-                My.Message.Show("Duplicate Record Found!", "Can not save record with duplicate item.\n\n" + ex.GetBaseException().Message, eTaskDialogIcon.Exclamation);
+                App.Message.Show("Duplicate Record Found!", "Can not save record with duplicate item.\n\n" + ex.GetBaseException().Message, eTaskDialogIcon.Exclamation);
                 return false;
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
                 return false;
             }
         }

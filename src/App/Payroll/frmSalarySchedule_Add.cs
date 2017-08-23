@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Dll.Payroll;
-using DevComponents.DotNetBar.SuperGrid;
+﻿using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
+using Dll.Payroll;
+using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
@@ -30,15 +22,15 @@ namespace Winform.Payroll
 
             InitializePositionGrid();
 
-            this.Load += (s, e) => { ShowData(); };
+            Load += (s, e) => { ShowData(); };
 
-            this.CancelButton = btnCancel;
+            CancelButton = btnCancel;
             btnCancel.Click += (s, e) => { Dispose(); };
             btnOk.Click += (s, e) => { Save(); };
 
-            this.tabControl1.SelectedTabChanged += (s, e) =>
+            tabControl1.SelectedTabChanged += (s, e) =>
             {
-                this.SelectNextControl(e.NewTab.AttachedControl, true, true, true, true);
+                SelectNextControl(e.NewTab.AttachedControl, true, true, true, true);
             };
         }
 
@@ -59,7 +51,7 @@ namespace Winform.Payroll
 
             if (CallerForm.ContainsData(dtEffectivityDate.Value, ItemData.RowId))
             {
-                My.Message.ShowValidationError(dtEffectivityDate, "Duplicate Record!");
+                App.Message.ShowValidationError(dtEffectivityDate, "Duplicate Record!");
                 return false;
             }
             return true;
@@ -126,7 +118,7 @@ namespace Winform.Payroll
 
                 if (!(itemValue >= 1 && itemValue <= 50))
                 {
-                    My.Message.ShowValidationError(this, "Number must be 1 - 50 only", focusControl: false);
+                    App.Message.ShowValidationError(this, "Number must be 1 - 50 only", focusControl: false);
                     e.Cancel = true;
                 }
 
@@ -185,11 +177,13 @@ namespace Winform.Payroll
             //
             // Show SalaryGrades
             //
-            if (!ItemData.SalaryGrades.HasReadFromDb)
-                ItemData.SalaryGrades.LoadItemsFromDb();
+            //if (!ItemData.SalaryGrades.HasReadFromDb)
 
-            if (ItemData.SalaryGrades.Items.Count() == 0)
-                ItemData.SalaryGrades.LoadDefaultItems();
+
+            //if (!ItemData.SalaryGrades.Items.Any())
+            //    ItemData.SalaryGrades.LoadDefaultItems();
+
+            ItemData.SalaryGrades.LoadItemsFromDb();
 
             foreach (var itemSG in ItemData.SalaryGrades.Items)
             {
@@ -210,16 +204,18 @@ namespace Winform.Payroll
             //
             // Show Position;
             //
-            if (!ItemData.PositionSalaryGrades.HasReadFromDb)
-                ItemData.PositionSalaryGrades.LoadItemsFromDb();
+            //if (!ItemData.PositionSalaryGrades.HasReadFromDb)
+            //    ItemData.PositionSalaryGrades.LoadItemsFromDb();
 
-            if (ItemData.PositionSalaryGrades.Items.Count() == 0)
-                ItemData.PositionSalaryGrades.LoadDefaultItems();
+            //if (ItemData.PositionSalaryGrades.Items.Count() == 0)
+            //    ItemData.PositionSalaryGrades.LoadDefaultItems();
+
+            ItemData.PositionSalaryGrades.LoadItemsFromDb();
 
             foreach (var itemPosition in ItemData.PositionSalaryGrades.Items)
             {
                 row = PositionGrid.PrimaryGrid.CreateNewRow();
-                row["Position"].Value = itemPosition.Position.Description;
+                row["Position"].Value = itemPosition.PositionDescription;
                 row["SalaryGrade"].Value = itemPosition.SG;
 
                 row.Tag = itemPosition;

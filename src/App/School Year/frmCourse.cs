@@ -1,14 +1,13 @@
-using System;
-using System.Data;
-using System.Windows.Forms;
 using DevComponents.DotNetBar;
-using System.Linq;
-using System.Drawing;
 using Dll.SchoolYear;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform
 {
-    public partial class frmCourse : MDIClientForm
+    public partial class frmCourse : MdiClientForm
     {
         CourseCollection CourseItems = new CourseCollection();
 
@@ -31,7 +30,7 @@ namespace Winform
             CourseItems.LoadItemsFromDb();
             FlexGridHelper.DisplayItemsToGrid(flexGrid, CourseItems.Items, DisplayItemOnCurrentRowExt);
         }
-        
+
         private void DisplayItemOnCurrentRowExt()
         {
             var grid = flexGrid;
@@ -42,16 +41,16 @@ namespace Winform
             flexGrid[row, flexGrid.Cols["description"].Index] = item.Description;
         }
 
-       
+
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var newItem = new Course();
             var frm = new frmCourse_Add(this);
-                frm.CurrentCourse = newItem;
+            frm.CurrentCourse = newItem;
 
             var result = frm.ShowDialog();
-                frm.Dispose();
+            frm.Dispose();
 
             if (result == DialogResult.OK)
             {
@@ -61,16 +60,16 @@ namespace Winform
                 FlexGridHelper.DoGridInsert(flexGrid, newItem, DisplayItemOnCurrentRowExt);
             }
         }
-      
+
         private void btnEdit_Click(object sender, EventArgs e)
         {
             var itemToEdit = (Course)flexGrid.GetUserData(flexGrid.Row, 0);
             if (itemToEdit == null) return;
 
             var frm = new frmCourse_Add(this);
-                frm.CurrentCourse = itemToEdit;
+            frm.CurrentCourse = itemToEdit;
             var result = frm.ShowDialog();
-                frm.Dispose();
+            frm.Dispose();
 
             if (result == DialogResult.OK)
             {
@@ -94,9 +93,9 @@ namespace Winform
 
             if (item == null) return;
 
-            var result = My.Message.AskToDelete();
+            var result = App.Message.AskToDelete();
 
-            if (result == eTaskDialogResult.Yes)
+            if (result == MessageDialogResult.Yes)
             {
                 CourseItems.Remove(item);
                 DirtyStatus.SetDirty();
@@ -109,7 +108,7 @@ namespace Winform
         {
             return DoSave(() =>
             {
-                var dataWriter = new CourseDataWriter(My.App.CurrentUser.User.Username, CourseItems);
+                var dataWriter = new CourseDataWriter(App.CurrentUser.User.Username, CourseItems);
                 var result = dataWriter.SaveChanges();
 
                 if (!result) throw new Exception("No Record has been saved");
@@ -124,8 +123,8 @@ namespace Winform
 
         internal bool ContainsData(Course item)
         {
-            var foundItem= CourseItems.Items.FirstOrDefault(_ => _.CourseCode == item.CourseCode &&
-                                                                           _.RowId != item.RowId);
+            var foundItem = CourseItems.Items.FirstOrDefault(_ => _.CourseCode == item.CourseCode &&
+                                                                            _.RowId != item.RowId);
 
             if (foundItem == null) return false;
             if (foundItem.Id == item.Id && foundItem.Id != 0) return false;

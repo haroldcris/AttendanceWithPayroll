@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AiTech.Security</name>
+    </assembly>
+    <members>
+        <member name="M:AiTech.Security.AuthenticationService.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:AiTech.Security.AuthenticationService.Authenticate(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.Security.AuthenticationService.AuthenticateAsync(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="userName"></param>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.Security.UserAccountService.#ctor(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="currentUsername"></param>
+            <param name="connectionString"></param>
+        </member>
+        <member name="M:AiTech.Security.UserAccountService.GetUserAccounts">
+            <summary>
+             Get List of User Accounts
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Network.GetIpAddresses">
+            <summary> 
+            This utility function displays all the IP (v4, not v6) addresses of the local computer. 
+            </summary> 
+        </member>
+        <member name="M:SimpleAES.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:SimpleAES.Encrypt(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="unencrypted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleAES.Decrypt(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="encrypted"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleAES.Encrypt(System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleAES.Decrypt(System.Byte[])">
+            <summary>
+            
+            </summary>
+            <param name="buffer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:SimpleAES.Transform(System.Byte[],System.Security.Cryptography.ICryptoTransform)">
+            <summary>
+            
+            </summary>
+            <param name="buffer"></param>
+            <param name="transform"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AiTech.LiteOrm;
 using Dapper.Contrib.Extensions;
-using AiTech.Entities;
+using System.Collections.Generic;
 
 namespace Dll.SchoolYear
 {
 
-    public interface IBatch
-    {
-        string BatchName { get; set; }
-        string Semester { get; set; }
-
-    }
-
-
-
     [Table("Batch")]
-    public class Batch : Entity, IBatch
+    public class Batch : Entity
     {
 
         #region Default Properties
@@ -28,21 +18,19 @@ namespace Dll.SchoolYear
 
         public override void StartTrackingChanges()
         {
-            OriginalValues = new Dictionary<string, object>();
-            OriginalValues.Add("BatchName", this.BatchName);
-            OriginalValues.Add("Semester", this.Semester);
-
-            //string[] x = { "ssss", "sss", "sss" };
-
+            OriginalValues =
+                new Dictionary<string, object>
+                {
+                    {"BatchName", BatchName},
+                    { "Semester", Semester}
+                };
         }
 
         public override Dictionary<string, object> GetChangedValues()
         {
             var changes = new Dictionary<string, object>();
-            if (!Equals(this.BatchName, OriginalValues["BatchName"])) changes.Add("BatchName", this.BatchName);
-            if (!Equals(this.Semester, OriginalValues["Semester"])) changes.Add("Semester", this.Semester);
-
-
+            if (!Equals(BatchName, OriginalValues["BatchName"])) changes.Add("BatchName", BatchName);
+            if (!Equals(Semester, OriginalValues["Semester"])) changes.Add("Semester", Semester);
 
             return changes;
         }

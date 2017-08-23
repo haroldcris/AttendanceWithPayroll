@@ -39,7 +39,7 @@ namespace Winform
         {
             if ((e.KeyChar == (int)Keys.Enter) || (e.KeyChar == (int)Keys.Return))
             {
-                this.SelectNextControl(this.ActiveControl, true, false, true, true);
+                SelectNextControl(ActiveControl, true, false, true, true);
                 e.Handled = true;
             }
         }
@@ -57,7 +57,7 @@ namespace Winform
 
             if (ParentForm.ContainsData( CurrentCourse))
             {
-                My.Message.ShowValidationError(txtCourseCode, "Duplicate Record!", errorProvider1, highlighterError);
+                App.Message.ShowValidationError(txtCourseCode, "Duplicate Record!", errorProvider1, highlighterError);
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace Winform
             //My.App.ClearErrorDisplay(txtCourseCode, errorProvider1, highlighterError);
             if (txtCourseCode.Text.Length == 0 || string.IsNullOrEmpty(txtCourseCode.Text))
             {
-                My.Message.ShowValidationError(txtCourseCode, "Course Code is Required");
+                App.Message.ShowValidationError(txtCourseCode, "Course Code is Required");
                 return false;
             }
 
@@ -83,7 +83,7 @@ namespace Winform
             //My.App.ClearErrorDisplay(txtDescription, errorProvider1, highlighterError);
             if (txtDescription.Text.Length == 0 || string.IsNullOrEmpty(txtDescription.Text))
             {
-                My.Message.ShowValidationError(txtDescription, "Course Description is Required");
+                App.Message.ShowValidationError(txtDescription, "Course Description is Required");
                 return false;
             }
 

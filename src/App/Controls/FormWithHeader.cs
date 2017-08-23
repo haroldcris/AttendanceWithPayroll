@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Library.Tools;
 
 namespace Winform
 {
@@ -19,7 +11,7 @@ namespace Winform
 
         protected void ConvertEnterKeyToTab()
         {
-            this.KeyPress += (s, e) => { Helper.HandleEnterKey(this, e); };
+            KeyPress += (s, e) => { InputControls.ConvertEnterToTab(this, e); };
         }
     }
 }

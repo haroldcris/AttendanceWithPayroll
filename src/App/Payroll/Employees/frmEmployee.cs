@@ -1,19 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
-using System.Data;
-using System.Linq;
-
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Controls;
+﻿using AiTech.LiteOrm;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
-using System;
-using System.Threading.Tasks;
 using Dll.Contacts;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
-    public partial class frmContacts : MDIClientForm
+    public partial class frmContacts : MdiClientForm
     {
         internal PersonCollection MyList = new PersonCollection();
         public frmContacts()
@@ -30,7 +26,7 @@ namespace Winform.Payroll
             return DoSave(() =>
             {
 
-                var dataWriter = new PersonDataWriter(My.App.CurrentUser.User.Username, MyList);
+                var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, MyList);
                 dataWriter.SaveChanges();
 
                 Show_Data();
@@ -68,11 +64,11 @@ namespace Winform.Payroll
 
             SGrid.RowDoubleClick += btnEdit_Click;
 
-            SGrid.ColumnGrouped += (s, e) => 
+            SGrid.ColumnGrouped += (s, e) =>
             {
-                    var total = e.GridGroup.Rows.Count();
+                var total = e.GridGroup.Rows.Count();
 
-                    e.GridGroup.Text = e.GridGroup.Text.ToUpper() + "  - " + total + (total < 2 ? " item" : " items");
+                e.GridGroup.Text = e.GridGroup.Text.ToUpper() + "  - " + total + (total < 2 ? " item" : " items");
             };
         }
 
@@ -81,7 +77,7 @@ namespace Winform.Payroll
         {
             foreach (var r in SGrid.PrimaryGrid.Rows)
             {
-                Show_DataOnRow((GridRow)r, (Person)r.Tag);
+                Show_DataOnRow((GridRow)r, (Dll.Contacts.Person)r.Tag);
                 ((GridRow)r).RowDirty = false;
             }
         }
@@ -93,7 +89,7 @@ namespace Winform.Payroll
             var counter = 0;
             foreach (var item in MyList.Items)
             {
-                if (item.RowStatus == AiTech.Entities.RecordStatus.DeletedRecord) continue;
+                if (item.RowStatus == RecordStatus.DeletedRecord) continue;
                 counter++;
 
                 var row = SGrid.PrimaryGrid.CreateNewRow();
@@ -103,7 +99,7 @@ namespace Winform.Payroll
             }
         }
 
-        private void Show_DataOnRow(GridRow row, Person item)
+        private void Show_DataOnRow(GridRow row, Dll.Contacts.Person item)
         {
             row.Cells["Id"].Value = item.Id.ToString("0000");
 
@@ -114,12 +110,12 @@ namespace Winform.Payroll
 
             row.Cells["Birthdate"].Value = item.BirthDate.ToString("d-MMM-yyyy");
 
-            row.Cells["Street"].Value = item.Address.Street;
-            row.Cells["Barangay"].Value = item.Address.Barangay;
-            row.Cells["Town"].Value = item.Address.Town;
-            row.Cells["Province"].Value = item.Address.Province;
+            //row.Cells["Street"].Value = item.Address.Street;
+            //row.Cells["Barangay"].Value = item.Address.Barangay;
+            //row.Cells["Town"].Value = item.Address.Town;
+            //row.Cells["Province"].Value = item.Address.Province;
 
-            GridHelper.ShowRecordInfo(row, item);
+            row.ShowRecordInfo(item);
         }
 
 
@@ -129,9 +125,9 @@ namespace Winform.Payroll
             try
             {
                 var frm = new Contacts.frmContacts_Add();
-                var newItem = new Person();
+                var newItem = new Dll.Contacts.Person();
 
-                frm.MyContact = newItem;
+                frm.ItemData = newItem;
                 frm.Owner = this;
 
                 if (frm.ShowDialog() != DialogResult.OK) return;
@@ -153,7 +149,7 @@ namespace Winform.Payroll
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
 
         }
@@ -164,11 +160,11 @@ namespace Winform.Payroll
 
             if (grid.ActiveRow == null) return;
 
-            var item = (Person)grid.ActiveRow.Tag;
+            var item = (Dll.Contacts.Person)grid.ActiveRow.Tag;
 
-            var ret = My.Message.AskToDelete(item.Name.FullnameWithFirstnameFirst());
+            var ret = App.Message.AskToDelete(item.Name.FullnameWithFirstnameFirst);
 
-            if (ret != eTaskDialogResult.Yes) return;
+            if (ret != MessageDialogResult.Yes) return;
 
             MyList.Remove(item);
 
@@ -181,7 +177,7 @@ namespace Winform.Payroll
         {
             RefreshData();
 
-            Console.WriteLine("Down Refresh");
+            Console.WriteLine(@"Down Refresh");
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -191,16 +187,18 @@ namespace Winform.Payroll
                 var grid = SGrid.PrimaryGrid;
                 if (grid.ActiveRow == null) return;
 
-                var item = (Person)grid.ActiveRow.Tag;
+                var item = (Dll.Contacts.Person)grid.ActiveRow.Tag;
 
-                var frm = new Contacts.frmContacts_Add();
+                var frm = new Contacts.frmContacts_Add
+                {
+                    ItemData = item,
+                    Owner = this
+                };
 
-                frm.MyContact = item;
-                frm.Owner = this;
                 if (frm.ShowDialog() != DialogResult.OK) return;
                 frm.Dispose();
 
-                if (item.Id != 0) item.RowStatus = AiTech.Entities.RecordStatus.ModifiedRecord;
+                if (item.Id != 0) item.RowStatus = RecordStatus.ModifiedRecord;
                 DirtyStatus.SetDirty();
                 ((GridRow)grid.ActiveRow).RowDirty = true;
                 Show_DataOnRow((GridRow)grid.ActiveRow, item);
@@ -208,7 +206,7 @@ namespace Winform.Payroll
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
         }
 
@@ -221,10 +219,7 @@ namespace Winform.Payroll
                 var grid = SGrid.PrimaryGrid;
                 grid.Rows.Clear();
 
-                await Task.Factory.StartNew(() =>
-                {
-                    LoadItems();
-                });
+                await Task.Factory.StartNew(LoadItems);
 
                 progressBarX1.Visible = false;
                 Show_Data();

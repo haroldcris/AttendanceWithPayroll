@@ -1,5 +1,4 @@
-﻿using AiTech.Entities;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace Winform.Payroll
@@ -24,7 +23,7 @@ namespace Winform.Payroll
         private void btnOk_Click(object sender, EventArgs e)
         {
             if (!DataIsValid()) return;
-            
+
             DialogResult = DialogResult.OK;
         }
 
@@ -35,9 +34,9 @@ namespace Winform.Payroll
 
         private void ShowData()
         {
-            //if (MyContact.Id !=0) txtId.Text = MyContact.Id.ToString("0000");
+            //if (ItemData.Id !=0) txtId.Text = ItemData.Id.ToString("0000");
 
-            //ShowFileInfo (MyContact);
+            //ShowFileInfo (ItemData);
         }
 
     }

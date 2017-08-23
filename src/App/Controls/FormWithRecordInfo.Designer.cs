@@ -46,15 +46,16 @@
             // RecordInfoPanel
             // 
             this.RecordInfoPanel.AccessibleRole = System.Windows.Forms.AccessibleRole.ToolBar;
-            this.RecordInfoPanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.RecordInfoPanel.BackColor = System.Drawing.SystemColors.Control;
             // 
             // 
             // 
-            this.RecordInfoPanel.BackStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ExplorerBarBackground2;
+            this.RecordInfoPanel.BackStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(123)))), ((int)(((byte)(162)))), ((int)(((byte)(231)))));
+            this.RecordInfoPanel.BackStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(99)))), ((int)(((byte)(117)))), ((int)(((byte)(214)))));
             this.RecordInfoPanel.BackStyle.BackColorGradientAngle = 90;
-            this.RecordInfoPanel.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ExplorerBarBackground;
             this.RecordInfoPanel.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.RecordInfoPanel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.RecordInfoPanel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RecordInfoPanel.ForeColor = System.Drawing.Color.Black;
             this.RecordInfoPanel.GroupImages = null;
             this.RecordInfoPanel.Groups.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -67,6 +68,7 @@
             this.RecordInfoPanel.TabIndex = 10;
             this.RecordInfoPanel.TabStop = false;
             this.RecordInfoPanel.Text = "explorerBar1";
+            this.RecordInfoPanel.ThemeAware = true;
             // 
             // explorerBarGroupItem1
             // 

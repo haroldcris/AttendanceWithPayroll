@@ -1,80 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AiTech.Database;
-using AiTech.Entities;
+﻿using AiTech.LiteOrm.Database;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace Dll.Payroll
 {
     internal class SalaryGradeDataWriter : SqlDataWriter<SalaryGrade, SalaryGradeCollection>
     {
+
+        public Func<int> OnSalaryScheduleIdRequest;
+
         public SalaryGradeDataWriter(string username, SalaryGrade item) : base(username, item) { }
         public SalaryGradeDataWriter(string username, SalaryGradeCollection items) : base(username, items) { }
 
 
         public override bool SaveChanges(SqlConnection db, SqlTransaction trn)
         {
-            var affectedRecords = 0;
-
-            try
-            {
-                // Delete All Marked Items
-                var deletedItems = _List.Items.Where(_ => _.RowStatus == RecordStatus.DeletedRecord);
-                if (deletedItems.Count() != 0)
-                    if (DatabaseAction.ExecuteDeleteQuery<SalaryGrade>(DataWriterUsername, deletedItems, db, trn))
-                        affectedRecords += deletedItems.Count();
-
-
-                SqlCommand cmd;
-                foreach (var item in _List.Items)
-                {
-
-                    switch (item.RowStatus)
-                    {
-                        case RecordStatus.DeletedRecord: continue;
-
-                        case RecordStatus.NewRecord:
-                            var insertQuery = CreateSqlInsertQuery();
-                            cmd = new SqlCommand(insertQuery, db, trn);
-
-                            CreateSqlInsertCommandParameters(cmd, item);
-
-                            if (ExecuteCommand(cmd, item, item.SG.ToString()))
-                                affectedRecords++;
-                            break;
-
-
-                        default: // UPDATE
-
-                            var updateQuery = CreateSqlUpdateQuery(item);
-                            if (string.IsNullOrEmpty(updateQuery)) continue;
-                            cmd = new SqlCommand(updateQuery, db, trn);
-
-                            CreateSqlUpdateCommandParameters(cmd, item);
-
-                            if (ExecuteCommand(cmd, item, item.SG.ToString()))
-                                affectedRecords++;
-
-                            break;
-                    }
-
-                    //
-                    // Save SubClass Here;
-                    //                                    							
-
-                }
-
-                return affectedRecords > 0;
-            }
-            catch
-            {
-                throw;
-            }
-
+            return Write(_ => _.SG.ToString(), db, trn);
 
         }
 
@@ -97,8 +39,12 @@ namespace Dll.Payroll
             });
 
 
+            if (OnSalaryScheduleIdRequest == null)
+                throw new Exception("OnSalarySchedIdRequest Handler Not set");
 
-            cmd.Parameters["@SalaryScheduleId"].Value = item.SalarySchedule.Id;
+            var salarySchedId = OnSalaryScheduleIdRequest;
+
+            cmd.Parameters["@SalaryScheduleId"].Value = salarySchedId;
             cmd.Parameters["@SG"].Value = item.SG;
             cmd.Parameters["@Step1"].Value = item.Step1;
             cmd.Parameters["@Step2"].Value = item.Step2;
@@ -117,10 +63,10 @@ namespace Dll.Payroll
         protected override string CreateSqlInsertQuery()
         {
             return @"DECLARE @output table ( Id int ); 
-						  INSERT INTO [Payroll_SalaryGrade] ([SalaryScheduleId],[SG],[Step1],[Step2],[Step3],[Step4],[Step5],[Step6],[Step7],[Step8],[CreatedBy],[ModifiedBy]) 
-							 OUTPUT inserted.Id into @output
-						  VALUES (@SalaryScheduleId,@SG,@Step1,@Step2,@Step3,@Step4,@Step5,@Step6,@Step7,@Step8,@CreatedBy,@ModifiedBy)
-						  SELECT * from @output";
+                          INSERT INTO [Payroll_SalaryGrade] ([SalaryScheduleId],[SG],[Step1],[Step2],[Step3],[Step4],[Step5],[Step6],[Step7],[Step8],[CreatedBy],[ModifiedBy]) 
+                             OUTPUT inserted.Id into @output
+                          VALUES (@SalaryScheduleId,@SG,@Step1,@Step2,@Step3,@Step4,@Step5,@Step6,@Step7,@Step8,@CreatedBy,@ModifiedBy)
+                          SELECT * from @output";
         }
     }
 }

@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.451</AssemblyVersion>
+    <AssemblyVersion>1.0.0.639</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -44,6 +44,26 @@
     <ApplicationIcon>icons8_Fingerprint.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AForge.Controls">
+      <HintPath>E:\Programs\AForge.NET\Framework\Release\AForge.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video">
+      <HintPath>E:\Programs\AForge.NET\Framework\Release\AForge.Video.dll</HintPath>
+    </Reference>
+    <Reference Include="AForge.Video.DirectShow">
+      <HintPath>E:\Programs\AForge.NET\Framework\Release\AForge.Video.DirectShow.dll</HintPath>
+    </Reference>
+    <Reference Include="AiTech.LiteOrm, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\library\AiTech.LiteOrm.dll</HintPath>
+    </Reference>
+    <Reference Include="AiTech.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\library\AiTech.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="AiTech.Tools">
+      <HintPath>..\..\library\AiTech.Tools.dll</HintPath>
+    </Reference>
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20132.786, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.7.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -97,17 +117,36 @@
     <Compile Include="Controls\FormWithRecordInfo.Designer.cs">
       <DependentUpon>FormWithRecordInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MDIClientFormWithCRUDButtons.cs">
+    <Compile Include="Controls\MdiClientFormWithCRUDButtons.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\MDIClientFormWithCRUDButtons.Designer.cs">
-      <DependentUpon>MDIClientFormWithCRUDButtons.cs</DependentUpon>
+    <Compile Include="Controls\MdiClientFormWithCRUDButtons.Designer.cs">
+      <DependentUpon>MdiClientFormWithCRUDButtons.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MDIClientForm.cs">
+    <Compile Include="Controls\MdiClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\MDIClientForm.Designer.cs">
-      <DependentUpon>MDIClientForm.cs</DependentUpon>
+    <Compile Include="Controls\MdiClientForm.Designer.cs">
+      <DependentUpon>MdiClientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MdiClientGridForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\MdiClientGridForm.Designer.cs">
+      <DependentUpon>MdiClientGridForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Devices\Crop.cs" />
+    <Compile Include="Devices\frmCaptureDevice.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Devices\frmCaptureDevice.Designer.cs">
+      <DependentUpon>frmCaptureDevice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payroll\Deduction\frmDeduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\Deduction\frmDeduction.Designer.cs">
+      <DependentUpon>frmDeduction.cs</DependentUpon>
     </Compile>
     <Compile Include="Payroll\Employees\frmEmployees_Add.cs">
       <SubType>Form</SubType>
@@ -139,34 +178,34 @@
     <Compile Include="LogIn\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmDeduction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Payroll\frmDeduction.Designer.cs">
-      <DependentUpon>frmDeduction.cs</DependentUpon>
-    </Compile>
     <Compile Include="Payroll\frmSalarySchedule_Add.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Payroll\frmSalarySchedule_Add.Designer.cs">
       <DependentUpon>frmSalarySchedule_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmTaxTable_Add.cs">
+    <Compile Include="Payroll\TaxTable\frmTaxTable.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\frmTaxTable_Add.Designer.cs">
+    <Compile Include="Payroll\TaxTable\frmTaxTable.Designer.cs">
+      <DependentUpon>frmTaxTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payroll\TaxTable\frmTaxTable_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\TaxTable\frmTaxTable_Add.Designer.cs">
       <DependentUpon>frmTaxTable_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmDeduction_Add.cs">
+    <Compile Include="Payroll\Deduction\frmDeduction_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\frmDeduction_Add.Designer.cs">
+    <Compile Include="Payroll\Deduction\frmDeduction_Add.Designer.cs">
       <DependentUpon>frmDeduction_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmPosition_Add.cs">
+    <Compile Include="Payroll\Position\frmPosition_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\frmPosition_Add.Designer.cs">
+    <Compile Include="Payroll\Position\frmPosition_Add.Designer.cs">
       <DependentUpon>frmPosition_Add.cs</DependentUpon>
     </Compile>
     <Compile Include="Payroll\frmAddEmployeeDeduction.cs">
@@ -181,22 +220,16 @@
     <Compile Include="Payroll\frmSalarySchedule.Designer.cs">
       <DependentUpon>frmSalarySchedule.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmTaxTable.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Payroll\frmTaxTable.Designer.cs">
-      <DependentUpon>frmTaxTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Payroll\frmPayrollMasterList.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Payroll\frmPayrollMasterList.Designer.cs">
       <DependentUpon>frmPayrollMasterList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmPosition.cs">
+    <Compile Include="Payroll\Position\frmPosition.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\frmPosition.Designer.cs">
+    <Compile Include="Payroll\Position\frmPosition.Designer.cs">
       <DependentUpon>frmPosition.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -232,14 +265,14 @@
       <DependentUpon>frmSMS.cs</DependentUpon>
     </Compile>
     <Compile Include="_Library\App.cs" />
+    <Compile Include="_Library\Enum.cs" />
     <Compile Include="_Library\Helper\BatchHelper.cs" />
     <Compile Include="_Library\DirtyChecker.cs" />
     <Compile Include="_Library\FlexGridHelper.cs" />
-    <Compile Include="_Library\GridHelper.cs" />
     <Compile Include="_Library\Interface.cs" />
-    <Compile Include="_Library\Location.cs" />
     <Compile Include="_Library\Message.cs" />
-    <Compile Include="_Library\Helper\_Helper.cs" />
+    <Compile Include="_Library\Tools\InputControls.cs" />
+    <Compile Include="_Library\Tools\SuperGridHelper.cs" />
     <EmbeddedResource Include="Contacts\frmContacts.resx">
       <DependentUpon>frmContacts.cs</DependentUpon>
     </EmbeddedResource>
@@ -255,11 +288,20 @@
     <EmbeddedResource Include="Controls\FormWithRecordInfo.resx">
       <DependentUpon>FormWithRecordInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MDIClientFormWithCRUDButtons.resx">
-      <DependentUpon>MDIClientFormWithCRUDButtons.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\MdiClientFormWithCRUDButtons.resx">
+      <DependentUpon>MdiClientFormWithCRUDButtons.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MDIClientForm.resx">
-      <DependentUpon>MDIClientForm.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\MdiClientForm.resx">
+      <DependentUpon>MdiClientForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MdiClientGridForm.resx">
+      <DependentUpon>MdiClientGridForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Devices\frmCaptureDevice.resx">
+      <DependentUpon>frmCaptureDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\Deduction\frmDeduction.resx">
+      <DependentUpon>frmDeduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\Employees\frmEmployees_Add.resx">
       <DependentUpon>frmEmployees_Add.cs</DependentUpon>
@@ -276,19 +318,19 @@
     <EmbeddedResource Include="LogIn\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmDeduction.resx">
-      <DependentUpon>frmDeduction.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmSalarySchedule_Add.resx">
       <DependentUpon>frmSalarySchedule_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmTaxTable_Add.resx">
+    <EmbeddedResource Include="Payroll\TaxTable\frmTaxTable.resx">
+      <DependentUpon>frmTaxTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\TaxTable\frmTaxTable_Add.resx">
       <DependentUpon>frmTaxTable_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmDeduction_Add.resx">
+    <EmbeddedResource Include="Payroll\Deduction\frmDeduction_Add.resx">
       <DependentUpon>frmDeduction_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmPosition_Add.resx">
+    <EmbeddedResource Include="Payroll\Position\frmPosition_Add.resx">
       <DependentUpon>frmPosition_Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmAddEmployeeDeduction.resx">
@@ -297,13 +339,10 @@
     <EmbeddedResource Include="Payroll\frmSalarySchedule.resx">
       <DependentUpon>frmSalarySchedule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmTaxTable.resx">
-      <DependentUpon>frmTaxTable.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmPayrollMasterList.resx">
       <DependentUpon>frmPayrollMasterList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmPosition.resx">
+    <EmbeddedResource Include="Payroll\Position\frmPosition.resx">
       <DependentUpon>frmPosition.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
@@ -346,10 +385,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AiTech\AiTech.csproj">
-      <Project>{0408e3a9-88ed-4b29-9e51-0f526be0c2ce}</Project>
-      <Name>AiTech</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Dll\Dll.csproj">
       <Project>{51b69b7c-8aa6-4338-85f3-b51d6bb390ce}</Project>
       <Name>Dll</Name>
@@ -533,7 +568,15 @@
     <None Include="Resources\User Credentials_30px.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="credentials.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\Customs Officer_16px.png" />
+    <None Include="Resources\Tax_16px.png" />
+    <None Include="Resources\Front Desk_16px.png" />
+    <None Include="Resources\Community Grants_16px.png" />
+    <None Include="Resources\Camera_16px.png" />
     <None Include="Resources\Signal_24px.png" />
     <None Include="Resources\SMS_40px.png" />
     <None Include="Resources\Community Grants_24px.png" />
@@ -561,7 +604,9 @@
     <None Include="Resources\Sell_40px.png" />
     <None Include="Resources\People_40px.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Payroll\_tmp\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

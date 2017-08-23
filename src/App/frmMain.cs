@@ -1,9 +1,7 @@
-﻿using System;
+﻿using AiTech.LiteOrm.Database;
+using System;
 using System.Linq;
-using System.Net.Configuration;
 using System.Windows.Forms;
-using System.Diagnostics;
-using AiTech.Database;
 
 namespace Winform
 {
@@ -14,33 +12,39 @@ namespace Winform
             InitializeComponent();
 
 
-            StatusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
+            //StatusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
 
             MainRibbonControl.MdiSystemItemVisible = false;
             MainRibbonControl.FadeEffect = true;
 
-            lblServer.Text = @"Connected to: " + Connection.MyDbCredential.DatabasePath() ;
-            lblVersion.Text = "Version : " + My.App.CurrentVersion();
+            lblServer.Text = @"Connected to: " + Connection.MyDbCredential.DatabasePath();
+            lblVersion.Text = @"Version : " + App.CurrentVersion();
 
             mdiTab.Tabs.Clear();
 
 
             #region Event handler
 
-            btnContacts.Click += (s, ev) => { OpenForm(new Contacts.frmContacts(), "Contacts Management"); };
+            btnContacts.Click += (s, e) => OpenForm(new Contacts.frmContacts(), "Contacts Management");
 
-            btnBatch.Click += (s, ev) => { OpenForm(new frmBatch(), "Batch Management"); };
-            btnCourse.Click += (s, ev) => { OpenForm(new frmCourse(), "Course Management"); };
+            btnBatch.Click += (s, ev) => OpenForm(new frmBatch(), "Batch Management");
+            btnCourse.Click += (s, ev) => OpenForm(new frmCourse(), "Course Management");
 
 
-            btnPayMasterList.Click += (s, ev) => { OpenForm(new Payroll.frmMasterFile(), "Payroll Master List"); };
-            btnPayPositions.Click += (s, ev) => { OpenForm(new Payroll.frmPosition(), "Payroll Position Management"); };
-            btnPayDeductions.Click += (s, ev) => { OpenForm(new Payroll.frmDeduction(), "Payroll Deduction Management"); };
-            btnPayTax.Click += (s, ev) => { OpenForm(new Payroll.frmTaxTable(), "Payroll Tax Table"); };
+            btnPayMasterList.Click += (s, ev) => OpenForm(new Payroll.frmMasterFile(), "Payroll Master List");
+            btnPayPositions.Click += (s, ev) => OpenForm(new Payroll.frmPosition(), "Payroll Positions");
+            btnPayDeductions.Click += (s, ev) => OpenForm(new Payroll.frmDeduction(), "Payroll Deductions");
+            //btnPayTax.Click += (s, ev) => OpenForm(new Payroll.frmTaxTable(), "Payroll Tax Table");
 
-            btnPaySalarySchedule.Click += (s, ev) => { OpenForm(new Payroll.frmSalarySchedule(), "Payroll Salary Schedule"); };
 
-            btnSms.Click += (s, e) => { var f = new SMS.frmSMS(); f.ShowDialog(); };
+            btnPaySalarySchedule.Click += (s, ev) => OpenForm(new Payroll.frmSalarySchedule(), "Payroll Salary Schedule");
+
+
+            btnSms.Click += (s, e) =>
+            {
+                var f = new SMS.frmSMS();
+                f.ShowDialog();
+            };
 
             #endregion
         }
@@ -58,7 +62,7 @@ namespace Winform
         {
             AppButton.Visible = false;
 
-            btnProfile.Text = string.Format("Welcome {0} [{1}]", My.App.CurrentUser.User.Username.ToUpper(), "--");
+            btnProfile.Text = string.Format("Welcome {0} [{1}]", App.CurrentUser.User.Username.ToUpper(), "--");
 
 
             //if (App.CurrentUser.SecurityLevel.ToLower() == "admin") {
@@ -66,14 +70,14 @@ namespace Winform
             //    ribbonTabHomeAdmin.Visible = true;
             //}
 
-            My.App.MainForm = this;
+            App.MdiMainForm = this;
 
         }
 
 
         private void frmMain_Activated(object sender, EventArgs e)
         {
-            if (!this.MdiChildren.Any())
+            if (!MdiChildren.Any())
                 cmdSave.Enabled = false;
         }
 
@@ -103,7 +107,7 @@ namespace Winform
 
             var frm = (Form)form;
             frm.MdiParent = this;
-            ((MDIClientForm)frm).Title = formTitle;
+            ((MdiClientForm)frm).Title = formTitle;
             frm.Tag = formTitle;
             frm.WindowState = FormWindowState.Maximized;
             frm.Show();
@@ -132,11 +136,11 @@ namespace Winform
         {
             if (e.CloseReason == CloseReason.TaskManagerClosing) return;
 
-            if (this.MdiChildren.Count() == 0) return;
+            if (!MdiChildren.Any()) return;
 
             foreach (var frm in MdiChildren)
             {
-                this.ActivateMdiChild(frm);
+                ActivateMdiChild(frm);
                 frm.Close();
 
                 if (!frm.IsDisposed)
@@ -152,7 +156,7 @@ namespace Winform
 
         private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            foreach(var item in this.MdiChildren)
+            foreach (var item in MdiChildren)
             {
                 item.Close();
             }

@@ -1,15 +1,15 @@
-﻿using AiTech.Entities;
-using System.Windows.Forms;
+﻿using AiTech.LiteOrm;
+using Library.Tools;
 
 namespace Winform
 {
-    public partial class FormWithRecordInfo : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class FormWithRecordInfo : DevComponents.DotNetBar.OfficeForm //DevComponents.DotNetBar.Metro.MetroForm
     {
         public FormWithRecordInfo()
         {
             InitializeComponent();
 
-            this.KeyPress += (s, e) => { Helper.HandleEnterKey(this, e); };
+            KeyPress += (s, e) => { InputControls.ConvertEnterToTab(this, e); };
         }
 
         protected void ShowFileInfo(IRecordInfo info)

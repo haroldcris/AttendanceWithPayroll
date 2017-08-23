@@ -1,11 +1,11 @@
-﻿using System;
-using DevComponents.DotNetBar;
-using System.Windows.Forms;
+﻿using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Validator;
+using System;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using Winform.Properties;
 
-namespace My
+public static partial class App
 {
     public static class Message
     {
@@ -24,14 +24,14 @@ namespace My
 
         public static void ShowError(Exception ex, Form owner, [CallerMemberName] string caller = "")
         {
-            var error = ex.GetBaseException().Message;
+            var error = "\n" + ex.Message + "\n\n" + ex.GetBaseException().Message;
 
             var formName = "";
             if (owner != null) formName = owner.Name;
 
-            var stackmsg = "";
+            var stackmsg = ex.Message;
             var stack = ex.StackTrace.Split('\n');
-            if (stack.Length != 0) stackmsg = stack[0];
+            if (stack.Length != 0) stackmsg = "Error Details:\n" + stack[0];
 
             var info = new TaskDialogInfo()
             {
@@ -51,7 +51,9 @@ namespace My
 
             TaskDialog.Show(owner, info);
         }
-        public static eTaskDialogResult Ask(string header, string message, eTaskDialogButton defaultButton = eTaskDialogButton.No)
+
+
+        public static MessageDialogResult Ask(string header, string message, eTaskDialogButton defaultButton = eTaskDialogButton.No)
         {
             var info = new TaskDialogInfo()
             {
@@ -61,25 +63,31 @@ namespace My
                 Text = message,
                 DefaultButton = defaultButton,
                 DialogButtons = eTaskDialogButton.Yes | eTaskDialogButton.No
+
             };
-            return TaskDialog.Show(info);
+
+            return (MessageDialogResult)TaskDialog.Show(info);
         }
 
-        public static eTaskDialogResult AskToRefresh()
+
+
+        public static MessageDialogResult AskToRefresh()
         {
             var info = new TaskDialogInfo()
             {
                 Title = "Confirmation",
                 TaskDialogIcon = eTaskDialogIcon.Help,
-                Header = "Cancel Changes and Refresh Data?",
-                Text = "Refreshing will <b>remove</b> all the pending changes you made? <br/><br/> Do you want to continue?",
+                Header = "Refresh Data from Server?",
+                Text = "Refreshing will remove all the pending changes you made? \n\n Do you want to continue?",
                 DefaultButton = eTaskDialogButton.No,
                 DialogButtons = eTaskDialogButton.Yes | eTaskDialogButton.No
             };
-            return TaskDialog.Show(info);
+            return (MessageDialogResult)TaskDialog.Show(info);
         }
 
-        public static eTaskDialogResult AskToDelete(string msg = "")
+
+
+        public static MessageDialogResult AskToDelete(string msg = "")
         {
             var info = new TaskDialogInfo()
             {
@@ -94,48 +102,73 @@ namespace My
 
             info.DialogColor = eTaskDialogBackgroundColor.Red;
 
-            return TaskDialog.Show(info);
+            return (MessageDialogResult)TaskDialog.Show(info);
         }
 
-        public static eTaskDialogResult AskToSave()
+
+        public static MessageDialogResult AskToSave()
         {
-            var info = new TaskDialogInfo()
+            //var info = new TaskDialogInfo()
+            //{
+            //    Title = "Notification",
+            //    TaskDialogIcon = eTaskDialogIcon.Help,
+            //    Header = "Save Changes?",
+            //    Text = "Do you want to save the changes you made?",
+            //    DefaultButton = eTaskDialogButton.Yes,
+            //    DialogButtons = eTaskDialogButton.Yes | eTaskDialogButton.Cancel | eTaskDialogButton.No
+            //};
+            //return (MessageDialogResult)TaskDialog.Show(info);
+
+            var result = MessageBoxEx.Show("Do you want to save the changes you made?", "Save Changes?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+
+            switch (result)
             {
-                Title = "Notification",
-                TaskDialogIcon = eTaskDialogIcon.Help,
-                Header = "Save Changes?",
-                Text = "Do you want to save the changes you made?",
-                DefaultButton = eTaskDialogButton.Yes,
-                DialogButtons = eTaskDialogButton.Yes | eTaskDialogButton.Cancel | eTaskDialogButton.No
-            };
-            return TaskDialog.Show(info);
+                case DialogResult.Yes:
+                    return MessageDialogResult.Yes;
+                case DialogResult.No:
+                    return MessageDialogResult.No;
+                case DialogResult.None:
+                    return MessageDialogResult.None;
+                case DialogResult.OK:
+                    return MessageDialogResult.Ok;
+                case DialogResult.Cancel:
+                    return MessageDialogResult.Cancel;
+                case DialogResult.Abort:
+                    return MessageDialogResult.Abort;
+                case DialogResult.Retry:
+                    return MessageDialogResult.Retry;
+                default:
+                    return MessageDialogResult.Ignore;
+            }
+
         }
+
 
         public static eTaskDialogResult PromptSaveChanges(string header, string message)
         {
             var info = new TaskDialogInfo();
 
-            var commandOK = new Command()
+            var commandOk = new Command()
             {
-                Image = (System.Drawing.Image)Resources.ResourceManager.GetObject("Manager-16.png"),
-                Text = "Save Changes"
+                Image = (System.Drawing.Image)Resources.ResourceManager.GetObject("Manager_16"),
+                Text = @"Save Changes"
             };
-            commandOK.Executed += (s, e) => { TaskDialog.Close(eTaskDialogResult.Yes); };
+            commandOk.Executed += (s, e) => { TaskDialog.Close(eTaskDialogResult.Yes); };
 
             var commandNo = new Command()
             {
-                Text = "Do NOT save Changes"
+                Text = @"Do NOT save Changes"
             };
             commandNo.Executed += (s, e) => { TaskDialog.Close(eTaskDialogResult.No); };
 
             var commandCancel = new Command()
             {
-                Text = "Cancel"
+                Text = @"Cancel"
             };
             commandCancel.Executed += (s, e) => { TaskDialog.Close(eTaskDialogResult.Cancel); };
 
 
-            info.Title = "Smart App Message";
+            info.Title = @"Application Message";
             info.TaskDialogIcon = eTaskDialogIcon.Help;
             info.Header = header;
             info.Text = message;
@@ -146,6 +179,8 @@ namespace My
             return TaskDialog.Show(info);
         }
 
+
+
         /// <summary>
         /// Show Toast Notification
         /// </summary>
@@ -153,6 +188,7 @@ namespace My
         /// <param name="errorMessage"></param>
         /// <param name="errorProvider"></param>
         /// <param name="highlighter"></param>
+        /// <param name="topMargin"></param>
         public static void ShowValidationError(Control control, string errorMessage, ErrorProvider errorProvider = null, Highlighter highlighter = null, int topMargin = 5, bool focusControl = true)
         {
             ToastNotification.DefaultToastGlowColor = eToastGlowColor.Red;
@@ -170,9 +206,7 @@ namespace My
                 highlighter.SetHighlightColor(control, eHighlightColor.Red);
             }
 
-
-            if (focusControl)  control.Focus();
+            if (focusControl) control.Focus();
         }
     }
 }
-

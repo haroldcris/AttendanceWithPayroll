@@ -45,7 +45,7 @@
             this.PanelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.PanelHeader.Location = new System.Drawing.Point(0, 0);
             this.PanelHeader.Name = "PanelHeader";
-            this.PanelHeader.Size = new System.Drawing.Size(706, 54);
+            this.PanelHeader.Size = new System.Drawing.Size(706, 61);
             this.PanelHeader.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.PanelHeader.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.PanelHeader.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;

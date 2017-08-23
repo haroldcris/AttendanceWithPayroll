@@ -1,6 +1,6 @@
 ﻿namespace Winform
 {
-    partial class MDIClientFormWithCRUDButtons<T, TCol>
+    partial class MdiClientFormWithCrudButtons<T, TCol>
     {
         /// <summary>
         /// Required designer variable.
@@ -253,7 +253,7 @@
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Header = " PAYROLL DEDUCTIONS";
             this.HeaderColor = System.Drawing.Color.Crimson;
-            this.Name = "MDIClientFormWithCRUDButtons";
+            this.Name = "MdiClientFormWithCrudButtons";
             this.ShowIcon = false;
             this.Text = "Form";
             this.Load += new System.EventHandler(this.Form_Load);

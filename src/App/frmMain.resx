@@ -969,28 +969,6 @@
         cJ+InN4kVdVHHWLMdwAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="btnChangePassword.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAMlJREFUOE9j
-        wAbSyifKpVX2r02r6n8NwulVE9YlV/SpQKXxA6jmF2mVfRXJ1T3yIJxa0V8JFHuZVd0rC1WGG4BtBmqG
-        cuEAKFaVWtm/GsrFDYAGfEoqmywF5cJBStkkGaDcBygXNwAq+g9lYgB8cnBAlgEzqt18Z9e5v5xW5fKf
-        GDwLqHZmlbs3VDsDw+xatzf3dpb+/3qulSh8F6h2Vp3Ha6h2BgaQqf/fLSYJg/RAtUMMwGYTPoxhADZb
-        8OHh6AJyMFQ7JYCBAQDdFLFJmxn3DgAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnLogOff.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAZ9JREFUOE+l
-        U19LAkEQP+qbFH0R78+LvgrhmfqooiKC7z77oCAofoY+RFQQeYqQDxGpIOSffIk8NY/Du5tml9vtTi2i
-        BobZ2Zn57c5vdwSvQKl01AoELtqKct2W5TdNkjbEEr8lilESd1P35S4QOMXkp14otJonErBOpWCdTlM7
-        j8eB7GP8sSNJJ27Jl7Rk+UyT5cUkGrWMbBa+04mqbjF3QQ5zSwXhMhw+1hRlgMX2bgGR3b0xHoKHPfN2
-        7kVRJdfzJeZy1HIA12f6EAyukJNzCoAE3b5ijyxo1mpgaRpdMwCr2wWzXuc5s1gMCLEUAHvSV0gUC9r9
-        PpiNBl0zALPZBHsw4DnLZBLakvROAbAFa5PJ8KCj62AUCnTNAIxiEZzlkud8YD62sKUAezcYDsEsl7lP
-        1KxWwR6NuO+7ATJ64+MAe3UmEzArFTDyeWqd6ZS3RZRw0FGUKwpw6BVozwgClgX2eEx9b7znfQX2D15U
-        de8fHNJxJOL/B0T+9ROZeGdhhpzoSBQpIpb0/OMsMPFOI07iAvkBYn81jX8TQfgEbR4UNtJ+Om4AAAAA
-        SUVORK5CYII=
-</value>
-  </data>
   <metadata name="cmdSave.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
@@ -1013,6 +991,9 @@
   </data>
   <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>117, 17</value>
+  </metadata>
+  <metadata name="styleManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>285, 13</value>
   </metadata>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>55</value>
@@ -1555,7 +1536,26 @@
         /////////////////////////////////////////////////////////////////////////////w==
 </value>
   </data>
-  <metadata name="styleManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>285, 13</value>
-  </metadata>
+  <data name="btnChangePassword.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAMlJREFUOE9j
+        wAbSyifKpVX2r02r6n8NwulVE9YlV/SpQKXxA6jmF2mVfRXJ1T3yIJxa0V8JFHuZVd0rC1WGG4BtBmqG
+        cuEAKFaVWtm/GsrFDYAGfEoqmywF5cJBStkkGaDcBygXNwAq+g9lYgB8cnBAlgEzqt18Z9e5v5xW5fKf
+        GDwLqHZmlbs3VDsDw+xatzf3dpb+/3qulSh8F6h2Vp3Ha6h2BgaQqf/fLSYJg/RAtUMMwGYTPoxhADZb
+        8OHh6AJyMFQ7JYCBAQDdFLFJmxn3DgAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnLogOff.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAZ9JREFUOE+l
+        U19LAkEQP+qbFH0R78+LvgrhmfqooiKC7z77oCAofoY+RFQQeYqQDxGpIOSffIk8NY/Du5tml9vtTi2i
+        BobZ2Zn57c5vdwSvQKl01AoELtqKct2W5TdNkjbEEr8lilESd1P35S4QOMXkp14otJonErBOpWCdTlM7
+        j8eB7GP8sSNJJ27Jl7Rk+UyT5cUkGrWMbBa+04mqbjF3QQ5zSwXhMhw+1hRlgMX2bgGR3b0xHoKHPfN2
+        7kVRJdfzJeZy1HIA12f6EAyukJNzCoAE3b5ijyxo1mpgaRpdMwCr2wWzXuc5s1gMCLEUAHvSV0gUC9r9
+        PpiNBl0zALPZBHsw4DnLZBLakvROAbAFa5PJ8KCj62AUCnTNAIxiEZzlkud8YD62sKUAezcYDsEsl7lP
+        1KxWwR6NuO+7ATJ64+MAe3UmEzArFTDyeWqd6ZS3RZRw0FGUKwpw6BVozwgClgX2eEx9b7znfQX2D15U
+        de8fHNJxJOL/B0T+9ROZeGdhhpzoSBQpIpb0/OMsMPFOI07iAvkBYn81jX8TQfgEbR4UNtJ+Om4AAAAA
+        SUVORK5CYII=
+</value>
+  </data>
 </root>

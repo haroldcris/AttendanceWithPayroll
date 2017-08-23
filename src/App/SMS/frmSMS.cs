@@ -33,11 +33,11 @@ namespace Winform.SMS
             // Add all port names to the combo box:
             foreach (string port in ports)
             {
-                this.cboPort.Items.Add(port);
+                cboPort.Items.Add(port);
             }
             #endregion
 
-            this.FormClosed += (s, e) => { Disconnect();  };
+            FormClosed += (s, e) => { Disconnect();  };
 
             btnConnect.Click += (s, e) => { OnButtonConnectionClick(); };
           
@@ -62,7 +62,7 @@ namespace Winform.SMS
 
             if (string.IsNullOrEmpty(cboPort.Text))
             {
-                My.Message.ShowValidationError(cboPort, "Select Port First");
+                App.Message.ShowValidationError(cboPort, "Select Port First");
                 return;
             }
 
@@ -104,7 +104,7 @@ namespace Winform.SMS
 
             } catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
         }
 
@@ -132,7 +132,7 @@ namespace Winform.SMS
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
         }
 
@@ -149,7 +149,7 @@ namespace Winform.SMS
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
         }
 
@@ -165,7 +165,7 @@ namespace Winform.SMS
             }
             catch (Exception ex)
             {
-                My.Message.ShowError(ex, this);
+                App.Message.ShowError(ex, this);
             }
         }
     }

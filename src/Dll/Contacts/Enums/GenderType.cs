@@ -1,4 +1,4 @@
-﻿namespace Dll.Contacts.Enums
+﻿namespace Dll.Contacts
 {
     public enum GenderType
     {

@@ -1,49 +1,50 @@
-using System.Linq;
+using AiTech.LiteOrm;
+using AiTech.LiteOrm.Database;
 using Dapper;
-using AiTech.Database;
-using AiTech.Entities;
 using System;
 
 namespace Dll.Payroll
 {
-	public class SalaryGradeCollection : EntityChildCollection <SalaryGrade, SalarySchedule>
-	{
+    public class SalaryGradeCollection : EntityCollection<SalaryGrade>
+    {
+        public Func<int> OnSalaryScheduleIdRequest;
 
         public bool LoadItemsFromDb()
-		{
-            
-            if (Parent == null) throw new ArgumentException("Parent Salary Schedule is NOT Set.");
+        {
 
-			this.ItemCollection.Clear();
+            if (OnSalaryScheduleIdRequest == null)
+                throw new Exception("OnSalaryScheduleIdRequest handler not assigned");
 
-			using (var db = Connection.CreateConnection())
-			{
-				db.Open();
-				var sql = "Select * from [Payroll_SalaryGrade] where SalaryScheduleId = @SalarySchedId";
-				var items = db.Query<SalaryGrade>(sql, new { SalarySchedId = Parent.Id });
+            var salarySchedId = OnSalaryScheduleIdRequest();
+
+
+            ItemCollection.Clear();
+
+            using (var db = Connection.CreateConnection())
+            {
+                db.Open();
+                var query = "Select * from [Payroll_SalaryGrade] where SalaryScheduleId = @SalarySchedId";
+                var items = db.Query<SalaryGrade>(query, new { SalarySchedId = salarySchedId });
 
                 foreach (var item in items)
-				{
-                    item.SalarySchedule = Parent;
-                    item.SalaryScheduleId = Parent.Id;
+                {
+                    item.RowStatus = RecordStatus.NoChanges;
+                    item.StartTrackingChanges();
+                    ItemCollection.Add(item);
+                }
+            }
 
-					item.RowStatus = RecordStatus.NoChanges;
-					item.StartTrackingChanges();
-					this.ItemCollection.Add(item);
-				}
-			}
-
-            HasReadFromDb = true;
-			return true;
-		}
+            return true;
+        }
 
         public void LoadDefaultItems()
         {
-            for (var i = 1; i <=50; i++)
+            var salarySchedId = OnSalaryScheduleIdRequest();
+
+            for (var i = 1; i <= 50; i++)
             {
                 var sg = new SalaryGrade();
-                sg.SalaryScheduleId = Parent.Id;
-                sg.SalarySchedule = Parent;
+                sg.SalaryScheduleId = salarySchedId;
 
                 sg.SG = i;
                 sg.Step1 = 0;
@@ -55,9 +56,9 @@ namespace Dll.Payroll
                 sg.Step7 = 0;
                 sg.Step8 = 0;
 
-                this.Add(sg);
+                Add(sg);
             }
         }
-	}
-	
+    }
+
 }

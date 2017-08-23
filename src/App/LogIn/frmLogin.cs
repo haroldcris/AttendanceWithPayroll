@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AiTech.LiteOrm.Database;
+using AiTech.Security;
+using Library.Tools;
+using System;
 using System.Windows.Forms;
-using AiTech.Account;
 
 namespace Winform
 {
-    public partial class frmLogin : DevComponents.DotNetBar.Metro.MetroForm //DevComponents.DotNetBar.OfficeForm
+    public sealed partial class frmLogin : DevComponents.DotNetBar.Metro.MetroForm //DevComponents.DotNetBar.OfficeForm
     {
         public frmLogin()
         {
             InitializeComponent();
-            this.Text = "Megabyte College";
+            Text = @"Megabyte College";
 
             lblStatus.Text = "";
             //lblStatus.Text = "Version : " + My.App.CurrentVersion();
@@ -20,7 +20,7 @@ namespace Winform
 
         private void frmLogin_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Helper.HandleEnterKey(this, e);
+            InputControls.ConvertEnterToTab(this, e);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -28,7 +28,7 @@ namespace Winform
             DialogResult = DialogResult.Cancel;
         }
 
-        private void OnConnectingProcess(bool status )
+        private void OnConnectingProcess(bool status)
         {
             pbLogin.Visible = status;
             pbLogin.Refresh();
@@ -50,7 +50,9 @@ namespace Winform
                 lblError.Text = @"<b>Connecting to Server.</b><br/>Please Wait...";
                 OnConnectingProcess(true);
 
-                var user =  await Credential.AuthenticateAsync(txtUsername.Text, txtPassword.Text );
+                var loginService = new AuthenticationService(Connection.CreateConnection().ConnectionString);
+
+                var user = await loginService.AuthenticateAsync(txtUsername.Text, txtPassword.Text);
 
                 if (user == null)
                 {
@@ -63,21 +65,21 @@ namespace Winform
 
                 pbLogin.Visible = false;
 
-                var token = Credential.GetAppToken(user);
-                
-                My.App.CurrentUser.User = user;
-                My.App.CurrentUser.Token = token;
-                
+                var token = loginService.GetCredentialToken(user.Username);
+
+                App.CurrentUser.User = user;
+                App.CurrentUser.Token = token;
+
                 DialogResult = DialogResult.OK;
+
             }
             catch (Exception ex)
             {
                 OnConnectingProcess(false);
-                lblError.Text = $"<font color='Red'>{ex.GetBaseException().Message}</font>";// ex.GetBaseException().Message;
-                //App.Message.ShowError(ex, this);
+                lblError.Text = $@"<font color='Red'>{ex.GetBaseException().Message}</font>";// ex.GetBaseException().Message;
             }
         }
 
-       
+
     }
 }

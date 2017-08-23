@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Dll</RootNamespace>
-    <AssemblyName>Data</AssemblyName>
+    <AssemblyName>Application</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AssemblyInfoFilePath>Properties\AssemblyInfo.cs</AssemblyInfoFilePath>
@@ -37,6 +37,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AiTech.LiteOrm">
+      <HintPath>..\..\..\_AiTech\LiteOrm\_Output\Release\Encrypted\AiTech.LiteOrm.dll</HintPath>
+    </Reference>
+    <Reference Include="AiTech.Security">
+      <HintPath>..\..\..\_AiTech\Security\_Output\Release\AiTech.Security.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -57,6 +63,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contacts\Enums\GenderType.cs" />
+    <Compile Include="Contacts\Name.cs" />
+    <Compile Include="Contacts\Person.cs" />
+    <Compile Include="Contacts\PersonCollection.cs" />
+    <Compile Include="Contacts\PersonDataMapper.cs" />
+    <Compile Include="Contacts\PersonDataReader.cs" />
+    <Compile Include="Contacts\PersonDataWriter.cs" />
+    <Compile Include="Location\Barangay\Barangay.cs" />
+    <Compile Include="Location\Barangay\BarangayCollection.cs" />
+    <Compile Include="Location\Barangay\BarangayDataReader.cs" />
+    <Compile Include="Location\LocationAddress.cs" />
+    <Compile Include="Location\Province\Province.cs" />
+    <Compile Include="Location\Province\ProvinceDataReader.cs" />
+    <Compile Include="Location\Province\ProvinceDataWriter.cs" />
+    <Compile Include="Location\Town\Town.cs" />
+    <Compile Include="Location\Town\TownCollection.cs" />
+    <Compile Include="Location\Town\TownDataReader.cs" />
+    <Compile Include="Location\Town\TownDataWriter.cs" />
+    <Compile Include="Payroll\Deduction\DeductionDataReader.cs" />
+    <Compile Include="Payroll\Interface.cs" />
+    <Compile Include="Payroll\Position\PositionDataReader.cs" />
     <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGradeDataWriter.cs" />
     <Compile Include="Payroll\SalarySchedule\SalaryScheduleDataWriter.cs" />
     <Compile Include="Payroll\SalarySchedule\SG\SalaryGrade.cs" />
@@ -66,6 +92,7 @@
     <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGrade.cs" />
     <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGradeCollection.cs" />
     <Compile Include="Payroll\SalarySchedule\SG\SalaryGradeDataWriter.cs" />
+    <Compile Include="Payroll\Tax\TaxDataReader.cs" />
     <Compile Include="Payroll\Tax\TaxDataWriter.cs" />
     <Compile Include="Payroll\Tax\Tax.cs" />
     <Compile Include="Payroll\Tax\TaxCollection.cs" />
@@ -78,30 +105,18 @@
     <Compile Include="Payroll\Position\PositionDataWriter.cs" />
     <Compile Include="SchoolYear\Course\Course.cs" />
     <Compile Include="SchoolYear\Course\CourseCollection.cs" />
-    <Compile Include="Location\ILocation.cs" />
-    <Compile Include="Location\Location.cs" />
-    <Compile Include="Contacts\Name.cs" />
-    <Compile Include="Contacts\Person.cs" />
-    <Compile Include="Contacts\PersonCollection.cs" />
-    <Compile Include="Contacts\PersonDataReader.cs" />
-    <Compile Include="Contacts\PersonDataWriter.cs" />
-    <Compile Include="Employee\Employee.cs" />
-    <Compile Include="Employee\EmployeeCollection.cs" />
-    <Compile Include="Employee\EmployeeDataWriter.cs" />
+    <Compile Include="Payroll\Employee\Employee.cs" />
+    <Compile Include="Payroll\Employee\EmployeeCollection.cs" />
+    <Compile Include="Payroll\Employee\EmployeeDataWriter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolYear\Batch\Batch.cs" />
     <Compile Include="SchoolYear\Batch\BatchCollection.cs" />
     <Compile Include="SchoolYear\Batch\BatchDataWriter.cs" />
     <Compile Include="SchoolYear\Course\CourseDataWriter.cs" />
+    <Compile Include="Security\Account.cs" />
     <Compile Include="SMS\SmsSender.cs" />
     <Compile Include="SMS\ShortMessage.cs" />
     <Compile Include="SMS\ShortMessageCollection.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\AiTech\AiTech.csproj">
-      <Project>{0408e3a9-88ed-4b29-9e51-0f526be0c2ce}</Project>
-      <Name>AiTech</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
@@ -111,6 +126,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\..\..\_AiTech\LiteOrm\_Output\Release\AiTech.LiteOrm.XML">
+      <Link>AiTech.LiteOrm.XML</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Database\TextTemplate1.txt">
       <Generator>TextTemplatingFileGenerator</Generator>
     </Content>

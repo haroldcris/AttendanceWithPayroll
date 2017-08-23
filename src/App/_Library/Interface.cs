@@ -4,10 +4,12 @@
     DirtyChecker DirtyStatus { get; }
 }
 
+
 internal interface IMDIForm
 {
     string Title { get; set; }
 }
+
 
 public interface IDirty
 {

@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using DevComponents.DotNetBar;
 using System.Linq;
 using Dll.SchoolYear;
+using Library.Tools;
 
 namespace Winform
 {
@@ -28,7 +29,7 @@ namespace Winform
             highlighter1.SetHighlightOnFocus(cboSemester, true);
 
             KeyPreview = true;
-            this.KeyPress += (s,e) => Helper.HandleEnterKey(this, e);
+            KeyPress += (s,e) => InputControls.ConvertEnterToTab(this, e);
 
             LoadBatch();
         }
@@ -67,7 +68,7 @@ namespace Winform
             
             if (ParentForm.ContainsData(Batch))
             {
-                My.Message.ShowValidationError(txtBatchName, "Duplicate Record!", errorProvider1, highlighterError);
+                App.Message.ShowValidationError(txtBatchName, "Duplicate Record!", errorProvider1, highlighterError);
                 return;
             }
             
@@ -83,13 +84,13 @@ namespace Winform
             //My.App.ClearErrorDisplay(txtBatchName, errorProvider1, highlighterError);
             if (txtBatchName.Text.Length == 0)
             {
-                My.Message.ShowValidationError(txtBatchName, "Enter Batch");
+                App.Message.ShowValidationError(txtBatchName, "Enter Batch");
                 return false;
             }
 
             if (!txtBatchName.Text.Contains("-"))
             {
-                My.Message.ShowValidationError(txtBatchName, "Invalid Batch Format");
+                App.Message.ShowValidationError(txtBatchName, "Invalid Batch Format");
                 return false;
             }
 
@@ -99,24 +100,24 @@ namespace Winform
 
             if(!Int32.TryParse(b.GetValue(0).ToString(), out start))
             {
-                My.Message.ShowValidationError(txtBatchName, "Invalid Batch Format");
+                App.Message.ShowValidationError(txtBatchName, "Invalid Batch Format");
                 return false;
             }
 
             if (!Int32.TryParse(b.GetValue(1).ToString(), out finish))
             {
-                My.Message.ShowValidationError(txtBatchName, "Invalid Batch Format");
+                App.Message.ShowValidationError(txtBatchName, "Invalid Batch Format");
                 return false;
             }
 
-            if (start < 1920) { My.Message.ShowValidationError(txtBatchName, "Invalid Batch Format. Batch starts at 1950"); return false; }
-            if (start + 1 != finish) { My.Message.ShowValidationError(txtBatchName, "Invalid Batch Format"); return false; }
+            if (start < 1920) { App.Message.ShowValidationError(txtBatchName, "Invalid Batch Format. Batch starts at 1950"); return false; }
+            if (start + 1 != finish) { App.Message.ShowValidationError(txtBatchName, "Invalid Batch Format"); return false; }
 
 
             //My.App.ClearErrorDisplay(cboSemester, errorProvider1, highlighterError);
             if (cboSemester.Text.Length == 0)
             {
-                My.Message.ShowValidationError(cboSemester, "Select Semester");
+                App.Message.ShowValidationError(cboSemester, "Select Semester");
                 return false;
             }
 

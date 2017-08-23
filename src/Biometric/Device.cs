@@ -274,13 +274,13 @@ namespace AiTech.Biometric
 
         public bool ReadRTLog()
         {
-            return ZApi.ReadRTLog(this.MachineId);
+            return ZApi.ReadRTLog(MachineId);
         }
 
 
         public bool GetRtLog()
         {
-            return ZApi.GetRTLog(this.MachineId);
+            return ZApi.GetRTLog(MachineId);
         }
     }
 }

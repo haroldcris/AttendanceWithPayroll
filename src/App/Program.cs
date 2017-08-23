@@ -27,7 +27,7 @@ namespace Winform
                 }
                 catch (Exception ex)
                 {
-                    My.Message.ShowError(ex, null);
+                    App.Message.ShowError(ex, null);
                 }
         }
     }
