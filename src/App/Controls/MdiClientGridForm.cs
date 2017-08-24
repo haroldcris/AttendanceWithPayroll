@@ -40,7 +40,8 @@ namespace Winform
             if (e.Button == MouseButtons.Right)
             {
                 var p = this.PointToScreen(e.Location);
-                mnuGridColumn.Popup(p);
+                
+                mnuGridColumn.PopupMenu(p);
             }
         }
 

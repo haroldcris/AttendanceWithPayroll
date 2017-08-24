@@ -48,6 +48,8 @@ namespace Winform
             switch (e.CloseReason)
             {
                 case CloseReason.ApplicationExitCall:
+
+
                 //case CloseReason.MdiFormClosing:
                 case CloseReason.UserClosing:
 

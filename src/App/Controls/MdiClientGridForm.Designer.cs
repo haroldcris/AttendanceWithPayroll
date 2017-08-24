@@ -74,6 +74,7 @@
             this.SGrid.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
             this.SGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SGrid.ForeColor = System.Drawing.Color.Black;
+            this.SGrid.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.SGrid.Location = new System.Drawing.Point(0, 28);
             this.SGrid.Name = "SGrid";
             // 
@@ -165,6 +166,7 @@
             this.btnAdd,
             this.itemContainer1,
             this.btnRefresh});
+            this.ribbonBar6.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.ribbonBar6.Location = new System.Drawing.Point(0, 0);
             this.ribbonBar6.Name = "ribbonBar6";
             this.ribbonBar6.Size = new System.Drawing.Size(203, 77);
@@ -203,6 +205,10 @@
             this.itemContainer1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnEdit,
             this.btnDelete});
+            // 
+            // 
+            // 
+            this.itemContainer1.TitleMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 

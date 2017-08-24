@@ -2,6 +2,7 @@
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Contacts;
+using Library.Tools;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -58,6 +59,11 @@ namespace Winform.Contacts
             grid.CreateColumn("BirthCountry", "Country", 85);
             grid.CreateColumn("CameraCounter", "Image File", 85);
 
+
+            var col = grid.CreateColumn("Image", "Image", 85);
+            //col.DataType = typeof(ImageList);
+            col.DataType = typeof(ImageList);
+
             grid.CreateRecordInfoColumns();
 
             // Create COntext Menu;
@@ -90,6 +96,14 @@ namespace Winform.Contacts
 
             row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
 
+
+            var imageList = new ImageList();
+            var img = InputControls.GetImage(currentItem.CameraCounter);
+            if (img != null)
+            {
+                imageList.Images.Add(img);
+                row.Cells["Image"].Value = imageList;
+            }
 
             row.ShowRecordInfo(currentItem);
         }

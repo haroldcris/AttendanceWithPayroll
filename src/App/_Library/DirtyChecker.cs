@@ -108,31 +108,29 @@ public class DirtyChecker
         if (leavingFocus)
         {
             //Clear Error
-            //statusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
             MainMDIForm.cmdSave.Enabled = false;
             MainMDIForm.lblStatus.Text = "Ready";
             statusBar.Refresh();
             return;
         }
 
-        if (statusBar.BackgroundStyle.BackColor != Color.Red)
+        if (statusBar.BackColor != Color.Red)
         {
-            _defaultColor = statusBar.BackgroundStyle.BackColor;
+            _defaultColor = statusBar.BackColor;
         }
 
         if (_IsDirty)
         {
             //Set Dirty
-            statusBar.BackgroundStyle.BackColor = System.Drawing.Color.Red;
+            statusBar.BackColor = System.Drawing.Color.Red;
             MainMDIForm.lblStatus.Text = "Pending changes detected. Save is required";
         }
         else
         {
 
             //Clear Error
-            //statusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
-            statusBar.BackgroundStyle.BackColor = _defaultColor;
-            //statusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.MenuBorder;
+            statusBar.BackColor = _defaultColor;
+            statusBar.BackColor = new Color();
             MainMDIForm.lblStatus.Text = "Ready";
         }
 

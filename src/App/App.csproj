@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.639</AssemblyVersion>
+    <AssemblyVersion>1.0.0.680</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -73,7 +73,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>E:\Programs\DotNetBar for Windows Forms\DevComponents.DotNetBar2.dll</HintPath>
     </Reference>
-    <Reference Include="DevComponents.Instrumentation, Version=12.7.0.2, Culture=neutral, PublicKeyToken=f90dc37c26666a67" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -178,11 +177,17 @@
     <Compile Include="LogIn\frmLogin.Designer.cs">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmSalarySchedule_Add.cs">
+    <Compile Include="Payroll\SalarySchedule\frmSalarySchedule_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\frmSalarySchedule_Add.Designer.cs">
+    <Compile Include="Payroll\SalarySchedule\frmSalarySchedule_Add.Designer.cs">
       <DependentUpon>frmSalarySchedule_Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payroll\SalarySchedule\frmSalarySchedule.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\SalarySchedule\frmSalarySchedule.Designer.cs">
+      <DependentUpon>frmSalarySchedule.cs</DependentUpon>
     </Compile>
     <Compile Include="Payroll\TaxTable\frmTaxTable.cs">
       <SubType>Form</SubType>
@@ -213,12 +218,6 @@
     </Compile>
     <Compile Include="Payroll\frmAddEmployeeDeduction.Designer.cs">
       <DependentUpon>frmAddEmployeeDeduction.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Payroll\frmSalarySchedule.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Payroll\frmSalarySchedule.Designer.cs">
-      <DependentUpon>frmSalarySchedule.cs</DependentUpon>
     </Compile>
     <Compile Include="Payroll\frmPayrollMasterList.cs">
       <SubType>Form</SubType>
@@ -318,8 +317,11 @@
     <EmbeddedResource Include="LogIn\frmLogin.resx">
       <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmSalarySchedule_Add.resx">
+    <EmbeddedResource Include="Payroll\SalarySchedule\frmSalarySchedule_Add.resx">
       <DependentUpon>frmSalarySchedule_Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\SalarySchedule\frmSalarySchedule.resx">
+      <DependentUpon>frmSalarySchedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\TaxTable\frmTaxTable.resx">
       <DependentUpon>frmTaxTable.cs</DependentUpon>
@@ -335,9 +337,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmAddEmployeeDeduction.resx">
       <DependentUpon>frmAddEmployeeDeduction.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmSalarySchedule.resx">
-      <DependentUpon>frmSalarySchedule.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmPayrollMasterList.resx">
       <DependentUpon>frmPayrollMasterList.cs</DependentUpon>

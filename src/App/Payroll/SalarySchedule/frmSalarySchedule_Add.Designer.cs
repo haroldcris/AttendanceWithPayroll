@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            DevComponents.DotNetBar.SuperGrid.Style.Background background1 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
             DevComponents.DotNetBar.SuperGrid.Style.Background background2 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
-            DevComponents.DotNetBar.SuperGrid.Style.Background background3 = new DevComponents.DotNetBar.SuperGrid.Style.Background();
             this.label3 = new System.Windows.Forms.Label();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
@@ -135,6 +135,7 @@
             // highlighter1
             // 
             this.highlighter1.ContainerControl = this;
+            this.highlighter1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // tabControl1
             // 
@@ -181,12 +182,13 @@
             // SGGrid
             // 
             this.SGGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            background2.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.Center;
-            background2.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.SGGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = background2;
+            background1.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.Center;
+            background1.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.SGGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = background1;
             this.SGGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SGGrid.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
             this.SGGrid.ForeColor = System.Drawing.Color.Black;
+            this.SGGrid.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.SGGrid.Location = new System.Drawing.Point(10, 10);
             this.SGGrid.Name = "SGGrid";
             // 
@@ -251,12 +253,13 @@
             // PositionGrid
             // 
             this.PositionGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            background3.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.Center;
-            background3.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.PositionGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = background3;
+            background2.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.Center;
+            background2.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.PositionGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = background2;
             this.PositionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PositionGrid.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
             this.PositionGrid.ForeColor = System.Drawing.Color.Black;
+            this.PositionGrid.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.PositionGrid.Location = new System.Drawing.Point(10, 10);
             this.PositionGrid.Name = "PositionGrid";
             // 
@@ -389,6 +392,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
             this.MaximizeBox = false;

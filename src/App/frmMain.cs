@@ -129,7 +129,14 @@ namespace Winform
 
         private void btnLogout_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+
+            foreach (var frm in this.MdiChildren)
+            {
+                frm.Close();
+            }
+
+            if (!MdiChildren.Any())
+                Application.Restart();
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)

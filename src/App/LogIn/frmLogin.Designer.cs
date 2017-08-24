@@ -49,6 +49,7 @@
             // highlighter1
             // 
             this.highlighter1.ContainerControl = this;
+            this.highlighter1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // txtUsername
             // 
@@ -208,6 +209,7 @@
             this.metroStatusBar1.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.metroStatusBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.lblStatus});
+            this.metroStatusBar1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.metroStatusBar1.Location = new System.Drawing.Point(0, 385);
             this.metroStatusBar1.Name = "metroStatusBar1";
             this.metroStatusBar1.Size = new System.Drawing.Size(210, 15);

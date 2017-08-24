@@ -3,6 +3,7 @@ using DevComponents.DotNetBar;
 using Dll.Location;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -62,6 +63,7 @@ namespace Library.Tools
             }
         }
 
+
         public static void LoadImage(PictureBox control, string filenameFromServer)
         {
             if (string.IsNullOrEmpty(filenameFromServer)) return;
@@ -70,6 +72,23 @@ namespace Library.Tools
             control.LoadAsync(path);
 
         }
+
+
+        public static Image GetImage(string filenameFromServer)
+        {
+            if (string.IsNullOrEmpty(filenameFromServer)) return null;
+
+            var path = string.Format("http://{0}/amwp/pictures/{1}.jpg", AiTech.LiteOrm.Database.Connection.MyDbCredential.ServerName, filenameFromServer);
+
+
+            var pb = new PictureBox();
+            pb.Load(path);
+
+            return pb.Image;
+        }
+
+
+
 
         public class Address
         {

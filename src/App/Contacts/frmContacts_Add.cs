@@ -237,21 +237,21 @@ namespace Winform.Contacts
         }
 
 
-        private void txtImageFile_ButtonCustomClick(object sender, EventArgs e)
+        private async void txtImageFile_ButtonCustomClick(object sender, EventArgs e)
         {
             FileInfo file;
             using (var frm = new Devices.frmCaptureDevice())
             {
-                frm.ShowDialog();
+                if (frm.ShowDialog() != DialogResult.OK) return;
 
                 file = frm.File;
             }
 
-
             txtImageFile.Text = Path.GetFileNameWithoutExtension(file.FullName);
 
-            UploadAndDisplayImage(file.FullName);
+            await UploadAndDisplayImage(file.FullName);
         }
+
 
         private async void txtImageFile_ButtonCustom2Click(object sender, EventArgs e)
         {

@@ -9,14 +9,9 @@ namespace Winform.Payroll
     {
         public SalarySchedule ItemData { get; set; }
 
-        private frmSalarySchedule CallerForm;
-
-
-        public frmSalarySchedule_Add(frmSalarySchedule caller)
+        public frmSalarySchedule_Add()
         {
             InitializeComponent();
-
-            CallerForm = caller;
 
             InitializeSGGrid();
 
@@ -25,7 +20,7 @@ namespace Winform.Payroll
             Load += (s, e) => { ShowData(); };
 
             CancelButton = btnCancel;
-            btnCancel.Click += (s, e) => { Dispose(); };
+            btnCancel.Click += (s, e) => { Close(); };
             btnOk.Click += (s, e) => { Save(); };
 
             tabControl1.SelectedTabChanged += (s, e) =>
@@ -49,11 +44,11 @@ namespace Winform.Payroll
             //    return false;
             //}
 
-            if (CallerForm.ContainsData(dtEffectivityDate.Value, ItemData.RowId))
-            {
-                App.Message.ShowValidationError(dtEffectivityDate, "Duplicate Record!");
-                return false;
-            }
+            //if (CallerForm.ContainsData(dtEffectivityDate.Value, ItemData.RowId))
+            //{
+            //    App.Message.ShowValidationError(dtEffectivityDate, "Duplicate Record!");
+            //    return false;
+            //}
             return true;
         }
 
@@ -101,6 +96,7 @@ namespace Winform.Payroll
             PositionGrid.InitializeGrid();
 
             var grid = PositionGrid.PrimaryGrid;
+
             grid.GroupByRow.Visible = false;
             grid.SelectionGranularity = SelectionGranularity.Cell;
             grid.UseAlternateRowStyle = true;
@@ -125,19 +121,37 @@ namespace Winform.Payroll
             };
 
             var col = new GridColumn();
-            col = grid.CreateColumn("Position", "Position", 200, Alignment.MiddleLeft);
+
+            col = grid.CreateColumn("Code", "Code", 80);
+            col.AllowEdit = false;
+
+            col = grid.CreateColumn("Position", "Position", 200);
             col.AllowEdit = false;
 
             col = grid.CreateColumn("SalaryGrade", "Salary Grade", 80, Alignment.MiddleCenter);
             col.DataType = typeof(int);
+
+
             col.EditorType = typeof(GridDoubleIntInputEditControl);
 
         }
 
+
+
         private void InitializeSGGrid()
         {
             SGGrid.InitializeGrid();
-            SGGrid.KeyDown += (s, e) => { if (e.Control && e.KeyCode == Keys.C) { SGGrid.PrimaryGrid.CopySelectedCellsToClipboard(); e.SuppressKeyPress = true; } };
+
+            SGGrid.KeyDown += (s, e) =>
+            {
+                //Select All
+                if (e.Control && e.KeyCode == Keys.A) { e.SuppressKeyPress = true; SGGrid.PrimaryGrid.SelectAll(); }
+                //Copy
+                if (e.Control && e.KeyCode == Keys.C) { e.SuppressKeyPress = true; SGGrid.PrimaryGrid.CopySelectedCellsToClipboard(); }
+                //Paste
+                if (e.Control && e.KeyCode == Keys.V) { e.SuppressKeyPress = true; PasteToGrid(SGGrid.PrimaryGrid); }
+            };
+
 
             var grid = SGGrid.PrimaryGrid;
             var col = new GridColumn();
@@ -164,6 +178,47 @@ namespace Winform.Payroll
 
         }
 
+        private void PasteToGrid(GridPanel control)
+        {
+            var clipBoard = Clipboard.GetText();
+
+            var lines = clipBoard.Split('\n');
+
+            var currentRow = control.ActiveCell.RowIndex;
+            var currentCol = control.ActiveCell.ColumnIndex;
+
+
+            for (var row = 0; row < lines.Length; row++)
+            {
+
+                var cells = lines[row].Split('\t');
+
+                for (var col = 0; col < cells.Length; col++)
+                {
+                    GridCell activeCell = control.GetCell(currentRow + row, currentCol + col);
+
+                    if (activeCell == null) continue;
+
+                    if (!activeCell.AllowEdit) continue;
+
+
+                    decimal result;
+                    if (decimal.TryParse(cells[col], out result))
+                    {
+                        activeCell.Value = result;
+                        activeCell.IsSelected = true;
+                    }
+                    else
+                    {
+                        activeCell.Value = 0;
+                    }
+
+                }
+
+            }
+
+        }
+
         private void ShowData()
         {
             if (ItemData == null) return;
@@ -172,22 +227,19 @@ namespace Winform.Payroll
             txtRemarks.Text = ItemData.Remarks;
 
 
+            //
+            //  SHOW SALARY GRADE TABLE
+            //
             var row = new GridRow();
 
-            //
-            // Show SalaryGrades
-            //
-            //if (!ItemData.SalaryGrades.HasReadFromDb)
+            if (!ItemData.SalaryGrades.LoadItemsFromDb())
+                ItemData.SalaryGrades.LoadDefaultItems();
 
-
-            //if (!ItemData.SalaryGrades.Items.Any())
-            //    ItemData.SalaryGrades.LoadDefaultItems();
-
-            ItemData.SalaryGrades.LoadItemsFromDb();
 
             foreach (var itemSG in ItemData.SalaryGrades.Items)
             {
                 row = SGGrid.PrimaryGrid.CreateNewRow();
+
                 //row["SG"].Value = itemSG.SG;
                 row["Step1"].Value = itemSG.Step1;
                 row["Step2"].Value = itemSG.Step2;
@@ -201,20 +253,18 @@ namespace Winform.Payroll
                 row.Tag = itemSG;
             }
 
+
             //
             // Show Position;
             //
-            //if (!ItemData.PositionSalaryGrades.HasReadFromDb)
-            //    ItemData.PositionSalaryGrades.LoadItemsFromDb();
-
-            //if (ItemData.PositionSalaryGrades.Items.Count() == 0)
-            //    ItemData.PositionSalaryGrades.LoadDefaultItems();
 
             ItemData.PositionSalaryGrades.LoadItemsFromDb();
 
             foreach (var itemPosition in ItemData.PositionSalaryGrades.Items)
             {
                 row = PositionGrid.PrimaryGrid.CreateNewRow();
+
+                row["Code"].Value = itemPosition.PositionCode;
                 row["Position"].Value = itemPosition.PositionDescription;
                 row["SalaryGrade"].Value = itemPosition.SG;
 
