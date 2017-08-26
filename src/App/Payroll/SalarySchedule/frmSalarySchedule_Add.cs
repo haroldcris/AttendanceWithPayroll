@@ -1,13 +1,18 @@
 ﻿using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Payroll;
+using Library.Tools;
+using System;
 using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
-    public partial class frmSalarySchedule_Add : FormWithHeader
+    public partial class frmSalarySchedule_Add : FormWithHeader, ISave
     {
         public SalarySchedule ItemData { get; set; }
+
+        public DirtyChecker DirtyStatus { get; private set; }
+
 
         public frmSalarySchedule_Add()
         {
@@ -17,16 +22,54 @@ namespace Winform.Payroll
 
             InitializePositionGrid();
 
-            Load += (s, e) => { ShowData(); };
+            Load += (s, e) =>
+            {
+                ShowData();
+                DirtyStatus.Clear();
+            };
+
+            this.FormClosing += (s, e) => InputControls.Form.AskToSaveOnDirtyClosing((ISave)s, e);
 
             CancelButton = btnCancel;
-            btnCancel.Click += (s, e) => { Close(); };
-            btnOk.Click += (s, e) => { Save(); };
+            btnOk.Click += (s, e) => FileSave();
 
             tabControl1.SelectedTabChanged += (s, e) =>
             {
                 SelectNextControl(e.NewTab.AttachedControl, true, true, true, true);
             };
+
+            DirtyStatus = new DirtyChecker(this);
+        }
+
+        private void FrmSalarySchedule_Add_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            switch (e.CloseReason)
+            {
+                case CloseReason.None:
+                case CloseReason.UserClosing:
+                    //Check for Dirty
+                    if (!DirtyStatus.IsDirty) break;
+
+                    var response = App.Message.AskToSave();
+
+                    switch (response)
+                    {
+                        case MessageDialogResult.Yes:
+                            if (!FileSave()) e.Cancel = true;
+                            break;
+
+                        case MessageDialogResult.Cancel:
+                            e.Cancel = true;
+                            break;
+
+                        default:
+                            break;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
         }
 
 
@@ -52,41 +95,61 @@ namespace Winform.Payroll
             return true;
         }
 
-        private void Save()
+
+        public bool FileSave()
         {
-            if (!DataIsValid()) return;
-
-            ItemData.Effectivity = dtEffectivityDate.Value;
-            ItemData.Remarks = txtRemarks.Text;
-
-            //SalaryGrades 
-            foreach (GridRow row in SGGrid.PrimaryGrid.Rows)
+            try
             {
-                var rowData = (SalaryGrade)row.Tag;
-                if (rowData == null) continue;
+                Cursor.Current = Cursors.WaitCursor;
 
-                rowData.Step1 = decimal.Parse(row["Step1"].Value.ToString());
-                rowData.Step2 = decimal.Parse(row["Step2"].Value.ToString());
-                rowData.Step3 = decimal.Parse(row["Step3"].Value.ToString());
-                rowData.Step4 = decimal.Parse(row["Step4"].Value.ToString());
-                rowData.Step5 = decimal.Parse(row["Step5"].Value.ToString());
-                rowData.Step6 = decimal.Parse(row["Step6"].Value.ToString());
-                rowData.Step7 = decimal.Parse(row["Step7"].Value.ToString());
-                rowData.Step8 = decimal.Parse(row["Step8"].Value.ToString());
+                if (!DataIsValid()) return false;
+
+                ItemData.Effectivity = dtEffectivityDate.Value;
+                ItemData.Remarks = txtRemarks.Text;
+
+                //SalaryGrades 
+                foreach (var gridElement in SGGrid.PrimaryGrid.Rows)
+                {
+                    var row = (GridRow)gridElement;
+                    var rowData = (SalaryGrade)row.Tag;
+                    if (rowData == null) continue;
+
+                    rowData.Step1 = decimal.Parse(row["Step1"].Value.ToString());
+                    rowData.Step2 = decimal.Parse(row["Step2"].Value.ToString());
+                    rowData.Step3 = decimal.Parse(row["Step3"].Value.ToString());
+                    rowData.Step4 = decimal.Parse(row["Step4"].Value.ToString());
+                    rowData.Step5 = decimal.Parse(row["Step5"].Value.ToString());
+                    rowData.Step6 = decimal.Parse(row["Step6"].Value.ToString());
+                    rowData.Step7 = decimal.Parse(row["Step7"].Value.ToString());
+                    rowData.Step8 = decimal.Parse(row["Step8"].Value.ToString());
+                }
+
+
+                //Position Salary Grade 
+                foreach (var gridElement in PositionGrid.PrimaryGrid.Rows)
+                {
+                    var row = (GridRow)gridElement;
+                    var rowData = (PositionSalaryGrade)row.Tag;
+                    if (rowData == null) continue;
+
+                    rowData.SG = int.Parse(row["SalaryGrade"].Value.ToString());
+                }
+
+
+                //Save to the Database
+                var dataWriter = new SalaryScheduleDataWriter(App.CurrentUser.User.Username, ItemData);
+                dataWriter.SaveChanges();
+
+                DirtyStatus.Clear();
+                DialogResult = DialogResult.OK;
+                return true;
+
             }
-
-
-            //Position Salary Grade 
-            foreach (GridRow row in PositionGrid.PrimaryGrid.Rows)
+            catch (Exception ex)
             {
-                var rowData = (PositionSalaryGrade)row.Tag;
-                if (rowData == null) continue;
-
-                rowData.SG = int.Parse(row["SalaryGrade"].Value.ToString());
+                App.Message.ShowError(ex, this);
+                return false;
             }
-
-
-            DialogResult = DialogResult.OK;
         }
 
 
@@ -97,6 +160,7 @@ namespace Winform.Payroll
 
             var grid = PositionGrid.PrimaryGrid;
 
+            grid.EnableClipboardPasteNumbers();
             grid.GroupByRow.Visible = false;
             grid.SelectionGranularity = SelectionGranularity.Cell;
             grid.UseAlternateRowStyle = true;
@@ -120,9 +184,7 @@ namespace Winform.Payroll
 
             };
 
-            var col = new GridColumn();
-
-            col = grid.CreateColumn("Code", "Code", 80);
+            var col = grid.CreateColumn("Code", "Code", 80);
             col.AllowEdit = false;
 
             col = grid.CreateColumn("Position", "Position", 200);
@@ -142,23 +204,14 @@ namespace Winform.Payroll
         {
             SGGrid.InitializeGrid();
 
-            SGGrid.KeyDown += (s, e) =>
-            {
-                //Select All
-                if (e.Control && e.KeyCode == Keys.A) { e.SuppressKeyPress = true; SGGrid.PrimaryGrid.SelectAll(); }
-                //Copy
-                if (e.Control && e.KeyCode == Keys.C) { e.SuppressKeyPress = true; SGGrid.PrimaryGrid.CopySelectedCellsToClipboard(); }
-                //Paste
-                if (e.Control && e.KeyCode == Keys.V) { e.SuppressKeyPress = true; PasteToGrid(SGGrid.PrimaryGrid); }
-            };
-
 
             var grid = SGGrid.PrimaryGrid;
-            var col = new GridColumn();
 
+            grid.EnableClipboardPasteNumbers();
             grid.GroupByRow.Visible = false;
             grid.SelectionGranularity = SelectionGranularity.Cell;
             grid.UseAlternateRowStyle = true;
+
             grid.AllowEdit = true;
             grid.MultiSelect = true;
 
@@ -168,7 +221,7 @@ namespace Winform.Payroll
 
             for (var step = 1; step <= 8; step++)
             {
-                col = grid.CreateColumn("Step" + step, "Step " + step, 75, Alignment.MiddleRight);
+                var col = grid.CreateColumn("Step" + step, "Step " + step, 75, Alignment.MiddleRight);
                 col.ColumnSortMode = ColumnSortMode.None;
                 col.DataType = typeof(decimal);
                 col.RenderType = typeof(GridDoubleInputEditControl);
@@ -178,46 +231,6 @@ namespace Winform.Payroll
 
         }
 
-        private void PasteToGrid(GridPanel control)
-        {
-            var clipBoard = Clipboard.GetText();
-
-            var lines = clipBoard.Split('\n');
-
-            var currentRow = control.ActiveCell.RowIndex;
-            var currentCol = control.ActiveCell.ColumnIndex;
-
-
-            for (var row = 0; row < lines.Length; row++)
-            {
-
-                var cells = lines[row].Split('\t');
-
-                for (var col = 0; col < cells.Length; col++)
-                {
-                    GridCell activeCell = control.GetCell(currentRow + row, currentCol + col);
-
-                    if (activeCell == null) continue;
-
-                    if (!activeCell.AllowEdit) continue;
-
-
-                    decimal result;
-                    if (decimal.TryParse(cells[col], out result))
-                    {
-                        activeCell.Value = result;
-                        activeCell.IsSelected = true;
-                    }
-                    else
-                    {
-                        activeCell.Value = 0;
-                    }
-
-                }
-
-            }
-
-        }
 
         private void ShowData()
         {
@@ -230,7 +243,7 @@ namespace Winform.Payroll
             //
             //  SHOW SALARY GRADE TABLE
             //
-            var row = new GridRow();
+            GridRow row;
 
             if (!ItemData.SalaryGrades.LoadItemsFromDb())
                 ItemData.SalaryGrades.LoadDefaultItems();
@@ -273,5 +286,7 @@ namespace Winform.Payroll
 
 
         }
+
+
     }
 }

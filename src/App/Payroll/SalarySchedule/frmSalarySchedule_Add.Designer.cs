@@ -91,7 +91,6 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(12, 73);
             this.label3.Name = "label3";
@@ -129,7 +128,7 @@
             this.btnOk.Size = new System.Drawing.Size(83, 39);
             this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.btnOk.TabIndex = 5;
-            this.btnOk.Text = "Done";
+            this.btnOk.Text = "Save";
             this.btnOk.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
             // 
             // highlighter1
@@ -142,7 +141,7 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tabControl1.BackColor = System.Drawing.Color.White;
             this.tabControl1.CanReorderTabs = true;
             this.tabControl1.Controls.Add(this.tabControlPanel1);
             this.tabControl1.Controls.Add(this.tabControlPanel2);
@@ -181,9 +180,9 @@
             // 
             // SGGrid
             // 
-            this.SGGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.SGGrid.BackColor = System.Drawing.Color.White;
             background1.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.Center;
-            background1.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            background1.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.SGGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = background1;
             this.SGGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SGGrid.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
@@ -199,6 +198,7 @@
             this.SGGrid.PrimaryGrid.Rows.Add(this.gridRow1);
             this.SGGrid.PrimaryGrid.Rows.Add(this.gridRow2);
             this.SGGrid.PrimaryGrid.Rows.Add(this.gridRow3);
+            this.SGGrid.PrimaryGrid.UseAlternateRowStyle = true;
             this.SGGrid.Size = new System.Drawing.Size(672, 484);
             this.SGGrid.TabIndex = 2;
             this.SGGrid.Text = "superGridControl1";
@@ -252,7 +252,7 @@
             // 
             // PositionGrid
             // 
-            this.PositionGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.PositionGrid.BackColor = System.Drawing.Color.White;
             background2.BackFillType = DevComponents.DotNetBar.SuperGrid.Style.BackFillType.Center;
             background2.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.PositionGrid.DefaultVisualStyles.AlternateRowCellStyles.Default.Background = background2;
@@ -302,6 +302,7 @@
             // dtEffectivityDate
             // 
             this.dtEffectivityDate.AutoAdvance = true;
+            this.dtEffectivityDate.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
@@ -311,7 +312,7 @@
             this.dtEffectivityDate.ButtonDropDown.Visible = true;
             this.dtEffectivityDate.CustomFormat = "MMM - dd - yyyy";
             this.dtEffectivityDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtEffectivityDate.ForeColor = System.Drawing.Color.Blue;
+            this.dtEffectivityDate.ForeColor = System.Drawing.Color.Black;
             this.dtEffectivityDate.Format = DevComponents.Editors.eDateTimePickerFormat.Custom;
             this.dtEffectivityDate.IsPopupCalendarOpen = false;
             this.dtEffectivityDate.Location = new System.Drawing.Point(15, 91);
@@ -352,7 +353,6 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(156, 73);
             this.label1.Name = "label1";
@@ -372,7 +372,7 @@
             this.txtRemarks.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.txtRemarks.DisabledBackColor = System.Drawing.Color.White;
             this.txtRemarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRemarks.ForeColor = System.Drawing.Color.Blue;
+            this.txtRemarks.ForeColor = System.Drawing.Color.Black;
             this.txtRemarks.Location = new System.Drawing.Point(159, 91);
             this.txtRemarks.Name = "txtRemarks";
             this.txtRemarks.PreventEnterBeep = true;
@@ -391,8 +391,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
+            this.EnableGlass = false;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForeColor = System.Drawing.Color.Black;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.KeyPreview = true;
             this.MaximizeBox = false;

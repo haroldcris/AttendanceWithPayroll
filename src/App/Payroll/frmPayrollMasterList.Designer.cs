@@ -54,6 +54,7 @@
             // 
             this.SGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SGrid.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
+            this.SGrid.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.SGrid.Location = new System.Drawing.Point(0, 28);
             this.SGrid.Name = "SGrid";
             // 
@@ -116,10 +117,11 @@
             this.btnPayViewProfile,
             this.groupPayButtons,
             this.btnPayRefresh});
-            this.RibbonPayMasterList.Location = new System.Drawing.Point(114, 0);
+            this.RibbonPayMasterList.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            this.RibbonPayMasterList.Location = new System.Drawing.Point(117, 0);
             this.RibbonPayMasterList.Name = "RibbonPayMasterList";
             this.RibbonPayMasterList.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("RibbonPayMasterList.OverflowButtonImage")));
-            this.RibbonPayMasterList.Size = new System.Drawing.Size(245, 99);
+            this.RibbonPayMasterList.Size = new System.Drawing.Size(248, 99);
             this.RibbonPayMasterList.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.RibbonPayMasterList.TabIndex = 10;
             this.RibbonPayMasterList.Text = "Master List";
@@ -156,6 +158,10 @@
             this.groupPayButtons.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnPayAdd,
             this.btnPayDelete});
+            // 
+            // 
+            // 
+            this.groupPayButtons.TitleMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
@@ -212,9 +218,10 @@
             this.RibbonPayProcess.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnPayCheck,
             this.btnPayGenerate});
+            this.RibbonPayProcess.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.RibbonPayProcess.Location = new System.Drawing.Point(0, 0);
             this.RibbonPayProcess.Name = "RibbonPayProcess";
-            this.RibbonPayProcess.Size = new System.Drawing.Size(114, 99);
+            this.RibbonPayProcess.Size = new System.Drawing.Size(117, 99);
             this.RibbonPayProcess.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.RibbonPayProcess.TabIndex = 12;
             this.RibbonPayProcess.Text = "Process";

@@ -1,6 +1,8 @@
-﻿using AiTech.LiteOrm.Database;
+﻿using AiTech.LiteOrm;
+using AiTech.LiteOrm.Database;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace Dll.Payroll
 {
@@ -24,37 +26,25 @@ namespace Dll.Payroll
         {
             var item = (SalarySchedule)e.ItemData;
 
+            //Transfer Id to Child
+            if (item.RowStatus == RecordStatus.NewRecord)
+            {
+                Debug.WriteLine("Salary Schedule is new Record. Setting Children ID...");
+                foreach (var sg in item.SalaryGrades.Items) sg.SalaryScheduleId = item.Id;
+
+                foreach (var pos in item.PositionSalaryGrades.Items) pos.SalaryScheduleId = item.Id;
+            }
+
             var sgWriter = new SalaryGradeDataWriter(DataWriterUsername, item.SalaryGrades);
-
-            sgWriter.OnSalaryScheduleIdRequest += () => item.Id;
-
             sgWriter.SaveChanges(e.Connection, e.Transaction);
 
+
+            var posWriter = new PositionSalaryGradeDataWriter(DataWriterUsername, item.PositionSalaryGrades);
+            posWriter.SaveChanges(e.Connection, e.Transaction);
+
+
         }
 
-        protected override void CommitChanges()
-        {
-            _List.CommitChanges();
-
-            //Sub Classes
-            //foreach (var item in _List.Items)
-            //{
-            //    item.PositionSalaryGrades;
-            //    item.SalaryGrades.CommitChanges();
-            //}
-        }
-
-        protected override void RollbackChanges()
-        {
-            _List.RollbackChanges();
-
-            //Sub Classes
-            //foreach (var item in _List.Items)
-            //{
-            //    item.PositionSalaryGrades.RollbackChanges();
-            //    item.SalaryGrades.RollbackChanges();
-            //}
-        }
 
         protected override void CreateSqlInsertCommandParameters(SqlCommand cmd, SalarySchedule item)
         {

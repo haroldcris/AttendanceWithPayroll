@@ -10,9 +10,12 @@ using System.Windows.Forms;
 
 namespace Winform.Contacts
 {
-    public partial class frmContacts_Add : FormWithRecordInfo
+    public partial class frmContacts_Add : FormWithRecordInfo, ISave
     {
         public Person ItemData { get; set; }
+
+        public DirtyChecker DirtyStatus { get; }
+
 
         public frmContacts_Add()
         {
@@ -20,11 +23,13 @@ namespace Winform.Contacts
 
             Load += (s, e) => ShowData();
 
+            DirtyStatus = new DirtyChecker(this);
+
             InputControls.Address.LoadProvinceListTo(cboProvince);
             cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
 
 
-            InputControls.LoadToComboBox(cboCountry, InputControls.GetCountryList().OrderBy(_ => _));
+            InputControls.LoadToComboBox(cboCountry, InputControls.Address.GetCountryList().OrderBy(_ => _));
             cboCountry.SelectedIndexChanged += CboCountry_SelectedIndexChanged;
         }
 
@@ -52,11 +57,12 @@ namespace Winform.Contacts
 
         #region Main Script
 
-        private void btnOk_Click(object sender, EventArgs e)
+        public bool FileSave()
         {
             try
             {
-                if (!DataIsValid()) return;
+
+                if (!DataIsValid()) return false;
 
                 ItemData.Name.Lastname = txtLastname.Text.Trim();
                 ItemData.Name.Firstname = txtFirstname.Text.Trim();
@@ -77,13 +83,27 @@ namespace Winform.Contacts
                 ItemData.CameraCounter = txtImageFile.Text;
 
 
-                DialogResult = DialogResult.OK;
+
+
+
+                var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, ItemData);
+
+                if (dataWriter.SaveChanges())
+                    DialogResult = DialogResult.OK;
+
+
+                return true;
             }
             catch (Exception ex)
             {
                 App.Message.ShowError(ex, this);
+                throw;
             }
+        }
 
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            FileSave();
         }
 
 
@@ -278,5 +298,7 @@ namespace Winform.Contacts
 
             File.Delete(targetFilename);
         }
+
+
     }
 }

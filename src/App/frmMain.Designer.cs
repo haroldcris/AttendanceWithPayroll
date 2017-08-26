@@ -168,7 +168,7 @@
             this.ribbonPanel3.Controls.Add(this.RibbonBarStudent);
             this.ribbonPanel3.Controls.Add(this.ribbonBarUserAccounts);
             this.ribbonPanel3.Controls.Add(this.ribbonBar2);
-            this.ribbonPanel3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ribbonPanel3.Cursor = System.Windows.Forms.Cursors.Default;
             this.ribbonPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ribbonPanel3.Location = new System.Drawing.Point(0, 54);
             this.ribbonPanel3.Name = "ribbonPanel3";
@@ -212,7 +212,7 @@
             this.ribbonBar4.Location = new System.Drawing.Point(503, 0);
             this.ribbonBar4.Name = "ribbonBar4";
             this.ribbonBar4.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("ribbonBar4.OverflowButtonImage")));
-            this.ribbonBar4.Size = new System.Drawing.Size(295, 102);
+            this.ribbonBar4.Size = new System.Drawing.Size(324, 102);
             this.ribbonBar4.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBar4.TabIndex = 7;
             this.ribbonBar4.Text = "Devices && Settings";
@@ -407,7 +407,6 @@
             this.ribbonBarUserAccounts.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.ribbonBarUserAccounts.Location = new System.Drawing.Point(66, 0);
             this.ribbonBarUserAccounts.Name = "ribbonBarUserAccounts";
-            this.ribbonBarUserAccounts.OverflowButtonImage = ((System.Drawing.Image)(resources.GetObject("ribbonBarUserAccounts.OverflowButtonImage")));
             this.ribbonBarUserAccounts.Size = new System.Drawing.Size(177, 102);
             this.ribbonBarUserAccounts.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBarUserAccounts.TabIndex = 6;
@@ -564,12 +563,12 @@
             this.superTabControl1.ItemPadding.Left = 6;
             this.superTabControl1.ItemPadding.Right = 4;
             this.superTabControl1.ItemPadding.Top = 4;
-            this.superTabControl1.Location = new System.Drawing.Point(1, 1);
+            this.superTabControl1.Location = new System.Drawing.Point(5, 53);
             this.superTabControl1.Name = "superTabControl1";
             this.superTabControl1.ReorderTabsEnabled = false;
             this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Segoe UI", 9.75F);
             this.superTabControl1.SelectedTabIndex = 7;
-            this.superTabControl1.Size = new System.Drawing.Size(1059, 702);
+            this.superTabControl1.Size = new System.Drawing.Size(1051, 623);
             this.superTabControl1.TabAlignment = DevComponents.DotNetBar.eTabStripAlignment.Left;
             this.superTabControl1.TabFont = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.superTabControl1.TabHorizontalSpacing = 16;
@@ -588,9 +587,9 @@
             this.superTabControlPanel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("superTabControlPanel3.BackgroundImage")));
             this.superTabControlPanel3.BackgroundImagePosition = DevComponents.DotNetBar.eStyleBackgroundImage.BottomRight;
             this.superTabControlPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel3.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel3.Location = new System.Drawing.Point(82, 0);
             this.superTabControlPanel3.Name = "superTabControlPanel3";
-            this.superTabControlPanel3.Size = new System.Drawing.Size(823, 702);
+            this.superTabControlPanel3.Size = new System.Drawing.Size(969, 623);
             this.superTabControlPanel3.TabIndex = 3;
             this.superTabControlPanel3.TabItem = this.superTabItem3;
             // 
@@ -607,9 +606,9 @@
             this.superTabControlPanel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("superTabControlPanel2.BackgroundImage")));
             this.superTabControlPanel2.BackgroundImagePosition = DevComponents.DotNetBar.eStyleBackgroundImage.BottomRight;
             this.superTabControlPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.superTabControlPanel2.Location = new System.Drawing.Point(236, 0);
+            this.superTabControlPanel2.Location = new System.Drawing.Point(82, 0);
             this.superTabControlPanel2.Name = "superTabControlPanel2";
-            this.superTabControlPanel2.Size = new System.Drawing.Size(823, 702);
+            this.superTabControlPanel2.Size = new System.Drawing.Size(969, 623);
             this.superTabControlPanel2.TabIndex = 2;
             this.superTabControlPanel2.TabItem = this.superTabItem2;
             // 
@@ -751,7 +750,7 @@
             // 
             this.styleManager1.ManagerColorTint = System.Drawing.Color.White;
             this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Metro;
-            this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.White, System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(87)))), ((int)(((byte)(154))))));
+            this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255))))), System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(115)))), ((int)(((byte)(199))))));
             // 
             // mdiTab
             // 
@@ -854,8 +853,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1061, 681);
-            this.Controls.Add(this.StatusBar);
             this.Controls.Add(this.superTabControl1);
+            this.Controls.Add(this.StatusBar);
             this.Controls.Add(this.mdiTab);
             this.Controls.Add(this.MainRibbonControl);
             this.Font = new System.Drawing.Font("Verdana", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

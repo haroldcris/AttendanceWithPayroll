@@ -40,7 +40,7 @@ namespace Winform
             if (e.Button == MouseButtons.Right)
             {
                 var p = this.PointToScreen(e.Location);
-                
+
                 mnuGridColumn.PopupMenu(p);
             }
         }
@@ -181,9 +181,8 @@ namespace Winform
                 Cursor.Current = Cursors.WaitCursor;
 
                 var grid = SGrid.PrimaryGrid;
-                if (grid.ActiveRow == null) return;
 
-                var item = (Entity)grid.ActiveRow.Tag;
+                var item = (Entity)grid.ActiveRow?.Tag;
 
                 if (item == null) return;
                 if (!OnEdit(item)) return;

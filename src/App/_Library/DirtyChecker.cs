@@ -9,20 +9,16 @@ using System.Windows.Forms;
 public class DirtyChecker
 {
     private readonly ISave _form;
-    private bool _IsDirty;
     private Color _defaultColor;
 
     private readonly Winform.frmMain MainMDIForm;
 
-    public bool IsDirty
-    {
-        get { return _IsDirty; }
-    }
+    public bool IsDirty { get; private set; }
 
     public DirtyChecker(ISave form)
     {
         _form = form;
-        _IsDirty = false;
+        IsDirty = false;
 
         MainMDIForm = (Winform.frmMain)((Form)form).MdiParent;
 
@@ -44,11 +40,16 @@ public class DirtyChecker
             if (c is DevComponents.Editors.DateTimeAdv.DateTimeInput)
                 ((DevComponents.Editors.DateTimeAdv.DateTimeInput)c).ValueChanged += Control_TextChanged;
 
-            //if(c is ComboBox)
-            //    (c as ComboBox).TextChanged += Control_TextChanged;
+
+            if (c is DevComponents.DotNetBar.SuperGrid.SuperGridControl)
+                ((DevComponents.DotNetBar.SuperGrid.SuperGridControl)c).RowMarkedDirty += (s, arg) => SetDirty();
 
             if (c is CheckBox)
                 (c as CheckBox).CheckedChanged += Control_CheckChanged;
+
+            if (c is DevComponents.DotNetBar.Controls.SwitchButton)
+                ((DevComponents.DotNetBar.Controls.SwitchButton)c).ValueChanged += (s, e) => SetDirty();
+
 
             // recurively apply to inner collections
             if (c.HasChildren)
@@ -58,24 +59,23 @@ public class DirtyChecker
 
     private void Control_TextChanged(object sender, EventArgs e)
     {
-        //throw new NotImplementedException();
-        //_IsDirty = true;
         SetDirty();
     }
 
     private void Control_CheckChanged(object sender, EventArgs e)
     {
-        //throw new NotImplementedException();
-        //_IsDirty = true;
         SetDirty();
     }
 
 
     public void Clear()
     {
-        _IsDirty = false;
+        IsDirty = false;
+
         var form = (Form)_form;
         var title = form.Text;
+
+        if (!form.IsMdiChild) return;
 
         if (title.Substring(title.Length - 1) == "*")
             form.Text = form.Tag.ToString();
@@ -85,9 +85,10 @@ public class DirtyChecker
 
     public void SetDirty()
     {
-        _IsDirty = true;
+        IsDirty = true;
         var title = ((Form)_form).Text;
 
+        if (!((Form)_form).IsMdiChild) return;
 
         //Change Form Caption
         if (title.Substring(title.Length - 1) != "*")
@@ -109,7 +110,7 @@ public class DirtyChecker
         {
             //Clear Error
             MainMDIForm.cmdSave.Enabled = false;
-            MainMDIForm.lblStatus.Text = "Ready";
+            MainMDIForm.lblStatus.Text = @"Ready";
             statusBar.Refresh();
             return;
         }
@@ -119,11 +120,11 @@ public class DirtyChecker
             _defaultColor = statusBar.BackColor;
         }
 
-        if (_IsDirty)
+        if (IsDirty)
         {
             //Set Dirty
             statusBar.BackColor = System.Drawing.Color.Red;
-            MainMDIForm.lblStatus.Text = "Pending changes detected. Save is required";
+            MainMDIForm.lblStatus.Text = @"Pending changes detected. Save is required";
         }
         else
         {
@@ -131,13 +132,13 @@ public class DirtyChecker
             //Clear Error
             statusBar.BackColor = _defaultColor;
             statusBar.BackColor = new Color();
-            MainMDIForm.lblStatus.Text = "Ready";
+            MainMDIForm.lblStatus.Text = @"Ready";
         }
 
         statusBar.Refresh();
 
         //Enable Save Buttons
-        MainMDIForm.cmdSave.Enabled = _IsDirty;
+        MainMDIForm.cmdSave.Enabled = IsDirty;
     }
 
 

@@ -1,5 +1,4 @@
 ﻿using AiTech.LiteOrm.Database;
-using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -8,7 +7,7 @@ namespace Dll.Payroll
     internal class SalaryGradeDataWriter : SqlDataWriter<SalaryGrade, SalaryGradeCollection>
     {
 
-        public Func<int> OnSalaryScheduleIdRequest;
+        //public Func<int> OnSalaryScheduleIdRequest;
 
         public SalaryGradeDataWriter(string username, SalaryGrade item) : base(username, item) { }
         public SalaryGradeDataWriter(string username, SalaryGradeCollection items) : base(username, items) { }
@@ -39,12 +38,12 @@ namespace Dll.Payroll
             });
 
 
-            if (OnSalaryScheduleIdRequest == null)
-                throw new Exception("OnSalarySchedIdRequest Handler Not set");
+            //if (OnSalaryScheduleIdRequest == null)
+            //    throw new Exception("OnSalarySchedIdRequest Handler Not set");
 
-            var salarySchedId = OnSalaryScheduleIdRequest;
+            //var salarySchedId = OnSalaryScheduleIdRequest;
 
-            cmd.Parameters["@SalaryScheduleId"].Value = salarySchedId;
+            cmd.Parameters["@SalaryScheduleId"].Value = item.SalaryScheduleId;
             cmd.Parameters["@SG"].Value = item.SG;
             cmd.Parameters["@Step1"].Value = item.Step1;
             cmd.Parameters["@Step2"].Value = item.Step2;

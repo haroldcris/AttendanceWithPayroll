@@ -48,7 +48,7 @@ namespace Dll.Payroll
 
             var salarySchedId = OnSalaryScheduleIdRequest();
 
-            for (var i = 1; i <= 50; i++)
+            for (var i = 1; i <= 32; i++)
             {
                 var sg = new SalaryGrade
                 {

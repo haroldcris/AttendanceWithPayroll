@@ -3,16 +3,17 @@ using DevComponents.DotNetBar;
 using Dll.Location;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
 namespace Library.Tools
 {
-    internal static class InputControls
+    internal static partial class InputControls
     {
 
-        public static void ConvertEnterToTab(Form form, KeyPressEventArgs e)
+        public static void ConvertEnterToTab(System.Windows.Forms.Form form, KeyPressEventArgs e)
         {
             if ((e.KeyChar == (int)Keys.Enter) || (e.KeyChar == (int)Keys.Return))
             {
@@ -21,6 +22,9 @@ namespace Library.Tools
                 e.Handled = true;
             }
         }
+
+
+
 
 
         public static void HandleComboBoxAutoComplete(ComboBox control, KeyPressEventArgs e)
@@ -80,7 +84,7 @@ namespace Library.Tools
 
             var path = string.Format("http://{0}/amwp/pictures/{1}.jpg", AiTech.LiteOrm.Database.Connection.MyDbCredential.ServerName, filenameFromServer);
 
-
+            Debug.WriteLine(path);
             var pb = new PictureBox();
             pb.Load(path);
 
@@ -90,7 +94,7 @@ namespace Library.Tools
 
 
 
-        public class Address
+        public static class Address
         {
             public static void LoadProvinceListTo(ComboBox cb)
             {
@@ -127,6 +131,23 @@ namespace Library.Tools
 
             }
 
+            public static List<string> GetCountryList()
+            {
+                List<string> cultureList = new List<string>();
+
+                CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+
+                foreach (CultureInfo culture in cultures)
+                {
+                    RegionInfo region = new RegionInfo(culture.LCID);
+
+                    if (!(cultureList.Contains(region.EnglishName)))
+                    {
+                        cultureList.Add(region.EnglishName);
+                    }
+                }
+                return cultureList;
+            }
         }
 
 
@@ -154,25 +175,6 @@ namespace Library.Tools
         }
 
 
-
-
-        public static List<string> GetCountryList()
-        {
-            List<string> cultureList = new List<string>();
-
-            CultureInfo[] cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
-
-            foreach (CultureInfo culture in cultures)
-            {
-                RegionInfo region = new RegionInfo(culture.LCID);
-
-                if (!(cultureList.Contains(region.EnglishName)))
-                {
-                    cultureList.Add(region.EnglishName);
-                }
-            }
-            return cultureList;
-        }
 
     }
 }

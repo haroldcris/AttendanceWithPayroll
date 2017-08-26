@@ -67,7 +67,6 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.groupBox3.Controls.Add(this.label1);
             this.groupBox3.Controls.Add(this.txtDescription);
             this.groupBox3.Controls.Add(this.label3);
@@ -82,7 +81,6 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label1.ForeColor = System.Drawing.Color.Black;
             this.label1.Location = new System.Drawing.Point(10, 68);
             this.label1.Name = "label1";
@@ -101,7 +99,7 @@
             this.txtDescription.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.txtDescription.DisabledBackColor = System.Drawing.Color.White;
             this.txtDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDescription.ForeColor = System.Drawing.Color.Blue;
+            this.txtDescription.ForeColor = System.Drawing.Color.Black;
             this.highlighter1.SetHighlightOnFocus(this.txtDescription, true);
             this.txtDescription.Location = new System.Drawing.Point(10, 87);
             this.txtDescription.Name = "txtDescription";
@@ -112,7 +110,6 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label3.ForeColor = System.Drawing.Color.Black;
             this.label3.Location = new System.Drawing.Point(10, 18);
             this.label3.Name = "label3";
@@ -132,7 +129,7 @@
             this.txtCode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCode.DisabledBackColor = System.Drawing.Color.White;
             this.txtCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCode.ForeColor = System.Drawing.Color.Blue;
+            this.txtCode.ForeColor = System.Drawing.Color.Black;
             this.highlighter1.SetHighlightOnFocus(this.txtCode, true);
             this.txtCode.Location = new System.Drawing.Point(10, 37);
             this.txtCode.Name = "txtCode";
@@ -142,6 +139,7 @@
             // 
             // swMandatory
             // 
+            this.swMandatory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(202)))), ((int)(((byte)(205)))), ((int)(((byte)(214)))));
             // 
             // 
             // 
@@ -151,16 +149,16 @@
             this.swMandatory.Location = new System.Drawing.Point(101, 26);
             this.swMandatory.Name = "swMandatory";
             this.swMandatory.OffText = "NO";
-            this.swMandatory.OnBackColor = System.Drawing.Color.ForestGreen;
+            this.swMandatory.OnBackColor = System.Drawing.Color.GreenYellow;
             this.swMandatory.OnText = "YES";
+            this.swMandatory.OnTextColor = System.Drawing.Color.Black;
             this.swMandatory.Size = new System.Drawing.Size(57, 18);
             this.swMandatory.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.swMandatory.SwitchBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.swMandatory.SwitchClickTogglesValue = true;
             this.swMandatory.SwitchWidth = 25;
             this.swMandatory.TabIndex = 6;
             this.swMandatory.ValueFalse = "1";
-            this.swMandatory.ValueObject = "";
+            this.swMandatory.ValueObject = "0";
             this.swMandatory.ValueTrue = "1";
             // 
             // btnCancel
@@ -199,6 +197,7 @@
             // highlighter1
             // 
             this.highlighter1.ContainerControl = this;
+            this.highlighter1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // swActive
             // 
@@ -211,11 +210,12 @@
             this.swActive.Location = new System.Drawing.Point(101, 83);
             this.swActive.Name = "swActive";
             this.swActive.OffText = "NO";
-            this.swActive.OnBackColor = System.Drawing.Color.ForestGreen;
+            this.swActive.OnBackColor = System.Drawing.Color.GreenYellow;
             this.swActive.OnText = "YES";
+            this.swActive.OnTextColor = System.Drawing.Color.Black;
+            this.swActive.ReadOnlyMarkerColor = System.Drawing.Color.Empty;
             this.swActive.Size = new System.Drawing.Size(57, 18);
             this.swActive.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.swActive.SwitchBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.swActive.SwitchClickTogglesValue = true;
             this.swActive.SwitchWidth = 25;
             this.swActive.TabIndex = 10;
@@ -235,15 +235,14 @@
             this.swPriority.Location = new System.Drawing.Point(101, 53);
             this.swPriority.Name = "swPriority";
             this.swPriority.OffText = "NO";
-            this.swPriority.OnBackColor = System.Drawing.Color.ForestGreen;
+            this.swPriority.OnBackColor = System.Drawing.Color.GreenYellow;
             this.swPriority.OnText = "YES";
+            this.swPriority.OnTextColor = System.Drawing.Color.Black;
             this.swPriority.Size = new System.Drawing.Size(57, 18);
             this.swPriority.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.swPriority.SwitchBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.swPriority.SwitchClickTogglesValue = true;
             this.swPriority.SwitchWidth = 25;
             this.swPriority.TabIndex = 8;
-            this.swPriority.Value = true;
             this.swPriority.ValueFalse = "1";
             this.swPriority.ValueObject = "1";
             this.swPriority.ValueTrue = "1";
@@ -266,7 +265,6 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.label5.ForeColor = System.Drawing.Color.Black;
             this.label5.Location = new System.Drawing.Point(18, 83);
             this.label5.Name = "label5";
@@ -277,7 +275,6 @@
             // lblPriority
             // 
             this.lblPriority.AutoSize = true;
-            this.lblPriority.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lblPriority.ForeColor = System.Drawing.Color.Black;
             this.lblPriority.Location = new System.Drawing.Point(18, 53);
             this.lblPriority.Name = "lblPriority";
@@ -288,7 +285,6 @@
             // lblMandatory
             // 
             this.lblMandatory.AutoSize = true;
-            this.lblMandatory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lblMandatory.ForeColor = System.Drawing.Color.Black;
             this.lblMandatory.Location = new System.Drawing.Point(18, 26);
             this.lblMandatory.Name = "lblMandatory";
@@ -305,6 +301,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox3);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;

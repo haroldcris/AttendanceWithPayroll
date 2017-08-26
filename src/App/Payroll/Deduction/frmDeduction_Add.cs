@@ -1,23 +1,28 @@
 ﻿using Dll.Payroll;
+using Library.Tools;
+using System;
 using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
-    public partial class frmDeduction_Add : FormWithHeader
+    public partial class frmDeduction_Add : FormWithHeader, ISave
     {
         public Deduction ItemData { get; set; }
+
+        public DirtyChecker DirtyStatus { get; }
 
         public frmDeduction_Add()
         {
             InitializeComponent();
+            DirtyStatus = new DirtyChecker(this);
 
-            Load += (s, e) => { ShowData(); };
+            Load += (s, e) => { ShowData(); DirtyStatus.Clear(); };
+            FormClosing += (s, e) => InputControls.Form.AskToSaveOnDirtyClosing(this, e);
 
-            ConvertEnterKeyToTab();
+            InputControls.Form.ConvertEnterToTab(this);
 
             CancelButton = btnCancel;
-            btnCancel.Click += (s, e) => { Close(); };
-            btnOk.Click += (s, e) => { Save(); };
+            btnOk.Click += (s, e) => { FileSave(); };
         }
 
         private void ShowData()
@@ -28,7 +33,7 @@ namespace Winform.Payroll
             txtDescription.Text = ItemData.Description;
 
             swMandatory.Value = ItemData.Mandatory;
-            swPriority.Value = ItemData.Priority > 0 ? true : false;
+            swPriority.Value = ItemData.Priority > 0;
             swActive.Value = ItemData.Active;
         }
 
@@ -61,23 +66,34 @@ namespace Winform.Payroll
             return true;
         }
 
-        private void Save()
+        public bool FileSave()
         {
-            if (!DataIsValid()) return;
+            try
+            {
+                if (!DataIsValid()) return false;
 
-            ItemData.Code = txtCode.Text.Trim();
-            ItemData.Description = txtDescription.Text.Trim();
+                ItemData.Code = txtCode.Text.Trim();
+                ItemData.Description = txtDescription.Text.Trim();
 
-            ItemData.Mandatory = swMandatory.Value;
-            ItemData.Priority = swPriority.Value ? 1 : 0;
-            ItemData.Active = swActive.Value;
+                ItemData.Mandatory = swMandatory.Value;
+                ItemData.Priority = swPriority.Value ? 1 : 0;
+                ItemData.Active = swActive.Value;
 
-            //Save to Database
-            var dataWriter = new DeductionDataWriter(App.CurrentUser.User.Username, ItemData);
-            dataWriter.SaveChanges();
+                //Save to Database
+                var dataWriter = new DeductionDataWriter(App.CurrentUser.User.Username, ItemData);
+                var isSaved = dataWriter.SaveChanges();
 
+                DirtyStatus.Clear();
 
-            DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
+                return isSaved;
+
+            }
+            catch (Exception ex)
+            {
+                App.Message.ShowError(ex, this);
+                return false;
+            }
         }
 
 

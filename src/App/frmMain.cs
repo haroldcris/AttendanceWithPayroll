@@ -2,6 +2,8 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.Metro.ColorTables;
 
 namespace Winform
 {
@@ -11,8 +13,8 @@ namespace Winform
         {
             InitializeComponent();
 
-
-            //StatusBar.BackgroundStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarCaptionBackground;
+            styleManager1.ManagerStyle = eStyle.Metro;
+            styleManager1.MetroColorParameters= MetroColorGeneratorParameters.Default;
 
             MainRibbonControl.MdiSystemItemVisible = false;
             MainRibbonControl.FadeEffect = true;

@@ -5,6 +5,7 @@ using Dll.Contacts;
 using Library.Tools;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace Winform.Contacts
@@ -59,11 +60,6 @@ namespace Winform.Contacts
             grid.CreateColumn("BirthCountry", "Country", 85);
             grid.CreateColumn("CameraCounter", "Image File", 85);
 
-
-            var col = grid.CreateColumn("Image", "Image", 85);
-            //col.DataType = typeof(ImageList);
-            col.DataType = typeof(ImageList);
-
             grid.CreateRecordInfoColumns();
 
             // Create COntext Menu;
@@ -94,19 +90,50 @@ namespace Winform.Contacts
             row.Cells["BirthProvince"].Value = currentItem.BirthProvince;
             row.Cells["BirthTown"].Value = currentItem.BirthTown;
 
-            row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
+            //row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
 
-
-            var imageList = new ImageList();
             var img = InputControls.GetImage(currentItem.CameraCounter);
+
             if (img != null)
             {
-                imageList.Images.Add(img);
-                row.Cells["Image"].Value = imageList;
+                imageList1.Images.Add(currentItem.CameraCounter,
+                    InputControls.GetImage(currentItem.CameraCounter)
+                    //System.Drawing.Image.FromFile(@"d:\my pictures\8.jpg")
+                    );
+
+                //row.Cells["Image"].Value = currentItem.CameraCounter;
+                row.Cells["CameraCounter"].CellStyles.Default.Image = imageList1.Images[currentItem.CameraCounter];
+                row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
             }
 
+
+            Debug.WriteLine(imageList1.Images.Count);
+
+
             row.ShowRecordInfo(currentItem);
+
+            row.RowHeight = row.GetMaximumRowHeight();
         }
+
+        #region MyGridImageEditControl
+
+        /// <summary>
+        /// GridImageEditControl with the ability
+        /// to pass in a default ImageList and ImageBoxSizeMode
+        /// </summary>
+        private class MyGridImageEditControl : GridImageEditControl
+        {
+            public MyGridImageEditControl(
+                ImageList imageList, ImageSizeMode sizeMode)
+            {
+                ImageList = imageList;
+                ImageSizeMode = sizeMode;
+                ((GridImageEditControl)this).ImageSizeMode = sizeMode;
+            }
+        }
+
+        #endregion
+
 
 
         protected override Entity OnAdd()
