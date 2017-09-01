@@ -150,6 +150,8 @@ namespace Winform.Contacts
                 if (frm.ShowDialog() != DialogResult.OK) return null;
             }
 
+            App.LogAction("Contacts", "Created " + newItem.Name.Fullname);
+
             ItemDataCollection.Add(newItem);
             return newItem;
         }
@@ -167,6 +169,8 @@ namespace Winform.Contacts
 
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
+
+            App.LogAction("Contacts", "Updated " + selectedItem.Name.Fullname);
 
             return true;
         }
@@ -190,6 +194,8 @@ namespace Winform.Contacts
 
                     var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
+
+                    App.LogAction("Contacts", "Deleted " + ((Person)currentItem).Name.Fullname);
 
                     ItemDataCollection.Remove((Person)currentItem);
                 }

@@ -30,11 +30,11 @@
         {
             this.highlighter1 = new DevComponents.DotNetBar.Validator.Highlighter();
             this.RecordInfoPanel = new DevComponents.DotNetBar.ExplorerBar();
-            this.explorerBarGroupItem1 = new DevComponents.DotNetBar.ExplorerBarGroupItem();
-            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
+            this.BarGroupFileInfo = new DevComponents.DotNetBar.ExplorerBarGroupItem();
+            this.lblCreatedHeader = new DevComponents.DotNetBar.LabelItem();
             this.lblCreated = new DevComponents.DotNetBar.LabelItem();
             this.labelItem3 = new DevComponents.DotNetBar.LabelItem();
-            this.labelItem4 = new DevComponents.DotNetBar.LabelItem();
+            this.lblModifiedHeader = new DevComponents.DotNetBar.LabelItem();
             this.lblModified = new DevComponents.DotNetBar.LabelItem();
             this.expandableSplitter1 = new DevComponents.DotNetBar.ExpandableSplitter();
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).BeginInit();
@@ -61,7 +61,7 @@
             this.RecordInfoPanel.ForeColor = System.Drawing.Color.Black;
             this.RecordInfoPanel.GroupImages = null;
             this.RecordInfoPanel.Groups.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.explorerBarGroupItem1});
+            this.BarGroupFileInfo});
             this.RecordInfoPanel.Images = null;
             this.RecordInfoPanel.Location = new System.Drawing.Point(0, 0);
             this.RecordInfoPanel.Name = "RecordInfoPanel";
@@ -72,68 +72,68 @@
             this.RecordInfoPanel.Text = "explorerBar1";
             this.RecordInfoPanel.ThemeAware = true;
             // 
-            // explorerBarGroupItem1
+            // BarGroupFileInfo
             // 
             // 
             // 
             // 
-            this.explorerBarGroupItem1.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.explorerBarGroupItem1.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.explorerBarGroupItem1.BackStyle.BorderBottomColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.BackStyle.BorderBottomWidth = 1;
-            this.explorerBarGroupItem1.BackStyle.BorderColor = System.Drawing.Color.White;
-            this.explorerBarGroupItem1.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.explorerBarGroupItem1.BackStyle.BorderLeftColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.BackStyle.BorderLeftWidth = 1;
-            this.explorerBarGroupItem1.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.explorerBarGroupItem1.BackStyle.BorderRightColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.BackStyle.BorderRightWidth = 1;
-            this.explorerBarGroupItem1.BackStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.explorerBarGroupItem1.BackStyle.BorderTopColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.BackStyle.BorderTopWidth = 1;
-            this.explorerBarGroupItem1.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.explorerBarGroupItem1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.explorerBarGroupItem1.ExpandBackColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.ExpandBorderColor = System.Drawing.SystemColors.InactiveCaption;
-            this.explorerBarGroupItem1.ExpandButtonVisible = false;
-            this.explorerBarGroupItem1.Expanded = true;
-            this.explorerBarGroupItem1.ExpandForeColor = System.Drawing.SystemColors.Highlight;
-            this.explorerBarGroupItem1.ExpandHotBackColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.ExpandHotBorderColor = System.Drawing.SystemColors.ActiveCaption;
-            this.explorerBarGroupItem1.Name = "explorerBarGroupItem1";
-            this.explorerBarGroupItem1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.labelItem1,
+            this.BarGroupFileInfo.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.BarGroupFileInfo.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarGroupFileInfo.BackStyle.BorderBottomColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.BackStyle.BorderBottomWidth = 1;
+            this.BarGroupFileInfo.BackStyle.BorderColor = System.Drawing.Color.White;
+            this.BarGroupFileInfo.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarGroupFileInfo.BackStyle.BorderLeftColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.BackStyle.BorderLeftWidth = 1;
+            this.BarGroupFileInfo.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarGroupFileInfo.BackStyle.BorderRightColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.BackStyle.BorderRightWidth = 1;
+            this.BarGroupFileInfo.BackStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarGroupFileInfo.BackStyle.BorderTopColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.BackStyle.BorderTopWidth = 1;
+            this.BarGroupFileInfo.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarGroupFileInfo.Cursor = System.Windows.Forms.Cursors.Default;
+            this.BarGroupFileInfo.ExpandBackColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.ExpandBorderColor = System.Drawing.SystemColors.InactiveCaption;
+            this.BarGroupFileInfo.ExpandButtonVisible = false;
+            this.BarGroupFileInfo.Expanded = true;
+            this.BarGroupFileInfo.ExpandForeColor = System.Drawing.SystemColors.Highlight;
+            this.BarGroupFileInfo.ExpandHotBackColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.ExpandHotBorderColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BarGroupFileInfo.Name = "BarGroupFileInfo";
+            this.BarGroupFileInfo.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.lblCreatedHeader,
             this.lblCreated,
             this.labelItem3,
-            this.labelItem4,
+            this.lblModifiedHeader,
             this.lblModified});
-            this.explorerBarGroupItem1.Text = "File Info";
+            this.BarGroupFileInfo.Text = "File Info";
             // 
             // 
             // 
-            this.explorerBarGroupItem1.TitleHotStyle.BackColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.TitleHotStyle.BackColor2 = System.Drawing.SystemColors.InactiveCaption;
-            this.explorerBarGroupItem1.TitleHotStyle.CornerDiameter = 3;
-            this.explorerBarGroupItem1.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.explorerBarGroupItem1.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupItem1.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupItem1.TitleHotStyle.TextColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BarGroupFileInfo.TitleHotStyle.BackColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.TitleHotStyle.BackColor2 = System.Drawing.SystemColors.InactiveCaption;
+            this.BarGroupFileInfo.TitleHotStyle.CornerDiameter = 3;
+            this.BarGroupFileInfo.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarGroupFileInfo.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarGroupFileInfo.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarGroupFileInfo.TitleHotStyle.TextColor = System.Drawing.SystemColors.ActiveCaption;
             // 
             // 
             // 
-            this.explorerBarGroupItem1.TitleStyle.BackColor = System.Drawing.SystemColors.Window;
-            this.explorerBarGroupItem1.TitleStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
-            this.explorerBarGroupItem1.TitleStyle.CornerDiameter = 3;
-            this.explorerBarGroupItem1.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.explorerBarGroupItem1.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupItem1.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupItem1.TitleStyle.TextColor = System.Drawing.SystemColors.ControlText;
+            this.BarGroupFileInfo.TitleStyle.BackColor = System.Drawing.SystemColors.Window;
+            this.BarGroupFileInfo.TitleStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.BarGroupFileInfo.TitleStyle.CornerDiameter = 3;
+            this.BarGroupFileInfo.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarGroupFileInfo.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarGroupFileInfo.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarGroupFileInfo.TitleStyle.TextColor = System.Drawing.SystemColors.ControlText;
             // 
-            // labelItem1
+            // lblCreatedHeader
             // 
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.Text = "Created:";
-            this.labelItem1.ThemeAware = true;
+            this.lblCreatedHeader.Name = "lblCreatedHeader";
+            this.lblCreatedHeader.Text = "Created:";
+            this.lblCreatedHeader.ThemeAware = true;
             // 
             // lblCreated
             // 
@@ -147,11 +147,11 @@
             this.labelItem3.Text = "   ";
             this.labelItem3.ThemeAware = true;
             // 
-            // labelItem4
+            // lblModifiedHeader
             // 
-            this.labelItem4.Name = "labelItem4";
-            this.labelItem4.Text = "Modified:";
-            this.labelItem4.ThemeAware = true;
+            this.lblModifiedHeader.Name = "lblModifiedHeader";
+            this.lblModifiedHeader.Text = "Modified:";
+            this.lblModifiedHeader.ThemeAware = true;
             // 
             // lblModified
             // 
@@ -221,13 +221,13 @@
 
         #endregion
         private DevComponents.DotNetBar.Validator.Highlighter highlighter1;
-        private DevComponents.DotNetBar.ExplorerBarGroupItem explorerBarGroupItem1;
-        private DevComponents.DotNetBar.LabelItem labelItem1;
+        private DevComponents.DotNetBar.LabelItem lblCreatedHeader;
         private DevComponents.DotNetBar.LabelItem lblCreated;
         private DevComponents.DotNetBar.LabelItem labelItem3;
-        private DevComponents.DotNetBar.LabelItem labelItem4;
+        private DevComponents.DotNetBar.LabelItem lblModifiedHeader;
         private DevComponents.DotNetBar.LabelItem lblModified;
         protected DevComponents.DotNetBar.ExplorerBar RecordInfoPanel;
         protected DevComponents.DotNetBar.ExpandableSplitter expandableSplitter1;
+        protected DevComponents.DotNetBar.ExplorerBarGroupItem BarGroupFileInfo;
     }
 }

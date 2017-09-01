@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Dll.Contacts
 {
-    public class PersonName : ITrackableObject
+    public class PersonName //: ITrackableObject
     {
         public string Lastname { get; set; }
         public string Firstname { get; set; }
@@ -94,32 +94,34 @@ namespace Dll.Contacts
 
 
 
-        public Dictionary<string, object> OriginalValues { get; private set; }
-        /// <summary>
-        /// Starts Tracking Changes inside Dictionary
-        /// </summary>
-        public void StartTrackingChanges()
-        {
-            OriginalValues = new Dictionary<string, object>();
+        //public Dictionary<string, object> OriginalValues { get; private set; }
+        ///// <summary>
+        ///// Starts Tracking Changes inside Dictionary
+        ///// </summary>
+        //public void StartTrackingChanges()
+        //{
+        //    OriginalValues = new Dictionary<string, object>();
 
-            OriginalValues.Add("Lastname", Lastname);
-            OriginalValues.Add("Firstname", Firstname);
-            OriginalValues.Add("Middlename", Middlename);
-            OriginalValues.Add("MiddleInitial", MiddleInitial);
-            OriginalValues.Add("NameExtension", NameExtension);
-        }
+        //    OriginalValues.Add("Lastname", Lastname);
+        //    OriginalValues.Add("Firstname", Firstname);
+        //    OriginalValues.Add("Middlename", Middlename);
+        //    OriginalValues.Add("MiddleInitial", MiddleInitial);
+        //    OriginalValues.Add("NameExtension", NameExtension);
+        //    OriginalValues.Add("SpouseLastname", SpouseLastname);
+        //}
 
-        public Dictionary<string, object> GetChangedValues()
-        {
-            var changes = new Dictionary<string, object>();
+        //public Dictionary<string, object> GetChangedValues()
+        //{
+        //    var changes = new Dictionary<string, object>();
 
-            if (!Equals(Lastname, OriginalValues["Lastname"])) changes.Add("Lastname", Lastname);
-            if (!Equals(Firstname, OriginalValues["Firstname"])) changes.Add("Firstname", Firstname);
-            if (!Equals(Middlename, OriginalValues["Middlename"])) changes.Add("Middlename", Middlename);
-            if (!Equals(MiddleInitial, OriginalValues["MiddleInitial"])) changes.Add("MiddleInitial", MiddleInitial);
-            if (!Equals(NameExtension, OriginalValues["NameExtension"])) changes.Add("NameExtension", NameExtension);
+        //    if (!Equals(Lastname, OriginalValues["Lastname"])) changes.Add("Lastname", Lastname);
+        //    if (!Equals(Firstname, OriginalValues["Firstname"])) changes.Add("Firstname", Firstname);
+        //    if (!Equals(Middlename, OriginalValues["Middlename"])) changes.Add("Middlename", Middlename);
+        //    if (!Equals(MiddleInitial, OriginalValues["MiddleInitial"])) changes.Add("MiddleInitial", MiddleInitial);
+        //    if (!Equals(NameExtension, OriginalValues["NameExtension"])) changes.Add("NameExtension", NameExtension);
+        //    if (!Equals(SpouseLastname, OriginalValues["SpouseLastname"])) changes.Add("SpouseLastname", SpouseLastname);
 
-            return changes;
-        }
+        //    return changes;
+        //}
     }
 }

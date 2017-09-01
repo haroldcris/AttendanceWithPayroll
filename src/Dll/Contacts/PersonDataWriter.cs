@@ -1,4 +1,5 @@
-﻿using AiTech.LiteOrm.Database;
+﻿using AiTech.LiteOrm;
+using AiTech.LiteOrm.Database;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -49,10 +50,33 @@ namespace Dll.Contacts
         public override bool SaveChanges()
         {
 
-            return Write(_ => _.Name.FullnameWithLastnameFirst);
+            this.AfterItemSave += PersonDataWriter_AfterItemSave;
+
+            return Write(_ => _.Name.Fullname);
 
         }
 
+        private void PersonDataWriter_AfterItemSave(object sender, EntityEventArgs e)
+        {
+            //throw new System.NotImplementedException();
+            var item = (Person)e.ItemData;
 
+
+            //Transfer ParentId;
+            if (item.RowStatus == RecordStatus.NewRecord)
+            {
+                foreach (var mobileItem in item.MobileNumbers.Items)
+                {
+                    mobileItem.PersonId = item.Id;
+                }
+            }
+
+
+            //Write Mobile Numbers
+            var dataWriter = new MobileNumberDataWriter(DataWriterUsername, item.MobileNumbers);
+            dataWriter.SaveChanges(e.Connection, e.Transaction);
+
+
+        }
     }
 }

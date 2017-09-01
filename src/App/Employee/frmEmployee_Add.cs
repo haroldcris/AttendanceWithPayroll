@@ -1,6 +1,4 @@
-﻿using DevComponents.DotNetBar;
-
-namespace Winform.Employee
+﻿namespace Winform.Employee
 {
     public partial class frmEmployee_Add : FormWithRecordInfo
     {
@@ -12,12 +10,7 @@ namespace Winform.Employee
 
         private void btnAddContact_Click(object sender, System.EventArgs e)
         {
-            var item = new ListBoxItem();
-            item.Image = imageList1.Images["phone"];
-            item.Text = txtContact.Text;
-            lstContacts.Items.Add(item);
 
-            txtContact.Text = "";
         }
     }
 }

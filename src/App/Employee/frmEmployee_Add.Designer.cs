@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEmployee_Add));
             this.explorerBarGroupPicture = new DevComponents.DotNetBar.ExplorerBarGroupItem();
             this.itemContainer1 = new DevComponents.DotNetBar.ItemContainer();
@@ -53,16 +52,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxX3 = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.PanelContact = new DevComponents.DotNetBar.ExpandablePanel();
-            this.bar2 = new DevComponents.DotNetBar.Bar();
-            this.checkBoxItem1 = new DevComponents.DotNetBar.CheckBoxItem();
-            this.buttonX2 = new DevComponents.DotNetBar.ButtonX();
-            this.lstContacts = new DevComponents.DotNetBar.ListBoxAdv();
             this.listBoxItem1 = new DevComponents.DotNetBar.ListBoxItem();
             this.listBoxItem2 = new DevComponents.DotNetBar.ListBoxItem();
             this.listBoxItem3 = new DevComponents.DotNetBar.ListBoxItem();
-            this.txtContact = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.listBoxItem4 = new DevComponents.DotNetBar.ListBoxItem();
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).BeginInit();
             this.RecordInfoPanel.SuspendLayout();
@@ -73,8 +65,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInput2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInput1)).BeginInit();
-            this.PanelContact.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bar2)).BeginInit();
             this.SuspendLayout();
             // 
             // RecordInfoPanel
@@ -296,7 +286,6 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Controls.Add(this.PanelContact);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(161, 39);
@@ -452,97 +441,6 @@
             this.textBoxX3.TabIndex = 181;
             this.textBoxX3.Text = "Filipino";
             // 
-            // PanelContact
-            // 
-            this.PanelContact.CanvasColor = System.Drawing.Color.Empty;
-            this.PanelContact.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.PanelContact.Controls.Add(this.bar2);
-            this.PanelContact.Controls.Add(this.buttonX2);
-            this.PanelContact.Controls.Add(this.lstContacts);
-            this.PanelContact.Controls.Add(this.txtContact);
-            this.PanelContact.DisabledBackColor = System.Drawing.Color.Empty;
-            this.PanelContact.ExpandButtonVisible = false;
-            this.PanelContact.HideControlsWhenCollapsed = true;
-            this.PanelContact.Location = new System.Drawing.Point(334, 17);
-            this.PanelContact.Name = "PanelContact";
-            this.PanelContact.Size = new System.Drawing.Size(169, 218);
-            this.PanelContact.Style.Alignment = System.Drawing.StringAlignment.Center;
-            this.PanelContact.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.PanelContact.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
-            this.PanelContact.Style.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.PanelContact.Style.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.PanelContact.Style.GradientAngle = 90;
-            this.PanelContact.TabIndex = 142;
-            this.PanelContact.ThemeAware = true;
-            this.PanelContact.TitleHeight = 24;
-            this.PanelContact.TitleStyle.Alignment = System.Drawing.StringAlignment.Center;
-            this.PanelContact.TitleStyle.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
-            this.PanelContact.TitleStyle.Border = DevComponents.DotNetBar.eBorderType.RaisedInner;
-            this.PanelContact.TitleStyle.BorderColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBorder;
-            this.PanelContact.TitleStyle.ForeColor.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelText;
-            this.PanelContact.TitleStyle.GradientAngle = 90;
-            this.PanelContact.TitleText = "Contact Numbers";
-            // 
-            // bar2
-            // 
-            this.bar2.AntiAlias = true;
-            this.bar2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bar2.DoubleClickBehavior = DevComponents.DotNetBar.eDoubleClickBarBehavior.None;
-            this.bar2.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.bar2.IsMaximized = false;
-            this.bar2.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.checkBoxItem1});
-            this.bar2.Location = new System.Drawing.Point(0, 24);
-            this.bar2.Name = "bar2";
-            this.bar2.Size = new System.Drawing.Size(169, 25);
-            this.bar2.Stretch = true;
-            this.bar2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.bar2.TabIndex = 155;
-            this.bar2.TabStop = false;
-            this.bar2.Text = "bar2";
-            // 
-            // checkBoxItem1
-            // 
-            this.checkBoxItem1.Name = "checkBoxItem1";
-            this.checkBoxItem1.Text = "I have NO Contact Numbers";
-            // 
-            // buttonX2
-            // 
-            this.buttonX2.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX2.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
-            this.buttonX2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonX2.Image = global::Winform.Properties.Resources.Cancel_16;
-            this.buttonX2.Location = new System.Drawing.Point(84, 184);
-            this.buttonX2.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.buttonX2.Name = "buttonX2";
-            this.buttonX2.ShowSubItems = false;
-            this.buttonX2.Size = new System.Drawing.Size(75, 22);
-            this.buttonX2.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonX2.TabIndex = 143;
-            this.buttonX2.Text = "Delete";
-            this.buttonX2.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
-            this.buttonX2.ThemeAware = true;
-            // 
-            // lstContacts
-            // 
-            this.lstContacts.AutoScroll = true;
-            // 
-            // 
-            // 
-            this.lstContacts.BackgroundStyle.Class = "ListBoxAdv";
-            this.lstContacts.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lstContacts.CheckStateMember = null;
-            this.lstContacts.ContainerControlProcessDialogKey = true;
-            this.lstContacts.DragDropSupport = true;
-            this.lstContacts.Images = this.imageList1;
-            this.lstContacts.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-            this.lstContacts.Location = new System.Drawing.Point(8, 87);
-            this.lstContacts.Name = "lstContacts";
-            this.lstContacts.Size = new System.Drawing.Size(151, 89);
-            this.lstContacts.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.lstContacts.TabIndex = 142;
-            this.lstContacts.Text = "listBoxAdv1";
-            // 
             // listBoxItem1
             // 
             this.listBoxItem1.Image = global::Winform.Properties.Resources.Phone_16px;
@@ -560,40 +458,13 @@
             this.listBoxItem3.Name = "listBoxItem3";
             this.listBoxItem3.Text = "Item 3";
             // 
-            // txtContact
-            // 
-            this.txtContact.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.txtContact.Border.Class = "TextBoxBorder";
-            this.txtContact.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtContact.ButtonCustom.Image = global::Winform.Properties.Resources.Plus_16px;
-            this.txtContact.ButtonCustom.Visible = true;
-            this.txtContact.DisabledBackColor = System.Drawing.Color.White;
-            this.txtContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtContact.ForeColor = System.Drawing.Color.Black;
-            this.txtContact.Location = new System.Drawing.Point(8, 57);
-            this.txtContact.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.txtContact.Name = "txtContact";
-            this.txtContact.PreventEnterBeep = true;
-            this.txtContact.Size = new System.Drawing.Size(151, 22);
-            this.txtContact.TabIndex = 128;
-            this.txtContact.ButtonCustomClick += new System.EventHandler(this.btnAddContact_Click);
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Phone");
-            // 
             // listBoxItem4
             // 
             this.listBoxItem4.IsSelected = true;
             this.listBoxItem4.Name = "listBoxItem4";
             this.listBoxItem4.Text = "Item 4";
             // 
-            // Form1
+            // frmEmployee_Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -603,7 +474,7 @@
             this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.Name = "Form1";
+            this.Name = "frmEmployee_Add";
             this.Text = "Form1";
             this.Controls.SetChildIndex(this.bar1, 0);
             this.Controls.SetChildIndex(this.RecordInfoPanel, 0);
@@ -619,8 +490,6 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInput2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.doubleInput1)).EndInit();
-            this.PanelContact.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bar2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -641,15 +510,9 @@
         private DevComponents.DotNetBar.LabelX lblName;
         private DevComponents.DotNetBar.ButtonX btnContactsNew;
         private System.Windows.Forms.Panel panel1;
-        private DevComponents.DotNetBar.ExpandablePanel PanelContact;
-        private DevComponents.DotNetBar.Bar bar2;
-        private DevComponents.DotNetBar.CheckBoxItem checkBoxItem1;
-        private DevComponents.DotNetBar.ButtonX buttonX2;
-        private DevComponents.DotNetBar.ListBoxAdv lstContacts;
         private DevComponents.DotNetBar.ListBoxItem listBoxItem1;
         private DevComponents.DotNetBar.ListBoxItem listBoxItem2;
         private DevComponents.DotNetBar.ListBoxItem listBoxItem3;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtContact;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox comboBox2;
@@ -659,7 +522,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private DevComponents.DotNetBar.Controls.TextBoxX textBoxX3;
-        private System.Windows.Forms.ImageList imageList1;
         private DevComponents.DotNetBar.ListBoxItem listBoxItem4;
     }
 }

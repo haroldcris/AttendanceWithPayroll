@@ -1,4 +1,6 @@
-﻿using AiTech.Tools.Winform;
+﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
 using Dll.Contacts;
 using Dll.Location;
 using Library.Tools;
@@ -95,9 +97,40 @@ namespace Winform.Contacts
                 ItemData.CameraCounter = txtImageFile.Text;
 
 
+
+                //Write Mobile Numbers;
+                if (lstContacts.Items.Any())
+                {
+                    foreach (ListBoxItem listItem in lstContacts.Items)
+                    {
+                        var m = (MobileNumber)listItem.Tag;
+
+                        if (!listItem.Visible)
+                        {
+                            m.RowStatus = RecordStatus.DeletedRecord;
+                        }
+                        else
+                        {
+                            if (m.Id == 0) ItemData.MobileNumbers.Add(m);
+                        }
+                    }
+
+
+
+                }
+
+
                 var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, ItemData);
 
-                if (!dataWriter.SaveChanges()) throw new Exception("Save is NOT successful");
+                var ret = dataWriter.SaveChanges();
+
+
+                for (var c = lstContacts.Items.Count - 1; c >= 0; c--)
+                {
+                    if (!((ListBoxItem)lstContacts.Items[c]).Visible)
+                        lstContacts.Items.Remove(lstContacts.Items[c]);
+                }
+
 
                 App.LogAction("Contacts", "Updated Contacts");
 
@@ -108,7 +141,7 @@ namespace Winform.Contacts
             catch (Exception ex)
             {
                 MessageDialog.ShowError(ex, this);
-                throw;
+                return false;
             }
         }
 
@@ -199,11 +232,32 @@ namespace Winform.Contacts
 
             InputControls.LoadImage(picImage, ItemData.CameraCounter);
 
+
+            //Mobile Numbers
+            ItemData.MobileNumbers.LoadItemsFromDb();
+            Show_MobileNumbers();
+
+
+
             ShowFileInfo(ItemData);
         }
 
 
+        private void Show_MobileNumbers()
+        {
 
+            foreach (var m in ItemData.MobileNumbers.Items)
+            {
+                var listItem = new ListBoxItem
+                {
+                    Image = imageList1.Images["phone"],
+                    Text = m.PhoneNumber,
+                    Tag = m
+                };
+
+                lstContacts.Items.Add(listItem);
+            }
+        }
 
 
 
@@ -222,7 +276,6 @@ namespace Winform.Contacts
             lblSpouse.Enabled = enabled;
             txtSpouseLastname.Enabled = enabled;
         }
-
 
 
 
@@ -262,7 +315,6 @@ namespace Winform.Contacts
                 InputControls.LoadImage(picImage, txtImageFile.Text);
 
         }
-
 
         private async void txtImageFile_ButtonCustomClick(object sender, EventArgs e)
         {
@@ -309,6 +361,78 @@ namespace Winform.Contacts
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void btnAddContacts_Click(object sender, EventArgs e)
+        {
+            if (txtContact.Text.Length != 11)
+            {
+                MessageDialog.ShowValidationError(txtContact, "Invalid Mobile Number");
+                txtContact.Focus();
+                txtContact.SelectAll();
+                return;
+            }
+
+
+            var items = lstContacts.Items.Select(_ => ((ListBoxItem)_).Text);
+            if (items.Contains(txtContact.Text))
+            {
+                MessageDialog.ShowValidationError(txtContact, "Mobile Already Exists");
+                return;
+            }
+
+
+            var item = new MobileNumber
+            {
+                PhoneNumber = txtContact.Text,
+                PersonId = ItemData.Id
+            };
+
+
+            var listItem = new ListBoxItem
+            {
+                Image = imageList1.Images["phone"],
+                Text = item.PhoneNumber,
+                Tag = item
+            };
+
+
+            lstContacts.Items.Add(listItem);
+            //Do not add yet until save
+            //ItemData.MobileNumbers.Add(item);
+
+            txtContact.Text = "";
+            txtContact.Focus();
+        }
+
+
+
+        private void txtContact_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                txtContact.PerformButtonCustomClick();
+            }
+        }
+
+        private void btnDeleteNumber_Click(object sender, EventArgs e)
+        {
+            var item = (ListBoxItem)lstContacts.SelectedItem;
+            if (item == null) return;
+
+            var mobile = (MobileNumber)item.Tag;
+
+            if (mobile.Id == 0)
+            {
+                lstContacts.Items.Remove(item);
+                return;
+            }
+
+            //item.RowStatus = RecordStatus.DeletedRecord;
+            item.Visible = false;
+            lstContacts.RefreshItems();
+
+            DirtyStatus.SetDirty();
         }
     }
 }

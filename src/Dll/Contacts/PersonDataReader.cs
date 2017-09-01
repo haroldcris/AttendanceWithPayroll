@@ -26,12 +26,17 @@ namespace Dll.Contacts
 
         public Person GetItemWithId(int id, SqlConnection db)
         {
-            var result = db.Query("Select * from Person where Id = @Id" , new {Id = id}).FirstOrDefault();
+            var result = db.Query("Select * from Person where Id = @Id", new { Id = id }).FirstOrDefault();
 
             if (result == null) return null;
 
             var item = new Person();
             item.DataMapper.Map(result);
+
+
+            //Load All Mobile Numbers
+            item.MobileNumbers.LoadItemsFromDb(db);
+
 
             item.RowStatus = RecordStatus.NoChanges;
             item.StartTrackingChanges();

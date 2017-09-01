@@ -63,7 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionLogger.cs" />
+    <Compile Include="Contacts\MobileNumber\MobileNumber.cs" />
     <Compile Include="Contacts\Enums\GenderType.cs" />
+    <Compile Include="Contacts\MobileNumber\MobileNumberCollection.cs" />
+    <Compile Include="Contacts\MobileNumber\MobileNumberDataWriter.cs" />
     <Compile Include="Contacts\Name.cs" />
     <Compile Include="Contacts\Person.cs" />
     <Compile Include="Contacts\PersonCollection.cs" />
