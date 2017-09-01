@@ -8,18 +8,20 @@ namespace Dll.Payroll
 {
     public class SalaryScheduleDataWriter : SqlMainDataWriter<SalarySchedule, SalaryScheduleCollection>
     {
-        public SalaryScheduleDataWriter(string username, SalarySchedule item) : base(username, item) { }
-        public SalaryScheduleDataWriter(string username, SalaryScheduleCollection items) : base(username, items) { }
+        public SalaryScheduleDataWriter(string username, SalarySchedule item) : base(username, item)
+        {
+        }
+
+        public SalaryScheduleDataWriter(string username, SalaryScheduleCollection items) : base(username, items)
+        {
+        }
 
         public override bool SaveChanges()
         {
-
             AfterItemSave += SalaryScheduleDataWriter_AfterItemSave;
 
             return Write(_ => _.Effectivity.ToString("yyyy MMMM dd"));
-
         }
-
 
 
         private void SalaryScheduleDataWriter_AfterItemSave(object sender, EntityEventArgs e)
@@ -29,20 +31,29 @@ namespace Dll.Payroll
             //Transfer Id to Child
             if (item.RowStatus == RecordStatus.NewRecord)
             {
-                Debug.WriteLine("Salary Schedule is new Record. Setting Children ID...");
-                foreach (var sg in item.SalaryGrades.Items) sg.SalaryScheduleId = item.Id;
+                Debug.WriteLine("Salary Schedule is new Record. Setting Children ID..." + item.Id);
+                foreach (var sg in item.SalaryGrades.Items)
+                {
+                    sg.SalaryScheduleId = item.Id;
+                }
 
-                foreach (var pos in item.PositionSalaryGrades.Items) pos.SalaryScheduleId = item.Id;
+                foreach (var pos in item.PositionSalaryGrades.Items)
+                {
+                    pos.SalaryScheduleId = item.Id;
+                    pos.SalaryScheduleClass = item;
+                }
             }
 
-            var sgWriter = new SalaryGradeDataWriter(DataWriterUsername, item.SalaryGrades);
-            sgWriter.SaveChanges(e.Connection, e.Transaction);
 
 
+            // Write Changes to Position
             var posWriter = new PositionSalaryGradeDataWriter(DataWriterUsername, item.PositionSalaryGrades);
             posWriter.SaveChanges(e.Connection, e.Transaction);
 
 
+            // Write Changes to Salary Grade
+            var sgWriter = new SalaryGradeDataWriter(DataWriterUsername, item.SalaryGrades);
+            sgWriter.SaveChanges(e.Connection, e.Transaction);
         }
 
 
@@ -50,12 +61,10 @@ namespace Dll.Payroll
         {
             cmd.Parameters.AddRange(new[]
             {
-
-                new SqlParameter( "@Effectivity", SqlDbType.Date) ,
-                new SqlParameter( "@Remarks", SqlDbType.NVarChar, 50) ,
-                new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,
-                new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
-
+                new SqlParameter("@Effectivity", SqlDbType.Date),
+                new SqlParameter("@Remarks", SqlDbType.NVarChar, 50),
+                new SqlParameter("@CreatedBy", SqlDbType.NVarChar, 20),
+                new SqlParameter("@ModifiedBy", SqlDbType.NVarChar, 20)
             });
 
             cmd.Parameters["@Effectivity"].Value = item.Effectivity;
@@ -67,13 +76,12 @@ namespace Dll.Payroll
 
         protected override string CreateSqlInsertQuery()
         {
-            return @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
+            return
+                @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
                           INSERT INTO [Payroll_SalarySchedule] ([Effectivity],[Remarks],[CreatedBy],[ModifiedBy]) 
                              OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
                           VALUES (@Effectivity,@Remarks,@CreatedBy,@ModifiedBy)
                           SELECT * from @output";
         }
-
-
     }
 }

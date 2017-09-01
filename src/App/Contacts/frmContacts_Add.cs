@@ -1,4 +1,5 @@
-﻿using Dll.Contacts;
+﻿using AiTech.Tools.Winform;
+using Dll.Contacts;
 using Dll.Location;
 using Library.Tools;
 using System;
@@ -14,23 +15,34 @@ namespace Winform.Contacts
     {
         public Person ItemData { get; set; }
 
-        public DirtyChecker DirtyStatus { get; }
+        public DirtyFormHandler DirtyStatus { get; }
 
 
         public frmContacts_Add()
         {
             InitializeComponent();
 
-            Load += (s, e) => ShowData();
+            #region Initialize DirtyHandler
 
-            DirtyStatus = new DirtyChecker(this);
+            DirtyStatus = new DirtyFormHandler(this);
 
-            InputControls.Address.LoadProvinceListTo(cboProvince);
-            cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
+            this.AskToSaveOnDirtyClosing();
+            this.ConvertEnterToTab();
+            Load += (s, e) =>
+            {
+                ShowData();
+                DirtyStatus.Clear();
+            };
+
+            #endregion
 
 
             InputControls.LoadToComboBox(cboCountry, InputControls.Address.GetCountryList().OrderBy(_ => _));
             cboCountry.SelectedIndexChanged += CboCountry_SelectedIndexChanged;
+
+            InputControls.Address.LoadProvinceListTo(cboProvince);
+            cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
+
         }
 
         private void CboCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -61,7 +73,7 @@ namespace Winform.Contacts
         {
             try
             {
-
+                Cursor.Current = Cursors.WaitCursor;
                 if (!DataIsValid()) return false;
 
                 ItemData.Name.Lastname = txtLastname.Text.Trim();
@@ -83,20 +95,19 @@ namespace Winform.Contacts
                 ItemData.CameraCounter = txtImageFile.Text;
 
 
-
-
-
                 var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, ItemData);
 
-                if (dataWriter.SaveChanges())
-                    DialogResult = DialogResult.OK;
+                if (!dataWriter.SaveChanges()) throw new Exception("Save is NOT successful");
 
+                App.LogAction("Contacts", "Updated Contacts");
 
+                DialogResult = DialogResult.OK;
+                DirtyStatus.Clear();
                 return true;
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
                 throw;
             }
         }
@@ -112,38 +123,38 @@ namespace Winform.Contacts
         {
             if (string.IsNullOrWhiteSpace(txtLastname.Text))
             {
-                App.Message.ShowValidationError(txtLastname, "Lastname must NOT be blank.");
+                MessageDialog.ShowValidationError(txtLastname, "Lastname must NOT be blank.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(txtFirstname.Text))
             {
-                App.Message.ShowValidationError(txtFirstname, "Firstname must NOT be blank.");
+                MessageDialog.ShowValidationError(txtFirstname, "Firstname must NOT be blank.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(cboGender.Text))
             {
-                App.Message.ShowValidationError(cboGender, "Gender must NOT be blank.");
+                MessageDialog.ShowValidationError(cboGender, "Gender must NOT be blank.");
                 return false;
             }
 
 
             if (string.IsNullOrWhiteSpace(cboCountry.Text))
             {
-                App.Message.ShowValidationError(cboCountry, "Country must NOT be blank.");
+                MessageDialog.ShowValidationError(cboCountry, "Country must NOT be blank.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(cboProvince.Text))
             {
-                App.Message.ShowValidationError(cboProvince, "Province must NOT be blank.");
+                MessageDialog.ShowValidationError(cboProvince, "Province must NOT be blank.");
                 return false;
             }
 
             if (string.IsNullOrWhiteSpace(cboTown.Text))
             {
-                App.Message.ShowValidationError(cboTown, "Town must NOT be blank.");
+                MessageDialog.ShowValidationError(cboTown, "Town must NOT be blank.");
                 return false;
             }
 
@@ -153,7 +164,7 @@ namespace Winform.Contacts
 
             if (findItem != null && findItem.Id != ItemData.Id)
             {
-                var response = App.Message.Ask("Create Duplicate Record?",
+                var response = MessageDialog.Ask("Create Duplicate Record?",
                                 string.Format(@"System detected a similar contact with the following details:<br/><br/>
                                                 Fullname : <b>{0}</b><br/>
                                                 BirthDate: <b>{1}</b>", findItem.Name.Fullname, findItem.BirthDate.ToString("yyyy MMMM dd")));
@@ -194,10 +205,6 @@ namespace Winform.Contacts
 
 
 
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-        }
 
 
         #endregion
@@ -250,7 +257,7 @@ namespace Winform.Contacts
             ImageProgressBar.Visible = false;
 
             if (!uploadResult)
-                App.Message.ShowValidationError(this, errorMessage);
+                MessageDialog.ShowValidationError(this, errorMessage);
             else
                 InputControls.LoadImage(picImage, txtImageFile.Text);
 
@@ -299,6 +306,9 @@ namespace Winform.Contacts
             File.Delete(targetFilename);
         }
 
-
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

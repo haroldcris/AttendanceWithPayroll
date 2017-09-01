@@ -1,31 +1,14 @@
-﻿using AiTech.LiteOrm;
-using DevComponents.DotNetBar;
-using Dll.Location;
+﻿using Dll.Location;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
 namespace Library.Tools
 {
+
     internal static partial class InputControls
     {
-
-        public static void ConvertEnterToTab(System.Windows.Forms.Form form, KeyPressEventArgs e)
-        {
-            if ((e.KeyChar == (int)Keys.Enter) || (e.KeyChar == (int)Keys.Return))
-            {
-                //Console.WriteLine("Next Control " + form.ActiveControl.Name); ;
-                form.SelectNextControl(form.ActiveControl, true, true, true, true);
-                e.Handled = true;
-            }
-        }
-
-
-
-
 
         public static void HandleComboBoxAutoComplete(ComboBox control, KeyPressEventArgs e)
         {
@@ -66,31 +49,6 @@ namespace Library.Tools
                 cb.Items.Add(item);
             }
         }
-
-
-        public static void LoadImage(PictureBox control, string filenameFromServer)
-        {
-            if (string.IsNullOrEmpty(filenameFromServer)) return;
-
-            var path = string.Format("http://{0}/amwp/pictures/{1}.jpg", AiTech.LiteOrm.Database.Connection.MyDbCredential.ServerName, filenameFromServer);
-            control.LoadAsync(path);
-
-        }
-
-
-        public static Image GetImage(string filenameFromServer)
-        {
-            if (string.IsNullOrEmpty(filenameFromServer)) return null;
-
-            var path = string.Format("http://{0}/amwp/pictures/{1}.jpg", AiTech.LiteOrm.Database.Connection.MyDbCredential.ServerName, filenameFromServer);
-
-            Debug.WriteLine(path);
-            var pb = new PictureBox();
-            pb.Load(path);
-
-            return pb.Image;
-        }
-
 
 
 
@@ -151,28 +109,8 @@ namespace Library.Tools
         }
 
 
-        public static void ShowFileInfo(IRecordInfo info, LabelItem lblCreated, LabelItem lblModified)
-        {
-            const string template = @"<b>{By}</b><br/>
-                                      {Date}<br/>{Time}";
 
-            var str = "";
 
-            if (info.Created.Year <= 1920) return;
-
-            str = template.Replace("{By}", info.CreatedBy);
-            str = str.Replace("{Date}", info.Created.ToString("dd-MMM-yyyy"));
-            str = str.Replace("{Time}", info.Created.ToString("hh:mm:ss tt"));
-
-            lblCreated.Text = str;
-
-            str = template.Replace("{By}", info.ModifiedBy);
-            str = str.Replace("{Date}", info.Modified.ToString("dd-MMM-yyyy"));
-            str = str.Replace("{Time}", info.Modified.ToString("hh:mm:ss tt"));
-
-            lblModified.Text = str;
-
-        }
 
 
 

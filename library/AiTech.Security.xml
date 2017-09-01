@@ -4,11 +4,23 @@
         <name>AiTech.Security</name>
     </assembly>
     <members>
+        <member name="T:AiTech.Security.AuthenticationService">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:AiTech.Security.AuthenticationService.#ctor(System.String)">
             <summary>
             
             </summary>
             <param name="connectionString"></param>
+        </member>
+        <member name="M:AiTech.Security.AuthenticationService.GetCredentialToken(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
         </member>
         <member name="M:AiTech.Security.AuthenticationService.Authenticate(System.String,System.String)">
             <summary>
@@ -26,16 +38,188 @@
             <param name="password"></param>
             <returns></returns>
         </member>
-        <member name="M:AiTech.Security.UserAccountService.#ctor(System.String,System.String)">
+        <member name="P:AiTech.Security.Role.Privileges">
             <summary>
             
             </summary>
-            <param name="currentUsername"></param>
-            <param name="connectionString"></param>
         </member>
-        <member name="M:AiTech.Security.UserAccountService.GetUserAccounts">
+        <member name="M:AiTech.Security.Role.#ctor">
             <summary>
-             Get List of User Accounts
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.Role.StartTrackingChanges">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.Role.GetChangedValues">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.Security.Role.ToString">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AiTech.Security.RoleDataReader">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.RoleDataReader.GetAllRoleNames">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.Security.RoleDataReader.GetRoleWithId(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.Security.RoleDataWriter.#ctor(System.String,AiTech.Security.Role)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:AiTech.Security.RoleDataWriter.#ctor(System.String,AiTech.Security.RoleCollection)">
+            <summary>
+            
+            </summary>
+            <param name="username"></param>
+            <param name="items"></param>
+        </member>
+        <member name="M:AiTech.Security.RoleDataWriter.CreateSqlInsertQuery">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.Security.RoleDataWriter.CreateSqlInsertCommandParameters(System.Data.SqlClient.SqlCommand,AiTech.Security.Role)">
+            <summary>
+            
+            </summary>
+            <param name="cmd"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:AiTech.Security.RoleDataWriter.SaveChanges">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AiTech.Security.RoleDataWriter.RoleDataWriter_AfterItemSave(System.Object,AiTech.LiteOrm.Database.EntityEventArgs)">
+            <summary>
+            
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilege.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilege.StartTrackingChanges">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilege.GetChangedValues">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AiTech.Security.RolePrivilegeCollection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilegeCollection.#ctor(AiTech.Security.Role)">
+            <summary>
+            Constructor to assign ParentRole
+            </summary>
+            <param name="parentRole"></param>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilegeCollection.#ctor">
+            <summary>
+            Blank Constructor
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilegeCollection.LoadItemsFromDb">
+            <summary>
+            Load Privilege from Parent Role
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilegeCollection.Can(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="privilege"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AiTech.Security.RolePrivilegeDataWriter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.RolePrivilegeDataWriter.SaveChanges(System.Data.SqlClient.SqlConnection,System.Data.SqlClient.SqlTransaction)">
+            <summary>
+            
+            </summary>
+            <param name="db"></param>
+            <param name="trn"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AiTech.Security.UserAccount">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:AiTech.Security.UserAccount.RoleClass">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.UserAccount.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.UserAccount.StartTrackingChanges">
+            <summary>
+             
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.UserAccount.GetChangedValues">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:AiTech.Security.UserAccountCollection">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.UserAccountCollection.LoadAllItemsFromDb">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:AiTech.Security.UserAccountDataReader.GetAllItems">
+            <summary>
+            
             </summary>
             <returns></returns>
         </member>

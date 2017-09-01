@@ -52,7 +52,7 @@
             this.groupBox1.Controls.Add(this.txtOldPassword);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(177, 152);
+            this.groupBox1.Size = new System.Drawing.Size(266, 152);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Change Password:";
@@ -60,17 +60,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 98);
+            this.label2.Location = new System.Drawing.Point(12, 96);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(126, 13);
+            this.label2.Size = new System.Drawing.Size(52, 13);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Re-Enter New Password:";
+            this.label2.Text = "Re-Enter:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // txtPassword2
             // 
             this.highlighter1.SetHighlightOnFocus(this.txtPassword2, true);
-            this.txtPassword2.Location = new System.Drawing.Point(14, 114);
+            this.txtPassword2.Location = new System.Drawing.Point(94, 93);
             this.txtPassword2.Name = "txtPassword2";
             this.txtPassword2.PasswordChar = '●';
             this.txtPassword2.Size = new System.Drawing.Size(148, 20);
@@ -79,7 +79,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 59);
+            this.label4.Location = new System.Drawing.Point(12, 70);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(81, 13);
             this.label4.TabIndex = 2;
@@ -89,7 +89,7 @@
             // txtPassword
             // 
             this.highlighter1.SetHighlightOnFocus(this.txtPassword, true);
-            this.txtPassword.Location = new System.Drawing.Point(14, 75);
+            this.txtPassword.Location = new System.Drawing.Point(94, 67);
             this.txtPassword.Name = "txtPassword";
             this.txtPassword.PasswordChar = '●';
             this.txtPassword.Size = new System.Drawing.Size(148, 20);
@@ -98,7 +98,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 18);
+            this.label1.Location = new System.Drawing.Point(12, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 0;
@@ -108,7 +108,7 @@
             // txtOldPassword
             // 
             this.highlighter1.SetHighlightOnFocus(this.txtOldPassword, true);
-            this.txtOldPassword.Location = new System.Drawing.Point(14, 34);
+            this.txtOldPassword.Location = new System.Drawing.Point(94, 26);
             this.txtOldPassword.Name = "txtOldPassword";
             this.txtOldPassword.PasswordChar = '●';
             this.txtOldPassword.Size = new System.Drawing.Size(148, 20);
@@ -117,6 +117,7 @@
             // highlighter1
             // 
             this.highlighter1.ContainerControl = this;
+            this.highlighter1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // btnCancel
             // 
@@ -128,7 +129,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.highlighter1.SetHighlightOnFocus(this.btnCancel, true);
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(107, 177);
+            this.btnCancel.Location = new System.Drawing.Point(191, 178);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.ShowSubItems = false;
             this.btnCancel.Size = new System.Drawing.Size(87, 34);
@@ -146,7 +147,7 @@
             this.btnOk.Cursor = System.Windows.Forms.Cursors.Hand;
             this.highlighter1.SetHighlightOnFocus(this.btnOk, true);
             this.btnOk.Image = ((System.Drawing.Image)(resources.GetObject("btnOk.Image")));
-            this.btnOk.Location = new System.Drawing.Point(14, 175);
+            this.btnOk.Location = new System.Drawing.Point(98, 176);
             this.btnOk.Name = "btnOk";
             this.btnOk.ShowSubItems = false;
             this.btnOk.Size = new System.Drawing.Size(87, 38);
@@ -160,11 +161,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(198, 225);
+            this.ClientSize = new System.Drawing.Size(290, 224);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -173,7 +175,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Change Password";
             this.Load += new System.EventHandler(this.frmChangePassword_Load);
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmChangePassword_KeyPress);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

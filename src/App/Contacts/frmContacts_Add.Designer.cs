@@ -41,8 +41,6 @@
             this.cboNameExtension = new System.Windows.Forms.ComboBox();
             this.cboGender = new System.Windows.Forms.ComboBox();
             this.dtBirthdate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
-            this.btnCancel = new DevComponents.DotNetBar.ButtonX();
-            this.btnOk = new DevComponents.DotNetBar.ButtonX();
             this.txtMi = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.txtSpouseLastname = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.txtImageFile = new DevComponents.DotNetBar.Controls.TextBoxX();
@@ -61,17 +59,41 @@
             this.ImageProgressBar = new DevComponents.DotNetBar.Controls.ProgressBarX();
             this.label20 = new System.Windows.Forms.Label();
             this.picImage = new System.Windows.Forms.PictureBox();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.btnOk = new DevComponents.DotNetBar.ButtonItem();
+            this.btnCancel = new DevComponents.DotNetBar.ButtonItem();
+            this.panel1 = new System.Windows.Forms.Panel();
+            ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBirthdate)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // RecordInfoPanel
+            // 
+            // 
+            // 
+            // 
+            this.RecordInfoPanel.BackStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.ExplorerBarBackground2;
+            this.RecordInfoPanel.BackStyle.BackColorGradientAngle = 90;
+            this.RecordInfoPanel.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ExplorerBarBackground;
+            this.RecordInfoPanel.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.RecordInfoPanel.Location = new System.Drawing.Point(0, 39);
+            this.RecordInfoPanel.Size = new System.Drawing.Size(109, 450);
+            // 
+            // expandableSplitter1
+            // 
+            this.expandableSplitter1.Location = new System.Drawing.Point(109, 39);
+            this.expandableSplitter1.Size = new System.Drawing.Size(6, 450);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(296, 5);
+            this.label1.Location = new System.Drawing.Point(169, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 15);
@@ -91,7 +113,7 @@
             this.txtId.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtId.ForeColor = System.Drawing.Color.Black;
             this.highlighter1.SetHighlightOnFocus(this.txtId, true);
-            this.txtId.Location = new System.Drawing.Point(299, 22);
+            this.txtId.Location = new System.Drawing.Point(172, 32);
             this.txtId.Margin = new System.Windows.Forms.Padding(4);
             this.txtId.Name = "txtId";
             this.txtId.PreventEnterBeep = true;
@@ -331,43 +353,6 @@
             this.dtBirthdate.TabIndex = 1;
             this.dtBirthdate.Value = new System.DateTime(1920, 1, 1, 0, 0, 0, 0);
             // 
-            // btnCancel
-            // 
-            this.btnCancel.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnCancel.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.highlighter1.SetHighlightOnFocus(this.btnCancel, true);
-            this.btnCancel.Image = global::Winform.Properties.Resources.Cancel_24px;
-            this.btnCancel.Location = new System.Drawing.Point(723, 258);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.ShowSubItems = false;
-            this.btnCancel.Size = new System.Drawing.Size(100, 36);
-            this.btnCancel.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnCancel.TabIndex = 5;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnOk
-            // 
-            this.btnOk.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
-            this.btnOk.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.highlighter1.SetHighlightOnFocus(this.btnOk, true);
-            this.btnOk.Image = global::Winform.Properties.Resources.Ok_24px;
-            this.btnOk.Location = new System.Drawing.Point(615, 258);
-            this.btnOk.Margin = new System.Windows.Forms.Padding(4);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.ShowSubItems = false;
-            this.btnOk.Size = new System.Drawing.Size(100, 36);
-            this.btnOk.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnOk.TabIndex = 4;
-            this.btnOk.Text = "Save";
-            this.btnOk.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
-            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
-            // 
             // txtMi
             // 
             this.txtMi.BackColor = System.Drawing.Color.White;
@@ -424,7 +409,7 @@
             this.txtImageFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtImageFile.ForeColor = System.Drawing.Color.Blue;
             this.highlighter1.SetHighlightOnFocus(this.txtImageFile, true);
-            this.txtImageFile.Location = new System.Drawing.Point(142, 185);
+            this.txtImageFile.Location = new System.Drawing.Point(15, 195);
             this.txtImageFile.Margin = new System.Windows.Forms.Padding(4);
             this.txtImageFile.Name = "txtImageFile";
             this.txtImageFile.PreventEnterBeep = true;
@@ -520,7 +505,7 @@
             this.groupBox1.Controls.Add(this.txtFirstname);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
-            this.groupBox1.Location = new System.Drawing.Point(299, 51);
+            this.groupBox1.Location = new System.Drawing.Point(172, 61);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(293, 243);
             this.groupBox1.TabIndex = 2;
@@ -586,9 +571,9 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.cboTown);
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(598, 51);
+            this.groupBox2.Location = new System.Drawing.Point(471, 61);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(225, 172);
+            this.groupBox2.Size = new System.Drawing.Size(225, 243);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Birth Info:";
@@ -599,7 +584,7 @@
             // 
             // 
             this.ImageProgressBar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ImageProgressBar.Location = new System.Drawing.Point(154, 65);
+            this.ImageProgressBar.Location = new System.Drawing.Point(27, 52);
             this.ImageProgressBar.Name = "ImageProgressBar";
             this.ImageProgressBar.Size = new System.Drawing.Size(125, 19);
             this.ImageProgressBar.TabIndex = 110;
@@ -611,7 +596,7 @@
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Transparent;
             this.label20.ForeColor = System.Drawing.Color.Black;
-            this.label20.Location = new System.Drawing.Point(139, 166);
+            this.label20.Location = new System.Drawing.Point(12, 176);
             this.label20.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(100, 15);
@@ -621,53 +606,91 @@
             // picImage
             // 
             this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImage.Location = new System.Drawing.Point(139, 4);
+            this.picImage.Location = new System.Drawing.Point(12, 14);
             this.picImage.Name = "picImage";
             this.picImage.Size = new System.Drawing.Size(152, 152);
             this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picImage.TabIndex = 107;
             this.picImage.TabStop = false;
             // 
+            // bar1
+            // 
+            this.bar1.AntiAlias = true;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bar1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bar1.IsMaximized = false;
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnOk,
+            this.btnCancel});
+            this.bar1.Location = new System.Drawing.Point(0, 0);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(835, 39);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 111;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
+            // 
+            // btnOk
+            // 
+            this.btnOk.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnOk.Image = global::Winform.Properties.Resources.Ok_30;
+            this.btnOk.Name = "btnOk";
+            this.btnOk.Text = "Save Record";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnCancel.Image = global::Winform.Properties.Resources.Cancel_24px;
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Text = "Cancel Changes";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.picImage);
+            this.panel1.Controls.Add(this.ImageProgressBar);
+            this.panel1.Controls.Add(this.label20);
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.txtImageFile);
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.txtId);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(115, 39);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(720, 450);
+            this.panel1.TabIndex = 112;
+            // 
             // frmContacts_Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(835, 304);
-            this.Controls.Add(this.ImageProgressBar);
-            this.Controls.Add(this.label20);
-            this.Controls.Add(this.txtImageFile);
-            this.Controls.Add(this.picImage);
-            this.Controls.Add(this.txtId);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnOk);
+            this.ClientSize = new System.Drawing.Size(835, 489);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.bar1);
             this.DoubleBuffered = true;
             this.ForeColor = System.Drawing.Color.Blue;
             this.Location = new System.Drawing.Point(0, 0);
             this.Name = "frmContacts_Add";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Contact Information";
-            this.Controls.SetChildIndex(this.btnOk, 0);
-            this.Controls.SetChildIndex(this.btnCancel, 0);
-            this.Controls.SetChildIndex(this.groupBox1, 0);
-            this.Controls.SetChildIndex(this.groupBox2, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.txtId, 0);
-            this.Controls.SetChildIndex(this.picImage, 0);
-            this.Controls.SetChildIndex(this.txtImageFile, 0);
-            this.Controls.SetChildIndex(this.label20, 0);
-            this.Controls.SetChildIndex(this.ImageProgressBar, 0);
+            this.Controls.SetChildIndex(this.bar1, 0);
+            this.Controls.SetChildIndex(this.RecordInfoPanel, 0);
+            this.Controls.SetChildIndex(this.expandableSplitter1, 0);
+            this.Controls.SetChildIndex(this.panel1, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBirthdate)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -677,8 +700,6 @@
         private DevComponents.DotNetBar.Controls.TextBoxX txtId;
         private DevComponents.DotNetBar.Controls.TextBoxX txtLastname;
         private System.Windows.Forms.Label label2;
-        private DevComponents.DotNetBar.ButtonX btnCancel;
-        private DevComponents.DotNetBar.ButtonX btnOk;
         private DevComponents.DotNetBar.Validator.Highlighter highlighter1;
         private System.Windows.Forms.ComboBox cboCountry;
         private System.Windows.Forms.Label label19;
@@ -706,5 +727,9 @@
         private System.Windows.Forms.Label label20;
         private DevComponents.DotNetBar.Controls.TextBoxX txtImageFile;
         private System.Windows.Forms.PictureBox picImage;
+        private System.Windows.Forms.Panel panel1;
+        private DevComponents.DotNetBar.Bar bar1;
+        private DevComponents.DotNetBar.ButtonItem btnOk;
+        private DevComponents.DotNetBar.ButtonItem btnCancel;
     }
 }

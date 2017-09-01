@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using Dll.SchoolYear;
 
@@ -57,7 +58,7 @@ namespace Winform
 
             if (ParentForm.ContainsData( CurrentCourse))
             {
-                App.Message.ShowValidationError(txtCourseCode, "Duplicate Record!", errorProvider1, highlighterError);
+                MessageDialog.ShowValidationError(txtCourseCode, "Duplicate Record!", errorProvider1, highlighterError);
                 return;
             }
 
@@ -75,7 +76,7 @@ namespace Winform
             //My.App.ClearErrorDisplay(txtCourseCode, errorProvider1, highlighterError);
             if (txtCourseCode.Text.Length == 0 || string.IsNullOrEmpty(txtCourseCode.Text))
             {
-                App.Message.ShowValidationError(txtCourseCode, "Course Code is Required");
+                MessageDialog.ShowValidationError(txtCourseCode, "Course Code is Required");
                 return false;
             }
 
@@ -83,7 +84,7 @@ namespace Winform
             //My.App.ClearErrorDisplay(txtDescription, errorProvider1, highlighterError);
             if (txtDescription.Text.Length == 0 || string.IsNullOrEmpty(txtDescription.Text))
             {
-                App.Message.ShowValidationError(txtDescription, "Course Description is Required");
+                MessageDialog.ShowValidationError(txtDescription, "Course Description is Required");
                 return false;
             }
 

@@ -1,4 +1,5 @@
 ﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using Dll.Payroll;
 using System;
@@ -15,7 +16,7 @@ namespace Winform.Payroll
             InitializeComponent();
 
             Header = " PAYROLL SALARY SCHEDULE";
-            HeaderColor = System.Drawing.Color.LightSeaGreen;
+            HeaderColor = App.BarColor.PayrollSalaryScheduleColor;
 
             Load += (s, e) => { RefreshData(); };
         }
@@ -35,8 +36,6 @@ namespace Winform.Payroll
             base.InitializeGrid();
 
             SGrid.InitializeGrid();
-            SGrid.RowDoubleClick += (s, e) => { btnEdit.RaiseClick(); };
-
 
             var grid = SGrid.PrimaryGrid;
 
@@ -125,7 +124,7 @@ namespace Winform.Payroll
                 }
                 catch (Exception ex)
                 {
-                    App.Message.ShowError(ex, this);
+                    MessageDialog.ShowError(ex, this);
                 }
             };
         }

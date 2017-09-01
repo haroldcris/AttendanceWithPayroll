@@ -1,25 +1,61 @@
-﻿namespace Dll.Contacts
-{
-    public class PersonDataMapper
-    {
-        Person ItemData;
+﻿using AiTech.LiteOrm;
 
-        public PersonDataMapper(Person person)
+namespace Dll.Contacts
+{
+    public class PersonDataMapper : EntityMapper<Person>
+    {
+        public PersonDataMapper(Person entityOwner) : base(entityOwner)
         {
-            ItemData = person;
+
         }
 
-        internal void Map(dynamic readerItemSource)
+
+        //public void Map(Expression<Func<Person, dynamic>> outExpr, object input)
+        //{
+        //    if (input == null) return;
+
+
+        //    MemberExpression expr;
+
+        //    var body = outExpr.Body as MemberExpression;
+        //    if (body != null)
+        //    {
+        //        expr = body;
+        //    }
+        //    else
+        //    {
+        //        var op = ((UnaryExpression)outExpr.Body).Operand;
+        //        expr = ((MemberExpression)op);
+        //    }
+        //    //outExpr.Compile();
+        //    //var expr = (MemberExpression)outExpr.Body;
+
+        //    var prop = (PropertyInfo)expr.Member;
+        //    prop.SetValue(ItemData, input, null);
+
+        //}
+
+
+
+        public Person Item()
         {
-            ItemData.Id = readerItemSource.Id;
-            ItemData.Name.Lastname = readerItemSource.Lastname;
-            ItemData.Name.Firstname = readerItemSource.Firstname;
-            ItemData.Name.Middlename = readerItemSource.MiddleName;
-            ItemData.Name.MiddleInitial = readerItemSource.Mi;
-            ItemData.Name.NameExtension = readerItemSource.NameExtension;
-            ItemData.Name.SpouseLastname = readerItemSource.SpouseLastname;
-            ItemData.Gender = readerItemSource.Gender == "Male" ? GenderType.Male : GenderType.Female;
-            ItemData.BirthDate = readerItemSource.BirthDate;
+            return ItemData;
+
+        }
+
+
+        public void Map(dynamic readerItemSource)
+        {
+
+            if (readerItemSource.Id != null) ItemData.Id = readerItemSource.Id;
+            if (readerItemSource.Lastname != null) ItemData.Name.Lastname = readerItemSource.Lastname;
+            if (readerItemSource.Firstname != null) ItemData.Name.Firstname = readerItemSource.Firstname;
+            if (readerItemSource.MiddleName != null) ItemData.Name.Middlename = readerItemSource.MiddleName;
+            if (readerItemSource.Mi != null) ItemData.Name.MiddleInitial = readerItemSource.Mi;
+            if (readerItemSource.NameExtension != null) ItemData.Name.NameExtension = readerItemSource.NameExtension;
+            if (readerItemSource.SpouseLastname != null) ItemData.Name.SpouseLastname = readerItemSource.SpouseLastname;
+            if (readerItemSource.Gender != null) ItemData.Gender = readerItemSource.Gender == "Male" ? GenderType.Male : GenderType.Female;
+            if (readerItemSource.BirthDate != null) ItemData.BirthDate = readerItemSource.BirthDate;
 
 
             ItemData.BirthCountry = readerItemSource.BirthCountry;

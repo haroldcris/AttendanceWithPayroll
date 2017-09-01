@@ -1,23 +1,36 @@
-﻿using Dll.Payroll;
+﻿using AiTech.Tools.Winform;
+using Dll.Payroll;
 using System;
 using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
-    public partial class frmPosition_Add : FormWithHeader
+    public partial class frmPosition_Add : FormWithHeader, ISave
     {
+        public DirtyFormHandler DirtyStatus { get; }
+
         public Position ItemData { get; set; }
 
         public frmPosition_Add()
         {
             InitializeComponent();
 
-            Load += (s, e) => { ShowData(); };
-            ConvertEnterKeyToTab();
+            #region Initialize DirtyHandler
+
+            DirtyStatus = new DirtyFormHandler(this);
+
+            this.AskToSaveOnDirtyClosing();
+            this.ConvertEnterToTab();
+            Load += (s, e) =>
+            {
+                ShowData();
+                DirtyStatus.Clear();
+            };
 
             CancelButton = btnCancel;
-            btnCancel.Click += (s, e) => { Close(); };
-            btnOk.Click += (s, e) => { Save(); };
+            btnOk.Click += (s, e) => FileSave();
+
+            #endregion
         }
 
         private void ShowData()
@@ -32,13 +45,13 @@ namespace Winform.Payroll
         {
             if (string.IsNullOrEmpty(txtCode.Text))
             {
-                App.Message.ShowValidationError(txtCode, "Code must not be blank");
+                MessageDialog.ShowValidationError(txtCode, "Code must not be blank");
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtDescription.Text))
             {
-                App.Message.ShowValidationError(txtDescription, "Description must not be blank");
+                MessageDialog.ShowValidationError(txtDescription, "Description must not be blank");
                 return false;
             }
 
@@ -48,18 +61,20 @@ namespace Winform.Payroll
 
             if (item != null && item.Id != ItemData.Id)
             {
-                App.Message.ShowValidationError(txtCode, "Duplicate Position Code Exist!");
+                MessageDialog.ShowValidationError(txtCode, "Duplicate Position Code Exist!");
                 return false;
             }
 
             return true;
         }
 
-        private void Save()
+
+        public bool FileSave()
         {
             try
             {
-                if (!DataIsValid()) return;
+                Cursor.Current = Cursors.WaitCursor;
+                if (!DataIsValid()) return false;
 
                 ItemData.Code = txtCode.Text.Trim();
                 ItemData.Description = txtDescription.Text.Trim();
@@ -67,13 +82,20 @@ namespace Winform.Payroll
                 var dataWriter = new PositionDataWriter(App.CurrentUser.User.Username, ItemData);
                 dataWriter.SaveChanges();
 
+                DirtyStatus.Clear();
 
                 DialogResult = DialogResult.OK;
+
+                return true;
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
+                return false;
             }
+
         }
+
+
     }
 }

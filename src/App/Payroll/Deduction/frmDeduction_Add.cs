@@ -1,5 +1,5 @@
-﻿using Dll.Payroll;
-using Library.Tools;
+﻿using AiTech.Tools.Winform;
+using Dll.Payroll;
 using System;
 using System.Windows.Forms;
 
@@ -9,20 +9,32 @@ namespace Winform.Payroll
     {
         public Deduction ItemData { get; set; }
 
-        public DirtyChecker DirtyStatus { get; }
+        public DirtyFormHandler DirtyStatus { get; }
 
         public frmDeduction_Add()
         {
             InitializeComponent();
-            DirtyStatus = new DirtyChecker(this);
 
-            Load += (s, e) => { ShowData(); DirtyStatus.Clear(); };
-            FormClosing += (s, e) => InputControls.Form.AskToSaveOnDirtyClosing(this, e);
+            #region Initialize DirtyHandler
 
-            InputControls.Form.ConvertEnterToTab(this);
+            DirtyStatus = new DirtyFormHandler(this);
+
+            this.AskToSaveOnDirtyClosing();
+            this.ConvertEnterToTab();
+            Load += (s, e) =>
+            {
+                ShowData();
+                DirtyStatus.Clear();
+            };
 
             CancelButton = btnCancel;
-            btnOk.Click += (s, e) => { FileSave(); };
+            btnOk.Click += (s, e) => FileSave();
+
+            #endregion
+
+
+
+
         }
 
         private void ShowData()
@@ -42,13 +54,13 @@ namespace Winform.Payroll
         {
             if (string.IsNullOrEmpty(txtCode.Text))
             {
-                App.Message.ShowValidationError(txtCode, "Code must not be blank");
+                MessageDialog.ShowValidationError(txtCode, "Code must not be blank");
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtDescription.Text))
             {
-                App.Message.ShowValidationError(txtDescription, "Description must not be blank");
+                MessageDialog.ShowValidationError(txtDescription, "Description must not be blank");
                 return false;
             }
 
@@ -58,7 +70,7 @@ namespace Winform.Payroll
             var findItem = reader.GetItemWithCode(txtCode.Text.Trim());
             if (findItem != null && findItem.Id != ItemData.Id)
             {
-                App.Message.ShowValidationError(txtCode, "Duplicate Deduction Code Already Exist!");
+                MessageDialog.ShowValidationError(txtCode, "Duplicate Deduction Code Already Exist!");
                 return false;
             }
 
@@ -70,6 +82,8 @@ namespace Winform.Payroll
         {
             try
             {
+                Cursor.Current = Cursors.WaitCursor;
+
                 if (!DataIsValid()) return false;
 
                 ItemData.Code = txtCode.Text.Trim();
@@ -85,13 +99,16 @@ namespace Winform.Payroll
 
                 DirtyStatus.Clear();
 
+                App.LogAction("Deduction", "Updated Deductions");
+
                 DialogResult = DialogResult.OK;
+
                 return isSaved;
 
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
                 return false;
             }
         }

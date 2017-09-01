@@ -1,24 +1,32 @@
 ﻿using AiTech.LiteOrm.Database;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.Metro.ColorTables;
+using Dll.Contacts;
+using Idms;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.Metro.ColorTables;
+using Winform.Accounts;
+using Winform.Contacts;
+using Winform.Employee;
 
 namespace Winform
 {
-    public partial class frmMain : DevComponents.DotNetBar.Office2007RibbonForm
+    public partial class frmMain : Office2007RibbonForm
     {
         public frmMain()
         {
             InitializeComponent();
 
             styleManager1.ManagerStyle = eStyle.Metro;
-            styleManager1.MetroColorParameters= MetroColorGeneratorParameters.Default;
+            styleManager1.MetroColorParameters = MetroColorGeneratorParameters.Default;
 
             MainRibbonControl.MdiSystemItemVisible = false;
             MainRibbonControl.FadeEffect = true;
 
+
+            Text = @"Megabyte College Information System";
             lblServer.Text = @"Connected to: " + Connection.MyDbCredential.DatabasePath();
             lblVersion.Text = @"Version : " + App.CurrentVersion();
 
@@ -42,13 +50,33 @@ namespace Winform
             btnPaySalarySchedule.Click += (s, ev) => OpenForm(new Payroll.frmSalarySchedule(), "Payroll Salary Schedule");
 
 
+            btnEmployee.Click += (s, e) => OpenForm(new frmEmployee(), "Employees");
+
             btnSms.Click += (s, e) =>
             {
-                var f = new SMS.frmSMS();
-                f.ShowDialog();
+                using (var f = new SMS.frmSMS())
+                {
+                    f.ShowDialog();
+                }
             };
 
+
+            //Accounts
+            btnUserAccounts.Click += (s, e) => OpenForm(new frmAccounts(), "User Account Management");
+
+            btnChangePassword.Click += (s, e) =>
+            {
+                using (var f = new frmChangePassword())
+                {
+                    f.ShowDialog();
+                }
+            };
+
+
             #endregion
+
+            btnContextMdiTabs.PopupOpen += (s, e) => CreateContextTabMenu();
+
         }
 
         private void cmdSave_Executed(object sender, EventArgs e)
@@ -64,8 +92,8 @@ namespace Winform
         {
             AppButton.Visible = false;
 
-            btnProfile.Text = string.Format("Welcome {0} [{1}]", App.CurrentUser.User.Username.ToUpper(), "--");
-
+            btnProfile.Text = string.Format("Welcome {0} [{1}]", App.CurrentUser.User.Username.ToUpper()
+                                                               , App.CurrentUser.User.RoleClass.RoleName);
 
             //if (App.CurrentUser.SecurityLevel.ToLower() == "admin") {
             //    ribbonTabHomeAdmin.Select();
@@ -91,7 +119,7 @@ namespace Winform
 
         #region Common Scripts
 
-        internal void OpenForm(IMDIForm form, string title)
+        internal void OpenForm(IMdiForm form, string title)
         {
             Cursor.Current = Cursors.WaitCursor;
 
@@ -111,9 +139,15 @@ namespace Winform
             frm.MdiParent = this;
             ((MdiClientForm)frm).Title = formTitle;
             frm.Tag = formTitle;
-            frm.WindowState = FormWindowState.Maximized;
-            frm.Show();
 
+            frm.WindowState = FormWindowState.Minimized;
+            frm.Show();
+            frm.Update();
+            frm.WindowState = FormWindowState.Maximized;
+
+
+
+            App.LogAction("", "Opened " + title);
             Cursor.Current = Cursors.Default;
         }
 
@@ -163,13 +197,93 @@ namespace Winform
         #endregion
 
 
-        private void closeAllToolStripMenuItem_Click(object sender, EventArgs e)
+        private void CreateContextTabMenu()
         {
-            foreach (var item in MdiChildren)
+            btnContextMdiTabs.SubItems.Clear();
+
+            if (!MdiChildren.Any())
             {
-                item.Close();
+                return;
+            }
+
+            foreach (var child in MdiChildren)
+            {
+                var buttonItem = new ButtonItem("btn" + child.Name, child.Text)
+                {
+                    Tag = child,
+                };
+
+                buttonItem.Click += (s, e) =>
+                {
+                    var frm = ((Form)((ButtonItem)s).Tag);
+                    frm?.Activate();
+                };
+
+                btnContextMdiTabs.SubItems.Add(buttonItem);
+            }
+
+            var btnCloseAll = new ButtonItem()
+            {
+                Text = @"Close All Tabs",
+                BeginGroup = true
+            };
+
+            btnCloseAll.Click += (s, e) =>
+            {
+                foreach (var w in MdiChildren) w.Close();
+            };
+
+
+            btnContextMdiTabs.SubItems.Add(btnCloseAll);
+            btnContextMdiTabs.Refresh();
+
+            btnContextMdiTabs.ShowSubItems = true;
+            btnContextMdiTabs.RecalcSize();
+        }
+
+        private void mdiTab_DoubleClick(object sender, EventArgs e)
+        {
+            var frm = this.ActiveMdiChild;
+            frm.MdiParent = null;
+        }
+
+
+
+
+        private void btnContactsCreate_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            var newItem = new Person();
+
+            using (var frm = new frmContacts_Add())
+            {
+                frm.ItemData = newItem;
+                frm.Owner = this;
+
+                if (frm.ShowDialog() != DialogResult.OK) return;
             }
         }
 
+        private void btnContactsOpen_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            // Find Employee Id
+            var item = new Person();
+            using (var frm = new frmContacts_Open())
+            {
+                if (frm.ShowDialog() != DialogResult.OK) return;
+                item = frm.ItemData;
+            }
+
+
+            using (var frm = new frmContacts_Add())
+            {
+                frm.ItemData = item;
+                frm.ShowDialog();
+            }
+            //
+        }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Contacts;
 using Library.Tools;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace Winform.Contacts
@@ -18,9 +19,12 @@ namespace Winform.Contacts
             InitializeComponent();
 
             Header = " CONTACTS MANAGEMENT ";
-            HeaderColor = System.Drawing.Color.DarkOrange;
+            HeaderColor = App.BarColor.ContactColor;
 
             Load += (s, e) => { RefreshData(); };
+
+            //Image Size
+            imageList1.ImageSize = new Size(30, 30);
         }
 
 
@@ -38,18 +42,18 @@ namespace Winform.Contacts
             base.InitializeGrid();
 
             SGrid.InitializeGrid();
-            SGrid.RowDoubleClick += (s, e) => { btnEdit.RaiseClick(); };
+
 
 
             var grid = SGrid.PrimaryGrid;
 
 
-            grid.CreateColumn("Id", "Id", 60, Alignment.MiddleCenter);
+            grid.CreateColumn("Id", "Id", 50, Alignment.MiddleCenter);
 
-            grid.CreateColumn("Lastname", "Lastname", 120);
-            grid.CreateColumn("Firstname", "Firstname", 150);
-            grid.CreateColumn("Middlename", "Middlename", 85);
-            grid.CreateColumn("NameExtension", "Ext");
+            grid.CreateColumn("Lastname", "Lastname", 90);
+            grid.CreateColumn("Firstname", "Firstname", 100);
+            grid.CreateColumn("Middlename", "Middlename", 80);
+            grid.CreateColumn("NameExtension", "Ext", 40);
 
             grid.CreateColumn("Gender", "Gender");
 
@@ -57,16 +61,19 @@ namespace Winform.Contacts
 
             grid.CreateColumn("BirthTown", "Town", 120);
             grid.CreateColumn("BirthProvince", "Province", 85);
-            grid.CreateColumn("BirthCountry", "Country", 85);
+            grid.CreateColumn("BirthCountry", "Country", 70);
+
             grid.CreateColumn("CameraCounter", "Image File", 85);
 
             grid.CreateRecordInfoColumns();
 
             // Create COntext Menu;
-            CreateGridContextMenu();
+            this.CreateGridContextMenu();
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["Lastname"]);
+
+
 
         }
 
@@ -84,7 +91,7 @@ namespace Winform.Contacts
 
             row.Cells["Gender"].Value = currentItem.Gender;
 
-            row.Cells["Birthdate"].Value = currentItem.BirthDate.ToString("dd-MMM-yyyy");
+            row.Cells["Birthdate"].Value = currentItem.BirthDate.ToString("dd - MMM - yyyy");
 
             row.Cells["BirthCountry"].Value = currentItem.BirthCountry;
             row.Cells["BirthProvince"].Value = currentItem.BirthProvince;
@@ -92,27 +99,22 @@ namespace Winform.Contacts
 
             //row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
 
+
             var img = InputControls.GetImage(currentItem.CameraCounter);
 
             if (img != null)
             {
-                imageList1.Images.Add(currentItem.CameraCounter,
-                    InputControls.GetImage(currentItem.CameraCounter)
-                    //System.Drawing.Image.FromFile(@"d:\my pictures\8.jpg")
-                    );
+                imageList1.Images.Add(currentItem.CameraCounter, img);
 
-                //row.Cells["Image"].Value = currentItem.CameraCounter;
                 row.Cells["CameraCounter"].CellStyles.Default.Image = imageList1.Images[currentItem.CameraCounter];
                 row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
             }
 
-
-            Debug.WriteLine(imageList1.Images.Count);
+            row.RowHeight = row.GetMaximumRowHeight();
 
 
             row.ShowRecordInfo(currentItem);
 
-            row.RowHeight = row.GetMaximumRowHeight();
         }
 
         #region MyGridImageEditControl
@@ -148,9 +150,6 @@ namespace Winform.Contacts
                 if (frm.ShowDialog() != DialogResult.OK) return null;
             }
 
-
-            SaveDataOf(newItem);
-
             ItemDataCollection.Add(newItem);
             return newItem;
         }
@@ -168,9 +167,6 @@ namespace Winform.Contacts
 
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
-
-
-            SaveDataOf(selectedItem);
 
             return true;
         }
@@ -192,30 +188,19 @@ namespace Winform.Contacts
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
 
-                    SaveDataOf(deletedItem);
+                    var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, deletedItem);
+                    dataWriter.SaveChanges();
 
                     ItemDataCollection.Remove((Person)currentItem);
                 }
                 catch (Exception ex)
                 {
-                    App.Message.ShowError(ex, this);
+                    MessageDialog.ShowError(ex, this);
                 }
             };
         }
 
 
-        private void SaveDataOf(Person item)
-        {
-            try
-            {
-                var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, item);
-                dataWriter.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                App.Message.ShowError(ex, this);
-            }
-        }
 
     }
 }

@@ -1,153 +1,421 @@
+using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
-using Dll.SchoolYear;
+using Dll.Contacts;
+using Dll.Employee;
+using Dll.Payroll;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmMasterFile : MdiClientForm
     {
-        BatchCollection BatchItems = new BatchCollection();
-
+        internal PayrollEmployeeCollection ItemDataCollection = new PayrollEmployeeCollection();
         public frmMasterFile()
         {
             InitializeComponent();
 
+            Header = " PAYROLL MASTERFILE ";
+            HeaderColor = App.BarColor.PayrollMasterColor;
+
             InitializeGrid();
-            LoadItems();
+
+            RefreshData();
         }
 
-        private void InitializeGrid()
+
+
+        protected IEnumerable<PayrollEmployee> LoadItems()
+        {
+            ItemDataCollection.LoadAllItemsFromDb();
+            return ItemDataCollection.Items;
+        }
+
+
+        protected void InitializeGrid()
         {
             SGrid.InitializeGrid();
 
-            SGrid.CreateColumn("Empnum", "Employee No.", 100, Alignment.MiddleCenter);
+            var grid = SGrid.PrimaryGrid;
+            var col = new GridColumn();
+
+            grid.Filter.Visible = true;
+            grid.EnableFiltering = true;
+
+            grid.EnableColumnFiltering = true;
+
+            grid.FilterMatchType = FilterMatchType.RegularExpressions;
+
+            SGrid.RowDoubleClick += (s, e) => { btnPayViewProfile.RaiseClick(); };
+            SGrid.ColumnHeaderMouseUp += SGrid_ColumnHeaderMouseUp;
 
 
-            SGrid.CreateColumn("Name", "Name", 300, Alignment.MiddleLeft);
-            SGrid.CreateColumn("Gender", "Gender", 80, Alignment.MiddleCenter);
-
-            SGrid.CreateColumn("Position", "Position", 120, Alignment.MiddleLeft);
-            SGrid.CreateColumn("Department", "Department", 100, Alignment.MiddleLeft);
-
-            SGrid.CreateColumn("Exemption", "Tax Exemption", 120, Alignment.MiddleLeft);
-
-            SGrid.CreateColumn("CreatedBy", "Created By", 90, Alignment.MiddleLeft);
-            SGrid.CreateColumn("Created", "Created", 130, Alignment.MiddleLeft);
-            SGrid.CreateColumn("ModifiedBy", "Modified By", 90, Alignment.MiddleLeft);
-            SGrid.CreateColumn("Modified", "Modified", 130, Alignment.MiddleLeft);
-
-            SGrid.PrimaryGrid.CheckBoxes = true;
-            SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
-            SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
-            SGrid.PrimaryGrid.Rows.Add(new GridRow("test"));
+            SGrid.CreateColumn("Empnum", "Employee No.", 80, Alignment.MiddleCenter);
 
 
-            SGrid.ColumnGrouped += (s, e) =>
+            SGrid.CreateColumn("Name", "Name", 200);
+            SGrid.CreateColumn("Gender", "Gender", 50, Alignment.MiddleCenter);
+
+            SGrid.CreateColumn("Position", "Position", 90);
+            SGrid.CreateColumn("SG", "Grade", 40, Alignment.MiddleCenter);
+            SGrid.CreateColumn("Step", "Step", 40, Alignment.MiddleCenter);
+
+            SGrid.CreateColumn("Department", "Department", 90);
+
+            SGrid.CreateColumn("TaxCode", "Tax Code", 80);
+
+            col = SGrid.CreateColumn("Exemption", "Tax Exemption", 80, Alignment.MiddleRight);
+            col.RenderType = typeof(GridDoubleInputEditControl);
+
+
+            col = SGrid.CreateColumn("BasicSalary", "Salary", 80, Alignment.MiddleRight);
+            col.RenderType = typeof(GridDoubleInputEditControl);
+
+
+            col = SGrid.CreateColumn("Active", "Active", 40, Alignment.MiddleCenter);
+            col.RenderType = typeof(GridCheckBoxXEditControl);
+
+
+            grid.CreateRecordInfoColumns();
+
+            // Create COntext Menu;
+            CreateGridContextMenu();
+
+            //Define Sort
+            grid.SetSort(SGrid.PrimaryGrid.Columns["Lastname"]);
+
+        }
+
+
+        private void Show_Data(IEnumerable<PayrollEmployee> items)
+        {
+            SGrid.PrimaryGrid.Rows.Clear();
+
+            foreach (var item in items)
             {
-                var total = e.GridGroup.Rows.Count();
-                e.GridGroup.Text = e.GridGroup.Text.ToUpper() + "  - " + total + (total < 2 ? " item" : " items");
-            };
+                if (item.RowStatus == RecordStatus.DeletedRecord) continue;
 
+                var row = SGrid.PrimaryGrid.CreateNewRow();
+                row.Tag = item;
 
-        }
-
-        private void LoadItems()
-        {
-            Cursor.Current = Cursors.WaitCursor;
-            //BatchItems.LoadItemsFromDb();
+                Show_DataOnRow(row, item);
+            }
         }
 
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        protected void Show_DataOnRow(GridRow row, PayrollEmployee item)
         {
-            //if (flexGrid.Rows.Count < 2) return;
+            var currentItem = (PayrollEmployee)item;
 
-            //var itemToEdit = (Batch)flexGrid.GetUserData(flexGrid.Row, 0);
-            //if (itemToEdit == null) return;
+            row.Cells["Empnum"].Value = currentItem.EmployeeClass.EmpNum;
+            row.Cells["Name"].Value = currentItem.EmployeeClass.PersonClass.Name.Fullname;
 
-            //var frm = new frmBatch_Add(this);
-            //frm.Batch = itemToEdit;
+            row.Cells["Gender"].Value = currentItem.EmployeeClass.PersonClass.Gender == GenderType.Male ? "Male" : "Female";
 
-            //var result = frm.ShowDialog();
-            //frm.Dispose();
+            row.Cells["Position"].Value = currentItem.PositionClass.Description;
+            row.Cells["SG"].Value = currentItem.SG;
 
-            //if (result == DialogResult.OK)
-            //{
-            //    DirtyStatus.SetDirty();
-            //    FlexGridHelper.DisplayItemOnCurrentRow(flexGrid, DisplayItemOnCurrentRowExt);
-            //}
+
+
+            row.Cells["Step"].Value = currentItem.Step;
+
+            row.Cells["Department"].Value = currentItem.Department;
+
+            row.Cells["TaxCode"].Value = currentItem.TaxClass.ShortDesc;
+            row.Cells["Exemption"].Value = currentItem.TaxClass.Exemption;
+
+
+            row.Cells["BasicSalary"].Value = currentItem.BasicSalary;
+
+            row.Cells["Active"].Value = currentItem.Active;
+
+            //row.CellStyles.Default = currentItem.Active ? null : new CellVisualStyle() { Background = new Background(System.Drawing.Color.LightGray) };
+
+            row.ShowRecordInfo(currentItem);
         }
 
-        public override bool FileSave()
+
+        protected void RefreshData()
         {
-            return DoSave(() =>
+            DoRefresh(async () =>
             {
-                //var dataWriter = new BatchDataWriter(My.App.CurrentUser.User.Username, BatchItems);
+                //progressBarX1.Visible = true;
 
-                //var result = dataWriter.SaveChanges();
+                var grid = SGrid.PrimaryGrid;
+                grid.Rows.Clear();
 
-                //if (!result) throw new Exception("No Record has been saved");
+                var items = Enumerable.Empty<PayrollEmployee>();
+                await Task.Factory.StartNew(() =>
+                {
+                    items = LoadItems();
+                });
 
-                //FlexGridHelper.UpdateCreatedAndModifiedDate(flexGrid);
+                //progressBarX1.Visible = false;
+                Show_Data(items);
             });
         }
 
 
-        internal bool ContainsData(Batch item)
+        protected PayrollEmployee OnAdd()
         {
+            // Find Employee Id
+            var employeeId = 0;
 
-            //var foundItem = BatchItems.Items.FirstOrDefault(x => x.BatchName == item.BatchName && 
-            //                                                                 x.Semester == item.Semester  &&
-            //                                                                 x.RowId != item.RowId);
-            //if (foundItem == null) return false;
-            ////if (foundItem.Id == item.Id && foundItem.Id != 0) return false;
+            using (var frm = new Employee.frmEmployee_Open())
+            {
+                if (frm.ShowDialog() != DialogResult.OK) return null;
+                employeeId = frm.EmployeeId;
+            }
+
+
+            // Check for Duplicate
+            var duplicate = (new PayrollEmployeeDataReader()).Has(employeeId);
+            if (duplicate)
+            {
+                MessageDialog.Show("Duplicate Record", "An existing Record with same employee already exists");
+                return null;
+            }
+
+
+            // Get Employee Profile
+            var employee = (new EmployeeDataReader()).GetBasicProfileOf(employeeId);
+
+            if (employee == null) throw new Exception("Record NOT found");
+
+
+            // Create New Payroll Employee
+            var newItem = new PayrollEmployee
+            {
+                EmployeeId = employee.Id,
+                EmployeeClass = employee
+            };
+
+
+            using (var frm = new frmPayrollEmployee_Add())
+            {
+                frm.ItemData = newItem;
+                if (frm.ShowDialog() != DialogResult.OK) return null;
+            }
+
+            return newItem;
+        }
+
+
+        protected bool OnEdit(PayrollEmployee item)
+        {
+            var selectedItem = (PayrollEmployee)item;
+
+            using (var frm = new frmPayrollEmployee_Add())
+            {
+                if (selectedItem.Id != 0) selectedItem.RowStatus = RecordStatus.ModifiedRecord;
+                frm.ItemData = selectedItem;
+                if (frm.ShowDialog() != DialogResult.OK) return false;
+            }
 
             return true;
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+
+
+        protected void OnDelete(PayrollEmployee item, out string message, ref Action<Entity> afterConfirm)
         {
-            DoRefresh(LoadItems);
+            if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
+
+            message = ((PayrollEmployee)item).EmployeeClass.PersonClass.Name.Fullname;
+
+            afterConfirm = (currentItem) =>
+            {
+                try
+                {
+                    var deletedItem = (PayrollEmployee)currentItem;
+
+                    deletedItem.RowStatus = RecordStatus.DeletedRecord;
+
+                    //Save to Database
+                    var dataWriter = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, deletedItem);
+                    dataWriter.SaveChanges();
+
+                    ItemDataCollection.Remove((PayrollEmployee)currentItem);
+                }
+                catch (Exception ex)
+                {
+                    MessageDialog.ShowError(ex, this);
+                }
+            };
+        }
+
+
+
+        private void SGrid_ColumnHeaderMouseUp(object sender, GridColumnHeaderMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var p = PointToScreen(e.Location);
+
+                mnuGridColumn.PopupMenu(p);
+            }
+        }
+
+
+        protected void CreateGridContextMenu()
+        {
+            var grid = SGrid.PrimaryGrid;
+
+
+            //mnuGridColumn.SubItems.Clear();
+            mnuGridColumn.ThemeAware = true;
+
+            for (var c = 0; c < grid.Columns.Count; c++)
+            {
+                var col = grid.Columns[c];
+
+                var btn = new ButtonItem
+                {
+                    Text = col.HeaderText,
+                    AutoCheckOnClick = true,
+                    AutoCollapseOnClick = false,
+                    HotTrackingStyle = eHotTrackingStyle.Color,
+                    Checked = col.Visible == true,
+                    ThemeAware = true,
+                    Enabled = c > 1,
+                    Tag = col,
+                };
+
+                btn.Command = cmdContext;
+
+                mnuGridColumn.SubItems.Add(btn);
+            }
+
+        }
+
+
+        private void cmdContext_Executed(object sender, EventArgs e)
+        {
+            var button = (ButtonItem)sender;
+            var col = (GridColumn)button.Tag;
+
+            col.Visible = button.Checked;
+        }
+
+        private void btnPayViewProfile_Click(object sender, EventArgs e)
+        {
+            //using (var frm = new frmPayrollEmployee_Add())
+            //{
+            //    if (frm.ShowDialog() != DialogResult.OK) return;
+            //}
+
+        }
+
+
+
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+
+                var newItem = OnAdd();
+
+                if (newItem == null) return;
+
+                ItemDataCollection.Add(newItem);
+
+                if (SGrid.PrimaryGrid.IsGrouped)
+                {
+                    RefreshData();
+                    return;
+                }
+
+                var row = SGrid.PrimaryGrid.CreateNewRow();
+                row.Tag = newItem;
+
+                Show_DataOnRow(row, newItem);
+
+                SGrid.PrimaryGrid.ClearSelectedRows();
+                row.SetActive();
+                row.IsSelected = true;
+                row.EnsureVisible();
+
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            //if (flexGrid.Rows.Count == 1) return;
+            if (SGrid.ActiveFilterPanel != null) return;
 
-            //var item = (Batch) flexGrid.GetUserData(flexGrid.Row, 0);
+            Cursor.Current = Cursors.WaitCursor;
 
-            //if (item == null) return;
+            var grid = SGrid.PrimaryGrid;
+            var item = (PayrollEmployee)grid.ActiveRow?.Tag;
+            if (item == null) return;
 
-            //var result = My.Message.AskToDelete();
-            //if (result == eTaskDialogResult.Yes)
-            //{
-            //    BatchItems.Remove(item);
-            //    DirtyStatus.SetDirty();
 
-            //    flexGrid.RemoveItem(flexGrid.Row);
-            //}
+            string deleteMessage;
+            Action<Entity> action = i => { };
+
+            OnDelete(item, out deleteMessage, ref action);
+
+            var ret = MessageDialog.AskToDelete("<b>" + deleteMessage.ToUpper() + "</b>");
+
+            if (ret != MessageDialogResult.Yes) return;
+
+            string[] strType = item.GetType().ToString().Split('.');
+
+            App.LogAction(strType[strType.Length - 1], "Deleted " + deleteMessage);
+
+            action(item);
+
+            grid.ActiveRow.IsDeleted = true;
+            grid.PurgeDeletedRows();
         }
 
-        private void btnPayAdd_Click(object sender, EventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            Cursor = Cursors.WaitCursor;
-
-
-            //var newItem = new Batch();
-            var frm = new frmEmployeesAdd();
-
-            var result = frm.ShowDialog();
-            frm.Dispose();
-
-            if (result == DialogResult.OK)
+            try
             {
-                //    BatchItems.Add(newItem);
-                //   DirtyStatus.SetDirty();
-                //   FlexGridHelper.DoGridInsert(flexGrid, newItem, DisplayItemOnCurrentRowExt);
+                Cursor.Current = Cursors.WaitCursor;
+
+                var grid = SGrid.PrimaryGrid;
+
+                var item = (PayrollEmployee)grid.ActiveRow?.Tag;
+
+                if (item == null) return;
+                if (!OnEdit(item)) return;
+
+
+                if (SGrid.PrimaryGrid.IsGrouped)
+                {
+                    RefreshData();
+                    return;
+                }
+
+                Show_DataOnRow((GridRow)grid.ActiveRow, item);
+
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
             }
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            RefreshData();
+        }
+
     }
 }

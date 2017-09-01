@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using AiTech.Tools.Winform;
 
 namespace Winform
 {
@@ -124,7 +125,7 @@ namespace Winform
 
             if (item == null) return;
 
-            var result = App.Message.AskToDelete();
+            var result = MessageDialog.AskToDelete();
             if (result == MessageDialogResult.Yes)
             {
                 BatchItems.Remove(item);

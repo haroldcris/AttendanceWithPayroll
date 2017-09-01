@@ -16,15 +16,15 @@ namespace Dll.Payroll
 
         public string Remarks { get; set; }
 
+        #endregion
+
         public PositionSalaryGradeCollection PositionSalaryGrades { get; }
         public SalaryGradeCollection SalaryGrades { get; }
 
-        #endregion
 
         public SalarySchedule()
         {
-            PositionSalaryGrades = new PositionSalaryGradeCollection();
-            PositionSalaryGrades.OnSalarySchedIdRequest += () => Id;
+            PositionSalaryGrades = new PositionSalaryGradeCollection(this);
 
             SalaryGrades = new SalaryGradeCollection();
             SalaryGrades.OnSalaryScheduleIdRequest += () => Id;

@@ -1,5 +1,6 @@
 ﻿using Dll.Payroll;
 using System.Windows.Forms;
+using AiTech.Tools.Winform;
 
 namespace Winform.Payroll
 {
@@ -41,19 +42,19 @@ namespace Winform.Payroll
         {
             if (string.IsNullOrEmpty(txtTaxId.Text))
             {
-                App.Message.ShowValidationError(txtTaxId, "Code must not be blank");
+                MessageDialog.ShowValidationError(txtTaxId, "Code must not be blank");
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtShort.Text))
             {
-                App.Message.ShowValidationError(txtShort, "Short Description must not be blank");
+                MessageDialog.ShowValidationError(txtShort, "Short Description must not be blank");
                 return false;
             }
 
             if (string.IsNullOrEmpty(txtDescription.Text))
             {
-                App.Message.ShowValidationError(txtDescription, "Description must not be blank");
+                MessageDialog.ShowValidationError(txtDescription, "Description must not be blank");
                 return false;
             }
 
@@ -61,7 +62,7 @@ namespace Winform.Payroll
             //var item = reader.GetItemWithId()
             //if (CallerForm.ContainsData(txtTaxId.Text, ItemData.RowId))
             //{
-            //    App.Message.ShowValidationError(txtTaxId, "Duplicate Record!");
+            //    MessageDialog.ShowValidationError(txtTaxId, "Duplicate Record!");
             //    return false;
             //}
 

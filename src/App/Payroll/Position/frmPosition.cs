@@ -1,4 +1,5 @@
 ﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using Dll.Payroll;
 using System;
@@ -25,7 +26,7 @@ namespace Winform.Payroll
 
         protected override IEnumerable<Entity> LoadItems()
         {
-            ItemDataCollection.LoadItemsFromDb();
+            ItemDataCollection.LoadAllItemsFromDb();
             return ItemDataCollection.Items;
         }
 
@@ -35,8 +36,6 @@ namespace Winform.Payroll
             base.InitializeGrid();
 
             SGrid.InitializeGrid();
-            SGrid.RowDoubleClick += (s, e) => { btnEdit.RaiseClick(); };
-
 
             var grid = SGrid.PrimaryGrid;
 
@@ -124,7 +123,7 @@ namespace Winform.Payroll
                 }
                 catch (Exception ex)
                 {
-                    App.Message.ShowError(ex, this);
+                    MessageDialog.ShowError(ex, this);
                 }
             };
         }

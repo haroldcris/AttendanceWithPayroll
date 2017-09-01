@@ -1,4 +1,5 @@
 ﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Payroll;
@@ -16,7 +17,7 @@ namespace Winform.Payroll
             InitializeComponent();
 
             Header = " PAYROLL DEDUCTIONS ";
-            HeaderColor = System.Drawing.Color.Crimson;
+            HeaderColor = App.BarColor.PayrollDeductionColor;
 
             Load += (s, e) => { RefreshData(); };
         }
@@ -36,7 +37,6 @@ namespace Winform.Payroll
             base.InitializeGrid();
 
             SGrid.InitializeGrid();
-            SGrid.RowDoubleClick += (s, e) => { btnEdit.RaiseClick(); };
 
 
             var grid = SGrid.PrimaryGrid;
@@ -141,7 +141,7 @@ namespace Winform.Payroll
                 }
                 catch (Exception ex)
                 {
-                    App.Message.ShowError(ex, this);
+                    MessageDialog.ShowError(ex, this);
                 }
             };
         }

@@ -14,14 +14,23 @@ namespace Dll.Payroll
         public int SalaryScheduleId { get; set; }
 
         public int PositionId { get; set; }
-        public string PositionCode { get; set; }
-        public string PositionDescription { get; set; }
+        //public string PositionCode { get; set; }
+        //public string PositionDescription { get; set; }
 
 
         public int SG { get; set; }
 
         #endregion
 
+        public Position PositionClass { get; set; }
+        public SalarySchedule SalaryScheduleClass { get; set; }
+
+
+        public PositionSalaryGrade()
+        {
+            PositionClass = new Position();
+            SalaryScheduleClass = new SalarySchedule();
+        }
 
         public override void StartTrackingChanges()
         {
@@ -44,6 +53,11 @@ namespace Dll.Payroll
             if (!Equals(SG, OriginalValues["SG"])) changes.Add("SG", SG);
 
             return changes;
+        }
+
+        public override string ToString()
+        {
+            return this.PositionClass.Description;
         }
     }
 }

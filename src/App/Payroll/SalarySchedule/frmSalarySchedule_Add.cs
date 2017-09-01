@@ -1,7 +1,7 @@
-﻿using DevComponents.DotNetBar.SuperGrid;
+﻿using AiTech.Tools.Winform;
+using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Payroll;
-using Library.Tools;
 using System;
 using System.Windows.Forms;
 
@@ -11,67 +11,45 @@ namespace Winform.Payroll
     {
         public SalarySchedule ItemData { get; set; }
 
-        public DirtyChecker DirtyStatus { get; private set; }
+        public DirtyFormHandler DirtyStatus { get; private set; }
 
 
         public frmSalarySchedule_Add()
         {
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterParent;
 
-            InitializeSGGrid();
 
-            InitializePositionGrid();
+            #region Initialize DirtyHandler
 
+            DirtyStatus = new DirtyFormHandler(this);
+
+            this.AskToSaveOnDirtyClosing();
+            this.ConvertEnterToTab();
             Load += (s, e) =>
             {
                 ShowData();
                 DirtyStatus.Clear();
             };
 
-            this.FormClosing += (s, e) => InputControls.Form.AskToSaveOnDirtyClosing((ISave)s, e);
-
             CancelButton = btnCancel;
             btnOk.Click += (s, e) => FileSave();
 
+            #endregion
+
+
+
+            InitializeSGGrid();
+
+            InitializePositionGrid();
+
             tabControl1.SelectedTabChanged += (s, e) =>
-            {
-                SelectNextControl(e.NewTab.AttachedControl, true, true, true, true);
-            };
+             {
+                 SelectNextControl(e.NewTab.AttachedControl, true, true, true, true);
+             };
 
-            DirtyStatus = new DirtyChecker(this);
+
         }
-
-        private void FrmSalarySchedule_Add_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            switch (e.CloseReason)
-            {
-                case CloseReason.None:
-                case CloseReason.UserClosing:
-                    //Check for Dirty
-                    if (!DirtyStatus.IsDirty) break;
-
-                    var response = App.Message.AskToSave();
-
-                    switch (response)
-                    {
-                        case MessageDialogResult.Yes:
-                            if (!FileSave()) e.Cancel = true;
-                            break;
-
-                        case MessageDialogResult.Cancel:
-                            e.Cancel = true;
-                            break;
-
-                        default:
-                            break;
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
 
         private bool DataIsValid()
         {
@@ -89,9 +67,17 @@ namespace Winform.Payroll
 
             //if (CallerForm.ContainsData(dtEffectivityDate.Value, ItemData.RowId))
             //{
-            //    App.Message.ShowValidationError(dtEffectivityDate, "Duplicate Record!");
+            //    MessageDialog.ShowValidationError(dtEffectivityDate, "Duplicate Record!");
             //    return false;
             //}
+
+            var reader = new SalaryScheduleDataReader();
+            var foundItem = reader.GetItemWithEffectivity(dtEffectivityDate.Value);
+            if (foundItem != null && foundItem.Id != ItemData.Id)
+            {
+                MessageDialog.ShowValidationError(dtEffectivityDate, "Duplicate Effectivity Date");
+                return false;
+            }
             return true;
         }
 
@@ -147,7 +133,7 @@ namespace Winform.Payroll
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
                 return false;
             }
         }
@@ -178,7 +164,7 @@ namespace Winform.Payroll
 
                 if (!(itemValue >= 1 && itemValue <= 50))
                 {
-                    App.Message.ShowValidationError(this, "Number must be 1 - 50 only", focusControl: false);
+                    MessageDialog.ShowValidationError(this, "Number must be 1 - 50 only", focusControl: false);
                     e.Cancel = true;
                 }
 
@@ -277,8 +263,8 @@ namespace Winform.Payroll
             {
                 row = PositionGrid.PrimaryGrid.CreateNewRow();
 
-                row["Code"].Value = itemPosition.PositionCode;
-                row["Position"].Value = itemPosition.PositionDescription;
+                row["Code"].Value = itemPosition.PositionClass.Code;
+                row["Position"].Value = itemPosition.PositionClass.Description;
                 row["SalaryGrade"].Value = itemPosition.SG;
 
                 row.Tag = itemPosition;

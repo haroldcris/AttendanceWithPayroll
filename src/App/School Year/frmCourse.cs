@@ -1,3 +1,4 @@
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using Dll.SchoolYear;
 using System;
@@ -18,10 +19,12 @@ namespace Winform
             HeaderColor = Color.Maroon;
         }
 
-        private void Form_Load(object sender, EventArgs e)
+        protected override void Form_Load(object sender, EventArgs e)
         {
             flexGrid.ShowCursor = true;
             LoadItems();
+
+            base.Form_Load(sender, e);
         }
 
         private void LoadItems()
@@ -93,7 +96,7 @@ namespace Winform
 
             if (item == null) return;
 
-            var result = App.Message.AskToDelete();
+            var result = MessageDialog.AskToDelete();
 
             if (result == MessageDialogResult.Yes)
             {

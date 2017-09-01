@@ -46,5 +46,13 @@ namespace Dll.Payroll
 
             return changes;
         }
+
+
+        public override string ToString()
+        {
+            return this.Description;
+        }
     }
+
+
 }

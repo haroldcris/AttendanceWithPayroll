@@ -209,6 +209,7 @@
             // highlighter1
             // 
             this.highlighter1.ContainerControl = this;
+            this.highlighter1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // groupBox1
             // 
@@ -275,10 +276,10 @@
             this.cboDependent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDependent.ForeColor = System.Drawing.Color.Black;
             this.cboDependent.FormattingEnabled = true;
-            this.cboDependent.ItemHeight = 15;
+            this.cboDependent.ItemHeight = 16;
             this.cboDependent.Location = new System.Drawing.Point(15, 37);
             this.cboDependent.Name = "cboDependent";
-            this.cboDependent.Size = new System.Drawing.Size(122, 21);
+            this.cboDependent.Size = new System.Drawing.Size(122, 22);
             this.cboDependent.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.cboDependent.TabIndex = 1;
             // 
@@ -291,6 +292,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox3);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.KeyPreview = true;

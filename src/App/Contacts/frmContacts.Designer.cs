@@ -30,7 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.ribbonBarMergeContainer1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // ribbonBarMergeContainer1
+            // 
+            // 
+            // 
+            // 
+            this.ribbonBarMergeContainer1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonBarMergeContainer1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonBarMergeContainer1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // SGrid
             // 
@@ -53,32 +69,39 @@
             this.SGrid.PrimaryGrid.GroupByRow.Visible = true;
             this.SGrid.PrimaryGrid.MultiSelect = false;
             // 
-            // ribbonBarMergeContainer1
+            // ribbonBar6
             // 
             // 
             // 
             // 
-            this.ribbonBarMergeContainer1.Style.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonBar6.BackgroundMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
-            this.ribbonBarMergeContainer1.StyleMouseDown.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonBar6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // 
             // 
-            this.ribbonBarMergeContainer1.StyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.ribbonBar6.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.ribbonBar6.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
             // imageList1
             // 
-            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
-            this.imageList1.ImageSize = new System.Drawing.Size(48, 48);
+            this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.imageList1.ImageSize = new System.Drawing.Size(30, 30);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
             // frmContacts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1173, 686);
+            this.DoubleBuffered = true;
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "frmContacts";
+            this.ribbonBarMergeContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

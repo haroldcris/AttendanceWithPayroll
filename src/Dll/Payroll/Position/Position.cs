@@ -15,9 +15,15 @@ namespace Dll.Payroll
 
         public string Description { get; set; }
 
-
-
         #endregion
+
+        public PositionDataMapper DataMapper { get; set; }
+
+
+        public Position()
+        {
+            DataMapper = new PositionDataMapper(this);
+        }
 
 
         public override void StartTrackingChanges()

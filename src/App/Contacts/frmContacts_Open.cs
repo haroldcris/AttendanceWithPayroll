@@ -1,12 +1,18 @@
-﻿using System;
+﻿using AiTech.LiteOrm.Database.Search;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using Dll.Contacts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Winform.Contacts
 {
 
-    public partial class frmContacts_Open : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class frmContacts_Open : Office2007Form
     {
-        public Dll.Contacts.Person MyContact { get; set; }
+        public Person ItemData { get; set; }
 
         public frmContacts_Open()
         {
@@ -68,74 +74,94 @@ namespace Winform.Contacts
         }
 
 
-        private void btnOk_Click(object sender, EventArgs e)
+        private bool DataSearchIsValid()
         {
-            //var reader = new Dll.Contacts.ContactManager("");
-
-            //var id = 0;
-            //int.TryParse(txtIdNum.Text, out id);
-
-            //var item = reader.GetItem(id);
-
-            //if (item == null)
-            //{
-            //    My.Message.Show("Invalid Contact Id", "You have entered an Invalid Id");
-            //    return;
-            //}
-
-            //ItemData = item;
-
-            //DialogResult = DialogResult.OK;
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            FlexGrid.Rows.Count = 1;
-
             if (string.IsNullOrEmpty(txtSearch.Text))
             {
-                App.Message.ShowValidationError(txtSearch, "Enter item to search");
-                return;
+                MessageDialog.ShowValidationError(txtSearch, "Enter item to search");
+                return false;
             }
 
 
             if (cboSearchType.SelectedIndex == -1)
             {
-                App.Message.ShowValidationError(cboSearchType, "Select Type of Search");
+                MessageDialog.ShowValidationError(cboSearchType, "Select Type of Search");
+                return false;
+            }
+            return true;
+
+        }
+
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+
+            var id = 0;
+            if (!int.TryParse(txtIdNum.Text, out id))
+            {
+                MessageDialog.ShowValidationError(txtIdNum, "You have entered an Invalid Id");
                 return;
             }
 
 
-            //var reader = new Dll.Contacts.ContactManager(App.CurrentUser.User.Username);
+            var reader = new PersonDataReader();
+            var item = reader.GetItemWithId(id);
 
-            //var searchStyle = new SearchStyleEnum();
-            //switch(cboSearchType.Text)
-            //{
-            //    case "Contains": searchStyle = SearchStyleEnum.Contains; break;
-            //    case "Starts With": searchStyle = SearchStyleEnum.StartsWith;  break;
-            //    case "Ends With": searchStyle = SearchStyleEnum.EndsWith;  break;
-            //}
+            if (item == null)
+            {
+                MessageDialog.ShowValidationError(txtIdNum, "You have entered an Invalid Id");
+                return;
+            }
 
-            //var items = reader.SearchItem(txtSearch.Text, searchStyle);
+            ItemData = item;
 
-            //if (items.Count() == 0)
-            //{
-            //    My.Message.ShowValidationError(txtSearch, "No items match your search");
-            //    return;
-            //}
+            DialogResult = DialogResult.OK;
+        }
 
-            //FlexGrid.Rows.Count = items.Count() + 1;
-            //var row = 0;
-            //foreach(var item in items)
-            //{
-            //    row++;
-            //    FlexGrid [row, "contactid"] = item.Id;
-            //    FlexGrid [row, "name"] = item.Fullname();
-            //    FlexGrid [row, "gender"] = item.Gender;
 
-            //    FlexGrid.Select(1, 0);
-            //}
-            //FlexGrid.Focus();
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            FlexGrid.Rows.Count = 1;
+
+            if (!DataSearchIsValid()) return;
+
+            var searchStyle = new SearchStyleEnum();
+            switch (cboSearchType.Text)
+            {
+                case "Contains": searchStyle = SearchStyleEnum.Contains; break;
+                case "Starts With": searchStyle = SearchStyleEnum.StartsWith; break;
+                case "Ends With": searchStyle = SearchStyleEnum.EndsWith; break;
+            }
+
+            var reader = new PersonDataReader();
+            var items = reader.SearchItem(txtSearch.Text, searchStyle);
+
+            var enumerable = items as IList<Person> ?? items.ToList();
+
+            if (!enumerable.Any())
+            {
+                MessageDialog.ShowValidationError(txtSearch, "No items match your search");
+                return;
+            }
+
+
+
+            FlexGrid.Rows.Count = enumerable.Count() + 1;
+            var row = 0;
+            foreach (var item in enumerable)
+            {
+                row++;
+                FlexGrid[row, "contactid"] = item.Id;
+                FlexGrid[row, "name"] = item.Name.Fullname;
+                FlexGrid[row, "gender"] = item.Gender == GenderType.Male ? "Male" : "Female";
+
+                FlexGrid.Select(1, 0);
+
+            }
+            FlexGrid.Focus();
+
+
 
         }
 

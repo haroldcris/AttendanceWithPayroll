@@ -1,4 +1,5 @@
 ﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.SuperGrid;
 using System;
@@ -15,7 +16,6 @@ namespace Winform
         public MdiClientGridForm()
         {
             InitializeComponent();
-
             InitializeGrid();
         }
 
@@ -31,6 +31,7 @@ namespace Winform
 
             grid.FilterMatchType = FilterMatchType.RegularExpressions;
 
+            SGrid.RowDoubleClick += (s, e) => { btnEdit.RaiseClick(); };
 
             SGrid.ColumnHeaderMouseUp += SGrid_ColumnHeaderMouseUp;
         }
@@ -39,12 +40,11 @@ namespace Winform
         {
             if (e.Button == MouseButtons.Right)
             {
-                var p = this.PointToScreen(e.Location);
+                var p = PointToScreen(e.Location);
 
                 mnuGridColumn.PopupMenu(p);
             }
         }
-
 
 
         protected void CreateGridContextMenu()
@@ -83,11 +83,11 @@ namespace Winform
         /// Load all the Item Collection. Common Code:
         /// 
         /// ItemDataCollection = new PersonCollection();
-        /// ItemDataCollection.LoadItemsFromDb();
+        /// ItemDataCollection.LoadAllItemsFromDb();
         /// </summary>
         protected virtual IEnumerable<Entity> LoadItems() { return null; }
 
-        protected virtual void Show_Data(IEnumerable<Entity> items)
+        private void Show_Data(IEnumerable<Entity> items)
         {
             SGrid.PrimaryGrid.Rows.Clear();
 
@@ -140,7 +140,7 @@ namespace Winform
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
             }
 
         }
@@ -160,14 +160,19 @@ namespace Winform
 
 
             string deleteMessage;
-            Action<Entity> action = (i) => { };
+            Action<Entity> action = i => { };
 
             OnDelete(item, out deleteMessage, ref action);
 
-            var ret = App.Message.AskToDelete("<b>" + deleteMessage.ToUpper() + "</b>");
+            var ret = MessageDialog.AskToDelete("<b>" + deleteMessage.ToUpper() + "</b>");
 
             if (ret != MessageDialogResult.Yes) return;
 
+            string[] strType = item.GetType().ToString().Split('.');
+
+            App.LogAction(strType[strType.Length - 1], "Deleted " + deleteMessage);
+
+            //Debug.WriteLine(item.GetType().ToString());
             action(item);
 
             grid.ActiveRow.IsDeleted = true;
@@ -199,7 +204,7 @@ namespace Winform
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
             }
         }
 

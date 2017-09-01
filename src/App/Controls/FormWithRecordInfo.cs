@@ -1,15 +1,12 @@
 ﻿using AiTech.LiteOrm;
-using Library.Tools;
 
 namespace Winform
 {
-    public partial class FormWithRecordInfo : DevComponents.DotNetBar.OfficeForm //DevComponents.DotNetBar.Metro.MetroForm
+    public partial class FormWithRecordInfo : DevComponents.DotNetBar.Office2007Form //DevComponents.DotNetBar.Metro.MetroForm
     {
         public FormWithRecordInfo()
         {
             InitializeComponent();
-
-            KeyPress += (s, e) => { InputControls.ConvertEnterToTab(this, e); };
         }
 
         protected void ShowFileInfo(IRecordInfo info)

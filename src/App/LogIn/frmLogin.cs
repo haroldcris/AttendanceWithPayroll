@@ -1,6 +1,6 @@
 ﻿using AiTech.LiteOrm.Database;
 using AiTech.Security;
-using Library.Tools;
+using AiTech.Tools.Winform;
 using System;
 using System.Windows.Forms;
 
@@ -15,13 +15,10 @@ namespace Winform
 
             lblStatus.Text = "";
             //lblStatus.Text = "Version : " + My.App.CurrentVersion();
+
+            this.ConvertEnterToTab();
         }
 
-
-        private void frmLogin_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            InputControls.ConvertEnterToTab(this, e);
-        }
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
@@ -70,6 +67,9 @@ namespace Winform
                 App.CurrentUser.User = user;
                 App.CurrentUser.Token = token;
 
+
+                App.LogAction("Account", "Logged In");
+
                 DialogResult = DialogResult.OK;
 
             }
@@ -77,6 +77,7 @@ namespace Winform
             {
                 OnConnectingProcess(false);
                 lblError.Text = $@"<font color='Red'>{ex.GetBaseException().Message}</font>";// ex.GetBaseException().Message;
+                txtUsername.Focus();
             }
         }
 

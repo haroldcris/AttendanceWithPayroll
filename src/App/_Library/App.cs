@@ -1,4 +1,5 @@
 ﻿using AiTech.Security;
+using Dll;
 using System.Diagnostics;
 
 public static partial class App
@@ -12,13 +13,17 @@ public static partial class App
     }
 
 
-
     public static class CurrentUser
     {
         internal static UserAccount User { get; set; }
         internal static CredentialToken Token { get; set; }
     }
 
+
+    public static void LogAction(string module, string action)
+    {
+        ActionLog.Log(module, action, CurrentUser.User.Username);
+    }
 
     public static Winform.frmMain MdiMainForm;
 

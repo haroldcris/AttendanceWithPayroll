@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMasterFile));
             this.SGrid = new DevComponents.DotNetBar.SuperGrid.SuperGridControl();
             this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
@@ -45,9 +46,13 @@
             this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
             this.buttonItem13 = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayGenerate = new DevComponents.DotNetBar.ButtonItem();
-            this.btnEdit = new DevComponents.DotNetBar.ButtonItem();
             this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
+            this.contextMenuBar1 = new DevComponents.DotNetBar.ContextMenuBar();
+            this.mnuGridColumn = new DevComponents.DotNetBar.ButtonItem();
+            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
+            this.cmdContext = new DevComponents.DotNetBar.Command(this.components);
             this.ribbonBarMergeContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.contextMenuBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // SGrid
@@ -146,6 +151,7 @@
             this.btnPayViewProfile.SubItemsExpandWidth = 14;
             this.btnPayViewProfile.SymbolColor = System.Drawing.Color.Green;
             this.btnPayViewProfile.Text = "Open Profile";
+            this.btnPayViewProfile.Click += new System.EventHandler(this.btnEdit_Click);
             // 
             // groupPayButtons
             // 
@@ -176,7 +182,7 @@
             this.btnPayAdd.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
             this.btnPayAdd.SubItemsExpandWidth = 14;
             this.btnPayAdd.Text = "Add Employee";
-            this.btnPayAdd.Click += new System.EventHandler(this.btnPayAdd_Click);
+            this.btnPayAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnPayDelete
             // 
@@ -187,6 +193,7 @@
             this.btnPayDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
             this.btnPayDelete.SubItemsExpandWidth = 14;
             this.btnPayDelete.Text = "Delete";
+            this.btnPayDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnPayRefresh
             // 
@@ -200,6 +207,7 @@
             this.btnPayRefresh.SubItemsExpandWidth = 14;
             this.btnPayRefresh.SymbolColor = System.Drawing.Color.Green;
             this.btnPayRefresh.Text = "Refresh";
+            this.btnPayRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // RibbonPayProcess
             // 
@@ -281,17 +289,6 @@
             this.btnPayGenerate.SymbolColor = System.Drawing.Color.Green;
             this.btnPayGenerate.Text = "Generate Payroll";
             // 
-            // btnEdit
-            // 
-            this.btnEdit.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnEdit.Image = global::Winform.Properties.Resources.Edit_File_24px;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.RibbonWordWrap = false;
-            this.btnEdit.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
-            this.btnEdit.SubItemsExpandWidth = 14;
-            this.btnEdit.Text = "Modify";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
             // btnDelete
             // 
             this.btnDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
@@ -301,29 +298,71 @@
             this.btnDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
             this.btnDelete.SubItemsExpandWidth = 14;
             this.btnDelete.Text = "Delete";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // contextMenuBar1
+            // 
+            this.contextMenuBar1.AntiAlias = true;
+            this.contextMenuBar1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.contextMenuBar1.IsMaximized = false;
+            this.contextMenuBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.mnuGridColumn});
+            this.contextMenuBar1.Location = new System.Drawing.Point(262, 316);
+            this.contextMenuBar1.Name = "contextMenuBar1";
+            this.contextMenuBar1.Size = new System.Drawing.Size(212, 25);
+            this.contextMenuBar1.Stretch = true;
+            this.contextMenuBar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.contextMenuBar1.TabIndex = 25;
+            this.contextMenuBar1.TabStop = false;
+            this.contextMenuBar1.Text = "contextMenuBar1";
+            // 
+            // mnuGridColumn
+            // 
+            this.mnuGridColumn.AutoExpandOnClick = true;
+            this.mnuGridColumn.Name = "mnuGridColumn";
+            this.mnuGridColumn.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.labelItem1});
+            this.mnuGridColumn.Text = "Grid Column";
+            // 
+            // labelItem1
+            // 
+            this.labelItem1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(231)))), ((int)(((byte)(238)))));
+            this.labelItem1.BorderSide = DevComponents.DotNetBar.eBorderSide.Bottom;
+            this.labelItem1.BorderType = DevComponents.DotNetBar.eBorderType.SingleLine;
+            this.labelItem1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(21)))), ((int)(((byte)(110)))));
+            this.labelItem1.Name = "labelItem1";
+            this.labelItem1.PaddingBottom = 1;
+            this.labelItem1.PaddingLeft = 10;
+            this.labelItem1.PaddingTop = 1;
+            this.labelItem1.SingleLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(197)))), ((int)(((byte)(197)))));
+            this.labelItem1.Text = "Column Header";
+            // 
+            // cmdContext
+            // 
+            this.cmdContext.Name = "cmdContext";
+            this.cmdContext.Executed += new System.EventHandler(this.cmdContext_Executed);
             // 
             // frmMasterFile
             // 
             this.ClientSize = new System.Drawing.Size(1354, 733);
+            this.Controls.Add(this.contextMenuBar1);
             this.Controls.Add(this.ribbonBarMergeContainer1);
             this.Controls.Add(this.SGrid);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Header = "PAYROLL MASTER LIST";
             this.HeaderColor = System.Drawing.Color.Green;
             this.Name = "frmMasterFile";
-            this.ShowIcon = false;
             this.Text = "Payroll Master List";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Controls.SetChildIndex(this.SGrid, 0);
             this.Controls.SetChildIndex(this.ribbonBarMergeContainer1, 0);
+            this.Controls.SetChildIndex(this.contextMenuBar1, 0);
             this.ribbonBarMergeContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.contextMenuBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private DevComponents.DotNetBar.ButtonItem btnEdit;
         private DevComponents.DotNetBar.ButtonItem btnDelete;
         private DevComponents.DotNetBar.SuperGrid.SuperGridControl SGrid;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn1;
@@ -341,5 +380,9 @@
         private DevComponents.DotNetBar.ButtonItem btnPayDelete;
         private DevComponents.DotNetBar.ButtonItem btnPayViewProfile;
         private DevComponents.DotNetBar.ButtonItem btnPayRefresh;
+        private DevComponents.DotNetBar.ContextMenuBar contextMenuBar1;
+        private DevComponents.DotNetBar.ButtonItem mnuGridColumn;
+        private DevComponents.DotNetBar.LabelItem labelItem1;
+        private DevComponents.DotNetBar.Command cmdContext;
     }
 }

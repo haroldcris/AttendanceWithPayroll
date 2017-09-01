@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AiTech.Security;
+using AiTech.Tools.Winform;
+using System;
 using System.Windows.Forms;
 
 namespace Idms
@@ -15,41 +10,49 @@ namespace Idms
         public frmChangePassword()
         {
             InitializeComponent();
+
+            this.ConvertEnterToTab();
         }
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (!IsValidInput()) return;
+            try
+            {
+                if (!DataIsValid()) return;
 
-            //var response = App.CurrentUser.ChangePassword(txtOldPassword.Text, txtPassword.Text);
+                App.CurrentUser.User.Password = txtPassword.Text;
 
-            //if (!response)
-            //{
-            //    App.Message.ShowValidationError(txtPassword, "Password Change NOT successful");
-            //    return;
-            //}
+                var writer = new UserAccountDataWriter(App.CurrentUser.User.Username, App.CurrentUser.User);
+                writer.SaveChanges();
 
-            DialogResult = DialogResult.OK;
+                App.LogAction("Account", "Changed Password");
+
+                DialogResult = DialogResult.OK;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
         }
 
 
-        private bool IsValidInput()
+        private bool DataIsValid()
         {
-            if(App.CurrentUser.Password != txtOldPassword.Text)
+            if (App.CurrentUser.User.Password != txtOldPassword.Text)
             {
-                App.Message.ShowValidationError(txtOldPassword, "Invalid Old Password");
+                MessageDialog.ShowValidationError(txtOldPassword, "Invalid Old Password");
                 return false;
             }
 
-            if(txtPassword.Text.Length == 0)
+            if (txtPassword.Text.Length == 0)
             {
-                App.Message.ShowValidationError(txtPassword, "Enter Valid Password");
+                MessageDialog.ShowValidationError(txtPassword, "Enter Valid Password");
                 return false;
             }
 
-            if(txtPassword.Text != txtPassword2.Text)
+            if (txtPassword.Text != txtPassword2.Text)
             {
-                App.Message.ShowValidationError(txtPassword2, "Password do not match");
+                MessageDialog.ShowValidationError(txtPassword2, "Password do not match");
                 return false;
             }
 
@@ -58,12 +61,9 @@ namespace Idms
 
         private void frmChangePassword_Load(object sender, EventArgs e)
         {
-           
+
         }
 
-        private void frmChangePassword_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            App.Helper.HandleEnterKey(this, e);
-        }
+
     }
 }

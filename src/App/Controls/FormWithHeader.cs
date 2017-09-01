@@ -1,6 +1,4 @@
-﻿using Library.Tools;
-
-namespace Winform
+﻿namespace Winform
 {
     public partial class FormWithHeader : DevComponents.DotNetBar.Office2007Form//DevComponents.DotNetBar.Metro.MetroForm
     {
@@ -9,9 +7,5 @@ namespace Winform
             InitializeComponent();
         }
 
-        protected void ConvertEnterKeyToTab()
-        {
-            KeyPress += (s, e) => { InputControls.ConvertEnterToTab(this, e); };
-        }
     }
 }

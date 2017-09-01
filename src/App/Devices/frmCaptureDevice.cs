@@ -1,5 +1,6 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
+using AiTech.Tools.Winform;
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -115,6 +116,9 @@ namespace Devices
         // On "Connect" button clicked
         private void connectButton_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
+
             if (videoDevice != null)
             {
                 if ((videoCapabilities != null) && (videoCapabilities.Length != 0))
@@ -183,18 +187,24 @@ namespace Devices
                 videoDevice.SimulateTrigger();
                 return;
             }
-
-            if (!CaptureDevicePreviewIsReady)
+            else
             {
-                App.Message.ShowValidationError(triggerButton, "Device Preview NOT Ready!");
+                MessageDialog.ShowValidationError(triggerButton, "Device Capture NOT Ready!");
+                return;
             }
+
+            //if (!CaptureDevicePreviewIsReady)
+            //{
+            //    MessageDialog.ShowValidationError(triggerButton, "Device Preview NOT Ready!");
+            //    return;
+            //}
 
         }
 
         // New snapshot frame is available
         private void videoDevice_SnapshotFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            Console.WriteLine(eventArgs.Frame.Size);
+            //Console.WriteLine(eventArgs.Frame.Size);
 
             ShowSnapshot((Bitmap)eventArgs.Frame.Clone());
         }

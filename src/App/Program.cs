@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AiTech.Tools.Winform;
+using System;
 using System.Windows.Forms;
 
 namespace Winform
@@ -24,10 +22,12 @@ namespace Winform
                 try
                 {
                     Application.Run(new frmMain());
+
+                    App.LogAction("Main", "Closed Application");
                 }
                 catch (Exception ex)
                 {
-                    App.Message.ShowError(ex, null);
+                    MessageDialog.ShowError(ex, null);
                 }
         }
     }

@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.746</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1155</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -68,6 +68,7 @@
       <HintPath>..\..\library\AiTech.Tools.dll</HintPath>
     </Reference>
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20132.786, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="DevComponents.DotNetBar.Layout, Version=14.1.0.0, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.7.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>E:\Programs\DotNetBar for Windows Forms\DevComponents.DotNetBar.SuperGrid.dll</HintPath>
@@ -89,6 +90,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\frmAccount_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmAccount_Add.Designer.cs">
+      <DependentUpon>frmAccount_Add.cs</DependentUpon>
+    </Compile>
     <Compile Include="Contacts\frmContacts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,12 +126,6 @@
     <Compile Include="Controls\FormWithRecordInfo.Designer.cs">
       <DependentUpon>FormWithRecordInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\MdiClientFormWithCRUDButtons.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\MdiClientFormWithCRUDButtons.Designer.cs">
-      <DependentUpon>MdiClientFormWithCRUDButtons.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\MdiClientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -144,23 +145,47 @@
     <Compile Include="Devices\frmCaptureDevice.Designer.cs">
       <DependentUpon>frmCaptureDevice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Accounts\frmAccounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmAccounts.Designer.cs">
+      <DependentUpon>frmAccounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\frmEmployee_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employee\frmEmployee_Add.Designer.cs">
+      <DependentUpon>frmEmployee_Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\frmEmployee_Open.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employee\frmEmployee_Open.Designer.cs">
+      <DependentUpon>frmEmployee_Open.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Employee\frmEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employee\frmEmployee.Designer.cs">
+      <DependentUpon>frmEmployee.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogIn\frmChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LogIn\frmChangePassword.Designer.cs">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="Payroll\Deduction\frmDeduction.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Payroll\Deduction\frmDeduction.Designer.cs">
       <DependentUpon>frmDeduction.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\Employees\frmEmployees_Add.cs">
+    <Compile Include="Payroll\Employees\frmPayrollEmployees_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\Employees\frmEmployees_Add.Designer.cs">
-      <DependentUpon>frmEmployees_Add.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Payroll\Employees\frmEmployee.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Payroll\Employees\frmEmployee.Designer.cs">
-      <DependentUpon>frmEmployee.cs</DependentUpon>
+    <Compile Include="Payroll\Employees\frmPayrollEmployees_Add.Designer.cs">
+      <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -266,16 +291,16 @@
     <Compile Include="SMS\frmSMS.Designer.cs">
       <DependentUpon>frmSMS.cs</DependentUpon>
     </Compile>
+    <Compile Include="_Library\App.BarColor.cs" />
     <Compile Include="_Library\App.cs" />
-    <Compile Include="_Library\Enum.cs" />
     <Compile Include="_Library\Helper\BatchHelper.cs" />
-    <Compile Include="_Library\DirtyChecker.cs" />
     <Compile Include="_Library\FlexGridHelper.cs" />
     <Compile Include="_Library\Interface.cs" />
-    <Compile Include="_Library\Message.cs" />
-    <Compile Include="_Library\Tools\InputControls.Form.cs" />
     <Compile Include="_Library\Tools\InputControls.cs" />
     <Compile Include="_Library\Tools\SuperGridHelper.cs" />
+    <EmbeddedResource Include="Accounts\frmAccount_Add.resx">
+      <DependentUpon>frmAccount_Add.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Contacts\frmContacts.resx">
       <DependentUpon>frmContacts.cs</DependentUpon>
     </EmbeddedResource>
@@ -291,9 +316,6 @@
     <EmbeddedResource Include="Controls\FormWithRecordInfo.resx">
       <DependentUpon>FormWithRecordInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\MdiClientFormWithCRUDButtons.resx">
-      <DependentUpon>MdiClientFormWithCRUDButtons.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\MdiClientForm.resx">
       <DependentUpon>MdiClientForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -303,14 +325,26 @@
     <EmbeddedResource Include="Devices\frmCaptureDevice.resx">
       <DependentUpon>frmCaptureDevice.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Accounts\frmAccounts.resx">
+      <DependentUpon>frmAccounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employee\frmEmployee_Add.resx">
+      <DependentUpon>frmEmployee_Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employee\frmEmployee_Open.resx">
+      <DependentUpon>frmEmployee_Open.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employee\frmEmployee.resx">
+      <DependentUpon>frmEmployee.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogIn\frmChangePassword.resx">
+      <DependentUpon>frmChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Payroll\Deduction\frmDeduction.resx">
       <DependentUpon>frmDeduction.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\Employees\frmEmployees_Add.resx">
-      <DependentUpon>frmEmployees_Add.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\Employees\frmEmployee.resx">
-      <DependentUpon>frmEmployee.cs</DependentUpon>
+    <EmbeddedResource Include="Payroll\Employees\frmPayrollEmployees_Add.resx">
+      <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -374,7 +408,9 @@
     <EmbeddedResource Include="SMS\frmSMS.resx">
       <DependentUpon>frmSMS.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.manifest" />
+    <None Include="app.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -384,6 +420,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="_Library\Tools\InputControls.Image.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -576,6 +613,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\User Folder_24px.png" />
+    <None Include="Resources\Send Hot List_24px.png" />
+    <None Include="Resources\Send Hot List_40px.png" />
+    <None Include="Resources\Phone_16px.png" />
+    <None Include="Resources\Plus_16px.png" />
+    <None Include="Resources\User Group Man Woman_40px.png" />
     <None Include="Resources\Customs Officer_16px.png" />
     <None Include="Resources\Tax_16px.png" />
     <None Include="Resources\Front Desk_16px.png" />

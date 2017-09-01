@@ -167,7 +167,7 @@
         QAph/r7x7hZ5YYALQ5XgAAwMAICoQfA1pm8SAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="ribbonBar2.OverflowButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="RibbonContacts.OverflowButtonImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAA/pJREFUWEfd
         VmlPE1EU5Sf4E/gJ/AS/qKWUFox+QQU0xggKLVY2F4LGiCYugQQqpVBZuuAWLTFCCyVCW8siYoIGE0SR
@@ -988,9 +988,6 @@
         AB/AaQA5GKqdEsDAAAA/FnuXNY44cQAAAABJRU5ErkJggg==
 </value>
   </data>
-  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>117, 17</value>
-  </metadata>
   <metadata name="styleManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>285, 13</value>
   </metadata>

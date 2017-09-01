@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Dll.Payroll;
-using System.IO.Ports;
-using Dll.SMS;
+﻿using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.SuperGrid;
+using Dll.SMS;
+using System;
+using System.Drawing;
+using System.IO.Ports;
+using System.Windows.Forms;
 
 namespace Winform.SMS
 {
@@ -37,10 +31,10 @@ namespace Winform.SMS
             }
             #endregion
 
-            FormClosed += (s, e) => { Disconnect();  };
+            FormClosed += (s, e) => { Disconnect(); };
 
             btnConnect.Click += (s, e) => { OnButtonConnectionClick(); };
-          
+
 
             btnSend.Click += (s, e) => { SendSMS(); };
 
@@ -62,20 +56,21 @@ namespace Winform.SMS
 
             if (string.IsNullOrEmpty(cboPort.Text))
             {
-                App.Message.ShowValidationError(cboPort, "Select Port First");
+                MessageDialog.ShowValidationError(cboPort, "Select Port First");
                 return;
             }
 
             if (Port == null)
             {
                 Connect();
-                btnConnect.Text = " Disconnect ";
+                btnConnect.Text = @" Disconnect ";
 
-            } else
+            }
+            else
             {
                 Disconnect();
-                btnConnect.Text = " Connect ";
-                
+                btnConnect.Text = @" Connect ";
+
                 Port = null;
             }
 
@@ -102,9 +97,10 @@ namespace Winform.SMS
                     row["Message"].Value = item.Message;
                 }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
             }
         }
 
@@ -126,13 +122,13 @@ namespace Winform.SMS
                 //ToastNotification.DefaultToastGlowColor = eToastGlowColor.Green;
                 ToastNotification.ToastBackColor = Color.Green;
 
-                ToastNotification.Show(this, result , eToastPosition.MiddleCenter);
+                ToastNotification.Show(this, result, eToastPosition.MiddleCenter);
 
                 Console.WriteLine(result);
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
             }
         }
 
@@ -145,11 +141,11 @@ namespace Winform.SMS
                 lblStatus.Text = "Ready";
                 lblConnected.Text = "Connected";
 
-                status.Refresh();
+                Status.Refresh();
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
             }
         }
 
@@ -157,7 +153,7 @@ namespace Winform.SMS
         {
             try
             {
-                
+
                 if (Port == null) return;
 
                 if (Port.IsOpen)
@@ -165,7 +161,7 @@ namespace Winform.SMS
             }
             catch (Exception ex)
             {
-                App.Message.ShowError(ex, this);
+                MessageDialog.ShowError(ex, this);
             }
         }
     }

@@ -13,8 +13,8 @@ namespace Dll.Payroll
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                var sql = "Select * from [Payroll_TaxTable]";
-                var items = db.Query<Tax>(sql);
+                const string query = "Select * from [Payroll_TaxTable]";
+                var items = db.Query<Tax>(query);
 
                 LoadItemsWith(items);
 

@@ -1,4 +1,5 @@
 ﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Payroll;
@@ -16,7 +17,7 @@ namespace Winform.Payroll
             InitializeComponent();
 
             Header = " TAX TABLE ";
-            HeaderColor = System.Drawing.Color.Gold;
+            HeaderColor = App.BarColor.PayrollTaxColor;
             HeaderTextColor = System.Drawing.Color.Black;
 
             Load += (s, e) => { RefreshData(); };
@@ -37,8 +38,6 @@ namespace Winform.Payroll
             base.InitializeGrid();
 
             SGrid.InitializeGrid();
-            SGrid.RowDoubleClick += (s, e) => { btnEdit.RaiseClick(); };
-
 
             var grid = SGrid.PrimaryGrid;
 
@@ -140,7 +139,7 @@ namespace Winform.Payroll
                 }
                 catch (Exception ex)
                 {
-                    App.Message.ShowError(ex, this);
+                    MessageDialog.ShowError(ex, this);
                 }
             };
         }
