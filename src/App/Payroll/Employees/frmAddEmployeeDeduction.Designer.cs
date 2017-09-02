@@ -34,8 +34,8 @@
             this.dtBirthdate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.labelX4 = new DevComponents.DotNetBar.LabelX();
-            this.buttonX3 = new DevComponents.DotNetBar.ButtonX();
+            this.lblDeduction = new DevComponents.DotNetBar.LabelX();
+            this.btnSelectDeduction = new DevComponents.DotNetBar.ButtonX();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,7 +43,6 @@
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
             this.btnOk = new DevComponents.DotNetBar.ButtonX();
-            ((System.ComponentModel.ISupportInitialize)(this.HeaderPicture)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtBirthdate)).BeginInit();
@@ -52,31 +51,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
-            // HeaderCaption
-            // 
-            // 
-            // 
-            // 
-            this.HeaderCaption.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.HeaderCaption.Location = new System.Drawing.Point(76, 5);
-            this.HeaderCaption.Size = new System.Drawing.Size(437, 54);
-            this.HeaderCaption.Text = "<div><h3><font color=\'blue\'><b>UPDATE DEDUCTION INFORMATION</b></font></h3>\r\n</di" +
-    "v><div>\r\nAllows you to add and update employee\'s deduction records from the data" +
-    "base\r\n</div>";
-            // 
-            // HeaderPicture
-            // 
-            this.HeaderPicture.Image = global::Winform.Properties.Resources.Tax_40px;
-            this.HeaderPicture.Location = new System.Drawing.Point(10, 3);
-            this.HeaderPicture.Size = new System.Drawing.Size(59, 48);
-            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.dateTimeInput1);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.dtBirthdate);
             this.groupBox4.Controls.Add(this.label9);
-            this.groupBox4.Location = new System.Drawing.Point(16, 201);
+            this.groupBox4.Location = new System.Drawing.Point(12, 108);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(168, 135);
             this.groupBox4.TabIndex = 26;
@@ -199,46 +180,49 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.groupBox3.Controls.Add(this.labelX4);
-            this.groupBox3.Controls.Add(this.buttonX3);
+            this.groupBox3.Controls.Add(this.lblDeduction);
+            this.groupBox3.Controls.Add(this.btnSelectDeduction);
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
-            this.groupBox3.Location = new System.Drawing.Point(16, 75);
+            this.groupBox3.Location = new System.Drawing.Point(11, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(485, 119);
+            this.groupBox3.Size = new System.Drawing.Size(485, 90);
             this.groupBox3.TabIndex = 25;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Deduction Info";
             // 
-            // labelX4
+            // lblDeduction
             // 
-            this.labelX4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblDeduction.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             // 
             // 
             // 
-            this.labelX4.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.labelX4.Location = new System.Drawing.Point(17, 51);
-            this.labelX4.Name = "labelX4";
-            this.labelX4.Size = new System.Drawing.Size(446, 51);
-            this.labelX4.TabIndex = 26;
-            this.labelX4.Text = "<font color=\'blue\'>\r\n0002<br/>\r\n<b>DEDUCTION FULL DESCRIPTION</b>\r\n</font>";
-            this.labelX4.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            this.lblDeduction.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lblDeduction.Location = new System.Drawing.Point(102, 16);
+            this.lblDeduction.Name = "lblDeduction";
+            this.lblDeduction.Size = new System.Drawing.Size(373, 67);
+            this.lblDeduction.TabIndex = 26;
+            this.lblDeduction.Text = "Deduction Code:<br/>\r\n<font color=\'blue\' size=\'+2\'>\r\n  <b>%code%</b><br/></font>\r" +
+    "\nDescription: <br/>\r\n<font color=\'blue\' size=\'+3\'>\r\n  <b>%description%</b>\r\n</fo" +
+    "nt>";
+            this.lblDeduction.TextLineAlignment = System.Drawing.StringAlignment.Near;
             // 
-            // buttonX3
+            // btnSelectDeduction
             // 
-            this.buttonX3.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
-            this.buttonX3.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
-            this.buttonX3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonX3.Image = global::Winform.Properties.Resources.Open_16px;
-            this.buttonX3.Location = new System.Drawing.Point(17, 18);
-            this.buttonX3.Name = "buttonX3";
-            this.buttonX3.ShowSubItems = false;
-            this.buttonX3.Size = new System.Drawing.Size(70, 22);
-            this.buttonX3.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.buttonX3.TabIndex = 24;
-            this.buttonX3.Text = "Select...";
-            this.buttonX3.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
+            this.btnSelectDeduction.AccessibleRole = System.Windows.Forms.AccessibleRole.PushButton;
+            this.btnSelectDeduction.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
+            this.btnSelectDeduction.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSelectDeduction.Image = global::Winform.Properties.Resources.Open_16px;
+            this.btnSelectDeduction.Location = new System.Drawing.Point(13, 24);
+            this.btnSelectDeduction.Name = "btnSelectDeduction";
+            this.btnSelectDeduction.ShowSubItems = false;
+            this.btnSelectDeduction.Size = new System.Drawing.Size(70, 22);
+            this.btnSelectDeduction.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.btnSelectDeduction.TabIndex = 24;
+            this.btnSelectDeduction.Text = "Select...";
+            this.btnSelectDeduction.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
+            this.btnSelectDeduction.Click += new System.EventHandler(this.btnSelectDeduction_Click);
             // 
             // groupBox1
             // 
@@ -246,7 +230,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxX1);
             this.groupBox1.Controls.Add(this.numericUpDown1);
-            this.groupBox1.Location = new System.Drawing.Point(191, 201);
+            this.groupBox1.Location = new System.Drawing.Point(186, 154);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(310, 135);
             this.groupBox1.TabIndex = 27;
@@ -307,7 +291,7 @@
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::Winform.Properties.Resources.Cancel_24px;
-            this.btnCancel.Location = new System.Drawing.Point(416, 351);
+            this.btnCancel.Location = new System.Drawing.Point(409, 290);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.ShowSubItems = false;
             this.btnCancel.Size = new System.Drawing.Size(80, 39);
@@ -323,7 +307,7 @@
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnOk.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOk.Image = global::Winform.Properties.Resources.Ok_24px;
-            this.btnOk.Location = new System.Drawing.Point(327, 351);
+            this.btnOk.Location = new System.Drawing.Point(320, 290);
             this.btnOk.Name = "btnOk";
             this.btnOk.ShowSubItems = false;
             this.btnOk.Size = new System.Drawing.Size(83, 39);
@@ -336,7 +320,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(517, 411);
+            this.ClientSize = new System.Drawing.Size(510, 350);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
             this.Controls.Add(this.groupBox1);
@@ -350,12 +334,6 @@
             this.Name = "frmAddEmployeeDeduction";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Deduction Info";
-            this.Controls.SetChildIndex(this.groupBox3, 0);
-            this.Controls.SetChildIndex(this.groupBox4, 0);
-            this.Controls.SetChildIndex(this.groupBox1, 0);
-            this.Controls.SetChildIndex(this.btnOk, 0);
-            this.Controls.SetChildIndex(this.btnCancel, 0);
-            ((System.ComponentModel.ISupportInitialize)(this.HeaderPicture)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dateTimeInput1)).EndInit();
@@ -376,8 +354,8 @@
         private DevComponents.Editors.DateTimeAdv.DateTimeInput dtBirthdate;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox3;
-        private DevComponents.DotNetBar.LabelX labelX4;
-        private DevComponents.DotNetBar.ButtonX buttonX3;
+        private DevComponents.DotNetBar.LabelX lblDeduction;
+        private DevComponents.DotNetBar.ButtonX btnSelectDeduction;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;

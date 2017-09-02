@@ -67,7 +67,7 @@ namespace Winform.Payroll
 
             var reader = new DeductionDataReader();
 
-            var findItem = reader.GetItemWithCode(txtCode.Text.Trim());
+            var findItem = reader.GetItem(txtCode.Text.Trim());
             if (findItem != null && findItem.Id != ItemData.Id)
             {
                 MessageDialog.ShowValidationError(txtCode, "Duplicate Deduction Code Already Exist!");

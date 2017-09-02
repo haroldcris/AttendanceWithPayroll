@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.1278</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1292</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -181,6 +181,12 @@
     <Compile Include="Payroll\Deduction\frmDeduction.Designer.cs">
       <DependentUpon>frmDeduction.cs</DependentUpon>
     </Compile>
+    <Compile Include="Payroll\Deduction\frmDeduction_Open.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\Deduction\frmDeduction_Open.Designer.cs">
+      <DependentUpon>frmDeduction_Open.cs</DependentUpon>
+    </Compile>
     <Compile Include="Payroll\Employees\frmPayrollEmployees_Add.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -241,10 +247,10 @@
     <Compile Include="Payroll\Position\frmPosition_Add.Designer.cs">
       <DependentUpon>frmPosition_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\frmAddEmployeeDeduction.cs">
+    <Compile Include="Payroll\Employees\frmAddEmployeeDeduction.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\frmAddEmployeeDeduction.Designer.cs">
+    <Compile Include="Payroll\Employees\frmAddEmployeeDeduction.Designer.cs">
       <DependentUpon>frmAddEmployeeDeduction.cs</DependentUpon>
     </Compile>
     <Compile Include="Payroll\frmPayrollMasterList.cs">
@@ -343,6 +349,9 @@
     <EmbeddedResource Include="Payroll\Deduction\frmDeduction.resx">
       <DependentUpon>frmDeduction.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\Deduction\frmDeduction_Open.resx">
+      <DependentUpon>frmDeduction_Open.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Payroll\Employees\frmPayrollEmployees_Add.resx">
       <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
     </EmbeddedResource>
@@ -373,7 +382,7 @@
     <EmbeddedResource Include="Payroll\Position\frmPosition_Add.resx">
       <DependentUpon>frmPosition_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\frmAddEmployeeDeduction.resx">
+    <EmbeddedResource Include="Payroll\Employees\frmAddEmployeeDeduction.resx">
       <DependentUpon>frmAddEmployeeDeduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmPayrollMasterList.resx">
