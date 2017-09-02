@@ -99,8 +99,6 @@ namespace Winform.Payroll
 
                 DirtyStatus.Clear();
 
-                App.LogAction("Deduction", "Updated Deductions");
-
                 DialogResult = DialogResult.OK;
 
                 return isSaved;

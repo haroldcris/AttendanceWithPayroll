@@ -77,6 +77,8 @@ namespace Winform.Payroll
                 if (frm.ShowDialog() != DialogResult.OK) return null;
             }
 
+            App.LogAction("Payroll Position", "Created Position: " + newItem.Description);
+
             ItemDataCollection.Add(newItem);
             return newItem;
         }
@@ -93,6 +95,8 @@ namespace Winform.Payroll
                 frm.ItemData = selectedItem;
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
+
+            App.LogAction("Payroll Position", "Updated Position: " + selectedItem.Description);
 
             return true;
         }
@@ -118,6 +122,7 @@ namespace Winform.Payroll
                     var dataWriter = new PositionDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
 
+                    App.LogAction("Payroll Position", "Deleted Position: " + deletedItem.Description);
 
                     ItemDataCollection.Remove((Position)currentItem);
                 }

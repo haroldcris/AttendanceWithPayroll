@@ -4,6 +4,7 @@ using DevComponents.DotNetBar.SuperGrid;
 using Dll.Payroll;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Winform.Payroll
@@ -18,6 +19,8 @@ namespace Winform.Payroll
             Header = " PAYROLL SALARY SCHEDULE";
             HeaderColor = App.BarColor.PayrollSalaryScheduleColor;
 
+            Console.WriteLine(SGrid.PrimaryGrid.GroupByRow.Visible ? "true" : "false");
+
             Load += (s, e) => { RefreshData(); };
         }
 
@@ -27,7 +30,8 @@ namespace Winform.Payroll
         protected override IEnumerable<Entity> LoadItems()
         {
             ItemDataCollection.LoadItemsFromDb();
-            return ItemDataCollection.Items;
+
+            return ItemDataCollection.Items.OrderByDescending(_=>_.Effectivity);
         }
 
 
@@ -39,9 +43,12 @@ namespace Winform.Payroll
 
             var grid = SGrid.PrimaryGrid;
 
+            
             grid.GroupByRow.Visible = false;
 
-            grid.CreateColumn("Effectivity", "Effectivity", 180);
+            var col = grid.CreateColumn("Effectivity", "Effectivity", 180);
+            //col.EditorType = typeof(GridDateTimeInputEditControl);
+            //col.RenderType = typeof(GridTextBoxXEditControl);
 
             grid.CreateColumn("Remarks", "Remarks", 200);
 
@@ -52,8 +59,8 @@ namespace Winform.Payroll
             CreateGridContextMenu();
 
             //Define Sort
-            grid.SetSort(SGrid.PrimaryGrid.Columns["Effectivity"], SortDirection.Descending);
-
+            //grid.SetSort(SGrid.PrimaryGrid.Columns["Effectivity"], SortDirection.Descending);
+            //SGrid.Update();
         }
 
 
@@ -62,6 +69,7 @@ namespace Winform.Payroll
             var currentItem = (SalarySchedule)item;
 
             row.Cells["Effectivity"].Value = currentItem.Effectivity.ToString("dd MMMM yyyy");
+            
             row.Cells["Remarks"].Value = currentItem.Remarks;
 
             row.ShowRecordInfo(currentItem);
@@ -77,6 +85,8 @@ namespace Winform.Payroll
                 frm.ItemData = newItem;
                 if (frm.ShowDialog() != DialogResult.OK) return null;
             }
+
+            App.LogAction("Payroll Salary Schedule", "Created Salary Schedule : " + newItem.Effectivity.ToString("yyyy MMMM dd"));
 
             ItemDataCollection.Add(newItem);
             return newItem;
@@ -94,6 +104,8 @@ namespace Winform.Payroll
                 frm.ItemData = selectedItem;
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
+
+            App.LogAction("Payroll Salary Schedule", "Updated Salary Schedule : " + selectedItem.Effectivity.ToString("yyyy MMMM dd"));
 
             return true;
         }
@@ -121,6 +133,9 @@ namespace Winform.Payroll
 
 
                     ItemDataCollection.Remove((SalarySchedule)currentItem);
+
+                    App.LogAction("Payroll Salary Schedule", "Deleted Salary Schedule : " + deletedItem.Effectivity.ToString("yyyy MMMM dd"));
+
                 }
                 catch (Exception ex)
                 {

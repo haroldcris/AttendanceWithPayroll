@@ -1,6 +1,7 @@
 ﻿using AiTech.LiteOrm;
 using AiTech.LiteOrm.Database;
 using Dapper;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace Dll.Contacts
@@ -32,7 +33,7 @@ namespace Dll.Contacts
 
         public void LoadItemsFromDb(SqlConnection db)
         {
-            dynamic records = db.Query("Select * from Person_MobileNumber where PersonId = @PersonId", new { PersonId = _person.Id });
+            IEnumerable<dynamic> records = db.Query("Select * from Person_MobileNumber where PersonId = @PersonId", new { PersonId = _person.Id });
 
             ItemCollection.Clear();
 

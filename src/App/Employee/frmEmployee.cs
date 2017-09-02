@@ -4,9 +4,9 @@ using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Contacts;
 using Dll.Employee;
-using Dll.Payroll;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Winform.Employee
 {
@@ -47,7 +47,7 @@ namespace Winform.Employee
             var col = grid.CreateColumn("Empnum", "Employee No.", 80, Alignment.MiddleCenter);
 
 
-            grid.CreateColumn("CameraCounter", "Image File", 85);
+            // grid.CreateColumn("CameraCounter", "Image File", 85);
 
             grid.CreateColumn("Lastname", "Lastname", 90);
             grid.CreateColumn("Firstname", "Firstname", 100);
@@ -107,18 +107,18 @@ namespace Winform.Employee
         {
             var newItem = new Dll.Employee.Employee();
 
-            var frm = new frmEmployee_Add();
-            frm.ShowDialog();
             //App.MdiMainForm.OpenForm(frm, "Employee");
             ////f.Show(this);
 
-            ////using (var frm = new frmDeduction_Add())
-            ////{
-            ////    frm.ItemData = newItem;
-            ////    if (frm.ShowDialog() != DialogResult.OK) return null;
-            ////}
+            using (var frm = new frmEmployee_Add())
+            {
+                frm.ItemData = newItem;
+                if (frm.ShowDialog() != DialogResult.OK) return null;
+            }
 
-            //ItemDataCollection.Add(newItem);
+            App.LogAction("Employee", "Created Employee : " + newItem.EmpNum);
+
+            ItemDataCollection.Add(newItem);
             return newItem;
         }
 
@@ -126,14 +126,16 @@ namespace Winform.Employee
 
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (Deduction)item;
+            var selectedItem = (Dll.Employee.Employee)item;
 
-            //using (var frm = new frmDeduction_Add())
-            //{
-            //    if (selectedItem.Id != 0) selectedItem.RowStatus = RecordStatus.ModifiedRecord;
-            //    frm.ItemData = selectedItem;
-            //    if (frm.ShowDialog() != DialogResult.OK) return false;
-            //}
+            using (var frm = new frmEmployee_Add())
+            {
+                if (selectedItem.Id != 0) selectedItem.RowStatus = RecordStatus.ModifiedRecord;
+                frm.ItemData = selectedItem;
+                if (frm.ShowDialog() != DialogResult.OK) return false;
+            }
+
+            App.LogAction("Employee", "Updated Employee : " + selectedItem.EmpNum);
 
             return true;
         }
@@ -144,7 +146,7 @@ namespace Winform.Employee
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((Deduction)item).Description;
+            message = ((Dll.Employee.Employee)item).PersonClass.Name.Fullname;
 
             afterConfirm = (currentItem) =>
             {
@@ -159,7 +161,11 @@ namespace Winform.Employee
                     var dataWriter = new EmployeeDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
 
+
                     ItemDataCollection.Remove((Dll.Employee.Employee)currentItem);
+
+                    App.LogAction("Employee", "Deleted Employee : " + deletedItem.EmpNum);
+
                 }
                 catch (Exception ex)
                 {

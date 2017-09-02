@@ -33,6 +33,10 @@
             this.SGrid = new DevComponents.DotNetBar.SuperGrid.SuperGridControl();
             this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn2 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridRow1 = new DevComponents.DotNetBar.SuperGrid.GridRow();
+            this.gridRow2 = new DevComponents.DotNetBar.SuperGrid.GridRow();
+            this.gridRow3 = new DevComponents.DotNetBar.SuperGrid.GridRow();
+            this.gridRow4 = new DevComponents.DotNetBar.SuperGrid.GridRow();
             this.ribbonBarMergeContainer1 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
             this.RibbonPayMasterList = new DevComponents.DotNetBar.RibbonBar();
             this.btnPayViewProfile = new DevComponents.DotNetBar.ButtonItem();
@@ -42,9 +46,9 @@
             this.btnPayRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.RibbonPayProcess = new DevComponents.DotNetBar.RibbonBar();
             this.btnPayCheck = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem10 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem12 = new DevComponents.DotNetBar.ButtonItem();
-            this.buttonItem13 = new DevComponents.DotNetBar.ButtonItem();
+            this.btnCheckAll = new DevComponents.DotNetBar.ButtonItem();
+            this.btnUncheckAll = new DevComponents.DotNetBar.ButtonItem();
+            this.btnToggleCheck = new DevComponents.DotNetBar.ButtonItem();
             this.btnPayGenerate = new DevComponents.DotNetBar.ButtonItem();
             this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
             this.contextMenuBar1 = new DevComponents.DotNetBar.ContextMenuBar();
@@ -65,8 +69,13 @@
             // 
             // 
             // 
+            this.SGrid.PrimaryGrid.CheckBoxes = true;
             this.SGrid.PrimaryGrid.Columns.Add(this.gridColumn1);
             this.SGrid.PrimaryGrid.Columns.Add(this.gridColumn2);
+            this.SGrid.PrimaryGrid.Rows.Add(this.gridRow1);
+            this.SGrid.PrimaryGrid.Rows.Add(this.gridRow2);
+            this.SGrid.PrimaryGrid.Rows.Add(this.gridRow3);
+            this.SGrid.PrimaryGrid.Rows.Add(this.gridRow4);
             this.SGrid.Size = new System.Drawing.Size(1354, 705);
             this.SGrid.TabIndex = 20;
             this.SGrid.Text = "superGridControl1";
@@ -146,7 +155,6 @@
             this.btnPayViewProfile.Image = ((System.Drawing.Image)(resources.GetObject("btnPayViewProfile.Image")));
             this.btnPayViewProfile.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
             this.btnPayViewProfile.Name = "btnPayViewProfile";
-            this.btnPayViewProfile.RibbonWordWrap = false;
             this.btnPayViewProfile.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F5);
             this.btnPayViewProfile.SubItemsExpandWidth = 14;
             this.btnPayViewProfile.SymbolColor = System.Drawing.Color.Green;
@@ -190,7 +198,7 @@
             this.btnPayDelete.Image = global::Winform.Properties.Resources.Delete_File_24px;
             this.btnPayDelete.Name = "btnPayDelete";
             this.btnPayDelete.RibbonWordWrap = false;
-            this.btnPayDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
+            this.btnPayDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.ShiftDel);
             this.btnPayDelete.SubItemsExpandWidth = 14;
             this.btnPayDelete.Text = "Delete";
             this.btnPayDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -253,29 +261,32 @@
             this.btnPayCheck.RibbonWordWrap = false;
             this.btnPayCheck.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F5);
             this.btnPayCheck.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.buttonItem10,
-            this.buttonItem12,
-            this.buttonItem13});
+            this.btnCheckAll,
+            this.btnUncheckAll,
+            this.btnToggleCheck});
             this.btnPayCheck.SubItemsExpandWidth = 14;
             this.btnPayCheck.SymbolColor = System.Drawing.Color.Green;
             this.btnPayCheck.Text = "Check";
             // 
-            // buttonItem10
+            // btnCheckAll
             // 
-            this.buttonItem10.Name = "buttonItem10";
-            this.buttonItem10.Text = "Check All";
+            this.btnCheckAll.Name = "btnCheckAll";
+            this.btnCheckAll.Text = "Check All";
+            this.btnCheckAll.Click += new System.EventHandler(this.btnCheckAll_Click);
             // 
-            // buttonItem12
+            // btnUncheckAll
             // 
-            this.buttonItem12.Name = "buttonItem12";
-            this.buttonItem12.Text = "Uncheck All";
+            this.btnUncheckAll.Name = "btnUncheckAll";
+            this.btnUncheckAll.Text = "Uncheck All";
+            this.btnUncheckAll.Click += new System.EventHandler(this.btnUncheckAll_Click);
             // 
-            // buttonItem13
+            // btnToggleCheck
             // 
-            this.buttonItem13.BeginGroup = true;
-            this.buttonItem13.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.TextOnlyAlways;
-            this.buttonItem13.Name = "buttonItem13";
-            this.buttonItem13.Text = "Toggle Check";
+            this.btnToggleCheck.BeginGroup = true;
+            this.btnToggleCheck.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.TextOnlyAlways;
+            this.btnToggleCheck.Name = "btnToggleCheck";
+            this.btnToggleCheck.Text = "Toggle Check";
+            this.btnToggleCheck.Click += new System.EventHandler(this.btnToggleCheck_Click);
             // 
             // btnPayGenerate
             // 
@@ -370,9 +381,9 @@
         private DevComponents.DotNetBar.RibbonBarMergeContainer ribbonBarMergeContainer1;
         private DevComponents.DotNetBar.RibbonBar RibbonPayProcess;
         private DevComponents.DotNetBar.ButtonItem btnPayCheck;
-        private DevComponents.DotNetBar.ButtonItem buttonItem10;
-        private DevComponents.DotNetBar.ButtonItem buttonItem12;
-        private DevComponents.DotNetBar.ButtonItem buttonItem13;
+        private DevComponents.DotNetBar.ButtonItem btnCheckAll;
+        private DevComponents.DotNetBar.ButtonItem btnUncheckAll;
+        private DevComponents.DotNetBar.ButtonItem btnToggleCheck;
         private DevComponents.DotNetBar.ButtonItem btnPayGenerate;
         private DevComponents.DotNetBar.RibbonBar RibbonPayMasterList;
         private DevComponents.DotNetBar.ItemContainer groupPayButtons;
@@ -384,5 +395,9 @@
         private DevComponents.DotNetBar.ButtonItem mnuGridColumn;
         private DevComponents.DotNetBar.LabelItem labelItem1;
         private DevComponents.DotNetBar.Command cmdContext;
+        private DevComponents.DotNetBar.SuperGrid.GridRow gridRow1;
+        private DevComponents.DotNetBar.SuperGrid.GridRow gridRow2;
+        private DevComponents.DotNetBar.SuperGrid.GridRow gridRow3;
+        private DevComponents.DotNetBar.SuperGrid.GridRow gridRow4;
     }
 }

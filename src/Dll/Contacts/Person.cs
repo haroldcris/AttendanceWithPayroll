@@ -50,7 +50,7 @@ namespace Dll.Contacts
                 {"Middlename", Name.Middlename},
                 {"MiddleInitial", Name.MiddleInitial},
                 {"NameExtension", Name.NameExtension},
-                {"SpouseLastname", Name.SpouseLastname},
+                {"MaidenMiddlename", Name.MaidenMiddlename},
                 {"Gender", Gender},
                 {"BirthDate", BirthDate},
                 {"BirthCountry", BirthCountry},
@@ -67,7 +67,7 @@ namespace Dll.Contacts
         {
             var changes = new Dictionary<string, object>();
             if (!Equals(Name.Lastname, OriginalValues["Lastname"])) changes.Add("Lastname", Name.Lastname);            if (!Equals(Name.Firstname, OriginalValues["Firstname"])) changes.Add("Firstname", Name.Firstname);            if (!Equals(Name.Middlename, OriginalValues["Middlename"])) changes.Add("Middlename", Name.Middlename);            if (!Equals(Name.MiddleInitial, OriginalValues["MiddleInitial"])) changes.Add("MiddleInitial", Name.MiddleInitial);            if (!Equals(Name.NameExtension, OriginalValues["NameExtension"])) changes.Add("NameExtension", Name.NameExtension);
-            if (!Equals(Name.SpouseLastname, OriginalValues["SpouseLastname"])) changes.Add("SpouseLastname", Name.SpouseLastname);            if (!Equals(Gender, OriginalValues["Gender"])) changes.Add("Gender", Gender);
+            if (!Equals(Name.MaidenMiddlename, OriginalValues["MaidenMiddlename"])) changes.Add("MaidenMiddlename", Name.MaidenMiddlename);            if (!Equals(Gender, OriginalValues["Gender"])) changes.Add("Gender", Gender);
 
             if (!Equals(BirthDate, OriginalValues["BirthDate"])) changes.Add("BirthDate", BirthDate);            if (!Equals(BirthCountry, OriginalValues["BirthCountry"])) changes.Add("BirthCountry", BirthCountry);            if (!Equals(BirthProvince, OriginalValues["BirthProvince"])) changes.Add("BirthProvince", BirthProvince);            if (!Equals(BirthTown, OriginalValues["BirthTown"])) changes.Add("BirthTown", BirthTown);            if (!Equals(CameraCounter, OriginalValues["CameraCounter"])) changes.Add("CameraCounter", CameraCounter);            return changes;
         }

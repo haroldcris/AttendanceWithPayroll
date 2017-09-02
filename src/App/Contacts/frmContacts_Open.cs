@@ -105,7 +105,7 @@ namespace Winform.Contacts
 
 
             var reader = new PersonDataReader();
-            var item = reader.GetItemWithId(id);
+            var item = reader.GetItem(id);
 
             if (item == null)
             {
@@ -149,7 +149,7 @@ namespace Winform.Contacts
 
             FlexGrid.Rows.Count = enumerable.Count() + 1;
             var row = 0;
-            foreach (var item in enumerable)
+            foreach (var item in enumerable.OrderBy(_ => _.Name.Fullname))
             {
                 row++;
                 FlexGrid[row, "contactid"] = item.Id;

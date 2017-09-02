@@ -94,6 +94,9 @@ namespace Winform.Payroll
             }
 
             ItemDataCollection.Add(newItem);
+
+            App.LogAction("Tax Table", "Created Tax Code : " + newItem.ShortDesc);
+
             return newItem;
         }
 
@@ -109,6 +112,8 @@ namespace Winform.Payroll
                 frm.ItemData = selectedItem;
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
+
+            App.LogAction("Tax Table", "Updated Tax Code : " + selectedItem.ShortDesc);
 
             return true;
         }
@@ -136,6 +141,9 @@ namespace Winform.Payroll
 
 
                     ItemDataCollection.Remove((Tax)currentItem);
+
+                    App.LogAction("Tax Table", "Deleted Tax Code : " + deletedItem.ShortDesc);
+
                 }
                 catch (Exception ex)
                 {

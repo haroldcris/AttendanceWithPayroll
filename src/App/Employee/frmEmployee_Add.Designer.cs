@@ -29,12 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmEmployee_Add));
-            this.explorerBarGroupPicture = new DevComponents.DotNetBar.ExplorerBarGroupItem();
-            this.itemContainer1 = new DevComponents.DotNetBar.ItemContainer();
-            this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.labelItem2 = new DevComponents.DotNetBar.LabelItem();
-            this.labelItem5 = new DevComponents.DotNetBar.LabelItem();
+            this.picImage = new System.Windows.Forms.PictureBox();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.btnOk = new DevComponents.DotNetBar.ButtonItem();
             this.btnCancel = new DevComponents.DotNetBar.ButtonItem();
@@ -43,28 +38,32 @@
             this.btnContactsSelect = new DevComponents.DotNetBar.ButtonX();
             this.lblName = new DevComponents.DotNetBar.LabelX();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtEmpNum = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.doubleInput2 = new DevComponents.Editors.DoubleInput();
-            this.doubleInput1 = new DevComponents.Editors.DoubleInput();
+            this.cboCivilStatus = new System.Windows.Forms.ComboBox();
+            this.txtWeight = new DevComponents.Editors.DoubleInput();
+            this.txtHeight = new DevComponents.Editors.DoubleInput();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBoxX3 = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.txtCitizenship = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.listBoxItem1 = new DevComponents.DotNetBar.ListBoxItem();
             this.listBoxItem2 = new DevComponents.DotNetBar.ListBoxItem();
             this.listBoxItem3 = new DevComponents.DotNetBar.ListBoxItem();
             this.listBoxItem4 = new DevComponents.DotNetBar.ListBoxItem();
+            this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.lblSpace = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).BeginInit();
             this.RecordInfoPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInput2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInput1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtWeight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).BeginInit();
             this.SuspendLayout();
             // 
             // RecordInfoPanel
@@ -76,116 +75,62 @@
             this.RecordInfoPanel.BackStyle.BackColorGradientAngle = 90;
             this.RecordInfoPanel.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ExplorerBarBackground;
             this.RecordInfoPanel.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.RecordInfoPanel.Controls.Add(this.pictureBox1);
-            this.RecordInfoPanel.Groups.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.explorerBarGroupPicture});
+            this.RecordInfoPanel.Controls.Add(this.picImage);
             this.RecordInfoPanel.Location = new System.Drawing.Point(0, 39);
-            this.RecordInfoPanel.Size = new System.Drawing.Size(155, 422);
+            this.RecordInfoPanel.Size = new System.Drawing.Size(172, 450);
             // 
             // expandableSplitter1
             // 
-            this.expandableSplitter1.Location = new System.Drawing.Point(155, 39);
-            this.expandableSplitter1.Size = new System.Drawing.Size(6, 422);
+            this.expandableSplitter1.Location = new System.Drawing.Point(172, 39);
+            this.expandableSplitter1.Size = new System.Drawing.Size(6, 450);
             // 
-            // explorerBarGroupPicture
-            // 
-            // 
-            // 
-            // 
-            this.explorerBarGroupPicture.BackStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.explorerBarGroupPicture.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.explorerBarGroupPicture.BackStyle.BorderBottomWidth = 1;
-            this.explorerBarGroupPicture.BackStyle.BorderColor = System.Drawing.Color.White;
-            this.explorerBarGroupPicture.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.explorerBarGroupPicture.BackStyle.BorderLeftWidth = 1;
-            this.explorerBarGroupPicture.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.explorerBarGroupPicture.BackStyle.BorderRightWidth = 1;
-            this.explorerBarGroupPicture.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.explorerBarGroupPicture.CanCustomize = false;
-            this.explorerBarGroupPicture.Cursor = System.Windows.Forms.Cursors.Default;
-            this.explorerBarGroupPicture.ExpandButtonVisible = false;
-            this.explorerBarGroupPicture.Expanded = true;
-            this.explorerBarGroupPicture.Name = "explorerBarGroupPicture";
-            this.explorerBarGroupPicture.StockStyle = DevComponents.DotNetBar.eExplorerBarStockStyle.SystemColors;
-            this.explorerBarGroupPicture.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.itemContainer1,
-            this.labelItem2,
-            this.labelItem5});
-            this.explorerBarGroupPicture.Text = "Profile Picture";
-            // 
-            // 
-            // 
-            this.explorerBarGroupPicture.TitleHotStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
-            this.explorerBarGroupPicture.TitleHotStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
-            this.explorerBarGroupPicture.TitleHotStyle.CornerDiameter = 3;
-            this.explorerBarGroupPicture.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.explorerBarGroupPicture.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupPicture.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupPicture.TitleHotStyle.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
-            // 
-            // 
-            // 
-            this.explorerBarGroupPicture.TitleStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
-            this.explorerBarGroupPicture.TitleStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
-            this.explorerBarGroupPicture.TitleStyle.CornerDiameter = 3;
-            this.explorerBarGroupPicture.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.explorerBarGroupPicture.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupPicture.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.explorerBarGroupPicture.TitleStyle.TextColor = System.Drawing.Color.White;
-            this.explorerBarGroupPicture.XPSpecialGroup = true;
-            // 
-            // itemContainer1
+            // BarImage
             // 
             // 
             // 
             // 
-            this.itemContainer1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.itemContainer1.HorizontalItemAlignment = DevComponents.DotNetBar.eHorizontalItemsAlignment.Center;
-            this.itemContainer1.LayoutOrientation = DevComponents.DotNetBar.eOrientation.Vertical;
-            this.itemContainer1.Name = "itemContainer1";
-            this.itemContainer1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem2});
-            this.itemContainer1.ThemeAware = true;
+            this.BarImage.BackStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.BarImage.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderBottomWidth = 1;
+            this.BarImage.BackStyle.BorderColor = System.Drawing.Color.White;
+            this.BarImage.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderLeftWidth = 1;
+            this.BarImage.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderRightWidth = 1;
+            this.BarImage.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem1,
+            this.lblSpace});
             // 
             // 
             // 
-            this.itemContainer1.TitleMouseOverStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleHotStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
+            this.BarImage.TitleHotStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
+            this.BarImage.TitleHotStyle.CornerDiameter = 3;
+            this.BarImage.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleHotStyle.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             // 
             // 
             // 
-            this.itemContainer1.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
+            this.BarImage.TitleStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
+            this.BarImage.TitleStyle.CornerDiameter = 3;
+            this.BarImage.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleStyle.TextColor = System.Drawing.Color.White;
             // 
-            // controlContainerItem2
+            // picImage
             // 
-            this.controlContainerItem2.AllowItemResize = false;
-            this.controlContainerItem2.Control = this.pictureBox1;
-            this.controlContainerItem2.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem2.Name = "controlContainerItem2";
-            this.controlContainerItem2.ThemeAware = true;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(17, 151);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(120, 120);
-            this.pictureBox1.TabIndex = 37;
-            this.pictureBox1.TabStop = false;
-            // 
-            // labelItem2
-            // 
-            this.labelItem2.Name = "labelItem2";
-            this.labelItem2.Text = "Employee Number:";
-            this.labelItem2.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelItem2.ThemeAware = true;
-            // 
-            // labelItem5
-            // 
-            this.labelItem5.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelItem5.ForeColor = System.Drawing.Color.Blue;
-            this.labelItem5.Name = "labelItem5";
-            this.labelItem5.Text = "01234567890";
-            this.labelItem5.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelItem5.ThemeAware = true;
+            this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImage.Location = new System.Drawing.Point(10, 29);
+            this.picImage.Name = "picImage";
+            this.picImage.Size = new System.Drawing.Size(152, 152);
+            this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picImage.TabIndex = 37;
+            this.picImage.TabStop = false;
             // 
             // bar1
             // 
@@ -198,7 +143,7 @@
             this.btnCancel});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(884, 39);
+            this.bar1.Size = new System.Drawing.Size(534, 39);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 36;
@@ -211,6 +156,7 @@
             this.btnOk.Image = global::Winform.Properties.Resources.Ok_30;
             this.btnOk.Name = "btnOk";
             this.btnOk.Text = "Save Record";
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // btnCancel
             // 
@@ -218,6 +164,7 @@
             this.btnCancel.Image = global::Winform.Properties.Resources.Cancel_24px;
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Text = "Cancel Changes";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // groupBox3
             // 
@@ -225,10 +172,10 @@
             this.groupBox3.Controls.Add(this.btnContactsSelect);
             this.groupBox3.Controls.Add(this.lblName);
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
-            this.groupBox3.Location = new System.Drawing.Point(8, 8);
+            this.groupBox3.Location = new System.Drawing.Point(11, 64);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(320, 227);
-            this.groupBox3.TabIndex = 37;
+            this.groupBox3.Size = new System.Drawing.Size(317, 211);
+            this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Name Info:";
             // 
@@ -239,7 +186,7 @@
             this.btnContactsNew.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnContactsNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnContactsNew.Image = global::Winform.Properties.Resources.Add_List_16;
-            this.btnContactsNew.Location = new System.Drawing.Point(255, 10);
+            this.btnContactsNew.Location = new System.Drawing.Point(180, 12);
             this.btnContactsNew.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnContactsNew.Name = "btnContactsNew";
             this.btnContactsNew.ShowSubItems = false;
@@ -248,6 +195,7 @@
             this.btnContactsNew.TabIndex = 29;
             this.btnContactsNew.Text = "New...";
             this.btnContactsNew.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
+            this.btnContactsNew.Click += new System.EventHandler(this.btnContactsNew_Click);
             // 
             // btnContactsSelect
             // 
@@ -256,7 +204,7 @@
             this.btnContactsSelect.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnContactsSelect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnContactsSelect.Image = global::Winform.Properties.Resources.Open_16px;
-            this.btnContactsSelect.Location = new System.Drawing.Point(184, 9);
+            this.btnContactsSelect.Location = new System.Drawing.Point(242, 12);
             this.btnContactsSelect.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnContactsSelect.Name = "btnContactsSelect";
             this.btnContactsSelect.ShowSubItems = false;
@@ -265,6 +213,7 @@
             this.btnContactsSelect.TabIndex = 27;
             this.btnContactsSelect.Text = "Select...";
             this.btnContactsSelect.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
+            this.btnContactsSelect.Click += new System.EventHandler(this.btnContactsSelect_Click);
             // 
             // lblName
             // 
@@ -276,38 +225,72 @@
             // 
             this.lblName.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(6, 34);
+            this.lblName.Location = new System.Drawing.Point(6, 30);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(307, 185);
+            this.lblName.Size = new System.Drawing.Size(302, 169);
             this.lblName.TabIndex = 28;
             this.lblName.Text = resources.GetString("lblName.Text");
             this.lblName.TextLineAlignment = System.Drawing.StringAlignment.Near;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.txtEmpNum);
             this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.groupBox3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(161, 39);
+            this.panel1.Location = new System.Drawing.Point(178, 39);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.panel1.Size = new System.Drawing.Size(723, 422);
+            this.panel1.Size = new System.Drawing.Size(356, 450);
             this.panel1.TabIndex = 38;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.Black;
+            this.label4.Location = new System.Drawing.Point(11, 5);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(121, 16);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Employee Number";
+            // 
+            // txtEmpNum
+            // 
+            this.txtEmpNum.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.txtEmpNum.Border.Class = "TextBoxBorder";
+            this.txtEmpNum.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtEmpNum.DisabledBackColor = System.Drawing.Color.White;
+            this.txtEmpNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtEmpNum.ForeColor = System.Drawing.Color.Blue;
+            this.txtEmpNum.Location = new System.Drawing.Point(14, 26);
+            this.txtEmpNum.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtEmpNum.Name = "txtEmpNum";
+            this.txtEmpNum.PreventEnterBeep = true;
+            this.txtEmpNum.Size = new System.Drawing.Size(118, 26);
+            this.txtEmpNum.TabIndex = 1;
+            this.txtEmpNum.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.comboBox2);
-            this.groupBox1.Controls.Add(this.doubleInput2);
-            this.groupBox1.Controls.Add(this.doubleInput1);
+            this.groupBox1.Controls.Add(this.cboCivilStatus);
+            this.groupBox1.Controls.Add(this.txtWeight);
+            this.groupBox1.Controls.Add(this.txtHeight);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.textBoxX3);
-            this.groupBox1.Location = new System.Drawing.Point(11, 241);
+            this.groupBox1.Controls.Add(this.txtCitizenship);
+            this.groupBox1.Location = new System.Drawing.Point(11, 287);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(317, 155);
-            this.groupBox1.TabIndex = 143;
+            this.groupBox1.Size = new System.Drawing.Size(317, 146);
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Other Info:";
             // 
@@ -317,71 +300,67 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(7, 27);
+            this.label11.Location = new System.Drawing.Point(7, 23);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(73, 16);
             this.label11.TabIndex = 185;
             this.label11.Text = "Civil Status";
             // 
-            // comboBox2
+            // cboCivilStatus
             // 
-            this.comboBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.comboBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.comboBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.ForeColor = System.Drawing.Color.Blue;
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
+            this.cboCivilStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboCivilStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.cboCivilStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.cboCivilStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCivilStatus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cboCivilStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboCivilStatus.ForeColor = System.Drawing.Color.Blue;
+            this.cboCivilStatus.FormattingEnabled = true;
+            this.cboCivilStatus.Items.AddRange(new object[] {
             "Single",
             "Married",
             "Annulled",
             "Widowed",
             "Separated"});
-            this.comboBox2.Location = new System.Drawing.Point(108, 24);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(167, 24);
-            this.comboBox2.TabIndex = 186;
+            this.cboCivilStatus.Location = new System.Drawing.Point(108, 20);
+            this.cboCivilStatus.Name = "cboCivilStatus";
+            this.cboCivilStatus.Size = new System.Drawing.Size(167, 24);
+            this.cboCivilStatus.TabIndex = 186;
             // 
-            // doubleInput2
-            // 
-            // 
-            // 
-            // 
-            this.doubleInput2.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.doubleInput2.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.doubleInput2.ButtonCustom.Visible = true;
-            this.doubleInput2.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.doubleInput2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.doubleInput2.ForeColor = System.Drawing.Color.Blue;
-            this.doubleInput2.Increment = 1D;
-            this.doubleInput2.Location = new System.Drawing.Point(108, 118);
-            this.doubleInput2.Name = "doubleInput2";
-            this.doubleInput2.ShowUpDown = true;
-            this.doubleInput2.Size = new System.Drawing.Size(90, 22);
-            this.doubleInput2.TabIndex = 184;
-            this.doubleInput2.Value = 250.75D;
-            // 
-            // doubleInput1
+            // txtWeight
             // 
             // 
             // 
             // 
-            this.doubleInput1.BackgroundStyle.Class = "DateTimeInputBackground";
-            this.doubleInput1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.doubleInput1.ButtonCustom.Visible = true;
-            this.doubleInput1.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
-            this.doubleInput1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.doubleInput1.ForeColor = System.Drawing.Color.Blue;
-            this.doubleInput1.Increment = 1D;
-            this.doubleInput1.Location = new System.Drawing.Point(108, 84);
-            this.doubleInput1.Name = "doubleInput1";
-            this.doubleInput1.ShowUpDown = true;
-            this.doubleInput1.Size = new System.Drawing.Size(90, 22);
-            this.doubleInput1.TabIndex = 183;
-            this.doubleInput1.Value = 2.25D;
+            this.txtWeight.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.txtWeight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtWeight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.txtWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWeight.ForeColor = System.Drawing.Color.Blue;
+            this.txtWeight.Increment = 1D;
+            this.txtWeight.Location = new System.Drawing.Point(108, 114);
+            this.txtWeight.Name = "txtWeight";
+            this.txtWeight.ShowUpDown = true;
+            this.txtWeight.Size = new System.Drawing.Size(90, 22);
+            this.txtWeight.TabIndex = 184;
+            // 
+            // txtHeight
+            // 
+            // 
+            // 
+            // 
+            this.txtHeight.BackgroundStyle.Class = "DateTimeInputBackground";
+            this.txtHeight.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtHeight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
+            this.txtHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtHeight.ForeColor = System.Drawing.Color.Blue;
+            this.txtHeight.Increment = 1D;
+            this.txtHeight.Location = new System.Drawing.Point(108, 80);
+            this.txtHeight.Name = "txtHeight";
+            this.txtHeight.ShowUpDown = true;
+            this.txtHeight.Size = new System.Drawing.Size(90, 22);
+            this.txtHeight.TabIndex = 183;
             // 
             // label1
             // 
@@ -389,7 +368,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(7, 86);
+            this.label1.Location = new System.Drawing.Point(7, 82);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(72, 16);
@@ -402,7 +381,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(7, 118);
+            this.label2.Location = new System.Drawing.Point(7, 114);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 16);
@@ -415,31 +394,31 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.Black;
-            this.label3.Location = new System.Drawing.Point(7, 56);
+            this.label3.Location = new System.Drawing.Point(7, 52);
             this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 16);
             this.label3.TabIndex = 180;
             this.label3.Text = "Citizenship:";
             // 
-            // textBoxX3
+            // txtCitizenship
             // 
-            this.textBoxX3.BackColor = System.Drawing.Color.White;
+            this.txtCitizenship.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
-            this.textBoxX3.Border.Class = "TextBoxBorder";
-            this.textBoxX3.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.textBoxX3.DisabledBackColor = System.Drawing.Color.White;
-            this.textBoxX3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxX3.ForeColor = System.Drawing.Color.Blue;
-            this.textBoxX3.Location = new System.Drawing.Point(108, 54);
-            this.textBoxX3.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
-            this.textBoxX3.Name = "textBoxX3";
-            this.textBoxX3.PreventEnterBeep = true;
-            this.textBoxX3.Size = new System.Drawing.Size(169, 22);
-            this.textBoxX3.TabIndex = 181;
-            this.textBoxX3.Text = "Filipino";
+            this.txtCitizenship.Border.Class = "TextBoxBorder";
+            this.txtCitizenship.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtCitizenship.DisabledBackColor = System.Drawing.Color.White;
+            this.txtCitizenship.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCitizenship.ForeColor = System.Drawing.Color.Blue;
+            this.txtCitizenship.Location = new System.Drawing.Point(108, 50);
+            this.txtCitizenship.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
+            this.txtCitizenship.Name = "txtCitizenship";
+            this.txtCitizenship.PreventEnterBeep = true;
+            this.txtCitizenship.Size = new System.Drawing.Size(169, 22);
+            this.txtCitizenship.TabIndex = 181;
+            this.txtCitizenship.Text = "Filipino";
             // 
             // listBoxItem1
             // 
@@ -464,47 +443,56 @@
             this.listBoxItem4.Name = "listBoxItem4";
             this.listBoxItem4.Text = "Item 4";
             // 
+            // controlContainerItem1
+            // 
+            this.controlContainerItem1.AllowItemResize = false;
+            this.controlContainerItem1.Control = this.picImage;
+            this.controlContainerItem1.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
+            this.controlContainerItem1.Name = "controlContainerItem1";
+            this.controlContainerItem1.ThemeAware = true;
+            // 
+            // lblSpace
+            // 
+            this.lblSpace.Name = "lblSpace";
+            this.lblSpace.Text = " ";
+            this.lblSpace.ThemeAware = true;
+            // 
             // frmEmployee_Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 461);
+            this.ClientSize = new System.Drawing.Size(534, 489);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.bar1);
             this.DoubleBuffered = true;
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmEmployee_Add";
-            this.Text = "Form1";
+            this.Text = "Employee";
             this.Controls.SetChildIndex(this.bar1, 0);
             this.Controls.SetChildIndex(this.RecordInfoPanel, 0);
             this.Controls.SetChildIndex(this.expandableSplitter1, 0);
             this.Controls.SetChildIndex(this.panel1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).EndInit();
             this.RecordInfoPanel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInput2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.doubleInput1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtWeight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHeight)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private DevComponents.DotNetBar.ExplorerBarGroupItem explorerBarGroupPicture;
-        private DevComponents.DotNetBar.ItemContainer itemContainer1;
-        private DevComponents.DotNetBar.LabelItem labelItem2;
-        private DevComponents.DotNetBar.LabelItem labelItem5;
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem btnOk;
         private DevComponents.DotNetBar.ButtonItem btnCancel;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem2;
+        private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.GroupBox groupBox3;
         private DevComponents.DotNetBar.ButtonX btnContactsSelect;
         private DevComponents.DotNetBar.LabelX lblName;
@@ -515,13 +503,17 @@
         private DevComponents.DotNetBar.ListBoxItem listBoxItem3;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private DevComponents.Editors.DoubleInput doubleInput2;
-        private DevComponents.Editors.DoubleInput doubleInput1;
+        private System.Windows.Forms.ComboBox cboCivilStatus;
+        private DevComponents.Editors.DoubleInput txtWeight;
+        private DevComponents.Editors.DoubleInput txtHeight;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private DevComponents.DotNetBar.Controls.TextBoxX textBoxX3;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtCitizenship;
         private DevComponents.DotNetBar.ListBoxItem listBoxItem4;
+        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem1;
+        private DevComponents.DotNetBar.LabelItem lblSpace;
+        private System.Windows.Forms.Label label4;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtEmpNum;
     }
 }

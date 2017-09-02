@@ -29,28 +29,7 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // SGrid
-            // 
-            this.SGrid.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
-            // 
-            // 
-            // 
-            this.SGrid.PrimaryGrid.EnableColumnFiltering = true;
-            this.SGrid.PrimaryGrid.EnableFiltering = true;
-            // 
-            // 
-            // 
-            this.SGrid.PrimaryGrid.Filter.Visible = true;
-            this.SGrid.PrimaryGrid.FilterMatchType = DevComponents.DotNetBar.SuperGrid.FilterMatchType.RegularExpressions;
-            // 
-            // 
-            // 
-            this.SGrid.PrimaryGrid.GroupByRow.GroupBoxLayout = DevComponents.DotNetBar.SuperGrid.GroupBoxLayout.Flat;
-            this.SGrid.PrimaryGrid.GroupByRow.GroupBoxStyle = DevComponents.DotNetBar.SuperGrid.GroupBoxStyle.RoundedRectangular;
-            this.SGrid.PrimaryGrid.GroupByRow.Visible = true;
-            this.SGrid.PrimaryGrid.MultiSelect = false;
-            this.SGrid.Size = new System.Drawing.Size(707, 461);
+           
             // 
             // ribbonBarMergeContainer1
             // 
@@ -72,7 +51,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(707, 489);
-            this.Name = "frmPosition";
+            this.Name = "frmSalarySchedule";
             this.Text = "";
             this.ResumeLayout(false);
 

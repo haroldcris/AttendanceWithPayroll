@@ -2,6 +2,7 @@
 using AiTech.LiteOrm.Database;
 using Dapper;
 using Dll.Employee;
+using System.Linq;
 
 namespace Dll.Payroll
 {
@@ -9,9 +10,9 @@ namespace Dll.Payroll
     {
 
 
-        public bool Has(int empId)
+        public bool HasExistingId(int empId)
         {
-            const string query = @"Select Id from Payroll_Employee where EmployeeId = @EmpId";
+            const string query = @"Select 1 from Payroll_Employee where EmployeeId = @EmpId";
 
             using (var db = Connection.CreateConnection())
             {
@@ -19,7 +20,7 @@ namespace Dll.Payroll
 
                 var result = db.Query(query, new { EmpId = empId });
 
-                return result != null;
+                return result.Any();
             }
         }
 
@@ -27,7 +28,7 @@ namespace Dll.Payroll
         public void LoadAllItemsFromDb()
         {
 
-            const string query = @"SELECT p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [SpouseLastname], [Gender], [CameraCounter]
+            const string query = @"SELECT p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], [CameraCounter]
                                     , e.Id EmployeeId, [EmpNum], [CivilStatus], [GSIS], [Pagibig], [PhilHealth], [SSS], [Tin]
                                     , pe.Id Id, DateHired, Department, TaxId, PositionId, Step, pe.Created, pe.Modified, pe.CreatedBy, pe.ModifiedBy
                                     , pos.Id PositionId, pos.Code PositionCode, pos.Description PositionDescription

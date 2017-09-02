@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.1188</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1278</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -187,11 +187,11 @@
     <Compile Include="Payroll\Employees\frmPayrollEmployees_Add.Designer.cs">
       <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="frmAuditTrail.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmAuditTrail.Designer.cs">
+      <DependentUpon>frmAuditTrail.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -346,8 +346,8 @@
     <EmbeddedResource Include="Payroll\Employees\frmPayrollEmployees_Add.resx">
       <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="frmAuditTrail.resx">
+      <DependentUpon>frmAuditTrail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -411,6 +411,7 @@
     <None Include="app.manifest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Properties\DataSources\Dll.ActionLog.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -613,6 +614,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\Wall Mount Camera_40px.png" />
     <None Include="Resources\User Folder_24px.png" />
     <None Include="Resources\Send Hot List_24px.png" />
     <None Include="Resources\Send Hot List_40px.png" />

@@ -1,7 +1,4 @@
-﻿using AiTech.LiteOrm;
-using System.Collections.Generic;
-
-namespace Dll.Contacts
+﻿namespace Dll.Contacts
 {
     public class PersonName //: ITrackableObject
     {
@@ -11,7 +8,7 @@ namespace Dll.Contacts
         public string MiddleInitial { get; set; }
         public string NameExtension { get; set; }
 
-        public string SpouseLastname { get; set; }
+        public string MaidenMiddlename { get; set; }
 
         public PersonName()
         {
@@ -20,7 +17,7 @@ namespace Dll.Contacts
             Middlename = "";
             MiddleInitial = "";
             NameExtension = "";
-            SpouseLastname = "";
+            MaidenMiddlename = "";
         }
 
 
@@ -30,7 +27,8 @@ namespace Dll.Contacts
         {
             get
             {
-                var str = $"{Lastname} , {Firstname} {Middlename} {NameExtension}";
+                //Middlename will be your Lastname
+                var str = $"{Middlename} , {Firstname} {MaidenMiddlename} {NameExtension}";
 
                 return str.TrimEnd();
             }
@@ -42,24 +40,32 @@ namespace Dll.Contacts
         {
             get
             {
-                var sLast = Lastname;
-                var sMiddle = Middlename;
+                //if (!string.IsNullOrEmpty(MaidenMiddlename))
+                //{
+                //    sMiddle = Lastname;
+                //    sLast = MaidenMiddlename;
+                //}
 
 
-                if (!string.IsNullOrEmpty(SpouseLastname))
-                {
-                    sMiddle = Lastname;
-                    sLast = SpouseLastname;
-                }
-
-
-                var str = $"{sLast} , {Firstname} {sMiddle} {NameExtension}";
+                var str = $"{Lastname} , {Firstname} {Middlename} {NameExtension}";
 
                 return str.TrimEnd();
             }
 
         }
 
+
+        public string FullnameWithMaiden
+        {
+            get
+            {
+
+                var str = $"{Middlename}-{Lastname} , {Firstname} {MaidenMiddlename} {NameExtension}";
+
+                return str.TrimEnd();
+            }
+
+        }
 
         public string FullnameWithLastnameFirst
         {
@@ -76,20 +82,20 @@ namespace Dll.Contacts
             }
         }
 
-        public string FullnameWithFirstnameFirst
-        {
-            get
-            {
-                var str = string.Empty;
+        //public string FullnameWithFirstnameFirst
+        //{
+        //    get
+        //    {
+        //        var str = string.Empty;
 
-                str += Firstname;
-                str += " " + Middlename;
-                str += " " + Lastname;
-                str += " " + NameExtension;
+        //        str += Firstname;
+        //        str += " " + Middlename;
+        //        str += " " + Lastname;
+        //        str += " " + NameExtension;
 
-                return str.TrimEnd();
-            }
-        }
+        //        return str.TrimEnd();
+        //    }
+        //}
 
 
 
@@ -107,7 +113,7 @@ namespace Dll.Contacts
         //    OriginalValues.Add("Middlename", Middlename);
         //    OriginalValues.Add("MiddleInitial", MiddleInitial);
         //    OriginalValues.Add("NameExtension", NameExtension);
-        //    OriginalValues.Add("SpouseLastname", SpouseLastname);
+        //    OriginalValues.Add("MaidenMiddlename", MaidenMiddlename);
         //}
 
         //public Dictionary<string, object> GetChangedValues()
@@ -119,7 +125,7 @@ namespace Dll.Contacts
         //    if (!Equals(Middlename, OriginalValues["Middlename"])) changes.Add("Middlename", Middlename);
         //    if (!Equals(MiddleInitial, OriginalValues["MiddleInitial"])) changes.Add("MiddleInitial", MiddleInitial);
         //    if (!Equals(NameExtension, OriginalValues["NameExtension"])) changes.Add("NameExtension", NameExtension);
-        //    if (!Equals(SpouseLastname, OriginalValues["SpouseLastname"])) changes.Add("SpouseLastname", SpouseLastname);
+        //    if (!Equals(MaidenMiddlename, OriginalValues["MaidenMiddlename"])) changes.Add("MaidenMiddlename", MaidenMiddlename);
 
         //    return changes;
         //}

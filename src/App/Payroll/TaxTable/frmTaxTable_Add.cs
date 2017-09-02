@@ -1,6 +1,6 @@
-﻿using Dll.Payroll;
+﻿using AiTech.Tools.Winform;
+using Dll.Payroll;
 using System.Windows.Forms;
-using AiTech.Tools.Winform;
 
 namespace Winform.Payroll
 {
@@ -59,7 +59,7 @@ namespace Winform.Payroll
             }
 
             //var reader = new TaxDataReader();
-            //var item = reader.GetItemWithId()
+            //var item = reader.GetItem()
             //if (CallerForm.ContainsData(txtTaxId.Text, ItemData.RowId))
             //{
             //    MessageDialog.ShowValidationError(txtTaxId, "Duplicate Record!");

@@ -10,7 +10,7 @@ namespace Dll.Employee
         public void LoadItemsFromDb()
         {
             const string query = @"select e.*
-                                    , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [SpouseLastname], [Gender], [CameraCounter]
+                                    , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], BirthDate, [Gender], [CameraCounter]
                                     from employee e
                                     inner join person p on e.PersonId = p.Id";
 

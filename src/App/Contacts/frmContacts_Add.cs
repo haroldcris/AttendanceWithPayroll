@@ -45,6 +45,10 @@ namespace Winform.Contacts
             InputControls.Address.LoadProvinceListTo(cboProvince);
             cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
 
+
+
+            RecordInfoPanel.Groups[0].ItemAlignment = eItemAlignment.Far;
+
         }
 
         private void CboCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -85,7 +89,7 @@ namespace Winform.Contacts
                 ItemData.Name.NameExtension = cboNameExtension.Text;
 
 
-                ItemData.Name.SpouseLastname = txtSpouseLastname.Enabled ? txtSpouseLastname.Text : "";
+                ItemData.Name.MaidenMiddlename = txtMaidenMiddlename.Enabled ? txtMaidenMiddlename.Text : "";
 
                 ItemData.Gender = cboGender.Text.ToLower() == "male" ? GenderType.Male : GenderType.Female;
                 ItemData.BirthDate = dtBirthdate.Value;
@@ -218,7 +222,7 @@ namespace Winform.Contacts
             txtMi.Text = ItemData.Name.MiddleInitial;
             cboNameExtension.Text = ItemData.Name.NameExtension;
 
-            txtSpouseLastname.Text = ItemData.Name.SpouseLastname;
+            txtMaidenMiddlename.Text = ItemData.Name.MaidenMiddlename;
 
             cboGender.Text = ItemData.Gender == GenderType.Male ? "Male" : "Female";
             dtBirthdate.Value = ItemData.BirthDate;
@@ -230,14 +234,13 @@ namespace Winform.Contacts
 
             txtImageFile.Text = ItemData.CameraCounter;
 
-            InputControls.LoadImage(picImage, ItemData.CameraCounter);
-
 
             //Mobile Numbers
             ItemData.MobileNumbers.LoadItemsFromDb();
             Show_MobileNumbers();
 
-
+            //Show Picture
+            InputControls.LoadImage(picImage, ItemData.CameraCounter);
 
             ShowFileInfo(ItemData);
         }
@@ -274,15 +277,13 @@ namespace Winform.Contacts
             var enabled = cboGender.Text.ToLower() == "female";
 
             lblSpouse.Enabled = enabled;
-            txtSpouseLastname.Enabled = enabled;
+            txtMaidenMiddlename.Enabled = enabled;
         }
 
 
 
         private async Task UploadAndDisplayImage(string fullFilename)
         {
-
-            ImageProgressBar.Visible = true;
 
             string errorMessage = null;
 
@@ -306,8 +307,6 @@ namespace Winform.Contacts
                 return result;
             });
 
-
-            ImageProgressBar.Visible = false;
 
             if (!uploadResult)
                 MessageDialog.ShowValidationError(this, errorMessage);

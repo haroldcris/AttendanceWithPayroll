@@ -156,7 +156,7 @@ namespace Winform.Employee
 
             FlexGrid.Rows.Count = enumerable.Count() + 1;
             var row = 0;
-            foreach (var item in enumerable)
+            foreach (var item in enumerable.OrderBy(_ => _.PersonClass.Name.Fullname))
             {
                 row++;
                 FlexGrid[row, "empnum"] = item.EmpNum;

@@ -231,7 +231,7 @@
             this.btnDelete.Image = global::Winform.Properties.Resources.Delete_File_24px;
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.RibbonWordWrap = false;
-            this.btnDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.Del);
+            this.btnDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.ShiftDel);
             this.btnDelete.SubItemsExpandWidth = 14;
             this.btnDelete.Text = "Delete";
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -317,6 +317,7 @@
             this.Controls.Add(this.ribbonBarMergeContainer1);
             this.Controls.Add(this.SGrid);
             this.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DoubleBuffered = true;
             this.Header = " CAPTION TITLE";
             this.HeaderColor = System.Drawing.Color.DarkOrange;
             this.Name = "MdiClientGridForm";

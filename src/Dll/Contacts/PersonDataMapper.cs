@@ -50,10 +50,10 @@ namespace Dll.Contacts
             if (readerItemSource.Id != null) ItemData.Id = readerItemSource.Id;
             if (readerItemSource.Lastname != null) ItemData.Name.Lastname = readerItemSource.Lastname;
             if (readerItemSource.Firstname != null) ItemData.Name.Firstname = readerItemSource.Firstname;
-            if (readerItemSource.MiddleName != null) ItemData.Name.Middlename = readerItemSource.MiddleName;
+            if (readerItemSource.Middlename != null) ItemData.Name.Middlename = readerItemSource.Middlename;
             if (readerItemSource.Mi != null) ItemData.Name.MiddleInitial = readerItemSource.Mi;
             if (readerItemSource.NameExtension != null) ItemData.Name.NameExtension = readerItemSource.NameExtension;
-            if (readerItemSource.SpouseLastname != null) ItemData.Name.SpouseLastname = readerItemSource.SpouseLastname;
+            if (readerItemSource.MaidenMiddlename != null) ItemData.Name.MaidenMiddlename = readerItemSource.MaidenMiddlename;
             if (readerItemSource.Gender != null) ItemData.Gender = readerItemSource.Gender == "Male" ? GenderType.Male : GenderType.Female;
             if (readerItemSource.BirthDate != null) ItemData.BirthDate = readerItemSource.BirthDate;
 

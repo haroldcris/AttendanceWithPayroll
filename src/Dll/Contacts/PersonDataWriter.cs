@@ -13,9 +13,9 @@ namespace Dll.Contacts
         protected override string CreateSqlInsertQuery()
         {
             return @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
-                          INSERT INTO [Person] ([Lastname],[Firstname],[Middlename],[MiddleInitial],[NameExtension],[SpouseLastname],[Gender],[BirthDate],[BirthCountry],[BirthProvince],[BirthTown],[CameraCounter],[CreatedBy],[ModifiedBy]) 
+                          INSERT INTO [Person] ([Lastname],[Firstname],[Middlename],[MiddleInitial],[NameExtension],[MaidenMiddlename],[Gender],[BirthDate],[BirthCountry],[BirthProvince],[BirthTown],[CameraCounter],[CreatedBy],[ModifiedBy]) 
                              OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
-                          VALUES (@Lastname,@Firstname,@Middlename,@MiddleInitial,@NameExtension,@SpouseLastname,@Gender,@BirthDate,@BirthCountry,@BirthProvince,@BirthTown,@CameraCounter,@CreatedBy,@ModifiedBy)
+                          VALUES (@Lastname,@Firstname,@Middlename,@MiddleInitial,@NameExtension,@MaidenMiddlename,@Gender,@BirthDate,@BirthCountry,@BirthProvince,@BirthTown,@CameraCounter,@CreatedBy,@ModifiedBy)
                           SELECT * from @output";
         }
 
@@ -25,7 +25,7 @@ namespace Dll.Contacts
 
             cmd.Parameters.AddRange(new[]
              {
-                new SqlParameter( "@Lastname", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@Firstname", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@Middlename", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@MiddleInitial", SqlDbType.NVarChar, 5) ,                new SqlParameter( "@NameExtension", SqlDbType.NVarChar, 10) ,                new SqlParameter( "@SpouseLastname", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@Gender", SqlDbType.NVarChar, 10) ,                new SqlParameter( "@BirthDate", SqlDbType.Date) ,                new SqlParameter( "@BirthCountry", SqlDbType.NVarChar, 100) ,                new SqlParameter( "@BirthProvince", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@BirthTown", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@CameraCounter", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
+                new SqlParameter( "@Lastname", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@Firstname", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@Middlename", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@MiddleInitial", SqlDbType.NVarChar, 5) ,                new SqlParameter( "@NameExtension", SqlDbType.NVarChar, 10) ,                new SqlParameter( "@MaidenMiddlename", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@Gender", SqlDbType.NVarChar, 10) ,                new SqlParameter( "@BirthDate", SqlDbType.Date) ,                new SqlParameter( "@BirthCountry", SqlDbType.NVarChar, 100) ,                new SqlParameter( "@BirthProvince", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@BirthTown", SqlDbType.NVarChar, 50) ,                new SqlParameter( "@CameraCounter", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,                new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
             });
 
             cmd.Parameters["@Lastname"].Value = item.Name.Lastname;
@@ -33,7 +33,7 @@ namespace Dll.Contacts
             cmd.Parameters["@Middlename"].Value = item.Name.Middlename;
             cmd.Parameters["@MiddleInitial"].Value = item.Name.MiddleInitial;
             cmd.Parameters["@NameExtension"].Value = item.Name.NameExtension;
-            cmd.Parameters["@SpouseLastname"].Value = item.Name.SpouseLastname;
+            cmd.Parameters["@MaidenMiddlename"].Value = item.Name.MaidenMiddlename;
 
             cmd.Parameters["@Gender"].Value = item.Gender == GenderType.Male ? "Male" : "Female";
 

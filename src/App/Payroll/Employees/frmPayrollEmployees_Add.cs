@@ -1,5 +1,4 @@
 ﻿using AiTech.Tools.Winform;
-using Dll.Contacts;
 using Dll.Payroll;
 using Library.Tools;
 using System;
@@ -136,12 +135,14 @@ namespace Winform.Payroll
 
         private void Show_NameProfile()
         {
-            var template = @"<font color='blue'><b>%name%</b> <br/>
-                                        %gender% <br/>
-                                        </font>";
+            var template = @"Name:<br/>
+<font color='blue'><b>%name%</b></font><br/><br/>
+Employee No.:<br/>
+<font color='blue'><b>%empnum%</b></font>
+";
 
             template = template.Replace("%name%", ItemData.EmployeeClass.PersonClass.Name.Fullname.ToUpper());
-            template = template.Replace("%gender%", ItemData.EmployeeClass.PersonClass.Gender == GenderType.Male ? "Male" : "Female");
+            template = template.Replace("%empnum%", ItemData.EmployeeClass.EmpNum.ToString());
 
             lblNameProfile.Text = template;
         }

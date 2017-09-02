@@ -22,7 +22,7 @@ namespace Dll.Employee
 
         public Employee GetEmployeeWithId(int id, SqlConnection db)
         {
-            const string query = "select p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [SpouseLastname], [Gender], " +
+            const string query = "select p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], " +
                                  " e.* from Employee e inner join Person p on p.Id = e.PersonId " +
                                  "where e.Id = @Id";
 
@@ -62,9 +62,9 @@ namespace Dll.Employee
         public IEnumerable<Employee> SearchItem(string searchItem, SearchStyleEnum searchStyle)
         {
             const string query = @"SELECT e.Id, e.EmpNum 
-                        , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [SpouseLastname], [Gender]
+                        , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender]
                         from person p inner join Employee e on p.Id = e.PersonId 
-                        where Replace(DBO.FULLNAME(LASTNAME, FIRSTNAME, MIDDLENAME, MiddleInitial, 0, NAMEEXTENSION, SpouseLastname),' ','') like @Criteria";
+                        where Replace(DBO.FULLNAME(LASTNAME, FIRSTNAME, MIDDLENAME, MiddleInitial, 0, NAMEEXTENSION),' ','') like @Criteria";
 
             var results = Search.SearchData<dynamic>(searchItem, query, searchStyle);
 
@@ -91,7 +91,7 @@ namespace Dll.Employee
 
         public Employee GetBasicProfileOf(int employeeId)
         {
-            const string query = "select p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [SpouseLastname], [Gender], " +
+            const string query = "select p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], CameraCounter, " +
                                  " e.Id, EmpNum from Employee e inner join Person p on p.Id = e.PersonId " +
                                  " where e.Id = @Id";
 
@@ -109,6 +109,21 @@ namespace Dll.Employee
 
                 employee.StartTrackingChanges();
                 return employee;
+            }
+        }
+
+
+        public bool HasExistingPersonId(int personId)
+        {
+            const string query = "SELECT 1 from Employee where PersonId = @PersonId";
+
+            using (var db = Connection.CreateConnection())
+            {
+                db.Open();
+
+                var result = db.Query<int>(query, new { PersonId = personId });
+
+                return result.Any();
             }
         }
 

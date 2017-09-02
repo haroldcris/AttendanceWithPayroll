@@ -26,7 +26,7 @@ namespace Winform.Payroll
 
             this.AskToSaveOnDirtyClosing();
             this.ConvertEnterToTab();
-            Load += (s, e) =>
+            Shown += (s, e) =>
             {
                 ShowData();
                 DirtyStatus.Clear();

@@ -96,6 +96,8 @@ namespace Winform.Payroll
                 if (frm.ShowDialog() != DialogResult.OK) return null;
             }
 
+            App.LogAction("Deduction", "Created Deduction: " + newItem.Description);
+
             ItemDataCollection.Add(newItem);
             return newItem;
         }
@@ -112,6 +114,8 @@ namespace Winform.Payroll
                 frm.ItemData = selectedItem;
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
+
+            App.LogAction("Deduction", "Updated Deduction: " + selectedItem.Description);
 
             return true;
         }
@@ -136,6 +140,8 @@ namespace Winform.Payroll
                     //Save to Database
                     var dataWriter = new DeductionDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
+
+                    App.LogAction("Deduction", "Deleted Deduction: " + deletedItem.Description);
 
                     ItemDataCollection.Remove((Deduction)currentItem);
                 }

@@ -18,6 +18,12 @@ namespace Dll.Employee
             if (recordSource.Height != null) ItemData.Height = recordSource.Height;
             if (recordSource.Weight != null) ItemData.Weight = recordSource.Weight;
 
+
+            if (recordSource.Created != null) ItemData.Created = recordSource.Created;
+            if (recordSource.Modified != null) ItemData.Modified = recordSource.Modified;
+            if (recordSource.CreatedBy != null) ItemData.CreatedBy = recordSource.CreatedBy;
+            if (recordSource.ModifiedBy != null) ItemData.ModifiedBy = recordSource.ModifiedBy;
+
         }
 
 

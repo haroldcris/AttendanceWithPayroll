@@ -44,7 +44,7 @@
             this.cboGender = new System.Windows.Forms.ComboBox();
             this.dtBirthdate = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.txtMi = new DevComponents.DotNetBar.Controls.TextBoxX();
-            this.txtSpouseLastname = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.txtMaidenMiddlename = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.txtImageFile = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.label19 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -58,33 +58,29 @@
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ImageProgressBar = new DevComponents.DotNetBar.Controls.ProgressBarX();
-            this.picImage = new System.Windows.Forms.PictureBox();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.btnOk = new DevComponents.DotNetBar.ButtonItem();
             this.btnCancel = new DevComponents.DotNetBar.ButtonItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.chkNoContactNumber = new DevComponents.DotNetBar.Controls.CheckBoxX();
             this.txtContact = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.lstContacts = new DevComponents.DotNetBar.ListBoxAdv();
             this.btnDeleteNumber = new DevComponents.DotNetBar.ButtonX();
-            this.imageGroup = new DevComponents.DotNetBar.ExplorerBarGroupItem();
-            this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.controlContainerItem3 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.labelItem12 = new DevComponents.DotNetBar.LabelItem();
-            this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
-            this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.picImage = new System.Windows.Forms.PictureBox();
+            this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.lblCameraCounter = new DevComponents.DotNetBar.LabelItem();
+            this.controlContainerItem2 = new DevComponents.DotNetBar.ControlContainerItem();
+            this.lblSpace = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).BeginInit();
             this.RecordInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtBirthdate)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.panel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             this.SuspendLayout();
             // 
             // RecordInfoPanel
@@ -98,11 +94,8 @@
             this.RecordInfoPanel.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ExplorerBarBackground;
             this.RecordInfoPanel.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.RecordInfoPanel.Controls.Add(this.picImage);
-            this.RecordInfoPanel.Controls.Add(this.ImageProgressBar);
             this.RecordInfoPanel.Controls.Add(this.txtImageFile);
             this.RecordInfoPanel.Cursor = System.Windows.Forms.Cursors.Default;
-            this.RecordInfoPanel.Groups.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.imageGroup});
             this.RecordInfoPanel.Location = new System.Drawing.Point(0, 39);
             this.RecordInfoPanel.Size = new System.Drawing.Size(172, 491);
             // 
@@ -111,46 +104,45 @@
             this.expandableSplitter1.Location = new System.Drawing.Point(172, 39);
             this.expandableSplitter1.Size = new System.Drawing.Size(6, 491);
             // 
-            // BarGroupFileInfo
+            // BarImage
             // 
             // 
             // 
             // 
-            this.BarGroupFileInfo.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
-            this.BarGroupFileInfo.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.BarGroupFileInfo.BackStyle.BorderBottomColor = System.Drawing.SystemColors.Window;
-            this.BarGroupFileInfo.BackStyle.BorderBottomWidth = 1;
-            this.BarGroupFileInfo.BackStyle.BorderColor = System.Drawing.Color.White;
-            this.BarGroupFileInfo.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.BarGroupFileInfo.BackStyle.BorderLeftColor = System.Drawing.SystemColors.Window;
-            this.BarGroupFileInfo.BackStyle.BorderLeftWidth = 1;
-            this.BarGroupFileInfo.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.BarGroupFileInfo.BackStyle.BorderRightColor = System.Drawing.SystemColors.Window;
-            this.BarGroupFileInfo.BackStyle.BorderRightWidth = 1;
-            this.BarGroupFileInfo.BackStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.BarGroupFileInfo.BackStyle.BorderTopColor = System.Drawing.SystemColors.Window;
-            this.BarGroupFileInfo.BackStyle.BorderTopWidth = 1;
-            this.BarGroupFileInfo.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.BackStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.BarImage.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderBottomWidth = 1;
+            this.BarImage.BackStyle.BorderColor = System.Drawing.Color.White;
+            this.BarImage.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderLeftWidth = 1;
+            this.BarImage.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderRightWidth = 1;
+            this.BarImage.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.controlContainerItem1,
+            this.lblCameraCounter,
+            this.controlContainerItem2,
+            this.lblSpace});
             // 
             // 
             // 
-            this.BarGroupFileInfo.TitleHotStyle.BackColor = System.Drawing.SystemColors.Window;
-            this.BarGroupFileInfo.TitleHotStyle.BackColor2 = System.Drawing.SystemColors.InactiveCaption;
-            this.BarGroupFileInfo.TitleHotStyle.CornerDiameter = 3;
-            this.BarGroupFileInfo.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.BarGroupFileInfo.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.BarGroupFileInfo.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.BarGroupFileInfo.TitleHotStyle.TextColor = System.Drawing.SystemColors.ActiveCaption;
+            this.BarImage.TitleHotStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
+            this.BarImage.TitleHotStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
+            this.BarImage.TitleHotStyle.CornerDiameter = 3;
+            this.BarImage.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleHotStyle.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
             // 
             // 
             // 
-            this.BarGroupFileInfo.TitleStyle.BackColor = System.Drawing.SystemColors.Window;
-            this.BarGroupFileInfo.TitleStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
-            this.BarGroupFileInfo.TitleStyle.CornerDiameter = 3;
-            this.BarGroupFileInfo.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.BarGroupFileInfo.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.BarGroupFileInfo.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.BarGroupFileInfo.TitleStyle.TextColor = System.Drawing.SystemColors.ControlText;
+            this.BarImage.TitleStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
+            this.BarImage.TitleStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
+            this.BarImage.TitleStyle.CornerDiameter = 3;
+            this.BarImage.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleStyle.TextColor = System.Drawing.Color.White;
             // 
             // label1
             // 
@@ -327,9 +319,9 @@
             this.highlighter1.SetHighlightOnFocus(this.cboNameExtension, true);
             this.cboNameExtension.Items.AddRange(new object[] {
             "",
-            "SR.",
-            "JR.",
-            "JR.II",
+            "Sr.",
+            "Jr.",
+            "Jr.II",
             "I",
             "II",
             "III",
@@ -436,25 +428,25 @@
             this.txtMi.TabIndex = 11;
             this.txtMi.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtSpouseLastname
+            // txtMaidenMiddlename
             // 
-            this.txtSpouseLastname.BackColor = System.Drawing.Color.White;
+            this.txtMaidenMiddlename.BackColor = System.Drawing.Color.White;
             // 
             // 
             // 
-            this.txtSpouseLastname.Border.Class = "TextBoxBorder";
-            this.txtSpouseLastname.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtSpouseLastname.DisabledBackColor = System.Drawing.Color.White;
-            this.txtSpouseLastname.Enabled = false;
-            this.txtSpouseLastname.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSpouseLastname.ForeColor = System.Drawing.Color.Blue;
-            this.highlighter1.SetHighlightOnFocus(this.txtSpouseLastname, true);
-            this.txtSpouseLastname.Location = new System.Drawing.Point(83, 74);
-            this.txtSpouseLastname.Margin = new System.Windows.Forms.Padding(4);
-            this.txtSpouseLastname.Name = "txtSpouseLastname";
-            this.txtSpouseLastname.PreventEnterBeep = true;
-            this.txtSpouseLastname.Size = new System.Drawing.Size(199, 22);
-            this.txtSpouseLastname.TabIndex = 3;
+            this.txtMaidenMiddlename.Border.Class = "TextBoxBorder";
+            this.txtMaidenMiddlename.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtMaidenMiddlename.DisabledBackColor = System.Drawing.Color.White;
+            this.txtMaidenMiddlename.Enabled = false;
+            this.txtMaidenMiddlename.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaidenMiddlename.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtMaidenMiddlename, true);
+            this.txtMaidenMiddlename.Location = new System.Drawing.Point(83, 74);
+            this.txtMaidenMiddlename.Margin = new System.Windows.Forms.Padding(4);
+            this.txtMaidenMiddlename.Name = "txtMaidenMiddlename";
+            this.txtMaidenMiddlename.PreventEnterBeep = true;
+            this.txtMaidenMiddlename.Size = new System.Drawing.Size(199, 22);
+            this.txtMaidenMiddlename.TabIndex = 3;
             // 
             // txtImageFile
             // 
@@ -472,7 +464,7 @@
             this.txtImageFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtImageFile.ForeColor = System.Drawing.Color.Blue;
             this.highlighter1.SetHighlightOnFocus(this.txtImageFile, true);
-            this.txtImageFile.Location = new System.Drawing.Point(11, 218);
+            this.txtImageFile.Location = new System.Drawing.Point(11, 198);
             this.txtImageFile.Margin = new System.Windows.Forms.Padding(4);
             this.txtImageFile.Name = "txtImageFile";
             this.txtImageFile.PreventEnterBeep = true;
@@ -553,7 +545,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.txtSpouseLastname);
+            this.groupBox1.Controls.Add(this.txtMaidenMiddlename);
             this.groupBox1.Controls.Add(this.lblSpouse);
             this.groupBox1.Controls.Add(this.txtMi);
             this.groupBox1.Controls.Add(this.label11);
@@ -584,9 +576,9 @@
             this.lblSpouse.Location = new System.Drawing.Point(80, 56);
             this.lblSpouse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSpouse.Name = "lblSpouse";
-            this.lblSpouse.Size = new System.Drawing.Size(185, 14);
+            this.lblSpouse.Size = new System.Drawing.Size(182, 14);
             this.lblSpouse.TabIndex = 2;
-            this.lblSpouse.Text = "Spouse Lastname (If applicable):";
+            this.lblSpouse.Text = "Maiden Middlename (If Married):";
             // 
             // label11
             // 
@@ -641,29 +633,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Birth Info:";
             // 
-            // ImageProgressBar
-            // 
-            // 
-            // 
-            // 
-            this.ImageProgressBar.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ImageProgressBar.Location = new System.Drawing.Point(18, 185);
-            this.ImageProgressBar.Name = "ImageProgressBar";
-            this.ImageProgressBar.Size = new System.Drawing.Size(136, 13);
-            this.ImageProgressBar.TabIndex = 110;
-            this.ImageProgressBar.Text = "progressBarX1";
-            this.ImageProgressBar.Visible = false;
-            // 
-            // picImage
-            // 
-            this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picImage.Location = new System.Drawing.Point(10, 29);
-            this.picImage.Name = "picImage";
-            this.picImage.Size = new System.Drawing.Size(152, 152);
-            this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picImage.TabIndex = 107;
-            this.picImage.TabStop = false;
-            // 
             // bar1
             // 
             this.bar1.AntiAlias = true;
@@ -714,7 +683,6 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.chkNoContactNumber);
             this.groupBox3.Controls.Add(this.txtContact);
             this.groupBox3.Controls.Add(this.lstContacts);
             this.groupBox3.Controls.Add(this.btnDeleteNumber);
@@ -724,19 +692,6 @@
             this.groupBox3.TabIndex = 154;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Contact Numbers:";
-            // 
-            // chkNoContactNumber
-            // 
-            // 
-            // 
-            // 
-            this.chkNoContactNumber.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.chkNoContactNumber.Location = new System.Drawing.Point(6, 20);
-            this.chkNoContactNumber.Name = "chkNoContactNumber";
-            this.chkNoContactNumber.Size = new System.Drawing.Size(159, 19);
-            this.chkNoContactNumber.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.chkNoContactNumber.TabIndex = 0;
-            this.chkNoContactNumber.Text = "NO Contact Numbers";
             // 
             // txtContact
             // 
@@ -751,7 +706,7 @@
             this.txtContact.DisabledBackColor = System.Drawing.Color.White;
             this.txtContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContact.ForeColor = System.Drawing.Color.Black;
-            this.txtContact.Location = new System.Drawing.Point(24, 47);
+            this.txtContact.Location = new System.Drawing.Point(24, 26);
             this.txtContact.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.txtContact.Name = "txtContact";
             this.txtContact.PreventEnterBeep = true;
@@ -771,13 +726,12 @@
             // 
             this.lstContacts.BackgroundStyle.Class = "ListBoxAdv";
             this.lstContacts.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.lstContacts.CheckStateMember = null;
             this.lstContacts.ContainerControlProcessDialogKey = true;
             this.lstContacts.DragDropSupport = true;
             this.lstContacts.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-            this.lstContacts.Location = new System.Drawing.Point(24, 77);
+            this.lstContacts.Location = new System.Drawing.Point(24, 56);
             this.lstContacts.Name = "lstContacts";
-            this.lstContacts.Size = new System.Drawing.Size(151, 132);
+            this.lstContacts.Size = new System.Drawing.Size(151, 149);
             this.lstContacts.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.lstContacts.TabIndex = 142;
             this.lstContacts.Text = "listBoxAdv1";
@@ -801,53 +755,21 @@
             this.btnDeleteNumber.ThemeAware = true;
             this.btnDeleteNumber.Click += new System.EventHandler(this.btnDeleteNumber_Click);
             // 
-            // imageGroup
+            // imageList1
             // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Phone");
             // 
+            // picImage
             // 
-            // 
-            this.imageGroup.BackStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(214)))), ((int)(((byte)(223)))), ((int)(((byte)(247)))));
-            this.imageGroup.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.imageGroup.BackStyle.BorderBottomWidth = 1;
-            this.imageGroup.BackStyle.BorderColor = System.Drawing.Color.White;
-            this.imageGroup.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.imageGroup.BackStyle.BorderLeftWidth = 1;
-            this.imageGroup.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
-            this.imageGroup.BackStyle.BorderRightWidth = 1;
-            this.imageGroup.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.imageGroup.CanCustomize = false;
-            this.imageGroup.Cursor = System.Windows.Forms.Cursors.Default;
-            this.imageGroup.ExpandButtonVisible = false;
-            this.imageGroup.Expanded = true;
-            this.imageGroup.Name = "imageGroup";
-            this.imageGroup.StockStyle = DevComponents.DotNetBar.eExplorerBarStockStyle.SystemColors;
-            this.imageGroup.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.controlContainerItem1,
-            this.controlContainerItem3,
-            this.labelItem12,
-            this.controlContainerItem2,
-            this.labelItem1});
-            this.imageGroup.Text = "Image Profile";
-            // 
-            // 
-            // 
-            this.imageGroup.TitleHotStyle.BackColor = System.Drawing.Color.White;
-            this.imageGroup.TitleHotStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(211)))), ((int)(((byte)(247)))));
-            this.imageGroup.TitleHotStyle.CornerDiameter = 3;
-            this.imageGroup.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.imageGroup.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.imageGroup.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.imageGroup.TitleHotStyle.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
-            // 
-            // 
-            // 
-            this.imageGroup.TitleStyle.BackColor = System.Drawing.Color.White;
-            this.imageGroup.TitleStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(199)))), ((int)(((byte)(211)))), ((int)(((byte)(247)))));
-            this.imageGroup.TitleStyle.CornerDiameter = 3;
-            this.imageGroup.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.imageGroup.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.imageGroup.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
-            this.imageGroup.TitleStyle.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(93)))), ((int)(((byte)(198)))));
+            this.picImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picImage.Location = new System.Drawing.Point(10, 29);
+            this.picImage.Name = "picImage";
+            this.picImage.Size = new System.Drawing.Size(152, 152);
+            this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picImage.TabIndex = 113;
+            this.picImage.TabStop = false;
             // 
             // controlContainerItem1
             // 
@@ -857,20 +779,12 @@
             this.controlContainerItem1.Name = "controlContainerItem1";
             this.controlContainerItem1.ThemeAware = true;
             // 
-            // controlContainerItem3
+            // lblCameraCounter
             // 
-            this.controlContainerItem3.AllowItemResize = false;
-            this.controlContainerItem3.Control = this.ImageProgressBar;
-            this.controlContainerItem3.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
-            this.controlContainerItem3.Name = "controlContainerItem3";
-            this.controlContainerItem3.ThemeAware = true;
-            // 
-            // labelItem12
-            // 
-            this.labelItem12.Name = "labelItem12";
-            this.labelItem12.Text = "Image File:";
-            this.labelItem12.TextAlignment = System.Drawing.StringAlignment.Center;
-            this.labelItem12.ThemeAware = true;
+            this.lblCameraCounter.Name = "lblCameraCounter";
+            this.lblCameraCounter.Text = "Image File";
+            this.lblCameraCounter.TextAlignment = System.Drawing.StringAlignment.Center;
+            this.lblCameraCounter.ThemeAware = true;
             // 
             // controlContainerItem2
             // 
@@ -878,20 +792,13 @@
             this.controlContainerItem2.Control = this.txtImageFile;
             this.controlContainerItem2.MenuVisibility = DevComponents.DotNetBar.eMenuVisibility.VisibleAlways;
             this.controlContainerItem2.Name = "controlContainerItem2";
-            this.controlContainerItem2.Text = "9999";
             this.controlContainerItem2.ThemeAware = true;
             // 
-            // labelItem1
+            // lblSpace
             // 
-            this.labelItem1.Name = "labelItem1";
-            this.labelItem1.Text = " ";
-            this.labelItem1.ThemeAware = true;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Phone");
+            this.lblSpace.Name = "lblSpace";
+            this.lblSpace.Text = " ";
+            this.lblSpace.ThemeAware = true;
             // 
             // frmContacts_Add
             // 
@@ -917,11 +824,11 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -953,26 +860,22 @@
         private System.Windows.Forms.Label label10;
         private DevComponents.DotNetBar.Controls.TextBoxX txtMi;
         private System.Windows.Forms.Label label11;
-        private DevComponents.DotNetBar.Controls.TextBoxX txtSpouseLastname;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtMaidenMiddlename;
         private System.Windows.Forms.Label lblSpouse;
-        private DevComponents.DotNetBar.Controls.ProgressBarX ImageProgressBar;
         private DevComponents.DotNetBar.Controls.TextBoxX txtImageFile;
-        private System.Windows.Forms.PictureBox picImage;
         private System.Windows.Forms.Panel panel1;
         private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.ButtonItem btnOk;
         private DevComponents.DotNetBar.ButtonItem btnCancel;
         private System.Windows.Forms.GroupBox groupBox3;
-        private DevComponents.DotNetBar.Controls.CheckBoxX chkNoContactNumber;
         private DevComponents.DotNetBar.Controls.TextBoxX txtContact;
         private DevComponents.DotNetBar.ListBoxAdv lstContacts;
         private DevComponents.DotNetBar.ButtonX btnDeleteNumber;
-        private DevComponents.DotNetBar.ExplorerBarGroupItem imageGroup;
-        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem1;
-        private DevComponents.DotNetBar.LabelItem labelItem12;
-        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem2;
-        private DevComponents.DotNetBar.LabelItem labelItem1;
-        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem3;
         private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.PictureBox picImage;
+        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem1;
+        private DevComponents.DotNetBar.LabelItem lblCameraCounter;
+        private DevComponents.DotNetBar.ControlContainerItem controlContainerItem2;
+        private DevComponents.DotNetBar.LabelItem lblSpace;
     }
 }

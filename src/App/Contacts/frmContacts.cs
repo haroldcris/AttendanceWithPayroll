@@ -7,6 +7,7 @@ using Library.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Winform.Contacts
@@ -21,7 +22,10 @@ namespace Winform.Contacts
             Header = " CONTACTS MANAGEMENT ";
             HeaderColor = App.BarColor.ContactColor;
 
-            Load += (s, e) => { RefreshData(); };
+            Shown += (s, e) =>
+            {
+                RefreshData();
+            };
 
             //Image Size
             imageList1.ImageSize = new Size(30, 30);
@@ -33,6 +37,23 @@ namespace Winform.Contacts
         protected override IEnumerable<Entity> LoadItems()
         {
             ItemDataCollection.LoadItemsFromDb();
+
+
+            imageList1.Images.Clear();
+
+            Task.Factory.StartNew(() =>
+            {
+                foreach (var currentItem in ItemDataCollection.Items)
+                {
+                    var img = InputControls.GetImage(currentItem.CameraCounter);
+
+                    if (img != null)
+                    {
+                        imageList1.Images.Add(currentItem.CameraCounter, img);
+                    }
+                }
+            });
+
             return ItemDataCollection.Items;
         }
 
@@ -100,18 +121,26 @@ namespace Winform.Contacts
             //row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
 
 
-            var img = InputControls.GetImage(currentItem.CameraCounter);
+            //Task.Run(() =>
+            //{
 
-            if (img != null)
-            {
-                imageList1.Images.Add(currentItem.CameraCounter, img);
 
-                row.Cells["CameraCounter"].CellStyles.Default.Image = imageList1.Images[currentItem.CameraCounter];
-                row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
-            }
+            //    var img = InputControls.GetImage(currentItem.CameraCounter);
 
-            row.RowHeight = row.GetMaximumRowHeight();
+            //    if (img != null)
+            //    {
+            //        imageList1.Images.Add(currentItem.CameraCounter, img);
 
+            //        //row.Cells["CameraCounter"].CellStyles.Default.Image = imageList1.Images[currentItem.CameraCounter];
+            //        //row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
+            //    }
+
+            //    //row.RowHeight = row.GetMaximumRowHeight();
+
+            //});
+
+            row.Cells["CameraCounter"].CellStyles.Default.Image = imageList1.Images[currentItem.CameraCounter];
+            row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
 
             row.ShowRecordInfo(currentItem);
 
@@ -150,9 +179,10 @@ namespace Winform.Contacts
                 if (frm.ShowDialog() != DialogResult.OK) return null;
             }
 
-            App.LogAction("Contacts", "Created " + newItem.Name.Fullname);
-
             ItemDataCollection.Add(newItem);
+
+            App.LogAction("Contacts", "Created Contact: " + newItem.Name.Fullname);
+
             return newItem;
         }
 
@@ -170,7 +200,7 @@ namespace Winform.Contacts
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
 
-            App.LogAction("Contacts", "Updated " + selectedItem.Name.Fullname);
+            App.LogAction("Contacts", "Updated Contact: " + selectedItem.Name.Fullname);
 
             return true;
         }
@@ -195,9 +225,10 @@ namespace Winform.Contacts
                     var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
 
-                    App.LogAction("Contacts", "Deleted " + ((Person)currentItem).Name.Fullname);
-
                     ItemDataCollection.Remove((Person)currentItem);
+
+                    App.LogAction("Contacts", "Deleted Contact: " + ((Person)currentItem).Name.Fullname);
+
                 }
                 catch (Exception ex)
                 {

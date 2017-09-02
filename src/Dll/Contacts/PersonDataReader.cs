@@ -12,19 +12,35 @@ namespace Dll.Contacts
     {
 
 
-        public Person GetItemWithId(int id)
+        public Person GetItemWithMobileNumbers(int id)
         {
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
 
-                return GetItemWithId(id, db);
+                var item = GetItem(id, db);
+
+                //Load All Mobile Numbers
+                item.MobileNumbers.LoadItemsFromDb(db);
+
+
+                return item;
+            }
+        }
+
+        public Person GetItem(int id)
+        {
+            using (var db = Connection.CreateConnection())
+            {
+                db.Open();
+
+                return GetItem(id, db);
 
             }
         }
 
 
-        public Person GetItemWithId(int id, SqlConnection db)
+        public Person GetItem(int id, SqlConnection db)
         {
             var result = db.Query("Select * from Person where Id = @Id", new { Id = id }).FirstOrDefault();
 
@@ -35,7 +51,7 @@ namespace Dll.Contacts
 
 
             //Load All Mobile Numbers
-            item.MobileNumbers.LoadItemsFromDb(db);
+            //item.MobileNumbers.LoadItemsFromDb(db);
 
 
             item.RowStatus = RecordStatus.NoChanges;
@@ -69,9 +85,9 @@ namespace Dll.Contacts
 
         public IEnumerable<Person> SearchItem(string searchItem, SearchStyleEnum searchStyle)
         {
-            const string query = @"SELECT p.Id , [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [SpouseLastname], [Gender]
+            const string query = @"SELECT p.Id , [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender]
                                    from person p 
-                                    where Replace(DBO.FULLNAME(LASTNAME, FIRSTNAME, MIDDLENAME, MiddleInitial, 0, NAMEEXTENSION, SpouseLastname),' ','') like @Criteria";
+                                    where Replace(DBO.FULLNAME(LASTNAME, FIRSTNAME, MIDDLENAME, MiddleInitial, 0, NAMEEXTENSION),' ','') like @Criteria";
 
             var results = Search.SearchData<dynamic>(searchItem, query, searchStyle);
 

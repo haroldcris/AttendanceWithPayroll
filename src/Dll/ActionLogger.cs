@@ -1,5 +1,6 @@
 ﻿using AiTech.LiteOrm.Database;
 using Dapper;
+using System;
 using System.Collections.Generic;
 
 namespace Dll
@@ -10,6 +11,7 @@ namespace Dll
         public string Module { get; set; }
         public string Action { get; set; }
         public string Username { get; set; }
+        public DateTime Created { get; set; }
 
 
 
@@ -27,7 +29,7 @@ namespace Dll
 
         public static IEnumerable<ActionLog> GetAllLogs()
         {
-            const string query = "SELECT * from ActionLog";
+            const string query = "SELECT * from ActionLog Order By Created Desc";
 
             using (var db = Connection.CreateConnection())
             {

@@ -140,14 +140,14 @@ namespace Winform
             ((MdiClientForm)frm).Title = formTitle;
             frm.Tag = formTitle;
 
+
             frm.WindowState = FormWindowState.Minimized;
             frm.Show();
-            frm.Update();
             frm.WindowState = FormWindowState.Maximized;
+            frm.Update();
 
 
-
-            App.LogAction("", "Opened " + title);
+            App.LogAction("Main", "Opened " + title);
             Cursor.Current = Cursors.Default;
         }
 
@@ -284,6 +284,17 @@ namespace Winform
                 frm.ShowDialog();
             }
             //
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            //
+        }
+
+        private void btnAuditTrail_Click(object sender, EventArgs e)
+        {
+            var f = new frmAuditTrail();
+            f.ShowDialog();
         }
     }
 }

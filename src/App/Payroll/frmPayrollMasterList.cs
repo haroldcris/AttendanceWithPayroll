@@ -42,43 +42,48 @@ namespace Winform.Payroll
         {
             SGrid.InitializeGrid();
 
+
             var grid = SGrid.PrimaryGrid;
             var col = new GridColumn();
-
-            grid.Filter.Visible = true;
-            grid.EnableFiltering = true;
-
-            grid.EnableColumnFiltering = true;
-
-            grid.FilterMatchType = FilterMatchType.RegularExpressions;
 
             SGrid.RowDoubleClick += (s, e) => { btnPayViewProfile.RaiseClick(); };
             SGrid.ColumnHeaderMouseUp += SGrid_ColumnHeaderMouseUp;
 
+            grid.GroupByRow.Visible = false;
+            grid.Filter.Visible = true;
+            grid.EnableFiltering = true;
 
-            SGrid.CreateColumn("Empnum", "Employee No.", 80, Alignment.MiddleCenter);
+            grid.EnableColumnFiltering = true;
+            grid.FilterMatchType = FilterMatchType.RegularExpressions;       
 
 
-            SGrid.CreateColumn("Name", "Name", 200);
-            SGrid.CreateColumn("Gender", "Gender", 50, Alignment.MiddleCenter);
+            grid.CheckBoxes = true;
 
-            SGrid.CreateColumn("Position", "Position", 90);
-            SGrid.CreateColumn("SG", "Grade", 40, Alignment.MiddleCenter);
-            SGrid.CreateColumn("Step", "Step", 40, Alignment.MiddleCenter);
 
-            SGrid.CreateColumn("Department", "Department", 90);
+            grid.CreateColumn("Empnum", "Employee No.", 100, Alignment.MiddleCenter);
 
-            SGrid.CreateColumn("TaxCode", "Tax Code", 80);
 
-            col = SGrid.CreateColumn("Exemption", "Tax Exemption", 80, Alignment.MiddleRight);
+            grid.CreateColumn("Name", "Name", 200);
+            grid.CreateColumn("Gender", "Gender", 50, Alignment.MiddleCenter).Visible = false;
+
+            grid.CreateColumn("Position", "Position", 90);
+
+            grid.CreateColumn("Department", "Department", 90);
+
+            grid.CreateColumn("TaxCode", "Tax Code", 80);
+
+            grid.CreateColumn("SG", "SG", 40, Alignment.MiddleCenter);
+            grid.CreateColumn("Step", "Step", 40, Alignment.MiddleCenter);
+
+            col = grid.CreateColumn("Exemption", "Tax Exemption", 80, Alignment.MiddleRight);
             col.RenderType = typeof(GridDoubleInputEditControl);
 
 
-            col = SGrid.CreateColumn("BasicSalary", "Salary", 80, Alignment.MiddleRight);
+            col = grid.CreateColumn("BasicSalary", "Salary", 80, Alignment.MiddleRight);
             col.RenderType = typeof(GridDoubleInputEditControl);
 
 
-            col = SGrid.CreateColumn("Active", "Active", 40, Alignment.MiddleCenter);
+            col = grid.CreateColumn("Active", "Active", 40, Alignment.MiddleCenter);
             col.RenderType = typeof(GridCheckBoxXEditControl);
 
 
@@ -135,7 +140,7 @@ namespace Winform.Payroll
 
             row.Cells["Active"].Value = currentItem.Active;
 
-            //row.CellStyles.Default = currentItem.Active ? null : new CellVisualStyle() { Background = new Background(System.Drawing.Color.LightGray) };
+            row.CellStyles.Default = currentItem.Active ? null : new CellVisualStyle() { Background = new Background(System.Drawing.Color.LightGray) };
 
             row.ShowRecordInfo(currentItem);
         }
@@ -175,7 +180,7 @@ namespace Winform.Payroll
 
 
             // Check for Duplicate
-            var duplicate = (new PayrollEmployeeDataReader()).Has(employeeId);
+            var duplicate = (new PayrollEmployeeDataReader()).HasExistingId(employeeId);
             if (duplicate)
             {
                 MessageDialog.Show("Duplicate Record", "An existing Record with same employee already exists");
@@ -203,6 +208,9 @@ namespace Winform.Payroll
                 if (frm.ShowDialog() != DialogResult.OK) return null;
             }
 
+
+            App.LogAction("Payroll", "Added Employee : " + newItem.EmployeeClass.EmpNum);
+
             return newItem;
         }
 
@@ -217,6 +225,8 @@ namespace Winform.Payroll
                 frm.ItemData = selectedItem;
                 if (frm.ShowDialog() != DialogResult.OK) return false;
             }
+
+            App.LogAction("Payroll", "Updated Employee : " + selectedItem.EmployeeClass.EmpNum);
 
             return true;
         }
@@ -242,6 +252,9 @@ namespace Winform.Payroll
                     dataWriter.SaveChanges();
 
                     ItemDataCollection.Remove((PayrollEmployee)currentItem);
+
+                    App.LogAction("Payroll", "Deleted Employee : " + deletedItem.EmployeeClass.EmpNum);
+
                 }
                 catch (Exception ex)
                 {
@@ -417,5 +430,44 @@ namespace Winform.Payroll
             RefreshData();
         }
 
+        private void btnCheckAll_Click(object sender, EventArgs e)
+        {
+            var grid = SGrid.PrimaryGrid;
+
+            foreach (var gridElement in grid.Rows)
+            {
+                var row = (GridRow)gridElement;
+
+                row.Checked = true;
+            }
+
+            grid.SelectAll();
+        }
+
+        private void btnUncheckAll_Click(object sender, EventArgs e)
+        {
+            var grid = SGrid.PrimaryGrid;
+
+            foreach (var gridElement in grid.Rows)
+            {
+                var row = (GridRow)gridElement;
+
+                row.Checked = false;
+            }
+
+            grid.ClearSelectedRows();
+        }
+
+        private void btnToggleCheck_Click(object sender, EventArgs e)
+        {
+            var grid = SGrid.PrimaryGrid;
+
+            foreach (var gridElement in grid.GetSelectedRows())
+            {
+                var row = (GridRow)gridElement;
+
+                row.Checked = !row.Checked;
+            }
+        }
     }
 }

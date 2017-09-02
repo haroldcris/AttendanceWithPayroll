@@ -121,6 +121,41 @@
             this.expandableSplitter1.Location = new System.Drawing.Point(109, 39);
             this.expandableSplitter1.Size = new System.Drawing.Size(6, 497);
             // 
+            // BarImage
+            // 
+            // 
+            // 
+            // 
+            this.BarImage.BackStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.BarImage.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderBottomWidth = 1;
+            this.BarImage.BackStyle.BorderColor = System.Drawing.Color.White;
+            this.BarImage.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderLeftWidth = 1;
+            this.BarImage.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.BarImage.BackStyle.BorderRightWidth = 1;
+            this.BarImage.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            // 
+            // 
+            // 
+            this.BarImage.TitleHotStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
+            this.BarImage.TitleHotStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
+            this.BarImage.TitleHotStyle.CornerDiameter = 3;
+            this.BarImage.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleHotStyle.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(66)))), ((int)(((byte)(142)))), ((int)(((byte)(255)))));
+            // 
+            // 
+            // 
+            this.BarImage.TitleStyle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(73)))), ((int)(((byte)(181)))));
+            this.BarImage.TitleStyle.BackColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(93)))), ((int)(((byte)(206)))));
+            this.BarImage.TitleStyle.CornerDiameter = 3;
+            this.BarImage.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.BarImage.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.BarImage.TitleStyle.TextColor = System.Drawing.Color.White;
+            // 
             // highlighter1
             // 
             this.highlighter1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
@@ -232,11 +267,8 @@
             this.cboDepartment.FormattingEnabled = true;
             this.highlighter1.SetHighlightOnFocus(this.cboDepartment, true);
             this.cboDepartment.Items.AddRange(new object[] {
-            "Pampanga",
-            "Bulacan",
-            "Nueva Ecija",
-            "Manila",
-            "Makati"});
+            "High School",
+            "College"});
             this.cboDepartment.Location = new System.Drawing.Point(152, 35);
             this.cboDepartment.Name = "cboDepartment";
             this.cboDepartment.Size = new System.Drawing.Size(138, 23);

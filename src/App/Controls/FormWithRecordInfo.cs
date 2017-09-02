@@ -7,6 +7,14 @@ namespace Winform
         public FormWithRecordInfo()
         {
             InitializeComponent();
+
+
+            Load += FormWithRecordInfo_Load;
+        }
+
+        protected void FormWithRecordInfo_Load(object sender, System.EventArgs e)
+        {
+            //BarImage.Visible = false;
         }
 
         protected void ShowFileInfo(IRecordInfo info)

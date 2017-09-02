@@ -10,7 +10,7 @@ namespace Dll.Payroll
         public void LoadAllItemsFromDb()
         {
 
-            const string query = @"SELECT p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [SpouseLastname], [Gender], [CameraCounter]
+            const string query = @"SELECT p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], [CameraCounter]
                                     , e.Id EmployeeId, [EmpNum], [CivilStatus], [Pagibig], [PhilHealth], [SSS], [Tin]
                                     , pe.Id Id, DateHired, Department, TaxId, PositionId, Step, pe.Created, pe.Modified, pe.CreatedBy, pe.ModifiedBy, Active
                                     , pos.Id PositionId, pos.Code PositionCode, pos.Description PositionDescription

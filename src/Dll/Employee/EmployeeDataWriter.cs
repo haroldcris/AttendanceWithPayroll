@@ -20,11 +20,6 @@ namespace Dll.Employee
                 new SqlParameter( "@CivilStatus", SqlDbType.NVarChar, 10) ,
                 new SqlParameter( "@Height", SqlDbType.Decimal) ,
                 new SqlParameter( "@Weight", SqlDbType.Decimal) ,
-                new SqlParameter( "@GSIS", SqlDbType.NVarChar, 15) ,
-                new SqlParameter( "@Pagibig", SqlDbType.NVarChar, 15) ,
-                new SqlParameter( "@PhilHealth", SqlDbType.NVarChar, 15) ,
-                new SqlParameter( "@SSS", SqlDbType.NVarChar, 15) ,
-                new SqlParameter( "@Tin", SqlDbType.NVarChar, 15) ,
                 new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,
                 new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
             });
@@ -34,11 +29,6 @@ namespace Dll.Employee
             cmd.Parameters["@CivilStatus"].Value = item.CivilStatus;
             cmd.Parameters["@Height"].Value = item.Height;
             cmd.Parameters["@Weight"].Value = item.Weight;
-            cmd.Parameters["@GSIS"].Value = item.GSIS;
-            cmd.Parameters["@Pagibig"].Value = item.Pagibig;
-            cmd.Parameters["@PhilHealth"].Value = item.PhilHealth;
-            cmd.Parameters["@SSS"].Value = item.SSS;
-            cmd.Parameters["@Tin"].Value = item.Tin;
             cmd.Parameters["@CreatedBy"].Value = DataWriterUsername;
             cmd.Parameters["@ModifiedBy"].Value = DataWriterUsername;
 
@@ -47,9 +37,9 @@ namespace Dll.Employee
         protected override string CreateSqlInsertQuery()
         {
             return @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
-                          INSERT INTO [Employee] ([PersonId],[EmpNum],[CivilStatus],[Height],[Weight],[GSIS],[Pagibig],[PhilHealth],[SSS],[Tin],[CreatedBy],[ModifiedBy]) 
+                          INSERT INTO [Employee] ([PersonId],[EmpNum],[CivilStatus],[Height],[Weight],[CreatedBy],[ModifiedBy]) 
                              OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
-                          VALUES (@PersonId,@EmpNum,@CivilStatus,@Height,@Weight,@GSIS,@Pagibig,@PhilHealth,@SSS,@Tin,@CreatedBy,@ModifiedBy)
+                          VALUES (@PersonId,@EmpNum,@CivilStatus,@Height,@Weight,@CreatedBy,@ModifiedBy)
                           SELECT * from @output";
         }
 
