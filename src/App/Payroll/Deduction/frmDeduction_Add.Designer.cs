@@ -146,7 +146,7 @@
             this.swMandatory.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.swMandatory.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.highlighter1.SetHighlightOnFocus(this.swMandatory, true);
-            this.swMandatory.Location = new System.Drawing.Point(101, 26);
+            this.swMandatory.Location = new System.Drawing.Point(89, 89);
             this.swMandatory.Name = "swMandatory";
             this.swMandatory.OffText = "NO";
             this.swMandatory.OnBackColor = System.Drawing.Color.GreenYellow;
@@ -160,6 +160,7 @@
             this.swMandatory.ValueFalse = "1";
             this.swMandatory.ValueObject = "0";
             this.swMandatory.ValueTrue = "1";
+            this.swMandatory.Visible = false;
             // 
             // btnCancel
             // 
@@ -207,7 +208,7 @@
             this.swActive.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.swActive.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.highlighter1.SetHighlightOnFocus(this.swActive, true);
-            this.swActive.Location = new System.Drawing.Point(101, 83);
+            this.swActive.Location = new System.Drawing.Point(89, 55);
             this.swActive.Name = "swActive";
             this.swActive.OffText = "NO";
             this.swActive.OnBackColor = System.Drawing.Color.GreenYellow;
@@ -232,7 +233,7 @@
             this.swPriority.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.swPriority.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.highlighter1.SetHighlightOnFocus(this.swPriority, true);
-            this.swPriority.Location = new System.Drawing.Point(101, 53);
+            this.swPriority.Location = new System.Drawing.Point(89, 25);
             this.swPriority.Name = "swPriority";
             this.swPriority.OffText = "NO";
             this.swPriority.OnBackColor = System.Drawing.Color.GreenYellow;
@@ -243,6 +244,7 @@
             this.swPriority.SwitchClickTogglesValue = true;
             this.swPriority.SwitchWidth = 25;
             this.swPriority.TabIndex = 8;
+            this.swPriority.Value = true;
             this.swPriority.ValueFalse = "1";
             this.swPriority.ValueObject = "1";
             this.swPriority.ValueTrue = "1";
@@ -266,7 +268,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.ForeColor = System.Drawing.Color.Black;
-            this.label5.Location = new System.Drawing.Point(18, 83);
+            this.label5.Location = new System.Drawing.Point(6, 55);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(38, 15);
             this.label5.TabIndex = 11;
@@ -276,7 +278,7 @@
             // 
             this.lblPriority.AutoSize = true;
             this.lblPriority.ForeColor = System.Drawing.Color.Black;
-            this.lblPriority.Location = new System.Drawing.Point(18, 53);
+            this.lblPriority.Location = new System.Drawing.Point(6, 25);
             this.lblPriority.Name = "lblPriority";
             this.lblPriority.Size = new System.Drawing.Size(44, 15);
             this.lblPriority.TabIndex = 9;
@@ -286,11 +288,12 @@
             // 
             this.lblMandatory.AutoSize = true;
             this.lblMandatory.ForeColor = System.Drawing.Color.Black;
-            this.lblMandatory.Location = new System.Drawing.Point(18, 26);
+            this.lblMandatory.Location = new System.Drawing.Point(6, 89);
             this.lblMandatory.Name = "lblMandatory";
             this.lblMandatory.Size = new System.Drawing.Size(65, 15);
             this.lblMandatory.TabIndex = 7;
             this.lblMandatory.Text = "Mandatory";
+            this.lblMandatory.Visible = false;
             // 
             // frmDeduction_Add
             // 

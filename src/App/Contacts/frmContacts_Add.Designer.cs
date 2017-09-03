@@ -179,6 +179,7 @@
             // 
             // txtLastname
             // 
+            this.txtLastname.AutoSelectAll = true;
             this.txtLastname.BackColor = System.Drawing.Color.White;
             // 
             // 
@@ -269,6 +270,7 @@
             // 
             // txtFirstname
             // 
+            this.txtFirstname.AutoSelectAll = true;
             this.txtFirstname.BackColor = System.Drawing.Color.White;
             // 
             // 
@@ -288,6 +290,7 @@
             // 
             // txtMiddlename
             // 
+            this.txtMiddlename.AutoSelectAll = true;
             this.txtMiddlename.BackColor = System.Drawing.Color.White;
             // 
             // 
@@ -410,6 +413,7 @@
             // 
             // txtMi
             // 
+            this.txtMi.AutoSelectAll = true;
             this.txtMi.BackColor = System.Drawing.Color.White;
             // 
             // 
@@ -430,6 +434,7 @@
             // 
             // txtMaidenMiddlename
             // 
+            this.txtMaidenMiddlename.AutoSelectAll = true;
             this.txtMaidenMiddlename.BackColor = System.Drawing.Color.White;
             // 
             // 
@@ -565,7 +570,7 @@
             this.groupBox1.Size = new System.Drawing.Size(293, 243);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Name Information (Maiden Name):";
+            this.groupBox1.Text = "Name Information):";
             // 
             // lblSpouse
             // 
@@ -576,9 +581,9 @@
             this.lblSpouse.Location = new System.Drawing.Point(80, 56);
             this.lblSpouse.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSpouse.Name = "lblSpouse";
-            this.lblSpouse.Size = new System.Drawing.Size(182, 14);
+            this.lblSpouse.Size = new System.Drawing.Size(172, 14);
             this.lblSpouse.TabIndex = 2;
-            this.lblSpouse.Text = "Maiden Middlename (If Married):";
+            this.lblSpouse.Text = "If Marreid: Maiden Middlename";
             // 
             // label11
             // 

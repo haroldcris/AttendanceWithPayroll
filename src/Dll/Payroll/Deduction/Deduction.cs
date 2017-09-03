@@ -50,5 +50,24 @@ namespace Dll.Payroll
 
             return changes;
         }
+
+
+
+        public void Map(dynamic recordSource)
+        {
+            if (recordSource.Id != null) Id = recordSource.Id;
+            if (recordSource.Code != null) Code = recordSource.Code;
+            if (recordSource.Description != null) Description = recordSource.Description;
+            if (recordSource.Mandatory != null) Mandatory = recordSource.Mandatory;
+            if (recordSource.Priority != null) Priority = recordSource.Priority;
+            if (recordSource.Active != null) Active = recordSource.Active;
+
+            if (recordSource.Created != null) Created = recordSource.Created;
+            if (recordSource.Modified != null) Modified = recordSource.Modified;
+            if (recordSource.CreatedBy != null) CreatedBy = recordSource.CreatedBy;
+            if (recordSource.ModifiedBy != null) ModifiedBy = recordSource.ModifiedBy;
+        }
+
+
     }
 }

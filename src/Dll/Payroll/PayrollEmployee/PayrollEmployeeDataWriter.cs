@@ -1,6 +1,7 @@
 ﻿using AiTech.LiteOrm.Database;
 using System.Data;
 using System.Data.SqlClient;
+using AiTech.LiteOrm;
 
 namespace Dll.Payroll
 {
@@ -56,9 +57,30 @@ namespace Dll.Payroll
 
         public override bool SaveChanges()
         {
+            this.AfterItemSave += PayrollEmployeeDataWriter_AfterItemSave;
             return Write(_ => _.EmployeeClass.PersonClass.Name.Fullname);
         }
 
+        private void PayrollEmployeeDataWriter_AfterItemSave(object sender, EntityEventArgs e)
+        {
+            var item = (PayrollEmployee)e.ItemData;
 
+
+            //if (item.RowStatus == RecordStatus.NewRecord)
+            //{
+                //Update Id of Children
+                foreach (var o in item.Deductions.Items)
+                {
+                    o.EmpId = item.Id;
+                }
+            //}
+
+
+            //PayEmpDeductions
+            var writer = new PayrollEmployeeDeductionDataWriter(DataWriterUsername, item.Deductions);
+            writer.SaveChanges(e.Connection, e.Transaction);
+
+
+        }
     }
 }

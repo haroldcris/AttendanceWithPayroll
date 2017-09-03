@@ -85,7 +85,7 @@ namespace Dll.Contacts
 
         public IEnumerable<Person> SearchItem(string searchItem, SearchStyleEnum searchStyle)
         {
-            const string query = @"SELECT p.Id , [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender]
+            const string query = @"SELECT p.Id , [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [BirthDate], [Gender]
                                    from person p 
                                     where Replace(DBO.FULLNAME(LASTNAME, FIRSTNAME, MIDDLENAME, MiddleInitial, 0, NAMEEXTENSION),' ','') like @Criteria";
 

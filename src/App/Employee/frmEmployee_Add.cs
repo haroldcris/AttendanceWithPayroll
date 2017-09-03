@@ -3,6 +3,7 @@ using Dll.Contacts;
 using Dll.Employee;
 using Library.Tools;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 using Winform.Contacts;
 
@@ -82,10 +83,19 @@ namespace Winform.Employee
 
             if (Int32.Parse(txtEmpNum.Text) <= 0)
             {
+                txtEmpNum.Focus();
+
                 MessageDialog.ShowValidationError(txtEmpNum, "Invalid Employee Number");
                 return false;
             }
 
+
+            var reader = new EmployeeDataReader();
+            if (reader.HasExistingEmployeeNumber(Convert.ToInt32(txtEmpNum.Text)))
+            {
+                MessageDialog.ShowValidationError(txtEmpNum, "Employee Number already exists!");
+                return false;
+            }
 
 
             if (string.IsNullOrEmpty(txtCitizenship.Text.Trim()))
@@ -165,8 +175,7 @@ Gender:
 
             template = template.Replace("%extension%", person.Name.NameExtension.ToUpper());
 
-            template = template.Replace("%gender%", person.Gender == GenderType.Male ? "Male" : "Female");
-
+            template = !person.Name.Lastname.Any() ? template.Replace("%gender%", "") : template.Replace("%gender%", person.Gender == GenderType.Male ? "Male" : "Female");
 
             if (person.Name.MaidenMiddlename.Length == 0)
             {

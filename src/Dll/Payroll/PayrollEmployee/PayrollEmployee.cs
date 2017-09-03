@@ -56,6 +56,11 @@ namespace Dll.Payroll
         public Tax TaxClass { get; set; }
 
 
+
+
+        public PayrollEmployeeDeductionCollection Deductions { get; set; }
+
+
         public PayrollEmployee()
         {
             DataMapper = new PayrollEmployeeDataMapper(this);
@@ -65,6 +70,7 @@ namespace Dll.Payroll
             PositionClass = new Position();
             TaxClass = new Tax();
 
+            Deductions = new PayrollEmployeeDeductionCollection(this);
         }
 
         public override void StartTrackingChanges()
@@ -104,7 +110,6 @@ namespace Dll.Payroll
 
             return changes;
         }
-
 
     }
 

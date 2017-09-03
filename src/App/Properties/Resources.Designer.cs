@@ -743,6 +743,16 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Planner_40px {
+            get {
+                object obj = ResourceManager.GetObject("Planner_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Plus_16px {
             get {
                 object obj = ResourceManager.GetObject("Plus_16px", resourceCulture);

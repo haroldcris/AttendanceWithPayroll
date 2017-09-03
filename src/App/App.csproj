@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.1292</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1347</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -187,10 +187,10 @@
     <Compile Include="Payroll\Deduction\frmDeduction_Open.Designer.cs">
       <DependentUpon>frmDeduction_Open.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\Employees\frmPayrollEmployees_Add.cs">
+    <Compile Include="Payroll\PayrollEmployees\frmPayrollEmployees_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\Employees\frmPayrollEmployees_Add.Designer.cs">
+    <Compile Include="Payroll\PayrollEmployees\frmPayrollEmployees_Add.Designer.cs">
       <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
     </Compile>
     <Compile Include="frmAuditTrail.cs">
@@ -247,11 +247,11 @@
     <Compile Include="Payroll\Position\frmPosition_Add.Designer.cs">
       <DependentUpon>frmPosition_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="Payroll\Employees\frmAddEmployeeDeduction.cs">
+    <Compile Include="Payroll\PayrollEmployees\frmEmployeeDeduction_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Payroll\Employees\frmAddEmployeeDeduction.Designer.cs">
-      <DependentUpon>frmAddEmployeeDeduction.cs</DependentUpon>
+    <Compile Include="Payroll\PayrollEmployees\frmEmployeeDeduction_Add.Designer.cs">
+      <DependentUpon>frmEmployeeDeduction_Add.cs</DependentUpon>
     </Compile>
     <Compile Include="Payroll\frmPayrollMasterList.cs">
       <SubType>Form</SubType>
@@ -352,7 +352,7 @@
     <EmbeddedResource Include="Payroll\Deduction\frmDeduction_Open.resx">
       <DependentUpon>frmDeduction_Open.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\Employees\frmPayrollEmployees_Add.resx">
+    <EmbeddedResource Include="Payroll\PayrollEmployees\frmPayrollEmployees_Add.resx">
       <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAuditTrail.resx">
@@ -382,8 +382,8 @@
     <EmbeddedResource Include="Payroll\Position\frmPosition_Add.resx">
       <DependentUpon>frmPosition_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Payroll\Employees\frmAddEmployeeDeduction.resx">
-      <DependentUpon>frmAddEmployeeDeduction.cs</DependentUpon>
+    <EmbeddedResource Include="Payroll\PayrollEmployees\frmEmployeeDeduction_Add.resx">
+      <DependentUpon>frmEmployeeDeduction_Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\frmPayrollMasterList.resx">
       <DependentUpon>frmPayrollMasterList.cs</DependentUpon>
@@ -623,6 +623,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\Planner_40px.png" />
     <None Include="Resources\Wall Mount Camera_40px.png" />
     <None Include="Resources\User Folder_24px.png" />
     <None Include="Resources\Send Hot List_24px.png" />
@@ -662,7 +663,9 @@
     <None Include="Resources\Sell_40px.png" />
     <None Include="Resources\People_40px.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Payroll\Generate\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

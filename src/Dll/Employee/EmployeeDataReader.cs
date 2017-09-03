@@ -127,5 +127,21 @@ namespace Dll.Employee
             }
         }
 
+        public bool HasExistingEmployeeNumber(int empnum)
+        {
+            const string query = "SELECT 1 from Employee where Empnum = @Empnum";
+
+            using (var db = Connection.CreateConnection())
+            {
+                db.Open();
+
+                var result = db.Query<int>(query, new { Empnum = empnum });
+
+                return result.Any();
+            }
+
+
+        }
+
     }
 }

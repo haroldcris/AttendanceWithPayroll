@@ -156,6 +156,8 @@ namespace Winform.Contacts
                 FlexGrid[row, "name"] = item.Name.Fullname;
                 FlexGrid[row, "gender"] = item.Gender == GenderType.Male ? "Male" : "Female";
 
+                FlexGrid[row, "birthdate"] = item.BirthDate.ToString("yyyy MMM dd");
+
                 FlexGrid.Select(1, 0);
 
             }

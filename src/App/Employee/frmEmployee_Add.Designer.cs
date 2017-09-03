@@ -55,6 +55,7 @@
             this.listBoxItem4 = new DevComponents.DotNetBar.ListBoxItem();
             this.controlContainerItem1 = new DevComponents.DotNetBar.ControlContainerItem();
             this.lblSpace = new DevComponents.DotNetBar.LabelItem();
+            this.highlighter1 = new DevComponents.DotNetBar.Validator.Highlighter();
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).BeginInit();
             this.RecordInfoPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
@@ -260,6 +261,7 @@
             // 
             // txtEmpNum
             // 
+            this.txtEmpNum.AutoSelectAll = true;
             this.txtEmpNum.BackColor = System.Drawing.Color.White;
             // 
             // 
@@ -269,6 +271,7 @@
             this.txtEmpNum.DisabledBackColor = System.Drawing.Color.White;
             this.txtEmpNum.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtEmpNum.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtEmpNum, true);
             this.txtEmpNum.Location = new System.Drawing.Point(14, 26);
             this.txtEmpNum.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.txtEmpNum.Name = "txtEmpNum";
@@ -317,6 +320,7 @@
             this.cboCivilStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboCivilStatus.ForeColor = System.Drawing.Color.Blue;
             this.cboCivilStatus.FormattingEnabled = true;
+            this.highlighter1.SetHighlightOnFocus(this.cboCivilStatus, true);
             this.cboCivilStatus.Items.AddRange(new object[] {
             "Single",
             "Married",
@@ -330,6 +334,7 @@
             // 
             // txtWeight
             // 
+            this.txtWeight.AutoOverwrite = true;
             // 
             // 
             // 
@@ -338,6 +343,7 @@
             this.txtWeight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
             this.txtWeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtWeight.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtWeight, true);
             this.txtWeight.Increment = 1D;
             this.txtWeight.Location = new System.Drawing.Point(108, 114);
             this.txtWeight.Name = "txtWeight";
@@ -347,6 +353,7 @@
             // 
             // txtHeight
             // 
+            this.txtHeight.AutoOverwrite = true;
             // 
             // 
             // 
@@ -355,6 +362,7 @@
             this.txtHeight.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
             this.txtHeight.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtHeight.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtHeight, true);
             this.txtHeight.Increment = 1D;
             this.txtHeight.Location = new System.Drawing.Point(108, 80);
             this.txtHeight.Name = "txtHeight";
@@ -412,6 +420,7 @@
             this.txtCitizenship.DisabledBackColor = System.Drawing.Color.White;
             this.txtCitizenship.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCitizenship.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtCitizenship, true);
             this.txtCitizenship.Location = new System.Drawing.Point(108, 50);
             this.txtCitizenship.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.txtCitizenship.Name = "txtCitizenship";
@@ -456,6 +465,10 @@
             this.lblSpace.Name = "lblSpace";
             this.lblSpace.Text = " ";
             this.lblSpace.ThemeAware = true;
+            // 
+            // highlighter1
+            // 
+            this.highlighter1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             // 
             // frmEmployee_Add
             // 
@@ -515,5 +528,6 @@
         private DevComponents.DotNetBar.LabelItem lblSpace;
         private System.Windows.Forms.Label label4;
         private DevComponents.DotNetBar.Controls.TextBoxX txtEmpNum;
+        private DevComponents.DotNetBar.Validator.Highlighter highlighter1;
     }
 }

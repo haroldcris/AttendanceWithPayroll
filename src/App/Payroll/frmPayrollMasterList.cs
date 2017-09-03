@@ -54,7 +54,7 @@ namespace Winform.Payroll
             grid.EnableFiltering = true;
 
             grid.EnableColumnFiltering = true;
-            grid.FilterMatchType = FilterMatchType.RegularExpressions;       
+            grid.FilterMatchType = FilterMatchType.RegularExpressions;
 
 
             grid.CheckBoxes = true;
@@ -93,7 +93,7 @@ namespace Winform.Payroll
             CreateGridContextMenu();
 
             //Define Sort
-            grid.SetSort(SGrid.PrimaryGrid.Columns["Lastname"]);
+            grid.SetSort(SGrid.PrimaryGrid.Columns["Name"]);
 
         }
 
@@ -198,8 +198,16 @@ namespace Winform.Payroll
             var newItem = new PayrollEmployee
             {
                 EmployeeId = employee.Id,
-                EmployeeClass = employee
+                EmployeeClass = employee ,
+                Active = true
             };
+
+
+
+            // Mandatory Deductions
+            newItem.Deductions.AddMandatoryDeductions();
+            DeductionGenerator.UpdateMandatoryDeductions(newItem);
+
 
 
             using (var frm = new frmPayrollEmployee_Add())

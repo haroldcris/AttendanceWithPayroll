@@ -118,7 +118,7 @@ namespace Winform.Contacts
             row.Cells["BirthProvince"].Value = currentItem.BirthProvince;
             row.Cells["BirthTown"].Value = currentItem.BirthTown;
 
-            //row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
+            row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
 
 
             //Task.Run(() =>
@@ -139,8 +139,8 @@ namespace Winform.Contacts
 
             //});
 
-            row.Cells["CameraCounter"].CellStyles.Default.Image = imageList1.Images[currentItem.CameraCounter];
-            row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
+            // row.Cells["CameraCounter"].CellStyles.Default.Image = imageList1.Images[currentItem.CameraCounter];
+            // row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
 
             row.ShowRecordInfo(currentItem);
 

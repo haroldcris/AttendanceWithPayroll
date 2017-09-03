@@ -55,7 +55,7 @@
             this.txtIdNum.ForeColor = System.Drawing.Color.Black;
             this.txtIdNum.Location = new System.Drawing.Point(116, 256);
             this.txtIdNum.Name = "txtIdNum";
-            this.txtIdNum.Size = new System.Drawing.Size(309, 20);
+            this.txtIdNum.Size = new System.Drawing.Size(398, 20);
             this.txtIdNum.TabIndex = 1;
             // 
             // label1
@@ -81,7 +81,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.Black;
             this.groupBox1.Location = new System.Drawing.Point(11, 60);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(420, 181);
+            this.groupBox1.Size = new System.Drawing.Size(509, 181);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Search:";
@@ -97,7 +97,7 @@
             "Plate No.",
             "Motor No.",
             "Chassis No."});
-            this.cboSearchType.Location = new System.Drawing.Point(215, 19);
+            this.cboSearchType.Location = new System.Drawing.Point(304, 19);
             this.cboSearchType.Name = "cboSearchType";
             this.cboSearchType.Size = new System.Drawing.Size(115, 21);
             this.cboSearchType.TabIndex = 1;
@@ -110,7 +110,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.FlexGrid.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop;
-            this.FlexGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.FlexGrid.BackColor = System.Drawing.Color.White;
             this.FlexGrid.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.FixedSingle;
             this.FlexGrid.ColumnInfo = resources.GetString("FlexGrid.ColumnInfo");
             this.FlexGrid.ExtendLastCol = true;
@@ -119,7 +119,7 @@
             this.FlexGrid.Location = new System.Drawing.Point(8, 46);
             this.FlexGrid.Name = "FlexGrid";
             this.FlexGrid.Rows.DefaultSize = 19;
-            this.FlexGrid.Size = new System.Drawing.Size(406, 122);
+            this.FlexGrid.Size = new System.Drawing.Size(495, 122);
             this.FlexGrid.StyleInfo = resources.GetString("FlexGrid.StyleInfo");
             this.FlexGrid.TabIndex = 3;
             // 
@@ -139,7 +139,7 @@
             this.txtSearch.Location = new System.Drawing.Point(8, 19);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.PreventEnterBeep = true;
-            this.txtSearch.Size = new System.Drawing.Size(201, 20);
+            this.txtSearch.Size = new System.Drawing.Size(290, 20);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.WatermarkText = "Type Search Item";
             // 
@@ -149,7 +149,7 @@
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSearch.Location = new System.Drawing.Point(336, 17);
+            this.btnSearch.Location = new System.Drawing.Point(425, 17);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.ShowSubItems = false;
             this.btnSearch.Size = new System.Drawing.Size(74, 22);
@@ -166,7 +166,7 @@
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnOk.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOk.Image = global::Winform.Properties.Resources.Ok_24px;
-            this.btnOk.Location = new System.Drawing.Point(255, 287);
+            this.btnOk.Location = new System.Drawing.Point(344, 287);
             this.btnOk.Name = "btnOk";
             this.btnOk.ShowSubItems = false;
             this.btnOk.Size = new System.Drawing.Size(83, 31);
@@ -186,7 +186,7 @@
             this.panelEx1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelEx1.Location = new System.Drawing.Point(0, 0);
             this.panelEx1.Name = "panelEx1";
-            this.panelEx1.Size = new System.Drawing.Size(443, 54);
+            this.panelEx1.Size = new System.Drawing.Size(532, 54);
             this.panelEx1.Style.Alignment = System.Drawing.StringAlignment.Center;
             this.panelEx1.Style.BackColor1.ColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.PanelBackground;
             this.panelEx1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
@@ -231,7 +231,7 @@
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::Winform.Properties.Resources.Cancel_24px;
-            this.btnCancel.Location = new System.Drawing.Point(344, 287);
+            this.btnCancel.Location = new System.Drawing.Point(433, 287);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.ShowSubItems = false;
             this.btnCancel.Size = new System.Drawing.Size(81, 31);
@@ -245,7 +245,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(443, 336);
+            this.ClientSize = new System.Drawing.Size(532, 336);
             this.Controls.Add(this.panelEx1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);

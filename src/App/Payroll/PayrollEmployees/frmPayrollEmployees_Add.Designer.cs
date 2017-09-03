@@ -65,7 +65,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.c1FlexGrid1 = new C1.Win.C1FlexGrid.C1FlexGrid();
+            this.FlexGridDeductions = new C1.Win.C1FlexGrid.C1FlexGrid();
             this.superTabControl1 = new DevComponents.DotNetBar.SuperTabControl();
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.itemPanel1 = new DevComponents.DotNetBar.ItemPanel();
@@ -93,7 +93,7 @@
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FlexGridDeductions)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).BeginInit();
             this.superTabControl1.SuspendLayout();
             this.superTabControlPanel1.SuspendLayout();
@@ -738,22 +738,23 @@
             this.label2.TabIndex = 4;
             this.label2.Text = "Position:";
             // 
-            // c1FlexGrid1
+            // FlexGridDeductions
             // 
-            this.c1FlexGrid1.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None;
-            this.c1FlexGrid1.AllowEditing = false;
-            this.c1FlexGrid1.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.FixedSingle;
-            this.c1FlexGrid1.ColumnInfo = resources.GetString("c1FlexGrid1.ColumnInfo");
-            this.c1FlexGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.c1FlexGrid1.ExtendLastCol = true;
-            this.c1FlexGrid1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.c1FlexGrid1.Location = new System.Drawing.Point(0, 40);
-            this.c1FlexGrid1.Name = "c1FlexGrid1";
-            this.c1FlexGrid1.Rows.Count = 1;
-            this.c1FlexGrid1.Rows.DefaultSize = 20;
-            this.c1FlexGrid1.Size = new System.Drawing.Size(500, 408);
-            this.c1FlexGrid1.StyleInfo = resources.GetString("c1FlexGrid1.StyleInfo");
-            this.c1FlexGrid1.TabIndex = 0;
+            this.FlexGridDeductions.AllowDragging = C1.Win.C1FlexGrid.AllowDraggingEnum.None;
+            this.FlexGridDeductions.AllowEditing = false;
+            this.FlexGridDeductions.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.FixedSingle;
+            this.FlexGridDeductions.ColumnInfo = resources.GetString("FlexGridDeductions.ColumnInfo");
+            this.FlexGridDeductions.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.FlexGridDeductions.ExtendLastCol = true;
+            this.FlexGridDeductions.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.FlexGridDeductions.Location = new System.Drawing.Point(0, 40);
+            this.FlexGridDeductions.Name = "FlexGridDeductions";
+            this.FlexGridDeductions.Rows.Count = 1;
+            this.FlexGridDeductions.Rows.DefaultSize = 20;
+            this.FlexGridDeductions.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.RowRange;
+            this.FlexGridDeductions.Size = new System.Drawing.Size(524, 408);
+            this.FlexGridDeductions.StyleInfo = resources.GetString("FlexGridDeductions.StyleInfo");
+            this.FlexGridDeductions.TabIndex = 0;
             // 
             // superTabControl1
             // 
@@ -781,7 +782,7 @@
             this.superTabControl1.ReorderTabsEnabled = false;
             this.superTabControl1.SelectedTabFont = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.superTabControl1.SelectedTabIndex = 0;
-            this.superTabControl1.Size = new System.Drawing.Size(500, 477);
+            this.superTabControl1.Size = new System.Drawing.Size(524, 477);
             this.superTabControl1.TabFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.superTabControl1.TabIndex = 26;
             this.superTabControl1.Tabs.AddRange(new DevComponents.DotNetBar.BaseItem[] {
@@ -790,12 +791,12 @@
             // 
             // superTabControlPanel1
             // 
-            this.superTabControlPanel1.Controls.Add(this.c1FlexGrid1);
+            this.superTabControlPanel1.Controls.Add(this.FlexGridDeductions);
             this.superTabControlPanel1.Controls.Add(this.itemPanel1);
             this.superTabControlPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.superTabControlPanel1.Location = new System.Drawing.Point(0, 29);
             this.superTabControlPanel1.Name = "superTabControlPanel1";
-            this.superTabControlPanel1.Size = new System.Drawing.Size(500, 448);
+            this.superTabControlPanel1.Size = new System.Drawing.Size(524, 448);
             this.superTabControlPanel1.TabIndex = 1;
             this.superTabControlPanel1.TabItem = this.superTabItem1;
             // 
@@ -816,7 +817,7 @@
             this.itemPanel1.Location = new System.Drawing.Point(0, 0);
             this.itemPanel1.Name = "itemPanel1";
             this.itemPanel1.ReserveLeftSpace = false;
-            this.itemPanel1.Size = new System.Drawing.Size(500, 40);
+            this.itemPanel1.Size = new System.Drawing.Size(524, 40);
             this.itemPanel1.TabIndex = 9;
             this.itemPanel1.Text = "itemPanel1";
             // 
@@ -826,6 +827,7 @@
             this.btnAddDeduction.Image = global::Winform.Properties.Resources.Add_List_30;
             this.btnAddDeduction.Name = "btnAddDeduction";
             this.btnAddDeduction.Text = "Add Deduction";
+            this.btnAddDeduction.Click += new System.EventHandler(this.btnAddDeduction_Click);
             // 
             // btnDeleteDeduction
             // 
@@ -833,6 +835,7 @@
             this.btnDeleteDeduction.Image = global::Winform.Properties.Resources.Delete_File_24px;
             this.btnDeleteDeduction.Name = "btnDeleteDeduction";
             this.btnDeleteDeduction.Text = "Delete Deduction";
+            this.btnDeleteDeduction.Click += new System.EventHandler(this.btnDeleteDeduction_Click);
             // 
             // superTabItem1
             // 
@@ -852,7 +855,7 @@
             this.btnCancel});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(960, 39);
+            this.bar1.Size = new System.Drawing.Size(984, 39);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 35;
@@ -997,13 +1000,13 @@
             this.panel2.Location = new System.Drawing.Point(440, 39);
             this.panel2.Name = "panel2";
             this.panel2.Padding = new System.Windows.Forms.Padding(10);
-            this.panel2.Size = new System.Drawing.Size(520, 497);
+            this.panel2.Size = new System.Drawing.Size(544, 497);
             this.panel2.TabIndex = 37;
             // 
             // frmPayrollEmployee_Add
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.ClientSize = new System.Drawing.Size(960, 536);
+            this.ClientSize = new System.Drawing.Size(984, 536);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.bar1);
@@ -1028,7 +1031,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.c1FlexGrid1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.FlexGridDeductions)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.superTabControl1)).EndInit();
             this.superTabControl1.ResumeLayout(false);
             this.superTabControlPanel1.ResumeLayout(false);
@@ -1066,7 +1069,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.ComboBox cboPosition;
         private System.Windows.Forms.Label label2;
-        private C1.Win.C1FlexGrid.C1FlexGrid c1FlexGrid1;
+        private C1.Win.C1FlexGrid.C1FlexGrid FlexGridDeductions;
         private System.Windows.Forms.ComboBox cboTax;
         private System.Windows.Forms.Label label4;
         private DevComponents.DotNetBar.SuperTabControl superTabControl1;

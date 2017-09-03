@@ -1,7 +1,9 @@
-﻿using AiTech.Tools.Winform;
+﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
 using Dll.Payroll;
 using Library.Tools;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Winform.Payroll
@@ -14,7 +16,7 @@ namespace Winform.Payroll
 
         public PayrollEmployee ItemData;
 
-
+        //private PayrollEmployeeDeductionCollection _tempPayEmpDeductions;
         public frmPayrollEmployee_Add()
         {
             InitializeComponent();
@@ -23,12 +25,11 @@ namespace Winform.Payroll
 
             DirtyStatus = new DirtyFormHandler(this);
 
-            btnAddDeduction.Click += btnAddDeduction_Click;
-
             Load_Positions();
             Load_Tax();
 
             Load += (s, e) => ShowData();
+
         }
 
 
@@ -72,12 +73,7 @@ namespace Winform.Payroll
 
 
 
-        private void btnAddDeduction_Click(object sender, EventArgs e)
-        {
-            //throw new NotImplementedException();
-            var frm = new frmAddEmployeeDeduction();
-            frm.ShowDialog();
-        }
+
 
         private void btnOk_Click(object sender, EventArgs e)
         {
@@ -86,6 +82,58 @@ namespace Winform.Payroll
 
         private bool DataIsValid()
         {
+
+            if (dtDateHired.Value.Date.Year < 1950)
+            {
+                MessageDialog.ShowValidationError(dtDateHired, "Date Hired is Invalid");
+                return false;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(cboDepartment.Text))
+            {
+                MessageDialog.ShowValidationError(cboDepartment, "Department Data is Required");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(cboPosition.Text))
+            {
+                MessageDialog.ShowValidationError(cboPosition, "Position is Required");
+                return false;
+            }
+
+            if (cboStep.SelectedIndex == -1)
+            {
+                MessageDialog.ShowValidationError(cboStep, "Step Data is Required");
+                return false;
+            }
+
+
+            if (cboTax.SelectedIndex == -1)
+            {
+                MessageDialog.ShowValidationError(cboTax, "Tax Exemption Data is Required");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTin.Text))
+            {
+                MessageDialog.ShowValidationError(txtTin, "TIN data is required");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPhilHealth.Text))
+            {
+                MessageDialog.ShowValidationError(txtPhilHealth, "PhilHealth Number is Required");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtPagIbig.Text))
+            {
+                MessageDialog.ShowValidationError(txtPagIbig, "PAG-IBIG Number is Required");
+                return false;
+            }
+
+
             return true;
         }
 
@@ -106,7 +154,7 @@ namespace Winform.Payroll
             dtDateHired.Value = ItemData.DateHired;
             cboDepartment.Text = ItemData.Department;
 
-            //cboPosition
+            // Match Position 
             foreach (var p in cboPosition.Items)
             {
                 if (((PositionSalaryGrade)p).PositionId != ItemData.PositionId) continue;
@@ -116,7 +164,7 @@ namespace Winform.Payroll
 
             cboStep.Text = ItemData.Step.ToString();
 
-
+            // Match Tax Code
             foreach (var t in cboTax.Items)
             {
                 if (((Tax)t).Id != ItemData.TaxId) continue;
@@ -125,12 +173,20 @@ namespace Winform.Payroll
             }
 
 
+            // Deductions
+            if (ItemData.Id != 0)
+                Load_Deductions();
+
+            Show_Deductions();
+
+
             expandableSplitter1.Expanded = ItemData.Id != 0;
 
             ShowFileInfo(ItemData);
 
             DirtyStatus.Clear();
         }
+
 
 
         private void Show_NameProfile()
@@ -146,7 +202,6 @@ Employee No.:<br/>
 
             lblNameProfile.Text = template;
         }
-
 
 
 
@@ -185,17 +240,25 @@ Employee No.:<br/>
             ItemData.Active = switchActive.Value;
 
 
+            //Deductions
+            //ItemData.Deductions;
+
+
+
             //UPdate BASIC SALARY
             var reader = new SalaryScheduleDataReader();
             ItemData.BasicSalary = reader.GetSalaryOfPositionId(ItemData.PositionId, ItemData.Step, DateTime.Now);
 
+
             var writer = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, ItemData);
             writer.SaveChanges();
+
 
             DirtyStatus.Clear();
 
             DialogResult = DialogResult.OK;
             return true;
+
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -204,5 +267,72 @@ Employee No.:<br/>
         }
 
 
+        private void Show_Deductions()
+        {
+            FlexGridDeductions.Rows.Count = 1;
+
+            if (!ItemData.Deductions.Items.Any()) return;
+
+            FlexGridDeductions.Rows.Count = ItemData.Deductions.Items.Count();
+
+
+            FlexGridDeductions.Rows.Count = ItemData.Deductions.Items.Count() + 1;
+
+            var row = 0;
+            foreach (var item in ItemData.Deductions.Items)
+            {
+                row++;
+                FlexGridDeductions[row, "code"] = item.DeductionClass.Code;
+                FlexGridDeductions[row, "description"] = item.DeductionClass.Description;
+                FlexGridDeductions[row, "amount"] = item.Amount;
+
+
+                FlexGridDeductions[row, "startdate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateFrom;
+                FlexGridDeductions[row, "enddate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateTo;
+
+                FlexGridDeductions.Rows[row].UserData = item;
+            }
+        }
+
+        private void Load_Deductions()
+        {
+            ItemData.Deductions.LoadAllItemsWithDeduction();
+        }
+
+
+        private void btnAddDeduction_Click(object sender, EventArgs e)
+        {
+            var newItem = new PayrollEmployeeDeduction();
+
+            using (var frm = new frmEmployeeDeduction_Add())
+            {
+                frm.ItemData = newItem;
+                if (frm.ShowDialog() != DialogResult.OK) return;
+
+                //newItem = frm.ItemData;
+            }
+
+            ItemData.Deductions.Add(newItem);
+            Show_Deductions();
+        }
+
+        private void btnDeleteDeduction_Click(object sender, EventArgs e)
+        {
+            if (FlexGridDeductions.Row < 1) return;
+
+            var item = (PayrollEmployeeDeduction)FlexGridDeductions.Rows[FlexGridDeductions.Row].UserData;
+
+
+            if (item.DeductionClass.Mandatory)
+            {
+                MessageDialog.ShowValidationError(FlexGridDeductions, "You Can NOT delete Mandatory Deduction");
+                return;
+            }
+
+
+            item.RowStatus = RecordStatus.DeletedRecord;
+
+            FlexGridDeductions.RemoveItem(FlexGridDeductions.Row);
+        }
     }
 }
