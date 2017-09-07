@@ -503,6 +503,16 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Downloads_40px {
+            get {
+                object obj = ResourceManager.GetObject("Downloads_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Edit_File_24px {
             get {
                 object obj = ResourceManager.GetObject("Edit_File_24px", resourceCulture);
@@ -763,6 +773,16 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Print_40px {
+            get {
+                object obj = ResourceManager.GetObject("Print_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Process_30px {
             get {
                 object obj = ResourceManager.GetObject("Process_30px", resourceCulture);
@@ -806,6 +826,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Save_30 {
             get {
                 object obj = ResourceManager.GetObject("Save_30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Security_Checked_40px {
+            get {
+                object obj = ResourceManager.GetObject("Security Checked_40px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

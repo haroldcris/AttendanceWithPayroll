@@ -49,6 +49,7 @@ namespace Dll.Payroll
                     item.Map(result);
 
                     item.DeductionClass.Map(result);
+                    item.DeductionClass.Id = result.DeductionId;
 
                     item.StartTrackingChanges();
 
@@ -93,5 +94,6 @@ namespace Dll.Payroll
                 }
             }
         }
+
     }
 }

@@ -1,6 +1,10 @@
-﻿using Dll.Location;
+﻿using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.SuperGrid;
+using Dll.Location;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
 
@@ -111,8 +115,63 @@ namespace Library.Tools
 
 
 
+        public static void InvokeIfRequired(this ISynchronizeInvoke obj, MethodInvoker action)
+        {
+            if (obj.InvokeRequired)
+            {
+                var args = new object[0];
+                obj.Invoke(action, args);
+            }
+            else
+            {
+                action();
+            }
+        }
 
 
+
+
+
+
+        public static void CreateGridContextMenu(GridPanel grid, ButtonItem menuButton)
+        {
+            //mnuGridColumn.SubItems.Clear();
+            menuButton.ThemeAware = true;
+
+            for (var c = 0; c < grid.Columns.Count; c++)
+            {
+                var col = grid.Columns[c];
+
+                var btn = new ButtonItem
+                {
+                    Text = col.HeaderText,
+                    AutoCheckOnClick = true,
+                    AutoCollapseOnClick = false,
+                    HotTrackingStyle = eHotTrackingStyle.Color,
+                    Checked = col.Visible == true,
+                    ThemeAware = true,
+                    Enabled = c > 1,
+                    Tag = col,
+                };
+
+                //btn.Command = cmdContext;
+
+                menuButton.SubItems.Add(btn);
+            }
+
+        }
+
+
+
+        public static bool UserCanAccess(IWin32Window owner, string privilege)
+        {
+            var hasAccess = App.CurrentUser.User.RoleClass.Can(privilege);
+
+            if (!hasAccess)
+                MessageDialog.Show(owner, "Restricted Access", "Your account is not allowed to access this feature");
+
+            return hasAccess;
+        }
 
     }
 }

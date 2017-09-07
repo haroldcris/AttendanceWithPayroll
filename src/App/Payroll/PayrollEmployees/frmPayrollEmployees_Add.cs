@@ -246,8 +246,7 @@ Employee No.:<br/>
 
 
             //UPdate BASIC SALARY
-            var reader = new SalaryScheduleDataReader();
-            ItemData.BasicSalary = reader.GetSalaryOfPositionId(ItemData.PositionId, ItemData.Step, DateTime.Now);
+            ItemData.UpdateBasicSalary(DateTime.Now);
 
 
             var writer = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, ItemData);

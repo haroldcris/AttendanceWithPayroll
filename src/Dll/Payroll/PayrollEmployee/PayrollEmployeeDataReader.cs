@@ -32,7 +32,7 @@ namespace Dll.Payroll
                                     , e.Id EmployeeId, [EmpNum], [CivilStatus], [GSIS], [Pagibig], [PhilHealth], [SSS], [Tin]
                                     , pe.Id Id, DateHired, Department, TaxId, PositionId, Step, pe.Created, pe.Modified, pe.CreatedBy, pe.ModifiedBy
                                     , pos.Id PositionId, pos.Code PositionCode, pos.Description PositionDescription
-                                    , tax.Id TaxId, tax.ShortDesc, tax.Exemption
+                                    , tax.Id TaxId, tax.ShortDesc, tax.Exemption , tax.Description TaxDescription
                                     from Person p
                                         inner join Employee e on p.Id = e.PersonId
                                         inner join Payroll_Employee pe on pe.EmployeeId = e.Id 
@@ -76,6 +76,7 @@ namespace Dll.Payroll
                     item.TaxClass.Id = reader.TaxId;
                     item.TaxClass.Exemption = reader.Exemption;
                     item.TaxClass.ShortDesc = reader.ShortDesc;
+                    item.TaxClass.Description = reader.TaxDescription;
 
 
                     item.RowStatus = RecordStatus.NoChanges;

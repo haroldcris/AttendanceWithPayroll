@@ -345,9 +345,6 @@
         private DevComponents.DotNetBar.ItemContainer itemContainer1;
         private DevComponents.DotNetBar.Controls.ProgressBarX progressBarX1;
         protected DevComponents.DotNetBar.RibbonBarMergeContainer ribbonBarMergeContainer1;
-        private DevComponents.DotNetBar.ButtonItem btnAdd;
-        private DevComponents.DotNetBar.ButtonItem btnEdit;
-        private DevComponents.DotNetBar.ButtonItem btnDelete;
         private DevComponents.DotNetBar.ButtonItem btnRefresh;
         private DevComponents.DotNetBar.ContextMenuBar contextMenuBar1;
         private DevComponents.DotNetBar.ButtonItem mnuGridColumn;
@@ -355,5 +352,8 @@
         private DevComponents.DotNetBar.Command cmdContext;
         protected DevComponents.DotNetBar.SuperGrid.SuperGridControl SGrid;
         protected DevComponents.DotNetBar.RibbonBar ribbonBar6;
+        protected DevComponents.DotNetBar.ButtonItem btnAdd;
+        protected DevComponents.DotNetBar.ButtonItem btnEdit;
+        protected DevComponents.DotNetBar.ButtonItem btnDelete;
     }
 }

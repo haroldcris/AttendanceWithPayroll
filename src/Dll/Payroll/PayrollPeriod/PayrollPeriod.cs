@@ -10,7 +10,7 @@ namespace Dll.Payroll
     {
         string PayrollType { get; set; }
         DateTime DateCovered { get; set; }
-        string PayrollCategory { get; set; }
+        //string PayrollCategory { get; set; }
         string Remarks { get; set; }
 
     }
@@ -24,11 +24,18 @@ namespace Dll.Payroll
         #region Default Properties
         public string PayrollType { get; set; }
         public DateTime DateCovered { get; set; }
-        public string PayrollCategory { get; set; }
+        //public string PayrollCategory { get; set; }
         public string Remarks { get; set; }
 
         #endregion
 
+        public PeriodEmployeeCollection Employees { get; set; }
+
+
+        public PayrollPeriod()
+        {
+            Employees = new PeriodEmployeeCollection(this);
+        }
 
         public override void StartTrackingChanges()
         {
@@ -36,7 +43,7 @@ namespace Dll.Payroll
             {
                 {"PayrollType", this.PayrollType},
                 {"DateCovered", this.DateCovered},
-                {"PayrollCategory", this.PayrollCategory},
+                //{"PayrollCategory", this.PayrollCategory},
                 {"Remarks", this.Remarks}
             };
         }
@@ -46,7 +53,7 @@ namespace Dll.Payroll
             var changes = new Dictionary<string, object>();
             if (!Equals(this.PayrollType, OriginalValues["PayrollType"])) changes.Add("PayrollType", this.PayrollType);
             if (!Equals(this.DateCovered, OriginalValues["DateCovered"])) changes.Add("DateCovered", this.DateCovered);
-            if (!Equals(this.PayrollCategory, OriginalValues["PayrollCategory"])) changes.Add("PayrollCategory", this.PayrollCategory);
+            //if (!Equals(this.PayrollCategory, OriginalValues["PayrollCategory"])) changes.Add("PayrollCategory", this.PayrollCategory);
             if (!Equals(this.Remarks, OriginalValues["Remarks"])) changes.Add("Remarks", this.Remarks);
 
 

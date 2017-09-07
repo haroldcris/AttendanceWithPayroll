@@ -3,13 +3,17 @@ using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro.ColorTables;
 using Dll.Contacts;
+using Dll.Payroll;
 using Idms;
+using Library.Tools;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 using Winform.Accounts;
 using Winform.Contacts;
 using Winform.Employee;
+
+
 
 namespace Winform
 {
@@ -35,7 +39,6 @@ namespace Winform
 
             #region Event handler
 
-            btnContacts.Click += (s, e) => OpenForm(new Contacts.frmContacts(), "Contacts Management");
 
             btnBatch.Click += (s, ev) => OpenForm(new frmBatch(), "Batch Management");
             btnCourse.Click += (s, ev) => OpenForm(new frmCourse(), "Course Management");
@@ -62,10 +65,12 @@ namespace Winform
 
 
             //Accounts
-            btnUserAccounts.Click += (s, e) => OpenForm(new frmAccounts(), "User Account Management");
+            btnUserAccounts.Click += BtnUserAccounts_Click;
 
             btnChangePassword.Click += (s, e) =>
             {
+                if (!InputControls.UserCanAccess(this, "ChangePassword")) return;
+
                 using (var f = new frmChangePassword())
                 {
                     f.ShowDialog();
@@ -76,6 +81,45 @@ namespace Winform
             #endregion
 
             btnContextMdiTabs.PopupOpen += (s, e) => CreateContextTabMenu();
+
+
+
+            // SETTINGS TAB
+
+            RibbonSettingsTab.Visible = App.CurrentUser.User.RoleClass.Can("SysAdmin");
+
+
+            // Handle User ROLE
+            var canViewPayroll = App.CurrentUser.User.RoleClass.Can("ViewPayrollMenu");
+
+            RibbonPayroll.Enabled = canViewPayroll;
+            RibbonPayroll.Visible = canViewPayroll;
+
+
+
+            // Handle Contacts
+            var canViewContacts = App.CurrentUser.User.RoleClass.Can("ViewContactsMenu");
+
+            RibbonContacts.Visible = canViewContacts;
+            btnContacts.Enabled = canViewContacts;
+
+            var canAddContacts = App.CurrentUser.User.RoleClass.Can("AddContacts");
+            btnCreateContacts.Enabled = canAddContacts;
+
+
+            // Handle Employee
+            var canViewEmployee = App.CurrentUser.User.RoleClass.Can("ViewEmployee");
+            RibbonEmployee.Visible = canViewEmployee;
+            btnEmployee.Enabled = canViewEmployee;
+
+
+        }
+
+        private void BtnUserAccounts_Click(object sender, EventArgs e)
+        {
+            if (!InputControls.UserCanAccess(this, "SysAdmin")) return;
+
+            OpenForm(new frmAccounts(), "User Account Management");
 
         }
 
@@ -286,6 +330,13 @@ namespace Winform
             //
         }
 
+
+
+
+
+
+
+
         private void btnSettings_Click(object sender, EventArgs e)
         {
             //
@@ -293,8 +344,53 @@ namespace Winform
 
         private void btnAuditTrail_Click(object sender, EventArgs e)
         {
-            var f = new frmAuditTrail();
-            f.ShowDialog();
+
+            using (var f = new frmAuditTrail())
+            {
+                f.ShowDialog();
+            }
+        }
+
+
+
+        private void btnGenerated_Click(object sender, EventArgs e)
+        {
+
+            Cursor.Current = Cursors.WaitCursor;
+
+            var period = new PayrollPeriod();
+            using (var f = new Payroll.frmGenerated_Open())
+            {
+                f.ShowDialog();
+                period = f.ItemData;
+            }
+
+
+            if (period == null) return;
+
+            var frm = new Payroll.frmPayroll
+            {
+                ItemData = period,
+                Header = $" PAYROLL - {period.DateCovered:MMMM dd, yyyy} [{period.Remarks}]"
+            };
+
+            OpenForm(frm, "Payroll " + period.DateCovered.ToString("dd MMM yyyy"));
+        }
+
+        private void btnRolePrivileges_Click(object sender, EventArgs e)
+        {
+            if (!InputControls.UserCanAccess(this, "SysAdmin")) return;
+
+
+            using (var frm = new Accounts.frmRolePrivileges())
+            {
+                frm.ShowDialog();
+            }
+        }
+
+        private void btnContacts_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmContacts(), "Contacts Management");
         }
     }
 }

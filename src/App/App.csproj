@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.1347</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1551</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -67,6 +67,8 @@
     <Reference Include="AiTech.Tools">
       <HintPath>..\..\library\AiTech.Tools.dll</HintPath>
     </Reference>
+    <Reference Include="C1.C1Excel.4, Version=4.0.20172.271, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.Bitmap.4, Version=4.0.20172.271, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
     <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20132.786, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.Layout, Version=14.1.0.0, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.7.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
@@ -95,6 +97,12 @@
     </Compile>
     <Compile Include="Accounts\frmAccount_Add.Designer.cs">
       <DependentUpon>frmAccount_Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts\frmRolePrivileges.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts\frmRolePrivileges.Designer.cs">
+      <DependentUpon>frmRolePrivileges.cs</DependentUpon>
     </Compile>
     <Compile Include="Contacts\frmContacts.cs">
       <SubType>Form</SubType>
@@ -186,6 +194,24 @@
     </Compile>
     <Compile Include="Payroll\Deduction\frmDeduction_Open.Designer.cs">
       <DependentUpon>frmDeduction_Open.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payroll\Generate\frmGenerated_Open.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\Generate\frmGenerated_Open.Designer.cs">
+      <DependentUpon>frmGenerated_Open.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payroll\Generate\frmGeneratePayroll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\Generate\frmGeneratePayroll.Designer.cs">
+      <DependentUpon>frmGeneratePayroll.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payroll\Generate\frmPayroll.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payroll\Generate\frmPayroll.Designer.cs">
+      <DependentUpon>frmPayroll.cs</DependentUpon>
     </Compile>
     <Compile Include="Payroll\PayrollEmployees\frmPayrollEmployees_Add.cs">
       <SubType>Form</SubType>
@@ -307,6 +333,9 @@
     <EmbeddedResource Include="Accounts\frmAccount_Add.resx">
       <DependentUpon>frmAccount_Add.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Accounts\frmRolePrivileges.resx">
+      <DependentUpon>frmRolePrivileges.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Contacts\frmContacts.resx">
       <DependentUpon>frmContacts.cs</DependentUpon>
     </EmbeddedResource>
@@ -351,6 +380,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\Deduction\frmDeduction_Open.resx">
       <DependentUpon>frmDeduction_Open.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\Generate\frmGenerated_Open.resx">
+      <DependentUpon>frmGenerated_Open.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\Generate\frmGeneratePayroll.resx">
+      <DependentUpon>frmGeneratePayroll.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payroll\Generate\frmPayroll.resx">
+      <DependentUpon>frmPayroll.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Payroll\PayrollEmployees\frmPayrollEmployees_Add.resx">
       <DependentUpon>frmPayrollEmployees_Add.cs</DependentUpon>
@@ -442,6 +480,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Reports\Payroll_Summary.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Add List_40px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -623,6 +664,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\Security Checked_40px.png" />
+    <None Include="Resources\Print_40px.png" />
+    <None Include="Resources\Downloads_40px.png" />
     <None Include="Resources\Planner_40px.png" />
     <None Include="Resources\Wall Mount Camera_40px.png" />
     <None Include="Resources\User Folder_24px.png" />
@@ -663,9 +707,7 @@
     <None Include="Resources\Sell_40px.png" />
     <None Include="Resources\People_40px.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Payroll\Generate\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

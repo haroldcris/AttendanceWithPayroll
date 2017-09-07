@@ -61,8 +61,10 @@
             // 
             // SGrid
             // 
+            this.SGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.SGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SGrid.FilterExprColors.SysFunction = System.Drawing.Color.DarkRed;
+            this.SGrid.ForeColor = System.Drawing.Color.Black;
             this.SGrid.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.SGrid.Location = new System.Drawing.Point(0, 28);
             this.SGrid.Name = "SGrid";
@@ -299,6 +301,7 @@
             this.btnPayGenerate.SubItemsExpandWidth = 14;
             this.btnPayGenerate.SymbolColor = System.Drawing.Color.Green;
             this.btnPayGenerate.Text = "Generate Payroll";
+            this.btnPayGenerate.Click += new System.EventHandler(this.btnPayGenerate_Click);
             // 
             // btnDelete
             // 

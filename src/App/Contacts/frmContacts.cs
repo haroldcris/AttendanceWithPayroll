@@ -29,6 +29,11 @@ namespace Winform.Contacts
 
             //Image Size
             imageList1.ImageSize = new Size(30, 30);
+
+
+            btnAdd.Enabled = App.CurrentUser.User.RoleClass.Can("AddContacts");
+            btnDelete.Enabled = App.CurrentUser.User.RoleClass.Can("DeleteContacts");
+
         }
 
 

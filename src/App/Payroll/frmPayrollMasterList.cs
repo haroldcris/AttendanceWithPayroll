@@ -198,7 +198,7 @@ namespace Winform.Payroll
             var newItem = new PayrollEmployee
             {
                 EmployeeId = employee.Id,
-                EmployeeClass = employee ,
+                EmployeeClass = employee,
                 Active = true
             };
 
@@ -476,6 +476,49 @@ namespace Winform.Payroll
 
                 row.Checked = !row.Checked;
             }
+        }
+
+        private void btnPayGenerate_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            var list = new List<PayrollEmployee>();
+
+            var grid = SGrid.PrimaryGrid;
+            foreach (var gridElement in grid.Rows)
+            {
+                var row = (GridRow)gridElement;
+                if (row.Checked)
+                {
+                    list.Add((PayrollEmployee)row.Tag);
+                }
+            }
+
+            if (!list.Any())
+            {
+                MessageDialog.Show(this, "No Selected Item", "Check items that you wish to generate.");
+                return;
+            }
+
+
+            var payPeriod = new PayrollPeriod();
+
+            using (var frmGenerate = new frmGeneratePayroll())
+            {
+                frmGenerate.ItemData = payPeriod;
+                frmGenerate.ListOfEmployees = list;
+                frmGenerate.ShowDialog();
+            }
+
+
+            var frm = new frmPayroll
+            {
+                ItemData = payPeriod,
+                Header = $" PAYROLL - {payPeriod.DateCovered:MMMM dd, yyyy} [{payPeriod.Remarks}]"
+            };
+
+            App.MdiMainForm.OpenForm(frm, "Payroll " + payPeriod.DateCovered.ToString("dd MMM yyyy"));
+
         }
     }
 }

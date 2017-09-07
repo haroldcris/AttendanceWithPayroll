@@ -17,7 +17,7 @@ namespace Dll.Payroll
 
         public int Dependent { get; set; }
 
-        public decimal Exemption { get; set; }
+        public int Exemption { get; set; }
 
 
 

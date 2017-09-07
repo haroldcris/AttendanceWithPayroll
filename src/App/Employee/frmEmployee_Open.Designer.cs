@@ -123,6 +123,7 @@
             this.FlexGrid.Size = new System.Drawing.Size(412, 131);
             this.FlexGrid.StyleInfo = resources.GetString("FlexGrid.StyleInfo");
             this.FlexGrid.TabIndex = 3;
+            this.FlexGrid.DoubleClick += new System.EventHandler(this.btnOk_Click);
             // 
             // txtSearch
             // 

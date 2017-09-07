@@ -38,5 +38,16 @@ namespace Dll
             }
         }
 
+
+        public static IEnumerable<ActionLog> GetAllLogs(string username)
+        {
+            const string query = "SELECT * from ActionLog where Username = @Username Order By Created Desc";
+
+            using (var db = Connection.CreateConnection())
+            {
+                db.Open();
+                return db.Query<ActionLog>(query, new { Username = username });
+            }
+        }
     }
 }

@@ -82,6 +82,21 @@
             }
         }
 
+
+
+
+
+        public void Map(dynamic recordSource)
+        {
+            if (recordSource.Lastname != null) Lastname = recordSource.Lastname;
+            if (recordSource.Firstname != null) Firstname = recordSource.Firstname;
+            if (recordSource.Middlename != null) Middlename = recordSource.Middlename;
+            //if (recordSource.MiddleInitial != null) MiddleInitial = recordSource.MiddleInitial;
+            if (recordSource.NameExtension != null) NameExtension = recordSource.NameExtension;
+            //if (recordSource.MaidenMiddlename != null) MaidenMiddlename = recordSource.MaidenMiddlename;
+        }
+
+
         //public string FullnameWithFirstnameFirst
         //{
         //    get

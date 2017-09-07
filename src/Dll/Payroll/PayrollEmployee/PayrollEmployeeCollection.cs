@@ -10,11 +10,11 @@ namespace Dll.Payroll
         public void LoadAllItemsFromDb()
         {
 
-            const string query = @"SELECT p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], [CameraCounter]
+            const string query = @"SELECT p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], [BirthDate], [CameraCounter]
                                     , e.Id EmployeeId, [EmpNum], [CivilStatus], [Pagibig], [PhilHealth], [SSS], [Tin]
                                     , pe.Id Id, DateHired, Department, TaxId, PositionId, Step, pe.Created, pe.Modified, pe.CreatedBy, pe.ModifiedBy, Active
                                     , pos.Id PositionId, pos.Code PositionCode, pos.Description PositionDescription
-                                    , tax.Id TaxId, tax.ShortDesc, tax.Exemption
+                                    , tax.Id TaxId, tax.Description TaxDescription, tax.ShortDesc, tax.Exemption
                                     , dbo.GetSalaryOfPositionId(PositionId, default, default) BasicSalary
                                     , dbo.GetSGOfPositionId(PositionId, default) SG
 
@@ -62,6 +62,7 @@ namespace Dll.Payroll
                     item.TaxClass.Id = reader.TaxId;
                     item.TaxClass.Exemption = reader.Exemption;
                     item.TaxClass.ShortDesc = reader.ShortDesc;
+                    item.TaxClass.Description = reader.TaxDescription;
 
 
 

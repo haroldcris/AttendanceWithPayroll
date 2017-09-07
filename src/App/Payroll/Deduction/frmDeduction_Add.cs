@@ -45,7 +45,7 @@ namespace Winform.Payroll
             txtDescription.Text = ItemData.Description;
 
             swMandatory.Value = ItemData.Mandatory;
-            swPriority.Value = ItemData.Priority > 0;
+            swPriority.Value = ItemData.Priority;
             swActive.Value = ItemData.Active;
         }
 
@@ -90,7 +90,7 @@ namespace Winform.Payroll
                 ItemData.Description = txtDescription.Text.Trim();
 
                 ItemData.Mandatory = swMandatory.Value;
-                ItemData.Priority = swPriority.Value ? 1 : 0;
+                ItemData.Priority = swPriority.Value ;
                 ItemData.Active = swActive.Value;
 
                 //Save to Database

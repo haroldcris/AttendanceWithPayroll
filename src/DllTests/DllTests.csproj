@@ -61,6 +61,7 @@
     <Compile Include="Contacts\PersonDataMapperTests.cs" />
     <Compile Include="Employee\EmployeeDataReaderTests.cs" />
     <Compile Include="Payroll\Employee\PayrollEmployeeCollectionTests.cs" />
+    <Compile Include="Payroll\Generator\TableSSSTests.cs" />
     <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGradeCollectionTests.cs" />
     <Compile Include="Payroll\SalarySchedule\SalaryScheduleDataReaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

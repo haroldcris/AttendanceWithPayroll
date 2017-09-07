@@ -79,7 +79,7 @@ namespace Winform.Payroll
             ItemData.Description = txtDescription.Text.Trim();
 
             ItemData.Dependent = int.Parse(cboDependent.Text.Trim());
-            ItemData.Exemption = txtExemption.Value;
+            ItemData.Exemption = (int)txtExemption.Value;
 
 
             var dataWriter = new TaxDataWriter(App.CurrentUser.User.Username, ItemData);

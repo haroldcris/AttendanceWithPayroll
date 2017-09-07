@@ -60,7 +60,6 @@ namespace Winform
                     return;
                 }
 
-                pbLogin.Visible = false;
 
                 var token = loginService.GetCredentialToken(user.Username);
 
@@ -68,8 +67,11 @@ namespace Winform
                 App.CurrentUser.Token = token;
 
 
+                App.CurrentUser.User.RoleClass.RolePrivileges.LoadItemsFromDb();
+
                 App.LogAction("Account", "Logged In");
 
+                pbLogin.Visible = false;
                 DialogResult = DialogResult.OK;
 
             }

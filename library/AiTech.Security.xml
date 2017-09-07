@@ -38,7 +38,7 @@
             <param name="password"></param>
             <returns></returns>
         </member>
-        <member name="P:AiTech.Security.Role.Privileges">
+        <member name="P:AiTech.Security.Role.RolePrivileges">
             <summary>
             
             </summary>

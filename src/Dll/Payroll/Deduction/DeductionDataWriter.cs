@@ -25,7 +25,7 @@ namespace Dll.Payroll
                 new SqlParameter( "@Code", SqlDbType.NVarChar, 20) ,
                 new SqlParameter( "@Description", SqlDbType.NVarChar, 50) ,
                 new SqlParameter( "@Mandatory", SqlDbType.Bit) ,
-                new SqlParameter( "@Priority", SqlDbType.Int) ,
+                new SqlParameter( "@Priority", SqlDbType.Bit) ,
                 new SqlParameter( "@Active", SqlDbType.Bit) ,
                 new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,
                 new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)

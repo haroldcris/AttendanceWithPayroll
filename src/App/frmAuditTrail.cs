@@ -1,6 +1,7 @@
 ﻿using DevComponents.DotNetBar;
 using Dll;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Winform
@@ -16,9 +17,7 @@ namespace Winform
 
         private void Form_Shown(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
             Update();
-
             btnRefresh.RaiseClick();
         }
 
@@ -26,8 +25,10 @@ namespace Winform
         {
             Cursor.Current = Cursors.WaitCursor;
 
+            IEnumerable<ActionLog> items;
 
-            var items = ActionLog.GetAllLogs();
+            items = App.CurrentUser.User.RoleClass.Can("SysAdmin") ? ActionLog.GetAllLogs() : ActionLog.GetAllLogs(App.CurrentUser.User.Username);
+
 
             //dataGridView1.DataSource = items;
             actionLogBindingSource.DataSource = items;

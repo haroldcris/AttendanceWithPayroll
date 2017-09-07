@@ -481,6 +481,7 @@
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmEmployee_Add";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Employee";
             this.Controls.SetChildIndex(this.bar1, 0);
             this.Controls.SetChildIndex(this.RecordInfoPanel, 0);

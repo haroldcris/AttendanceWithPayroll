@@ -111,6 +111,18 @@ namespace Dll.Payroll
             return changes;
         }
 
+
+
+        /// <summary>
+        /// Call this function Every Time Position or Step Changes
+        /// </summary>
+        /// <param name="baselineDate"></param>
+        public void UpdateBasicSalary(DateTime baselineDate)
+        {
+            var reader = new SalaryScheduleDataReader();
+
+            BasicSalary = reader.GetSalaryOfPositionId(PositionId, Step, baselineDate);
+        }
     }
 
 }

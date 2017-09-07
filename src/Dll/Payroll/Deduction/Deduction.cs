@@ -5,48 +5,54 @@ using System.Collections.Generic;
 namespace Dll.Payroll
 {
 
+    public interface IDeduction
+    {
+        string Code { get; set; }
+        string Description { get; set; }
+        bool Mandatory { get; set; }
+        bool Priority { get; set; }
+        bool Active { get; set; }
+
+    }
+
+
+
     [Table("Payroll_Deduction")]
-    public partial class Deduction : Entity
+    public class Deduction : Entity, IDeduction
     {
 
         #region Default Properties
-
         public string Code { get; set; }
-
         public string Description { get; set; }
-
         public bool Mandatory { get; set; }
-
-        public int Priority { get; set; }
-
+        public bool Priority { get; set; }
         public bool Active { get; set; }
-
-
 
         #endregion
 
 
         public override void StartTrackingChanges()
         {
-            OriginalValues = new Dictionary<string, object>();
-
-            OriginalValues.Add("Code", Code);
-            OriginalValues.Add("Description", Description);
-            OriginalValues.Add("Mandatory", Mandatory);
-            OriginalValues.Add("Priority", Priority);
-            OriginalValues.Add("Active", Active);
+            OriginalValues = new Dictionary<string, object>()
+            {
+                {"Code", this.Code},
+                {"Description", this.Description},
+                {"Mandatory", this.Mandatory},
+                {"Priority", this.Priority},
+                {"Active", this.Active}
+            };
         }
-
 
         public override Dictionary<string, object> GetChangedValues()
         {
             var changes = new Dictionary<string, object>();
+            if (!Equals(this.Code, OriginalValues["Code"])) changes.Add("Code", this.Code);
+            if (!Equals(this.Description, OriginalValues["Description"])) changes.Add("Description", this.Description);
+            if (!Equals(this.Mandatory, OriginalValues["Mandatory"])) changes.Add("Mandatory", this.Mandatory);
+            if (!Equals(this.Priority, OriginalValues["Priority"])) changes.Add("Priority", this.Priority);
+            if (!Equals(this.Active, OriginalValues["Active"])) changes.Add("Active", this.Active);
 
-            if (!Equals(Code, OriginalValues["Code"])) changes.Add("Code", Code);
-            if (!Equals(Description, OriginalValues["Description"])) changes.Add("Description", Description);
-            if (!Equals(Mandatory, OriginalValues["Mandatory"])) changes.Add("Mandatory", Mandatory);
-            if (!Equals(Priority, OriginalValues["Priority"])) changes.Add("Priority", Priority);
-            if (!Equals(Active, OriginalValues["Active"])) changes.Add("Active", Active);
+
 
             return changes;
         }
@@ -68,6 +74,6 @@ namespace Dll.Payroll
             if (recordSource.ModifiedBy != null) ModifiedBy = recordSource.ModifiedBy;
         }
 
-
     }
+
 }

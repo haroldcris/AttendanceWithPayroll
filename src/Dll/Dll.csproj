@@ -91,6 +91,9 @@
     <Compile Include="Location\Town\TownDataWriter.cs" />
     <Compile Include="Payroll\Deduction\DeductionDataReader.cs" />
     <Compile Include="Payroll\Generator\DeductionGenerator.cs" />
+    <Compile Include="Payroll\Generator\PayrollGenerator.cs" />
+    <Compile Include="Payroll\Generator\PhilHealthTable.cs" />
+    <Compile Include="Payroll\Generator\SSSTable.cs" />
     <Compile Include="Payroll\PayrollEmployeeDeduction\PayrollEmployeeDeduction.cs" />
     <Compile Include="Payroll\PayrollEmployeeDeduction\PayrollEmployeeDeductionCollection.cs" />
     <Compile Include="Payroll\PayrollEmployeeDeduction\PayrollEmployeeDeductionDataWriter.cs" />
@@ -102,7 +105,14 @@
     <Compile Include="Payroll\Interface.cs" />
     <Compile Include="Payroll\PayrollPeriod\PayrollPeriod.cs" />
     <Compile Include="Payroll\PayrollPeriod\PayrollPeriodCollection.cs" />
+    <Compile Include="Payroll\PayrollPeriod\PayrollPeriodDataReader.cs" />
     <Compile Include="Payroll\PayrollPeriod\PayrollPeriodDataWriter.cs" />
+    <Compile Include="Payroll\PayrollPeriod\PeriodEmployeeDeduction\PeriodEmployeeDeduction.cs" />
+    <Compile Include="Payroll\PayrollPeriod\PeriodEmployeeDeduction\PeriodEmployeeDeductionCollection.cs" />
+    <Compile Include="Payroll\PayrollPeriod\PeriodEmployeeDeduction\PeriodEmployeeDeductionDataWriter.cs" />
+    <Compile Include="Payroll\PayrollPeriod\PeriodEmployee\PeriodEmployee.cs" />
+    <Compile Include="Payroll\PayrollPeriod\PeriodEmployee\PeriodEmployeeCollection.cs" />
+    <Compile Include="Payroll\PayrollPeriod\PeriodEmployee\PeriodEmployeeDataWriter.cs" />
     <Compile Include="Payroll\Position\PositionDataMapper.cs" />
     <Compile Include="Payroll\Position\PositionDataReader.cs" />
     <Compile Include="Payroll\SalarySchedule\PositionSG\PositionSalaryGradeDataWriter.cs" />

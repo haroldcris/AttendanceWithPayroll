@@ -46,7 +46,7 @@ namespace Dll.Payroll
 
         public override bool SaveChanges(SqlConnection db, SqlTransaction trn)
         {
-            return Write(_ => _.DeductionId.ToString(), db, trn);
+            return Write(_ => _.DeductionClass.Description, db, trn);
         }
     }
 }
