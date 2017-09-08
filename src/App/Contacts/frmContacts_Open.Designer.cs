@@ -216,7 +216,7 @@
             // pictureBox1
             // 
             this.pictureBox1.ForeColor = System.Drawing.Color.Black;
-            this.pictureBox1.Image = global::Winform.Properties.Resources.Contact_Card_40;
+            this.pictureBox1.Image = global::Winform.Properties.Resources.User_Folder_40px;
             this.pictureBox1.Location = new System.Drawing.Point(9, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(51, 48);

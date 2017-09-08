@@ -30,20 +30,20 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.PanelHead = new System.Windows.Forms.Panel();
-            this.lblHeader = new System.Windows.Forms.Label();
-            this.bar1 = new DevComponents.DotNetBar.Bar();
-            this.actionLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btnRefresh = new DevComponents.DotNetBar.ButtonItem();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usernameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.actionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.moduleDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.actionLogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.PanelHead = new System.Windows.Forms.Panel();
+            this.lblHeader = new System.Windows.Forms.Label();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
+            this.btnRefresh = new DevComponents.DotNetBar.ButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionLogBindingSource)).BeginInit();
             this.PanelHead.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.actionLogBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -69,62 +69,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(784, 495);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.VirtualMode = true;
-            // 
-            // PanelHead
-            // 
-            this.PanelHead.BackColor = System.Drawing.Color.OrangeRed;
-            this.PanelHead.Controls.Add(this.lblHeader);
-            this.PanelHead.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PanelHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PanelHead.Location = new System.Drawing.Point(0, 0);
-            this.PanelHead.Name = "PanelHead";
-            this.PanelHead.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
-            this.PanelHead.Size = new System.Drawing.Size(784, 28);
-            this.PanelHead.TabIndex = 20;
-            // 
-            // lblHeader
-            // 
-            this.lblHeader.AutoSize = true;
-            this.lblHeader.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblHeader.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHeader.ForeColor = System.Drawing.Color.White;
-            this.lblHeader.Location = new System.Drawing.Point(0, 3);
-            this.lblHeader.Name = "lblHeader";
-            this.lblHeader.Size = new System.Drawing.Size(126, 18);
-            this.lblHeader.TabIndex = 0;
-            this.lblHeader.Text = "AUDIT TRAIL";
-            this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // bar1
-            // 
-            this.bar1.AntiAlias = true;
-            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bar1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.bar1.IsMaximized = false;
-            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnRefresh});
-            this.bar1.Location = new System.Drawing.Point(0, 28);
-            this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(784, 38);
-            this.bar1.Stretch = true;
-            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.bar1.TabIndex = 21;
-            this.bar1.TabStop = false;
-            this.bar1.Text = "bar1";
-            this.bar1.ThemeAware = true;
-            // 
-            // actionLogBindingSource
-            // 
-            this.actionLogBindingSource.DataSource = typeof(Dll.ActionLog);
-            // 
-            // btnRefresh
-            // 
-            this.btnRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnRefresh.Image = global::Winform.Properties.Resources.Process_30px;
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Text = "Refresh";
-            this.btnRefresh.ThemeAware = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -169,6 +113,62 @@
             this.moduleDataGridViewTextBoxColumn.Name = "moduleDataGridViewTextBoxColumn";
             this.moduleDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // actionLogBindingSource
+            // 
+            this.actionLogBindingSource.DataSource = typeof(Dll.ActionLog);
+            // 
+            // PanelHead
+            // 
+            this.PanelHead.BackColor = System.Drawing.Color.OrangeRed;
+            this.PanelHead.Controls.Add(this.lblHeader);
+            this.PanelHead.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PanelHead.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PanelHead.Location = new System.Drawing.Point(0, 0);
+            this.PanelHead.Name = "PanelHead";
+            this.PanelHead.Padding = new System.Windows.Forms.Padding(0, 3, 0, 0);
+            this.PanelHead.Size = new System.Drawing.Size(784, 28);
+            this.PanelHead.TabIndex = 20;
+            // 
+            // lblHeader
+            // 
+            this.lblHeader.AutoSize = true;
+            this.lblHeader.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblHeader.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeader.ForeColor = System.Drawing.Color.White;
+            this.lblHeader.Location = new System.Drawing.Point(0, 3);
+            this.lblHeader.Name = "lblHeader";
+            this.lblHeader.Size = new System.Drawing.Size(126, 18);
+            this.lblHeader.TabIndex = 0;
+            this.lblHeader.Text = "AUDIT TRAIL";
+            this.lblHeader.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // bar1
+            // 
+            this.bar1.AntiAlias = true;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.bar1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bar1.IsMaximized = false;
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.btnRefresh});
+            this.bar1.Location = new System.Drawing.Point(0, 28);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(784, 38);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 21;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
+            this.bar1.ThemeAware = true;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnRefresh.Image = global::Winform.Properties.Resources.Process_30px;
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.ThemeAware = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // frmAuditTrail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -178,7 +178,6 @@
             this.Controls.Add(this.bar1);
             this.Controls.Add(this.PanelHead);
             this.DoubleBuffered = true;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAuditTrail";
@@ -187,10 +186,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Audit Trail";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.actionLogBindingSource)).EndInit();
             this.PanelHead.ResumeLayout(false);
             this.PanelHead.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.actionLogBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }

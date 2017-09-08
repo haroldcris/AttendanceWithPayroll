@@ -1,23 +1,23 @@
 ﻿using AiTech.Tools.Winform;
+using Dll.Biometric;
 using Dll.Contacts;
-using Dll.Employee;
 using Library.Tools;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 using Winform.Contacts;
 
-namespace Winform.Employee
+namespace Winform.Biometric
 {
-    public partial class frmEmployee_Add : FormWithRecordInfo, ISave
+    public partial class frmBiometricUser_Add : FormWithRecordInfo, ISave
     {
         public DirtyFormHandler DirtyStatus { get; }
 
-        public Dll.Employee.Employee ItemData;
+        public BiometricUser ItemData;
 
-        private Person _tempPerson;
+        private Person _tempPerson = null;
 
-        public frmEmployee_Add()
+        public frmBiometricUser_Add()
         {
             InitializeComponent();
             //this.ConvertEnterToTab();
@@ -37,14 +37,20 @@ namespace Winform.Employee
 
             //= ItemData.Id;
             _tempPerson = ItemData.PersonClass;
-            txtEmpNum.Text = ItemData.EmpNum.ToString();
-            cboCivilStatus.Text = ItemData.CivilStatus;
-            txtHeight.Value = (double)ItemData.Height;
-            txtWeight.Value = (double)ItemData.Weight;
+            txtBiometricId.Text = ItemData.BiometricId.ToString();
 
+
+            if (ItemData.PersonClass.Id != 0)
+            {
+                ItemData.PersonClass.MobileNumbers.LoadItemsFromDb();
+                InputControls.LoadToComboBox(cboPhoneNumber, ItemData.PersonClass.MobileNumbers.Items);
+
+            }
+
+            cboCategory.Text = ItemData.Category;
+            cboPhoneNumber.Text = ItemData.PhoneNumber;
 
             ShowFileInfo(ItemData);
-
             DirtyStatus.Clear();
         }
 
@@ -54,17 +60,19 @@ namespace Winform.Employee
             if (!DataIsValid()) return false;
 
 
-            var empnum = Convert.ToInt32(txtEmpNum.Text.Replace("-", ""));
+            var biometricId = Convert.ToInt32(txtBiometricId.Text.Replace("-", ""));
+
+            ItemData.BiometricId = biometricId;
 
             ItemData.PersonId = _tempPerson.Id;
             ItemData.PersonClass = _tempPerson;
-            ItemData.EmpNum = empnum;
-            ItemData.CivilStatus = cboCivilStatus.Text;
-            ItemData.Height = (decimal)txtHeight.Value;
-            ItemData.Weight = (decimal)txtWeight.Value;
+
+            ItemData.Category = cboCategory.Text;
+            ItemData.PhoneNumber = cboPhoneNumber.Text;
 
 
-            var writer = new EmployeeDataWriter(App.CurrentUser.User.Username, ItemData);
+
+            var writer = new BiometricUserDataWriter(App.CurrentUser.User.Username, ItemData);
             writer.SaveChanges();
 
             DirtyStatus.Clear();
@@ -74,81 +82,49 @@ namespace Winform.Employee
 
         private bool DataIsValid()
         {
-            if (string.IsNullOrEmpty(txtEmpNum.Text.Trim()))
+            if (string.IsNullOrEmpty(txtBiometricId.Text.Trim()))
             {
-                MessageDialog.ShowValidationError(txtEmpNum, "Employee Number must NOT be blank");
+                MessageDialog.ShowValidationError(txtBiometricId, "Biometric Id must NOT be blank");
                 return false;
             }
 
 
-            if (Int32.Parse(txtEmpNum.Text) <= 0)
+            if (Int32.Parse(txtBiometricId.Text) <= 0)
             {
-                txtEmpNum.Focus();
+                txtBiometricId.Focus();
 
-                MessageDialog.ShowValidationError(txtEmpNum, "Invalid Employee Number");
+                MessageDialog.ShowValidationError(txtBiometricId, "Invalid Biometric Id");
                 return false;
             }
 
 
-            var reader = new EmployeeDataReader();
-            if (reader.HasExistingEmployeeNumber(Convert.ToInt32(txtEmpNum.Text)) && ItemData.EmpNum != Convert.ToInt32(txtEmpNum.Text))
+
+            if (_tempPerson == null)
             {
-                MessageDialog.ShowValidationError(txtEmpNum, "Employee Number already exists!");
+                MessageDialog.ShowValidationError(btnContactsSelect, "No associated Contact Info");
                 return false;
             }
 
 
-            if (string.IsNullOrEmpty(txtCitizenship.Text.Trim()))
+            var reader = new BiometricUserDataReader();
+            if (reader.HasExistingBiometricId(Convert.ToInt32(txtBiometricId.Text)) && Convert.ToInt32(txtBiometricId.Text) != ItemData.BiometricId)
             {
-                MessageDialog.ShowValidationError(txtCitizenship, "Citizenship Data is Required");
+                MessageDialog.ShowValidationError(txtBiometricId, "Biometric Id already exists!");
                 return false;
             }
-
-            if (txtHeight.Value <= 0)
-            {
-                MessageDialog.ShowValidationError(txtHeight, "Invalid Height Data");
-                return false;
-            }
-
-            if (txtWeight.Value <= 0)
-            {
-                MessageDialog.ShowValidationError(txtWeight, "Invalid Weight Data");
-                return false;
-            }
-
-
 
             return true;
-
         }
 
 
         private bool ExistingPersonId(int personId)
         {
-            var reader = new EmployeeDataReader();
+            var reader = new BiometricUserDataReader();
             return reader.HasExistingPersonId(personId);
         }
 
 
-        private void btnContactsSelect_Click(object sender, System.EventArgs e)
-        {
-            Cursor.Current = Cursors.WaitCursor;
 
-            using (var frm = new frmContacts_Open())
-            {
-                if (frm.ShowDialog() != DialogResult.OK) return;
-
-                _tempPerson = frm.ItemData;
-            }
-
-            if (ExistingPersonId(_tempPerson.Id))
-            {
-                MessageDialog.Show(this, "Existing Record", "An existing Employee Record associated with this contact already exists!");
-                return;
-            }
-
-            ShowPersonInfo(_tempPerson);
-        }
 
 
         private void ShowPersonInfo(Person personInfo)
@@ -206,6 +182,32 @@ Gender:
                 if (frm.ShowDialog() != DialogResult.OK) return;
             }
 
+            LoadPhoneNumbers(_tempPerson);
+
+            ShowPersonInfo(_tempPerson);
+        }
+
+
+        private void btnContactsSelect_Click(object sender, System.EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            using (var frm = new frmContacts_Open())
+            {
+                if (frm.ShowDialog() != DialogResult.OK) return;
+
+                _tempPerson = frm.ItemData;
+            }
+
+            if (ExistingPersonId(_tempPerson.Id))
+            {
+                _tempPerson = null;
+                MessageDialog.Show(this, "Existing Record", "An existing Record associated with this contact already exists!");
+                return;
+            }
+
+
+            LoadPhoneNumbers(_tempPerson);
             ShowPersonInfo(_tempPerson);
         }
 
@@ -219,6 +221,14 @@ Gender:
             if (!FileSave()) return;
 
             DialogResult = DialogResult.OK;
+        }
+
+
+        private void LoadPhoneNumbers(Person person)
+        {
+            person.MobileNumbers.LoadItemsFromDb();
+
+            InputControls.LoadToComboBox(cboPhoneNumber, person.MobileNumbers.Items);
         }
     }
 }

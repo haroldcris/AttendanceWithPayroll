@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.1551</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1609</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -103,6 +103,18 @@
     </Compile>
     <Compile Include="Accounts\frmRolePrivileges.Designer.cs">
       <DependentUpon>frmRolePrivileges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Biometric\frmBiometricUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Biometric\frmBiometricUser.Designer.cs">
+      <DependentUpon>frmBiometricUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Biometric\frmBiometricUser_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Biometric\frmBiometricUser_Add.Designer.cs">
+      <DependentUpon>frmBiometricUser_Add.cs</DependentUpon>
     </Compile>
     <Compile Include="Contacts\frmContacts.cs">
       <SubType>Form</SubType>
@@ -335,6 +347,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Accounts\frmRolePrivileges.resx">
       <DependentUpon>frmRolePrivileges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Biometric\frmBiometricUser.resx">
+      <DependentUpon>frmBiometricUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Biometric\frmBiometricUser_Add.resx">
+      <DependentUpon>frmBiometricUser_Add.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Contacts\frmContacts.resx">
       <DependentUpon>frmContacts.cs</DependentUpon>
@@ -664,6 +682,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icons8_Fingerprint.ico" />
+    <None Include="Resources\Natural User Interface 2_40px.png" />
+    <None Include="Resources\Documents Folder_40px.png" />
+    <None Include="Resources\Documents Folder_24px.png" />
+    <None Include="Resources\Add User Group Woman Man_40px.png" />
+    <None Include="Resources\Add User Group Woman Man_24px.png" />
+    <None Include="Resources\Multiple Devices_40px.png" />
+    <None Include="Resources\Security Checked_24px.png" />
+    <None Include="Resources\User Shield_24px.png" />
+    <None Include="Resources\User Shield_40px.png" />
+    <None Include="Resources\User Folder_40px.png" />
     <None Include="Resources\Security Checked_40px.png" />
     <None Include="Resources\Print_40px.png" />
     <None Include="Resources\Downloads_40px.png" />

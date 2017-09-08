@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AiTech.Database;
-using System.Data.SqlClient;
+﻿using AiTech.LiteOrm.Database;
+using System;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace AiTech.Biometric
 {
     public class TransactionDataWriter
     {
         protected Transaction ItemData;
-       
+
 
         public TransactionDataWriter(Transaction item)
         {

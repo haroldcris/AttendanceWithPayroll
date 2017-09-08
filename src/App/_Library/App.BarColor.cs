@@ -18,5 +18,7 @@ public static partial class App
 
         public static readonly Color EmployeeColor = Color.DarkOrchid;
         public static readonly Color EmployeeProfileColor = Color.CornflowerBlue;
+
+        public static readonly Color BiometricUser = Color.Brown;
     }
 }

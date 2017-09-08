@@ -150,6 +150,7 @@
             this.RenderFormText = false;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Role Privileges";
             this.Load += new System.EventHandler(this.frmRolePrivileges_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

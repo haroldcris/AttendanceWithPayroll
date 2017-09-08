@@ -46,6 +46,10 @@ namespace Dll.Contacts
         }
 
 
+        public override string ToString()
+        {
+            return PhoneNumber;
+        }
     }
 
 }

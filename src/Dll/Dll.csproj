@@ -63,6 +63,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionLogger.cs" />
+    <Compile Include="BiometricUser\BiometricUser.cs" />
+    <Compile Include="BiometricUser\BiometricUserCollection.cs" />
+    <Compile Include="BiometricUser\BiometricUserDataReader.cs" />
+    <Compile Include="BiometricUser\BiometricUserDataWriter.cs" />
     <Compile Include="Contacts\MobileNumber\MobileNumber.cs" />
     <Compile Include="Contacts\Enums\GenderType.cs" />
     <Compile Include="Contacts\MobileNumber\MobileNumberCollection.cs" />

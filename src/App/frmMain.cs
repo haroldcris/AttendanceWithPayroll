@@ -3,6 +3,7 @@ using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro.ColorTables;
 using Dll.Contacts;
+using Dll.Employee;
 using Dll.Payroll;
 using Idms;
 using Library.Tools;
@@ -10,6 +11,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using Winform.Accounts;
+using Winform.Biometric;
 using Winform.Contacts;
 using Winform.Employee;
 
@@ -53,8 +55,6 @@ namespace Winform
             btnPaySalarySchedule.Click += (s, ev) => OpenForm(new Payroll.frmSalarySchedule(), "Payroll Salary Schedule");
 
 
-            btnEmployee.Click += (s, e) => OpenForm(new frmEmployee(), "Employees");
-
             btnSms.Click += (s, e) =>
             {
                 using (var f = new SMS.frmSMS())
@@ -85,8 +85,7 @@ namespace Winform
 
 
             // SETTINGS TAB
-
-            RibbonSettingsTab.Visible = App.CurrentUser.User.RoleClass.Can("SysAdmin");
+            ItemPanelSecurity.Visible = App.CurrentUser.User.RoleClass.Can("SysAdmin");
 
 
             // Handle User ROLE
@@ -125,10 +124,17 @@ namespace Winform
 
         private void cmdSave_Executed(object sender, EventArgs e)
         {
-            var active = ActiveMdiChild;
-            if (active is ISave)
+            try
             {
-                ((ISave)active).FileSave();
+                var active = ActiveMdiChild;
+                if (active is ISave)
+                {
+                    ((ISave)active).FileSave();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
             }
         }
 
@@ -165,34 +171,41 @@ namespace Winform
 
         internal void OpenForm(IMdiForm form, string title)
         {
-            Cursor.Current = Cursors.WaitCursor;
-
-
-            var formTitle = " " + title + " ";
-
-            if (MdiChildren.Count() != 0)
+            try
             {
-                if (FindWindow(formTitle))
+                Cursor.Current = Cursors.WaitCursor;
+
+
+                var formTitle = " " + title + " ";
+
+                if (MdiChildren.Count() != 0)
                 {
-                    ((Form)form).Dispose();
-                    return;
+                    if (FindWindow(formTitle))
+                    {
+                        ((Form)form).Dispose();
+                        return;
+                    }
                 }
+
+                var frm = (Form)form;
+                frm.MdiParent = this;
+                ((MdiClientForm)frm).Title = formTitle;
+                frm.Tag = formTitle;
+
+
+                frm.WindowState = FormWindowState.Minimized;
+                frm.Show();
+                frm.WindowState = FormWindowState.Maximized;
+                frm.Update();
+
+
+                App.LogAction("Main", "Opened " + title);
+                Cursor.Current = Cursors.Default;
             }
-
-            var frm = (Form)form;
-            frm.MdiParent = this;
-            ((MdiClientForm)frm).Title = formTitle;
-            frm.Tag = formTitle;
-
-
-            frm.WindowState = FormWindowState.Minimized;
-            frm.Show();
-            frm.WindowState = FormWindowState.Maximized;
-            frm.Update();
-
-
-            App.LogAction("Main", "Opened " + title);
-            Cursor.Current = Cursors.Default;
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
         }
 
         private bool FindWindow(string tag)
@@ -287,8 +300,15 @@ namespace Winform
 
         private void mdiTab_DoubleClick(object sender, EventArgs e)
         {
-            var frm = this.ActiveMdiChild;
-            frm.MdiParent = null;
+            try
+            {
+                var frm = this.ActiveMdiChild;
+                frm.MdiParent = null;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
         }
 
 
@@ -298,14 +318,21 @@ namespace Winform
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            var newItem = new Person();
-
-            using (var frm = new frmContacts_Add())
+            try
             {
-                frm.ItemData = newItem;
-                frm.Owner = this;
+                var newItem = new Person();
 
-                if (frm.ShowDialog() != DialogResult.OK) return;
+                using (var frm = new frmContacts_Add())
+                {
+                    frm.ItemData = newItem;
+                    frm.Owner = this;
+
+                    if (frm.ShowDialog() != DialogResult.OK) return;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
             }
         }
 
@@ -313,41 +340,47 @@ namespace Winform
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            // Find Employee Id
-            var item = new Person();
-            using (var frm = new frmContacts_Open())
+            try
             {
-                if (frm.ShowDialog() != DialogResult.OK) return;
-                item = frm.ItemData;
-            }
+                // Find Employee Id
+                var item = new Person();
+                using (var frm = new frmContacts_Open())
+                {
+                    if (frm.ShowDialog() != DialogResult.OK) return;
+                    item = frm.ItemData;
+                }
 
 
-            using (var frm = new frmContacts_Add())
-            {
-                frm.ItemData = item;
-                frm.ShowDialog();
+                using (var frm = new frmContacts_Add())
+                {
+                    frm.ItemData = item;
+                    frm.ShowDialog();
+                }
             }
-            //
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
         }
 
 
 
-
-
-
-
-
-        private void btnSettings_Click(object sender, EventArgs e)
-        {
-            //
-        }
 
         private void btnAuditTrail_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
 
-            using (var f = new frmAuditTrail())
+            try
             {
-                f.ShowDialog();
+                using (var f = new frmAuditTrail())
+                {
+                    f.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageDialog.ShowError(ex, this);
             }
         }
 
@@ -379,12 +412,22 @@ namespace Winform
 
         private void btnRolePrivileges_Click(object sender, EventArgs e)
         {
-            if (!InputControls.UserCanAccess(this, "SysAdmin")) return;
+            Cursor.Current = Cursors.WaitCursor;
 
-
-            using (var frm = new Accounts.frmRolePrivileges())
+            try
             {
-                frm.ShowDialog();
+                if (!InputControls.UserCanAccess(this, "SysAdmin")) return;
+
+
+                using (var frm = new Accounts.frmRolePrivileges())
+                {
+                    frm.ShowDialog();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
             }
         }
 
@@ -392,5 +435,77 @@ namespace Winform
         {
             OpenForm(new frmContacts(), "Contacts Management");
         }
+
+        private void btnBiometricUser_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (!InputControls.UserCanAccess(this, "ViewBiometricUser")) return;
+
+            OpenForm(new frmBiometricUser(), "Biometric User Management");
+
+        }
+
+
+
+
+        #region Employee Module
+        private void btnAddEmployee_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                using (var frm = new frmEmployee_Add())
+                {
+                    frm.ItemData = new Dll.Employee.Employee();
+                    frm.ShowDialog();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
+
+        }
+
+        private void btnOpenEmployee_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            try
+            {
+                var empId = 0;
+                using (var frm = new frmEmployee_Open())
+                {
+                    if (frm.ShowDialog() != DialogResult.OK) return;
+                    empId = frm.EmployeeId;
+                }
+
+
+                var employee = (new EmployeeDataReader()).GetItemOf(empId);
+
+
+
+                using (var frm = new frmEmployee_Add())
+                {
+                    frm.ItemData = employee;
+                    frm.ShowDialog();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
+        }
+
+        private void btnEmployee_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmEmployee(), "Employees");
+        }
+
+
+        #endregion
     }
 }

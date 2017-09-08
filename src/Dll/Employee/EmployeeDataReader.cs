@@ -1,4 +1,5 @@
-﻿using AiTech.LiteOrm.Database;
+﻿using AiTech.LiteOrm;
+using AiTech.LiteOrm.Database;
 using AiTech.LiteOrm.Database.Search;
 using Dapper;
 using System.Collections.Generic;
@@ -10,40 +11,41 @@ namespace Dll.Employee
     public class EmployeeDataReader
     {
 
-        public Employee GetEmployeeWithId(int id)
+        public Employee GetItemOf(int id)
         {
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                return GetEmployeeWithId(id, db);
+                return GetItemOf(id, db);
             }
         }
 
 
-        public Employee GetEmployeeWithId(int id, SqlConnection db)
+        public Employee GetItemOf(int id, SqlConnection db)
         {
-            const string query = "select p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], " +
-                                 " e.* from Employee e inner join Person p on p.Id = e.PersonId " +
-                                 "where e.Id = @Id";
+            const string query = @"select e.*
+                                    , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], BirthDate, [Gender], [CameraCounter]
+                                    from employee e
+                                    inner join person p on e.PersonId = p.Id
+                                    where e.Id = @EmployeeId";
 
-            db.Open();
 
-            var result = db.Query(query, new { Id = id }).FirstOrDefault();
+            dynamic record = db.Query(query, new { EmployeeId = id }).FirstOrDefault();
 
-            if (result == null) return null;
+
 
             var item = new Employee();
 
-            item.DataMapper.Map(result);
+            item.DataMapper.Map(record);
+
+            item.PersonClass.DataMapper.Map(record);
+            item.PersonClass.DataMapper.Map(_ => _.Id, (int)record.PersonId);
 
 
-            item.PersonClass.DataMapper.Map(result);
-            //item.PersonClass.DataMapper.Map(o => o.Id, result.PersonId);
-            if (result.PersonId != null) item.PersonClass.Id = result.PersonId;
+            item.RowStatus = RecordStatus.NoChanges;
+            item.StartTrackingChanges();
 
-            result.StartTrackingChanges();
-
-            return result;
+            return item;
         }
 
 
