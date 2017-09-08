@@ -21,6 +21,8 @@ namespace Winform
 {
     public partial class frmMain : Office2007RibbonForm
     {
+        private bool _buttonPress;
+
         public frmMain()
         {
             InitializeComponent();
@@ -507,5 +509,25 @@ namespace Winform
 
 
         #endregion
+
+        private void lblVersion_DoubleClick(object sender, EventArgs e)
+        {
+            if (_buttonPress)
+            {
+                _buttonPress = false;
+                MessageBoxEx.Show(this, InputControls.RenderDisplay(), "Application", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            _buttonPress = e.Control && e.Alt && e.Shift;
+        }
+
+        private void Form_KeyUp(object sender, KeyEventArgs e)
+        {
+            _buttonPress = false;
+        }
     }
 }

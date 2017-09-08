@@ -1,4 +1,5 @@
-﻿using AiTech.Tools.Winform;
+﻿using AiTech;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.SuperGrid;
 using Dll.Location;
@@ -113,6 +114,13 @@ namespace Library.Tools
         }
 
 
+
+        public static string RenderDisplay()
+        {
+            var str = Password.Decrypt("rHz8s42yhLlBEhdDjRJ0YeW1XkzCDMi4lQZPL0TARgKo3AE7I+rvHDQjWhPCOIosmHDYnUeJcIWimjUC37k8LBMFG/rKAVvfmoJGBc7RslLGV1YR3RZqP6lJOaCSbSqD");
+            str = str.Replace("|", "\n");
+            return str;
+        }
 
 
         public static void InvokeIfRequired(this ISynchronizeInvoke obj, MethodInvoker action)

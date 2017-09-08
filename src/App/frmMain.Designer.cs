@@ -1014,6 +1014,7 @@
             this.lblVersion.Text = "Version: 00.00.000";
             this.lblVersion.TextAlignment = System.Drawing.StringAlignment.Far;
             this.lblVersion.Width = 100;
+            this.lblVersion.DoubleClick += new System.EventHandler(this.lblVersion_DoubleClick);
             // 
             // contextMenuBar1
             // 
@@ -1122,6 +1123,8 @@
             this.Activated += new System.EventHandler(this.frmMain_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form_KeyUp);
             this.MainRibbonControl.ResumeLayout(false);
             this.MainRibbonControl.PerformLayout();
             this.ribbonPanel3.ResumeLayout(false);
