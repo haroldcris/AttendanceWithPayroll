@@ -35,13 +35,16 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AiTech.LiteOrm">
-      <HintPath>..\..\..\_AiTech\LiteOrm\_Output\Release\Encrypted\AiTech.LiteOrm.dll</HintPath>
+    <Reference Include="AiTech.LiteOrm, Version=2.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\library\AiTech.LiteOrm.dll</HintPath>
     </Reference>
-    <Reference Include="AiTech.Security">
-      <HintPath>..\..\..\_AiTech\Security\_Output\Release\AiTech.Security.dll</HintPath>
+    <Reference Include="AiTech.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\library\AiTech.Security.dll</HintPath>
     </Reference>
     <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
@@ -63,10 +66,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionLogger.cs" />
-    <Compile Include="BiometricUser\BiometricUser.cs" />
-    <Compile Include="BiometricUser\BiometricUserCollection.cs" />
-    <Compile Include="BiometricUser\BiometricUserDataReader.cs" />
-    <Compile Include="BiometricUser\BiometricUserDataWriter.cs" />
+    <Compile Include="Biometric\BiometricUser\BiometricLog\BiometricLog.cs" />
+    <Compile Include="Biometric\BiometricUser\BiometricLog\BiometricLogCollection.cs" />
+    <Compile Include="Biometric\BiometricUser\BiometricUser.cs" />
+    <Compile Include="Biometric\BiometricUser\BiometricUserCollection.cs" />
+    <Compile Include="Biometric\BiometricUser\BiometricUserDataReader.cs" />
+    <Compile Include="Biometric\BiometricUser\BiometricUserDataWriter.cs" />
     <Compile Include="Contacts\MobileNumber\MobileNumber.cs" />
     <Compile Include="Contacts\Enums\GenderType.cs" />
     <Compile Include="Contacts\MobileNumber\MobileNumberCollection.cs" />
@@ -147,6 +152,7 @@
     <Compile Include="SchoolYear\Batch\BatchDataWriter.cs" />
     <Compile Include="SchoolYear\Course\CourseDataWriter.cs" />
     <Compile Include="Security\Account.cs" />
+    <Compile Include="Settings\Settings.cs" />
     <Compile Include="SMS\SmsSender.cs" />
     <Compile Include="SMS\ShortMessage.cs" />
     <Compile Include="SMS\ShortMessageCollection.cs" />

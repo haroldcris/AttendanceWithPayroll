@@ -1,19 +1,19 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Biometric;
 using Dll.Contacts;
-using Dll.Employee;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Winform.Biometric
 {
     public partial class frmBiometricUser : MdiClientGridForm
     {
         internal BiometricUserCollection ItemDataCollection = new BiometricUserCollection();
+
         public frmBiometricUser()
         {
             InitializeComponent();
@@ -24,8 +24,6 @@ namespace Winform.Biometric
 
             Load += (s, e) => { RefreshData(); };
         }
-
-
 
 
         protected override IEnumerable<Entity> LoadItems()
@@ -66,13 +64,12 @@ namespace Winform.Biometric
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["Lastname"]);
-
         }
 
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (BiometricUser)item;
+            var currentItem = (BiometricUser) item;
 
             row.Cells["BiometricId"].Value = currentItem.BiometricId;
 
@@ -107,10 +104,9 @@ namespace Winform.Biometric
         }
 
 
-
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (BiometricUser)item;
+            var selectedItem = (BiometricUser) item;
 
             using (var frm = new frmBiometricUser_Add())
             {
@@ -125,18 +121,17 @@ namespace Winform.Biometric
         }
 
 
-
         protected override void OnDelete(Entity item, out string message, ref Action<Entity> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((BiometricUser)item).PersonClass.Name.Fullname;
+            message = ((BiometricUser) item).PersonClass.Name.Fullname;
 
-            afterConfirm = (currentItem) =>
+            afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (BiometricUser)currentItem;
+                    var deletedItem = (BiometricUser) currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -146,10 +141,9 @@ namespace Winform.Biometric
                     dataWriter.SaveChanges();
 
 
-                    ItemDataCollection.Remove((BiometricUser)currentItem);
+                    ItemDataCollection.Remove((BiometricUser) currentItem);
 
                     App.LogAction("Biometric", "Deleted Biometric Employee : " + deletedItem.BiometricId);
-
                 }
                 catch (Exception ex)
                 {
@@ -157,8 +151,5 @@ namespace Winform.Biometric
                 }
             };
         }
-
-
-
     }
 }

@@ -1,3 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
@@ -6,17 +12,14 @@ using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Contacts;
 using Dll.Employee;
 using Dll.Payroll;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Winform.Employee;
 
 namespace Winform.Payroll
 {
     public partial class frmMasterFile : MdiClientForm
     {
         internal PayrollEmployeeCollection ItemDataCollection = new PayrollEmployeeCollection();
+
         public frmMasterFile()
         {
             InitializeComponent();
@@ -28,7 +31,6 @@ namespace Winform.Payroll
 
             RefreshData();
         }
-
 
 
         protected IEnumerable<PayrollEmployee> LoadItems()
@@ -94,7 +96,6 @@ namespace Winform.Payroll
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["Name"]);
-
         }
 
 
@@ -116,16 +117,17 @@ namespace Winform.Payroll
 
         protected void Show_DataOnRow(GridRow row, PayrollEmployee item)
         {
-            var currentItem = (PayrollEmployee)item;
+            var currentItem = item;
 
             row.Cells["Empnum"].Value = currentItem.EmployeeClass.EmpNum;
             row.Cells["Name"].Value = currentItem.EmployeeClass.PersonClass.Name.Fullname;
 
-            row.Cells["Gender"].Value = currentItem.EmployeeClass.PersonClass.Gender == GenderType.Male ? "Male" : "Female";
+            row.Cells["Gender"].Value = currentItem.EmployeeClass.PersonClass.Gender == GenderType.Male
+                ? "Male"
+                : "Female";
 
             row.Cells["Position"].Value = currentItem.PositionClass.Description;
             row.Cells["SG"].Value = currentItem.SG;
-
 
 
             row.Cells["Step"].Value = currentItem.Step;
@@ -140,7 +142,9 @@ namespace Winform.Payroll
 
             row.Cells["Active"].Value = currentItem.Active;
 
-            row.CellStyles.Default = currentItem.Active ? null : new CellVisualStyle() { Background = new Background(System.Drawing.Color.LightGray) };
+            row.CellStyles.Default = currentItem.Active
+                ? null
+                : new CellVisualStyle {Background = new Background(Color.LightGray)};
 
             row.ShowRecordInfo(currentItem);
         }
@@ -156,10 +160,7 @@ namespace Winform.Payroll
                 grid.Rows.Clear();
 
                 var items = Enumerable.Empty<PayrollEmployee>();
-                await Task.Factory.StartNew(() =>
-                {
-                    items = LoadItems();
-                });
+                await Task.Factory.StartNew(() => { items = LoadItems(); });
 
                 //progressBarX1.Visible = false;
                 Show_Data(items);
@@ -172,7 +173,7 @@ namespace Winform.Payroll
             // Find Employee Id
             var employeeId = 0;
 
-            using (var frm = new Employee.frmEmployee_Open())
+            using (var frm = new frmEmployee_Open())
             {
                 if (frm.ShowDialog() != DialogResult.OK) return null;
                 employeeId = frm.EmployeeId;
@@ -180,7 +181,7 @@ namespace Winform.Payroll
 
 
             // Check for Duplicate
-            var duplicate = (new PayrollEmployeeDataReader()).HasExistingId(employeeId);
+            var duplicate = new PayrollEmployeeDataReader().HasExistingId(employeeId);
             if (duplicate)
             {
                 MessageDialog.Show("Duplicate Record", "An existing Record with same employee already exists");
@@ -189,7 +190,7 @@ namespace Winform.Payroll
 
 
             // Get Employee Profile
-            var employee = (new EmployeeDataReader()).GetBasicProfileOf(employeeId);
+            var employee = new EmployeeDataReader().GetBasicProfileOf(employeeId);
 
             if (employee == null) throw new Exception("Record NOT found");
 
@@ -203,11 +204,9 @@ namespace Winform.Payroll
             };
 
 
-
             // Mandatory Deductions
             newItem.Deductions.AddMandatoryDeductions();
             DeductionGenerator.UpdateMandatoryDeductions(newItem);
-
 
 
             using (var frm = new frmPayrollEmployee_Add())
@@ -225,7 +224,7 @@ namespace Winform.Payroll
 
         protected bool OnEdit(PayrollEmployee item)
         {
-            var selectedItem = (PayrollEmployee)item;
+            var selectedItem = item;
 
             using (var frm = new frmPayrollEmployee_Add())
             {
@@ -240,18 +239,17 @@ namespace Winform.Payroll
         }
 
 
-
         protected void OnDelete(PayrollEmployee item, out string message, ref Action<Entity> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((PayrollEmployee)item).EmployeeClass.PersonClass.Name.Fullname;
+            message = item.EmployeeClass.PersonClass.Name.Fullname;
 
-            afterConfirm = (currentItem) =>
+            afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (PayrollEmployee)currentItem;
+                    var deletedItem = (PayrollEmployee) currentItem;
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
 
@@ -259,10 +257,9 @@ namespace Winform.Payroll
                     var dataWriter = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
 
-                    ItemDataCollection.Remove((PayrollEmployee)currentItem);
+                    ItemDataCollection.Remove((PayrollEmployee) currentItem);
 
                     App.LogAction("Payroll", "Deleted Employee : " + deletedItem.EmployeeClass.EmpNum);
-
                 }
                 catch (Exception ex)
                 {
@@ -270,7 +267,6 @@ namespace Winform.Payroll
                 }
             };
         }
-
 
 
         private void SGrid_ColumnHeaderMouseUp(object sender, GridColumnHeaderMouseEventArgs e)
@@ -302,24 +298,23 @@ namespace Winform.Payroll
                     AutoCheckOnClick = true,
                     AutoCollapseOnClick = false,
                     HotTrackingStyle = eHotTrackingStyle.Color,
-                    Checked = col.Visible == true,
+                    Checked = col.Visible,
                     ThemeAware = true,
                     Enabled = c > 1,
-                    Tag = col,
+                    Tag = col
                 };
 
                 btn.Command = cmdContext;
 
                 mnuGridColumn.SubItems.Add(btn);
             }
-
         }
 
 
         private void cmdContext_Executed(object sender, EventArgs e)
         {
-            var button = (ButtonItem)sender;
-            var col = (GridColumn)button.Tag;
+            var button = (ButtonItem) sender;
+            var col = (GridColumn) button.Tag;
 
             col.Visible = button.Checked;
         }
@@ -330,10 +325,7 @@ namespace Winform.Payroll
             //{
             //    if (frm.ShowDialog() != DialogResult.OK) return;
             //}
-
         }
-
-
 
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -364,13 +356,11 @@ namespace Winform.Payroll
                 row.SetActive();
                 row.IsSelected = true;
                 row.EnsureVisible();
-
             }
             catch (Exception ex)
             {
                 MessageDialog.ShowError(ex, this);
             }
-
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -380,7 +370,7 @@ namespace Winform.Payroll
             Cursor.Current = Cursors.WaitCursor;
 
             var grid = SGrid.PrimaryGrid;
-            var item = (PayrollEmployee)grid.ActiveRow?.Tag;
+            var item = (PayrollEmployee) grid.ActiveRow?.Tag;
             if (item == null) return;
 
 
@@ -393,7 +383,7 @@ namespace Winform.Payroll
 
             if (ret != MessageDialogResult.Yes) return;
 
-            string[] strType = item.GetType().ToString().Split('.');
+            var strType = item.GetType().ToString().Split('.');
 
             App.LogAction(strType[strType.Length - 1], "Deleted " + deleteMessage);
 
@@ -411,7 +401,7 @@ namespace Winform.Payroll
 
                 var grid = SGrid.PrimaryGrid;
 
-                var item = (PayrollEmployee)grid.ActiveRow?.Tag;
+                var item = (PayrollEmployee) grid.ActiveRow?.Tag;
 
                 if (item == null) return;
                 if (!OnEdit(item)) return;
@@ -423,8 +413,7 @@ namespace Winform.Payroll
                     return;
                 }
 
-                Show_DataOnRow((GridRow)grid.ActiveRow, item);
-
+                Show_DataOnRow((GridRow) grid.ActiveRow, item);
             }
             catch (Exception ex)
             {
@@ -444,7 +433,7 @@ namespace Winform.Payroll
 
             foreach (var gridElement in grid.Rows)
             {
-                var row = (GridRow)gridElement;
+                var row = (GridRow) gridElement;
 
                 row.Checked = true;
             }
@@ -458,7 +447,7 @@ namespace Winform.Payroll
 
             foreach (var gridElement in grid.Rows)
             {
-                var row = (GridRow)gridElement;
+                var row = (GridRow) gridElement;
 
                 row.Checked = false;
             }
@@ -472,7 +461,7 @@ namespace Winform.Payroll
 
             foreach (var gridElement in grid.GetSelectedRows())
             {
-                var row = (GridRow)gridElement;
+                var row = (GridRow) gridElement;
 
                 row.Checked = !row.Checked;
             }
@@ -487,11 +476,9 @@ namespace Winform.Payroll
             var grid = SGrid.PrimaryGrid;
             foreach (var gridElement in grid.Rows)
             {
-                var row = (GridRow)gridElement;
+                var row = (GridRow) gridElement;
                 if (row.Checked)
-                {
-                    list.Add((PayrollEmployee)row.Tag);
-                }
+                    list.Add((PayrollEmployee) row.Tag);
             }
 
             if (!list.Any())
@@ -518,7 +505,6 @@ namespace Winform.Payroll
             };
 
             App.MdiMainForm.OpenForm(frm, "Payroll " + payPeriod.DateCovered.ToString("dd MMM yyyy"));
-
         }
     }
 }

@@ -1,27 +1,27 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using Dll.Payroll;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmPosition : MdiClientGridForm
     {
         internal PositionCollection ItemDataCollection = new PositionCollection();
+
         public frmPosition()
         {
             InitializeComponent();
 
             Header = " PAYROLL POSITIONS ";
-            HeaderColor = System.Drawing.Color.RoyalBlue;
+            HeaderColor = Color.RoyalBlue;
 
             Load += (s, e) => { RefreshData(); };
         }
-
-
 
 
         protected override IEnumerable<Entity> LoadItems()
@@ -52,13 +52,12 @@ namespace Winform.Payroll
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["Lastname"]);
-
         }
 
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (Position)item;
+            var currentItem = (Position) item;
 
             row.Cells["Code"].Value = currentItem.Code;
             row.Cells["Description"].Value = currentItem.Description;
@@ -84,10 +83,9 @@ namespace Winform.Payroll
         }
 
 
-
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (Position)item;
+            var selectedItem = (Position) item;
 
             using (var frm = new frmPosition_Add())
             {
@@ -102,18 +100,17 @@ namespace Winform.Payroll
         }
 
 
-
         protected override void OnDelete(Entity item, out string message, ref Action<Entity> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((Position)item).Description;
+            message = ((Position) item).Description;
 
-            afterConfirm = (currentItem) =>
+            afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (Position)currentItem;
+                    var deletedItem = (Position) currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -124,7 +121,7 @@ namespace Winform.Payroll
 
                     App.LogAction("Payroll Position", "Deleted Position: " + deletedItem.Description);
 
-                    ItemDataCollection.Remove((Position)currentItem);
+                    ItemDataCollection.Remove((Position) currentItem);
                 }
                 catch (Exception ex)
                 {
@@ -132,6 +129,5 @@ namespace Winform.Payroll
                 }
             };
         }
-
     }
 }

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
-namespace AiTech.Biometric
+namespace Biometric
 {
-    public class Attendance 
+    public class Attendance
     {
         public int BiometricId { get; set; }
         public DateTime TimeLog { get; set; }

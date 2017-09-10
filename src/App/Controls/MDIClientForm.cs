@@ -7,64 +7,10 @@ using System.Windows.Forms;
 
 namespace Winform
 {
-    public partial class MdiClientForm : Office2007Form, ISave, IMdiForm //DevComponents.DotNetBar.OfficeForm, ISave, IMdiForm
+    public partial class
+        MdiClientForm : Office2007Form, ISave, IMdiForm //DevComponents.DotNetBar.OfficeForm, ISave, IMdiForm
     {
-        string _title;
-
-        public string Title
-        {
-            get
-            {
-                return _title;
-            }
-            set
-            {
-                _title = value;
-                Text = value;
-            }
-        }
-
-        public string Header
-        {
-            get
-            {
-                return lblHeader.Text;
-            }
-            set
-            {
-                lblHeader.Text = value;
-            }
-        }
-
-        public Color HeaderColor
-        {
-            get
-            {
-                return PanelHead.BackColor;
-            }
-            set
-            {
-                PanelHead.BackColor = value;
-            }
-        }
-
-        public Color HeaderTextColor
-        {
-            get
-            {
-                return lblHeader.ForeColor;
-            }
-            set
-            {
-                lblHeader.ForeColor = value;
-            }
-        }
-
-        public DirtyFormHandler DirtyStatus { get; private set; }
-
-        public virtual bool FileSave() { return false; }
-
-
+        private string _title;
 
 
         public MdiClientForm()
@@ -78,9 +24,42 @@ namespace Winform
             this.AskToSaveOnDirtyClosing();
 
             WindowState = FormWindowState.Maximized;
-
         }
 
+        public string Header
+        {
+            get { return lblHeader.Text; }
+            set { lblHeader.Text = value; }
+        }
+
+        public Color HeaderColor
+        {
+            get { return PanelHead.BackColor; }
+            set { PanelHead.BackColor = value; }
+        }
+
+        public Color HeaderTextColor
+        {
+            get { return lblHeader.ForeColor; }
+            set { lblHeader.ForeColor = value; }
+        }
+
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                _title = value;
+                Text = value;
+            }
+        }
+
+        public DirtyFormHandler DirtyStatus { get; private set; }
+
+        public virtual bool FileSave()
+        {
+            return false;
+        }
 
 
         protected virtual void Form_Load(object sender, EventArgs e)
@@ -126,15 +105,11 @@ namespace Winform
         }
 
 
-
-
         protected void DoRefresh(Action action)
         {
             if (DirtyStatus.IsDirty)
-            {
                 if (MessageDialog.AskToRefresh() == MessageDialogResult.No)
                     return;
-            }
 
             action();
 
@@ -155,7 +130,8 @@ namespace Winform
             }
             catch (DuplicateNameException ex)
             {
-                MessageDialog.Show("Duplicate Record Found!", "Can not save record with duplicate item.\n\n" + ex.GetBaseException().Message);
+                MessageDialog.Show("Duplicate Record Found!",
+                    "Can not save record with duplicate item.\n\n" + ex.GetBaseException().Message);
                 return false;
             }
             catch (Exception ex)

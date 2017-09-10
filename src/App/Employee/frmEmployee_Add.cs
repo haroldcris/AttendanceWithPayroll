@@ -1,21 +1,19 @@
-﻿using AiTech.Tools.Winform;
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using AiTech.Tools.Winform;
 using Dll.Contacts;
 using Dll.Employee;
 using Library.Tools;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using Winform.Contacts;
 
 namespace Winform.Employee
 {
     public partial class frmEmployee_Add : FormWithRecordInfo, ISave
     {
-        public DirtyFormHandler DirtyStatus { get; }
+        private Person _tempPerson;
 
         public Dll.Employee.Employee ItemData;
-
-        private Person _tempPerson;
 
         public frmEmployee_Add()
         {
@@ -28,25 +26,9 @@ namespace Winform.Employee
             lblName.Text = "";
 
             Load += (s, e) => ShowData();
-
         }
 
-        private void ShowData()
-        {
-            ShowPersonInfo(ItemData.PersonClass);
-
-            //= ItemData.Id;
-            _tempPerson = ItemData.PersonClass;
-            txtEmpNum.Text = ItemData.EmpNum.ToString();
-            cboCivilStatus.Text = ItemData.CivilStatus;
-            txtHeight.Value = (double)ItemData.Height;
-            txtWeight.Value = (double)ItemData.Weight;
-
-
-            ShowFileInfo(ItemData);
-
-            DirtyStatus.Clear();
-        }
+        public DirtyFormHandler DirtyStatus { get; }
 
 
         public bool FileSave()
@@ -60,8 +42,8 @@ namespace Winform.Employee
             ItemData.PersonClass = _tempPerson;
             ItemData.EmpNum = empnum;
             ItemData.CivilStatus = cboCivilStatus.Text;
-            ItemData.Height = (decimal)txtHeight.Value;
-            ItemData.Weight = (decimal)txtWeight.Value;
+            ItemData.Height = (decimal) txtHeight.Value;
+            ItemData.Weight = (decimal) txtWeight.Value;
 
 
             var writer = new EmployeeDataWriter(App.CurrentUser.User.Username, ItemData);
@@ -70,6 +52,23 @@ namespace Winform.Employee
             DirtyStatus.Clear();
 
             return true;
+        }
+
+        private void ShowData()
+        {
+            ShowPersonInfo(ItemData.PersonClass);
+
+            //= ItemData.Id;
+            _tempPerson = ItemData.PersonClass;
+            txtEmpNum.Text = ItemData.EmpNum.ToString();
+            cboCivilStatus.Text = ItemData.CivilStatus;
+            txtHeight.Value = (double) ItemData.Height;
+            txtWeight.Value = (double) ItemData.Weight;
+
+
+            ShowFileInfo(ItemData);
+
+            DirtyStatus.Clear();
         }
 
         private bool DataIsValid()
@@ -81,7 +80,7 @@ namespace Winform.Employee
             }
 
 
-            if (Int32.Parse(txtEmpNum.Text) <= 0)
+            if (int.Parse(txtEmpNum.Text) <= 0)
             {
                 txtEmpNum.Focus();
 
@@ -91,7 +90,8 @@ namespace Winform.Employee
 
 
             var reader = new EmployeeDataReader();
-            if (reader.HasExistingEmployeeNumber(Convert.ToInt32(txtEmpNum.Text)) && ItemData.EmpNum != Convert.ToInt32(txtEmpNum.Text))
+            if (reader.HasExistingEmployeeNumber(Convert.ToInt32(txtEmpNum.Text)) &&
+                ItemData.EmpNum != Convert.ToInt32(txtEmpNum.Text))
             {
                 MessageDialog.ShowValidationError(txtEmpNum, "Employee Number already exists!");
                 return false;
@@ -117,9 +117,7 @@ namespace Winform.Employee
             }
 
 
-
             return true;
-
         }
 
 
@@ -130,7 +128,7 @@ namespace Winform.Employee
         }
 
 
-        private void btnContactsSelect_Click(object sender, System.EventArgs e)
+        private void btnContactsSelect_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
@@ -143,7 +141,8 @@ namespace Winform.Employee
 
             if (ExistingPersonId(_tempPerson.Id))
             {
-                MessageDialog.Show(this, "Existing Record", "An existing Employee Record associated with this contact already exists!");
+                MessageDialog.Show(this, "Existing Record",
+                    "An existing Employee Record associated with this contact already exists!");
                 return;
             }
 
@@ -175,7 +174,9 @@ Gender:
 
             template = template.Replace("%extension%", person.Name.NameExtension.ToUpper());
 
-            template = !person.Name.Lastname.Any() ? template.Replace("%gender%", "") : template.Replace("%gender%", person.Gender == GenderType.Male ? "Male" : "Female");
+            template = !person.Name.Lastname.Any()
+                ? template.Replace("%gender%", "")
+                : template.Replace("%gender%", person.Gender == GenderType.Male ? "Male" : "Female");
 
             if (person.Name.MaidenMiddlename.Length == 0)
             {
@@ -193,7 +194,7 @@ Gender:
             lblName.Text = template;
         }
 
-        private void btnContactsNew_Click(object sender, System.EventArgs e)
+        private void btnContactsNew_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
@@ -209,12 +210,12 @@ Gender:
             ShowPersonInfo(_tempPerson);
         }
 
-        private void btnCancel_Click(object sender, System.EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnOk_Click(object sender, System.EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
             if (!FileSave()) return;
 

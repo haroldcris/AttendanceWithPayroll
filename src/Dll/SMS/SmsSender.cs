@@ -1,12 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.IO.Ports;
-using System.Threading;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Dll.SMS
 {
@@ -21,7 +17,7 @@ namespace Dll.SMS
             SerialPort port = new SerialPort();
 
             try
-            {           
+            {
                 port.PortName = p_strPortName;                 //COM1
                 port.BaudRate = p_uBaudRate;                   //9600
                 port.DataBits = p_uDataBits;                   //8
@@ -60,16 +56,16 @@ namespace Dll.SMS
         #endregion
 
         //Execute AT Command
-        public string ExecCommand(SerialPort port,string command, int responseTimeout, string errorMessage)
+        public string ExecCommand(SerialPort port, string command, int responseTimeout, string errorMessage)
         {
             try
             {
-               
+
                 port.DiscardOutBuffer();
                 port.DiscardInBuffer();
                 receiveNow.Reset();
                 port.Write(command + "\r");
-           
+
                 string input = ReadResponse(port, responseTimeout);
                 if ((input.Length == 0) || ((!input.EndsWith("\r\n> ")) && (!input.EndsWith("\r\nOK\r\n"))))
                     throw new ApplicationException("No success message was received.");
@@ -79,7 +75,7 @@ namespace Dll.SMS
             {
                 throw ex;
             }
-        }   
+        }
 
         //Receive data from port
         public void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -96,11 +92,11 @@ namespace Dll.SMS
                 throw ex;
             }
         }
-        public string ReadResponse(SerialPort port,int timeout)
+        public string ReadResponse(SerialPort port, int timeout)
         {
             string buffer = string.Empty;
             try
-            {    
+            {
                 do
                 {
                     if (receiveNow.WaitOne(timeout, false))
@@ -179,7 +175,7 @@ namespace Dll.SMS
             {
                 throw ex;
             }
-           
+
         }
         #endregion
 
@@ -187,7 +183,7 @@ namespace Dll.SMS
 
         public AutoResetEvent receiveNow;
 
-        public ShortMessageCollection ReadSMS (SerialPort port)
+        public ShortMessageCollection ReadSMS(SerialPort port)
         {
             return ReadSMS(port, "AT+CMGL=\"ALL\"");
         }
@@ -202,30 +198,30 @@ namespace Dll.SMS
 
                 #region Execute Command
                 // Check connection
-                ExecCommand(port,"AT", 300, "No phone connected");
-                
+                ExecCommand(port, "AT", 300, "No phone connected");
+
                 // Use message format "Text mode"
-                ExecCommand(port,"AT+CMGF=1", 300, "Failed to set message format.");
+                ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
 
                 // Use character set "PCCP437"
                 ExecCommand(port, "AT+CSCS=\"PCCP437\"", 300, "Failed to set character set.");
 
                 // Select SIM storage
-                ExecCommand(port,"AT+CPMS=\"SM\"", 300, "Failed to select message storage.");
+                ExecCommand(port, "AT+CPMS=\"SM\"", 300, "Failed to select message storage.");
 
                 // Read the messages
                 string input = ExecCommand(port, p_strCommand, 5000, "Failed to read the messages.");
 
                 #endregion
 
-                
+
                 #region Execute PDU Command
                 ExecCommand(port, "AT", 300, "No phone connected");
                 ExecCommand(port, "AT+CMGF=0", 300, "Failed to set message format.");  //PDU Format
                 var result = ExecCommand(port, "AT+CSCS=\"GSM\"", 300, "Failed to set character set.");
                 ExecCommand(port, "AT+CPMS=\"SM\"", 300, "Failed to select message storage.");
 
-                 input = ExecCommand(port, "AT+CMGL=4", 5000, "Failed to read the messages.");
+                input = ExecCommand(port, "AT+CMGL=4", 5000, "Failed to read the messages.");
 
                 #endregion
 
@@ -243,7 +239,7 @@ namespace Dll.SMS
                 return messages;
             else
                 return null;
-        
+
         }
 
 
@@ -252,7 +248,7 @@ namespace Dll.SMS
         {
             ShortMessageCollection messages = new ShortMessageCollection();
             try
-            {     
+            {
                 Regex r = new Regex(@"\+CMGL: (\d+),""(.+)"",""(.+)"",(.*),""(.+)""\r\n(.+)\r\n");
                 Match m = r.Match(input);
                 while (m.Success)
@@ -281,7 +277,7 @@ namespace Dll.SMS
         #endregion
 
         #region Send SMS
-       
+
         static AutoResetEvent readNow = new AutoResetEvent(false);
 
         public bool SendSms(SerialPort port, string PhoneNo, string Message)
@@ -290,13 +286,13 @@ namespace Dll.SMS
 
             try
             {
-                
-                string receivedData = ExecCommand(port,"AT", 300, "No phone connected");
-                receivedData = ExecCommand(port,"AT+CMGF=1", 300, "Failed to set message format.");
+
+                string receivedData = ExecCommand(port, "AT", 300, "No phone connected");
+                receivedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
                 String command = "AT+CMGS=\"" + PhoneNo + "\"";
-                receivedData = ExecCommand(port,command, 300, "Failed to accept phoneNo");         
+                receivedData = ExecCommand(port, command, 300, "Failed to accept phoneNo");
                 command = Message + char.ConvertFromUtf32(26) + "\r";
-                receivedData = ExecCommand(port,command, 3000, "Failed to send message"); //3 seconds
+                receivedData = ExecCommand(port, command, 3000, "Failed to send message"); //3 seconds
                 if (receivedData.EndsWith("\r\nOK\r\n"))
                 {
                     isSend = true;
@@ -309,10 +305,10 @@ namespace Dll.SMS
             }
             catch (Exception ex)
             {
-                throw ex; 
+                throw ex;
             }
-          
-        }     
+
+        }
 
 
         static void DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -331,17 +327,17 @@ namespace Dll.SMS
         #endregion
 
         #region Delete SMS
-        public bool DeleteMsg(SerialPort port , string p_strCommand)
+        public bool DeleteMsg(SerialPort port, string p_strCommand)
         {
             bool isDeleted = false;
             try
             {
 
                 #region Execute Command
-                string recievedData = ExecCommand(port,"AT", 300, "No phone connected");
-                recievedData = ExecCommand(port,"AT+CMGF=1", 300, "Failed to set message format.");
+                string recievedData = ExecCommand(port, "AT", 300, "No phone connected");
+                recievedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
                 String command = p_strCommand;
-                recievedData = ExecCommand(port,command, 300, "Failed to delete message");
+                recievedData = ExecCommand(port, command, 300, "Failed to delete message");
                 #endregion
 
                 if (recievedData.EndsWith("\r\nOK\r\n"))
@@ -356,10 +352,10 @@ namespace Dll.SMS
             }
             catch (Exception ex)
             {
-                throw ex; 
+                throw ex;
             }
-            
-        }  
+
+        }
         #endregion
 
     }

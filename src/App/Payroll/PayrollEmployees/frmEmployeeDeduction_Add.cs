@@ -1,18 +1,14 @@
-﻿using AiTech.Tools.Winform;
+﻿using System;
+using System.Windows.Forms;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using Dll.Payroll;
-using System;
-using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmEmployeeDeduction_Add : Office2007Form
     {
-
-        public PayrollEmployeeDeduction ItemData { get; set; }
-
         private Deduction _tempDeduction;
-
 
 
         public frmEmployeeDeduction_Add()
@@ -28,8 +24,10 @@ namespace Winform.Payroll
             txtAmount.Value = 0;
         }
 
+        public PayrollEmployeeDeduction ItemData { get; set; }
 
-        private void btnSelectDeduction_Click(object sender, System.EventArgs e)
+
+        private void btnSelectDeduction_Click(object sender, EventArgs e)
         {
             try
             {
@@ -42,7 +40,6 @@ namespace Winform.Payroll
 
 
                 Show_Deduction(_tempDeduction);
-
             }
             catch (Exception ex)
             {
@@ -66,7 +63,6 @@ Description: <br/>
 
 
             lblDeduction.Text = template;
-
         }
 
 
@@ -75,21 +71,20 @@ Description: <br/>
             //
         }
 
-        private void btnCancel_Click(object sender, System.EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnOk_Click(object sender, System.EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
-
             try
             {
                 //ItemData.EmpId = ;
                 ItemData.DeductionId = _tempDeduction.Id;
                 ItemData.DeductionClass = _tempDeduction;
 
-                ItemData.Amount = (decimal)txtAmount.Value;
+                ItemData.Amount = (decimal) txtAmount.Value;
 
                 ItemData.DateFrom = dtStart.Value;
                 ItemData.DateTo = dtEnd.Value;
@@ -99,15 +94,11 @@ Description: <br/>
                 //var writer = new PayrollEmployeeD
 
                 DialogResult = DialogResult.OK;
-
             }
             catch (Exception ex)
             {
                 MessageDialog.ShowError(ex, this);
             }
-
-
-
         }
     }
 }

@@ -1,20 +1,14 @@
-﻿using AiTech.Tools.Winform;
-using Dll.Payroll;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AiTech.Tools.Winform;
+using Dll.Payroll;
 
 namespace Winform.Payroll
 {
     public partial class frmGeneratePayroll : FormWithHeader
     {
-
-        public IEnumerable<PayrollEmployee> ListOfEmployees { get; set; }
-
-        public PayrollPeriod ItemData { get; set; }
-
-
         public frmGeneratePayroll()
         {
             InitializeComponent();
@@ -22,6 +16,9 @@ namespace Winform.Payroll
             dtPeriod.Value = DateTime.Today;
         }
 
+        public IEnumerable<PayrollEmployee> ListOfEmployees { get; set; }
+
+        public PayrollPeriod ItemData { get; set; }
 
 
         private bool FileSave()
@@ -30,7 +27,6 @@ namespace Winform.Payroll
 
             try
             {
-
                 if (!DataIsValid()) return false;
 
 
@@ -97,7 +93,6 @@ namespace Winform.Payroll
 
         private bool DataIsValid()
         {
-
             if (!txtRemarks.Text.Any())
             {
                 MessageDialog.ShowValidationError(txtRemarks, "Payroll Title is Required");
@@ -123,18 +118,10 @@ namespace Winform.Payroll
         }
 
 
-
         private void btnOk_Click(object sender, EventArgs e)
         {
-
             if (FileSave())
-            {
                 DialogResult = DialogResult.OK;
-            }
         }
-
     }
-
-
-
 }

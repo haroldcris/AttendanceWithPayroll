@@ -41,9 +41,10 @@
             this.pbLogin = new DevComponents.DotNetBar.Controls.ProgressBarX();
             this.lblError = new DevComponents.DotNetBar.LabelX();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.metroStatusBar1 = new DevComponents.DotNetBar.Metro.MetroStatusBar();
+            this.bar1 = new DevComponents.DotNetBar.Bar();
             this.lblStatus = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.SuspendLayout();
             // 
             // highlighter1
@@ -197,30 +198,28 @@
             this.pictureBox1.TabIndex = 12;
             this.pictureBox1.TabStop = false;
             // 
-            // metroStatusBar1
+            // bar1
             // 
-            // 
-            // 
-            // 
-            this.metroStatusBar1.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.metroStatusBar1.ContainerControlProcessDialogKey = true;
-            this.metroStatusBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.metroStatusBar1.DragDropSupport = true;
-            this.metroStatusBar1.Font = new System.Drawing.Font("Segoe UI", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.metroStatusBar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.bar1.AntiAlias = true;
+            this.bar1.BarType = DevComponents.DotNetBar.eBarType.StatusBar;
+            this.bar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.bar1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bar1.IsMaximized = false;
+            this.bar1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.lblStatus});
-            this.metroStatusBar1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
-            this.metroStatusBar1.Location = new System.Drawing.Point(0, 385);
-            this.metroStatusBar1.Name = "metroStatusBar1";
-            this.metroStatusBar1.Size = new System.Drawing.Size(210, 15);
-            this.metroStatusBar1.TabIndex = 13;
-            this.metroStatusBar1.Text = "metroStatusBar1";
+            this.bar1.Location = new System.Drawing.Point(0, 380);
+            this.bar1.Name = "bar1";
+            this.bar1.Size = new System.Drawing.Size(210, 20);
+            this.bar1.Stretch = true;
+            this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
+            this.bar1.TabIndex = 13;
+            this.bar1.TabStop = false;
+            this.bar1.Text = "bar1";
             // 
             // lblStatus
             // 
-            this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Text = "Version:";
+            this.lblStatus.Text = "labelItem1";
             // 
             // frmLogin
             // 
@@ -228,7 +227,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(210, 400);
-            this.Controls.Add(this.metroStatusBar1);
+            this.Controls.Add(this.bar1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblError);
             this.Controls.Add(this.lblUsername);
@@ -248,6 +247,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Log In";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -265,7 +265,7 @@
         private DevComponents.DotNetBar.Controls.ProgressBarX pbLogin;
         private DevComponents.DotNetBar.LabelX lblError;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private DevComponents.DotNetBar.Metro.MetroStatusBar metroStatusBar1;
+        private DevComponents.DotNetBar.Bar bar1;
         private DevComponents.DotNetBar.LabelItem lblStatus;
     }
 }

@@ -1,16 +1,16 @@
-using DevComponents.DotNetBar;
-using Dll.SchoolYear;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using Dll.SchoolYear;
 
 namespace Winform
 {
     public partial class frmBatch : MdiClientForm
     {
-        BatchCollection BatchItems = new BatchCollection();
+        private readonly BatchCollection BatchItems = new BatchCollection();
 
         public frmBatch()
         {
@@ -42,7 +42,6 @@ namespace Winform
         }
 
 
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var newItem = new Batch();
@@ -64,7 +63,7 @@ namespace Winform
         {
             if (flexGrid.Rows.Count < 2) return;
 
-            var itemToEdit = (Batch)flexGrid.GetUserData(flexGrid.Row, 0);
+            var itemToEdit = (Batch) flexGrid.GetUserData(flexGrid.Row, 0);
             if (itemToEdit == null) return;
 
             var frm = new frmBatch_Add(this);
@@ -102,10 +101,9 @@ namespace Winform
 
         internal bool ContainsData(Batch item)
         {
-
             var foundItem = BatchItems.Items.FirstOrDefault(x => x.BatchName == item.BatchName &&
-                                                                             x.Semester == item.Semester &&
-                                                                             x.RowId != item.RowId);
+                                                                 x.Semester == item.Semester &&
+                                                                 x.RowId != item.RowId);
             if (foundItem == null) return false;
             //if (foundItem.Id == item.Id && foundItem.Id != 0) return false;
 
@@ -121,7 +119,7 @@ namespace Winform
         {
             if (flexGrid.Rows.Count == 1) return;
 
-            var item = (Batch)flexGrid.GetUserData(flexGrid.Row, 0);
+            var item = (Batch) flexGrid.GetUserData(flexGrid.Row, 0);
 
             if (item == null) return;
 
@@ -134,6 +132,5 @@ namespace Winform
                 flexGrid.RemoveItem(flexGrid.Row);
             }
         }
-
     }
 }

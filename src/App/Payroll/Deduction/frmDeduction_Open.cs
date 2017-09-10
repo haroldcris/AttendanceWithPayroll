@@ -1,19 +1,17 @@
-﻿using AiTech.LiteOrm.Database.Search;
-using AiTech.Tools.Winform;
-using DevComponents.DotNetBar;
-using Dll.Payroll;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AiTech.LiteOrm.Database.Search;
+using AiTech.Tools.Winform;
+using C1.Win.C1FlexGrid;
+using DevComponents.DotNetBar;
+using Dll.Payroll;
 
 namespace Winform.Payroll
 {
-
     public partial class frmDeduction_Open : Office2007Form
     {
-        public Deduction ItemData { get; private set; }
-
         public frmDeduction_Open()
         {
             InitializeComponent();
@@ -30,19 +28,19 @@ namespace Winform.Payroll
             cboSearchType.Items.Add("Starts With");
             cboSearchType.Items.Add("Ends With");
             cboSearchType.SelectedIndex = 0;
-
         }
+
+        public Deduction ItemData { get; private set; }
 
         private void InitializeGrid()
         {
             FlexGrid.Rows.Count = 1;
             FlexGrid.RowColChange += FlexGrid_RowColChange;
-            FlexGrid.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row;
+            FlexGrid.SelectionMode = SelectionModeEnum.Row;
 
             FlexGrid.AllowFiltering = false;
-            FlexGrid.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop;
-            FlexGrid.KeyActionEnter = C1.Win.C1FlexGrid.KeyActionEnum.None;
-
+            FlexGrid.AutoSearch = AutoSearchEnum.FromTop;
+            FlexGrid.KeyActionEnter = KeyActionEnum.None;
         }
 
         private void FlexGrid_RowColChange(object sender, EventArgs e)
@@ -76,7 +74,6 @@ namespace Winform.Payroll
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-
             Cursor.Current = Cursors.WaitCursor;
 
             if (string.IsNullOrEmpty(txtIdNum.Text))
@@ -84,10 +81,11 @@ namespace Winform.Payroll
                 MessageDialog.Show("Invalid Deduction Code", "You have entered an Invalid Code");
                 txtIdNum.SelectAll();
                 return;
-            };
+            }
+            ;
 
 
-            var deduction = (new DeductionDataReader()).GetItem(txtIdNum.Text);
+            var deduction = new DeductionDataReader().GetItem(txtIdNum.Text);
 
             if (deduction == null)
             {
@@ -121,14 +119,11 @@ namespace Winform.Payroll
 
 
             return true;
-
         }
-
 
 
         private void btnSearch_Click(object sender, EventArgs e)
         {
-
             try
             {
                 FlexGrid.Rows.Count = 1;
@@ -172,14 +167,11 @@ namespace Winform.Payroll
                     FlexGrid.Select(1, 0);
                 }
                 FlexGrid.Focus();
-
             }
             catch (Exception ex)
             {
                 MessageDialog.ShowError(ex, this);
             }
         }
-
-
     }
 }

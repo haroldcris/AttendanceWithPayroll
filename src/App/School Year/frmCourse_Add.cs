@@ -1,9 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
@@ -11,12 +6,8 @@ using Dll.SchoolYear;
 
 namespace Winform
 {
-    public partial class frmCourse_Add : DevComponents.DotNetBar.OfficeForm
+    public partial class frmCourse_Add : OfficeForm
     {
-        public new frmCourse ParentForm { get; set; }
-
-        public Course CurrentCourse{ get; set; }
-
         public frmCourse_Add(frmCourse parent)
         {
             InitializeComponent();
@@ -28,6 +19,10 @@ namespace Winform
             highlighter1.SetHighlightOnFocus(txtDescription, true);
         }
 
+        public new frmCourse ParentForm { get; set; }
+
+        public Course CurrentCourse { get; set; }
+
         private void form_Load(object sender, EventArgs e)
         {
             if (CurrentCourse == null) return;
@@ -38,7 +33,7 @@ namespace Winform
 
         private void frmBatch_Add_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((e.KeyChar == (int)Keys.Enter) || (e.KeyChar == (int)Keys.Return))
+            if (e.KeyChar == (int) Keys.Enter || e.KeyChar == (int) Keys.Return)
             {
                 SelectNextControl(ActiveControl, true, false, true, true);
                 e.Handled = true;
@@ -56,7 +51,7 @@ namespace Winform
 
             Cursor.Current = Cursors.WaitCursor;
 
-            if (ParentForm.ContainsData( CurrentCourse))
+            if (ParentForm.ContainsData(CurrentCourse))
             {
                 MessageDialog.ShowValidationError(txtCourseCode, "Duplicate Record!", errorProvider1, highlighterError);
                 return;
@@ -68,8 +63,6 @@ namespace Winform
             DialogResult = DialogResult.OK;
         }
 
-
-      
 
         private bool ValidInputs()
         {

@@ -1,17 +1,19 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Payroll;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmDeduction : MdiClientGridForm
     {
         internal DeductionCollection ItemDataCollection = new DeductionCollection();
+
         public frmDeduction()
         {
             InitializeComponent();
@@ -21,8 +23,6 @@ namespace Winform.Payroll
 
             Load += (s, e) => { RefreshData(); };
         }
-
-
 
 
         protected override IEnumerable<Entity> LoadItems()
@@ -65,13 +65,12 @@ namespace Winform.Payroll
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["Lastname"]);
-
         }
 
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (Deduction)item;
+            var currentItem = (Deduction) item;
 
             row.Cells["Code"].Value = currentItem.Code;
             row.Cells["Description"].Value = currentItem.Description;
@@ -80,7 +79,9 @@ namespace Winform.Payroll
             row.Cells["Priority"].Value = currentItem.Priority;
             row.Cells["Active"].Value = currentItem.Active;
 
-            row.CellStyles.Default = currentItem.Active ? null : new CellVisualStyle() { Background = new Background(System.Drawing.Color.LightGray) };
+            row.CellStyles.Default = currentItem.Active
+                ? null
+                : new CellVisualStyle {Background = new Background(Color.LightGray)};
 
             row.ShowRecordInfo(currentItem);
         }
@@ -103,10 +104,9 @@ namespace Winform.Payroll
         }
 
 
-
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (Deduction)item;
+            var selectedItem = (Deduction) item;
 
             using (var frm = new frmDeduction_Add())
             {
@@ -121,18 +121,17 @@ namespace Winform.Payroll
         }
 
 
-
         protected override void OnDelete(Entity item, out string message, ref Action<Entity> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((Deduction)item).Description;
+            message = ((Deduction) item).Description;
 
-            afterConfirm = (currentItem) =>
+            afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (Deduction)currentItem;
+                    var deletedItem = (Deduction) currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -143,7 +142,7 @@ namespace Winform.Payroll
 
                     App.LogAction("Deduction", "Deleted Deduction: " + deletedItem.Description);
 
-                    ItemDataCollection.Remove((Deduction)currentItem);
+                    ItemDataCollection.Remove((Deduction) currentItem);
                 }
                 catch (Exception ex)
                 {
@@ -151,8 +150,5 @@ namespace Winform.Payroll
                 }
             };
         }
-
-
-
     }
 }

@@ -1,6 +1,9 @@
 ﻿using AiTech.LiteOrm;
+using AiTech.LiteOrm.Database;
+using AiTech.Tools;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
+using Devices;
 using Dll.Contacts;
 using Dll.Location;
 using Library.Tools;
@@ -8,18 +11,12 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Winform.Contacts
 {
     public partial class frmContacts_Add : FormWithRecordInfo, ISave
     {
-        public Person ItemData { get; set; }
-
-        public DirtyFormHandler DirtyStatus { get; }
-
-
         public frmContacts_Add()
         {
             InitializeComponent();
@@ -46,16 +43,20 @@ namespace Winform.Contacts
             cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
 
 
-
             RecordInfoPanel.Groups[0].ItemAlignment = eItemAlignment.Far;
-
         }
+
+        public Person ItemData { get; set; }
+
+        public DirtyFormHandler DirtyStatus { get; }
 
         private void CboCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cboCountry.SelectedIndex < 0) return;
 
-            var comboStyle = cboCountry.Text.Equals("philippines", StringComparison.CurrentCultureIgnoreCase) ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown;
+            var comboStyle = cboCountry.Text.Equals("philippines", StringComparison.CurrentCultureIgnoreCase)
+                ? ComboBoxStyle.DropDownList
+                : ComboBoxStyle.DropDown;
 
             cboProvince.SelectedIndex = -1;
             cboProvince.DropDownStyle = comboStyle;
@@ -72,200 +73,6 @@ namespace Winform.Contacts
             InputControls.Address.LoadTownListTo(cboTown, id);
         }
 
-
-        #region Main Script
-
-        public bool FileSave()
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                if (!DataIsValid()) return false;
-
-                ItemData.Name.Lastname = txtLastname.Text.Trim();
-                ItemData.Name.Firstname = txtFirstname.Text.Trim();
-                ItemData.Name.Middlename = txtMiddlename.Text.Trim();
-                ItemData.Name.MiddleInitial = txtMi.Text.Trim();
-                ItemData.Name.NameExtension = cboNameExtension.Text;
-
-
-                ItemData.Name.MaidenMiddlename = txtMaidenMiddlename.Enabled ? txtMaidenMiddlename.Text : "";
-
-                ItemData.Gender = cboGender.Text.ToLower() == "male" ? GenderType.Male : GenderType.Female;
-                ItemData.BirthDate = dtBirthdate.Value;
-
-                ItemData.BirthProvince = cboProvince.Text;
-                ItemData.BirthTown = cboTown.Text;
-                ItemData.BirthCountry = cboCountry.Text;
-
-                ItemData.CameraCounter = txtImageFile.Text;
-
-
-
-                //Write Mobile Numbers;
-                if (lstContacts.Items.Any())
-                {
-                    foreach (ListBoxItem listItem in lstContacts.Items)
-                    {
-                        var m = (MobileNumber)listItem.Tag;
-
-                        if (!listItem.Visible)
-                        {
-                            m.RowStatus = RecordStatus.DeletedRecord;
-                        }
-                        else
-                        {
-                            if (m.Id == 0) ItemData.MobileNumbers.Add(m);
-                        }
-                    }
-
-
-
-                }
-
-
-                var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, ItemData);
-
-                var ret = dataWriter.SaveChanges();
-
-
-                for (var c = lstContacts.Items.Count - 1; c >= 0; c--)
-                {
-                    if (!((ListBoxItem)lstContacts.Items[c]).Visible)
-                        lstContacts.Items.Remove(lstContacts.Items[c]);
-                }
-
-
-                App.LogAction("Contacts", "Updated Contacts");
-
-                DialogResult = DialogResult.OK;
-                DirtyStatus.Clear();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageDialog.ShowError(ex, this);
-                return false;
-            }
-        }
-
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-            FileSave();
-        }
-
-
-
-        private bool DataIsValid()
-        {
-            if (string.IsNullOrWhiteSpace(txtLastname.Text))
-            {
-                MessageDialog.ShowValidationError(txtLastname, "Lastname must NOT be blank.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(txtFirstname.Text))
-            {
-                MessageDialog.ShowValidationError(txtFirstname, "Firstname must NOT be blank.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(cboGender.Text))
-            {
-                MessageDialog.ShowValidationError(cboGender, "Gender must NOT be blank.");
-                return false;
-            }
-
-
-            if (string.IsNullOrWhiteSpace(cboCountry.Text))
-            {
-                MessageDialog.ShowValidationError(cboCountry, "Country must NOT be blank.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(cboProvince.Text))
-            {
-                MessageDialog.ShowValidationError(cboProvince, "Province must NOT be blank.");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(cboTown.Text))
-            {
-                MessageDialog.ShowValidationError(cboTown, "Town must NOT be blank.");
-                return false;
-            }
-
-
-            var reader = new PersonDataReader();
-            var findItem = reader.GetItem(txtLastname.Text, txtFirstname.Text, txtMiddlename.Text);
-
-            if (findItem != null && findItem.Id != ItemData.Id)
-            {
-                var response = MessageDialog.Ask("Create Duplicate Record?",
-                                string.Format(@"System detected a similar contact with the following details:<br/><br/>
-                                                Fullname : <b>{0}</b><br/>
-                                                BirthDate: <b>{1}</b>", findItem.Name.Fullname, findItem.BirthDate.ToString("yyyy MMMM dd")));
-
-                if (response == MessageDialogResult.No) return false;
-            }
-
-            return true;
-        }
-
-        private void ShowData()
-        {
-            if (ItemData.Id != 0) txtId.Text = ItemData.Id.ToString("0000");
-
-            txtLastname.Text = ItemData.Name.Lastname;
-            txtFirstname.Text = ItemData.Name.Firstname;
-            txtMiddlename.Text = ItemData.Name.Middlename;
-            txtMi.Text = ItemData.Name.MiddleInitial;
-            cboNameExtension.Text = ItemData.Name.NameExtension;
-
-            txtMaidenMiddlename.Text = ItemData.Name.MaidenMiddlename;
-
-            cboGender.Text = ItemData.Gender == GenderType.Male ? "Male" : "Female";
-            dtBirthdate.Value = ItemData.BirthDate;
-
-            cboCountry.Text = ItemData.BirthCountry;
-            cboProvince.Text = ItemData.BirthProvince;
-            cboTown.Text = ItemData.BirthTown;
-
-
-            txtImageFile.Text = ItemData.CameraCounter;
-
-
-            //Mobile Numbers
-            ItemData.MobileNumbers.LoadItemsFromDb();
-            Show_MobileNumbers();
-
-            //Show Picture
-            InputControls.LoadImage(picImage, ItemData.CameraCounter);
-
-            ShowFileInfo(ItemData);
-        }
-
-
-        private void Show_MobileNumbers()
-        {
-
-            foreach (var m in ItemData.MobileNumbers.Items)
-            {
-                var listItem = new ListBoxItem
-                {
-                    Image = imageList1.Images["phone"],
-                    Text = m.PhoneNumber,
-                    Tag = m
-                };
-
-                lstContacts.Items.Add(listItem);
-            }
-        }
-
-
-
-        #endregion
-
         private void txtMiddlename_KeyUp(object sender, KeyEventArgs e)
         {
             if (txtMiddlename.Text.Length == 0) return;
@@ -281,44 +88,70 @@ namespace Winform.Contacts
         }
 
 
-
-        private async Task UploadAndDisplayImage(string fullFilename)
+        private void UploadAndDisplayImage(string fullFilename)
         {
+            Cursor.Current = Cursors.WaitCursor;
 
             string errorMessage = null;
 
-            var uploadResult = await Task.Run(() =>
+            //var uploadResult = await Task.Run(() =>
+            //{
+            var username = "anonymous"; //AiTech.LiteOrm.Database.Connection.MyDbCredential.Username;
+            var password = "user@yahoo.com"; //AiTech.LiteOrm.Database.Connection.MyDbCredential.Password;
+
+            var credential = new NetworkCredential { UserName = username, Password = password };
+
+
+            var ftp = new FtpClass(Connection.MyDbCredential.ServerName,
+                credential);
+
+
+            ftp.Progress += delegate (object sender, cFTPEventHandlerArgs args)
             {
+                Invoke((MethodInvoker)delegate
+               {
 
-                var username = AiTech.LiteOrm.Database.Connection.MyDbCredential.Username;
-                var password = AiTech.LiteOrm.Database.Connection.MyDbCredential.Password;
+                   lblSpace.Text = args.CompletedBytes.ToString();
+                   lblSpace.Refresh();
+                   BarImage.Refresh();
+                   this.Refresh();
+               });
+            };
 
-                var credential = new NetworkCredential() { UserName = username, Password = password };
+            ftp.Completed += (s, e) =>
+            {
+                Invoke((MethodInvoker)delegate
+                {
+                    lblSpace.Text = "";
+                    lblSpace.Refresh();
+                });
+            };
 
 
-                var ftp = new AiTech.Tools.FtpClass(AiTech.LiteOrm.Database.Connection.MyDbCredential.ServerName,
-                    credential);
+            var result = ftp.UploadFile(fullFilename, "/amwp/pictures/");
 
-                var result = ftp.UploadFile(fullFilename, "/amwp/pictures/");
+            errorMessage = "";
 
-                errorMessage = "";
-                if (!result) errorMessage = ftp.LastError;
+            if (!result)
+            {
+                errorMessage = ftp.LastError;
+                MessageDialog.Show(this, "FTP Error", errorMessage);
+            }
 
-                return result;
-            });
+            //    return result;
+            //});
 
 
-            if (!uploadResult)
+            if (!result)
                 MessageDialog.ShowValidationError(this, errorMessage);
             else
                 InputControls.LoadImage(picImage, txtImageFile.Text);
-
         }
 
-        private async void txtImageFile_ButtonCustomClick(object sender, EventArgs e)
+        private void txtImageFile_ButtonCustomClick(object sender, EventArgs e)
         {
             FileInfo file;
-            using (var frm = new Devices.frmCaptureDevice())
+            using (var frm = new frmCaptureDevice())
             {
                 if (frm.ShowDialog() != DialogResult.OK) return;
 
@@ -327,34 +160,42 @@ namespace Winform.Contacts
 
             txtImageFile.Text = Path.GetFileNameWithoutExtension(file.FullName);
 
-            await UploadAndDisplayImage(file.FullName);
+            UploadAndDisplayImage(file.FullName);
         }
 
 
-        private async void txtImageFile_ButtonCustom2Click(object sender, EventArgs e)
+        private void txtImageFile_ButtonCustom2Click(object sender, EventArgs e)
         {
-            var openDialog = new OpenFileDialog
+            try
             {
-                Filter = @"Picture Files|*.jpg",
-                Multiselect = false,
-                CheckFileExists = true,
-                Title = @"Select an image File"
-            };
+                var openDialog = new OpenFileDialog
+                {
+                    Filter = @"Picture Files|*.jpg",
+                    Multiselect = false,
+                    CheckFileExists = true,
+                    Title = @"Select an image File"
+                };
 
-            if (openDialog.ShowDialog() != DialogResult.OK) return;
+                if (openDialog.ShowDialog() != DialogResult.OK) return;
 
-            var targetFolder = Path.Combine(Path.GetTempPath(), "amwp");
-            var targetName = DateTime.Now.ToString("yymmddhhmmss");
-            var targetFilename = Path.Combine(targetFolder, targetName + ".jpg");
+                var targetFolder = Path.Combine(Path.GetTempPath(), "amwp");
+                var targetName = DateTime.Now.ToString("yymmddhhmmss");
+                var targetFilename = Path.Combine(targetFolder, targetName + ".jpg");
 
-            Directory.CreateDirectory(targetFolder);
+                Directory.CreateDirectory(targetFolder);
 
-            File.Copy(openDialog.FileName, targetFilename);
+                File.Copy(openDialog.FileName, targetFilename);
 
-            txtImageFile.Text = targetName;
-            await UploadAndDisplayImage(targetFilename);
+                txtImageFile.Text = targetName;
 
-            File.Delete(targetFilename);
+                UploadAndDisplayImage(targetFilename);
+
+                //File.Delete(targetFilename);
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -405,13 +246,10 @@ namespace Winform.Contacts
         }
 
 
-
         private void txtContact_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Return)
-            {
                 txtContact.PerformButtonCustomClick();
-            }
         }
 
         private void btnDeleteNumber_Click(object sender, EventArgs e)
@@ -433,5 +271,188 @@ namespace Winform.Contacts
 
             DirtyStatus.SetDirty();
         }
+
+
+        #region Main Script
+
+        public bool FileSave()
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (!DataIsValid()) return false;
+
+                ItemData.Name.Lastname = txtLastname.Text.Trim();
+                ItemData.Name.Firstname = txtFirstname.Text.Trim();
+                ItemData.Name.Middlename = txtMiddlename.Text.Trim();
+                ItemData.Name.MiddleInitial = txtMi.Text.Trim();
+                ItemData.Name.NameExtension = cboNameExtension.Text;
+
+
+                ItemData.Name.MaidenMiddlename = txtMaidenMiddlename.Enabled ? txtMaidenMiddlename.Text : "";
+
+                ItemData.Gender = cboGender.Text.ToLower() == "male" ? GenderType.Male : GenderType.Female;
+                ItemData.BirthDate = dtBirthdate.Value;
+
+                ItemData.BirthProvince = cboProvince.Text;
+                ItemData.BirthTown = cboTown.Text;
+                ItemData.BirthCountry = cboCountry.Text;
+
+                ItemData.CameraCounter = txtImageFile.Text;
+
+
+                //Write Mobile Numbers;
+                if (lstContacts.Items.Any())
+                    foreach (ListBoxItem listItem in lstContacts.Items)
+                    {
+                        var m = (MobileNumber)listItem.Tag;
+
+                        if (!listItem.Visible)
+                        {
+                            m.RowStatus = RecordStatus.DeletedRecord;
+                        }
+                        else
+                        {
+                            if (m.Id == 0) ItemData.MobileNumbers.Add(m);
+                        }
+                    }
+
+
+                var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, ItemData);
+
+                var ret = dataWriter.SaveChanges();
+
+
+                for (var c = lstContacts.Items.Count - 1; c >= 0; c--)
+                    if (!((ListBoxItem)lstContacts.Items[c]).Visible)
+                        lstContacts.Items.Remove(lstContacts.Items[c]);
+
+
+                App.LogAction("Contacts", "Updated Contacts");
+
+                DialogResult = DialogResult.OK;
+                DirtyStatus.Clear();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+                return false;
+            }
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            FileSave();
+        }
+
+
+        private bool DataIsValid()
+        {
+            if (string.IsNullOrWhiteSpace(txtLastname.Text))
+            {
+                MessageDialog.ShowValidationError(txtLastname, "Lastname must NOT be blank.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtFirstname.Text))
+            {
+                MessageDialog.ShowValidationError(txtFirstname, "Firstname must NOT be blank.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(cboGender.Text))
+            {
+                MessageDialog.ShowValidationError(cboGender, "Gender must NOT be blank.");
+                return false;
+            }
+
+
+            if (string.IsNullOrWhiteSpace(cboCountry.Text))
+            {
+                MessageDialog.ShowValidationError(cboCountry, "Country must NOT be blank.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(cboProvince.Text))
+            {
+                MessageDialog.ShowValidationError(cboProvince, "Province must NOT be blank.");
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(cboTown.Text))
+            {
+                MessageDialog.ShowValidationError(cboTown, "Town must NOT be blank.");
+                return false;
+            }
+
+
+            var reader = new PersonDataReader();
+            var findItem = reader.GetItem(txtLastname.Text, txtFirstname.Text, txtMiddlename.Text);
+
+            if (findItem != null && findItem.Id != ItemData.Id)
+            {
+                var response = MessageDialog.Ask("Create Duplicate Record?",
+                    string.Format(@"System detected a similar contact with the following details:<br/><br/>
+                                                Fullname : <b>{0}</b><br/>
+                                                BirthDate: <b>{1}</b>", findItem.Name.Fullname,
+                        findItem.BirthDate.ToString("yyyy MMMM dd")));
+
+                if (response == MessageDialogResult.No) return false;
+            }
+
+            return true;
+        }
+
+        private void ShowData()
+        {
+            if (ItemData.Id != 0) txtId.Text = ItemData.Id.ToString("0000");
+
+            txtLastname.Text = ItemData.Name.Lastname;
+            txtFirstname.Text = ItemData.Name.Firstname;
+            txtMiddlename.Text = ItemData.Name.Middlename;
+            txtMi.Text = ItemData.Name.MiddleInitial;
+            cboNameExtension.Text = ItemData.Name.NameExtension;
+
+            txtMaidenMiddlename.Text = ItemData.Name.MaidenMiddlename;
+
+            cboGender.Text = ItemData.Gender == GenderType.Male ? "Male" : "Female";
+            dtBirthdate.Value = ItemData.BirthDate;
+
+            cboCountry.Text = ItemData.BirthCountry;
+            cboProvince.Text = ItemData.BirthProvince;
+            cboTown.Text = ItemData.BirthTown;
+
+
+            txtImageFile.Text = ItemData.CameraCounter;
+
+
+            //Mobile Numbers
+            ItemData.MobileNumbers.LoadItemsFromDb();
+            Show_MobileNumbers();
+
+            //Show Picture
+            InputControls.LoadImage(picImage, ItemData.CameraCounter);
+
+            ShowFileInfo(ItemData);
+        }
+
+
+        private void Show_MobileNumbers()
+        {
+            foreach (var m in ItemData.MobileNumbers.Items)
+            {
+                var listItem = new ListBoxItem
+                {
+                    Image = imageList1.Images["phone"],
+                    Text = m.PhoneNumber,
+                    Tag = m
+                };
+
+                lstContacts.Items.Add(listItem);
+            }
+        }
+
+        #endregion
     }
 }

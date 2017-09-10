@@ -1,8 +1,8 @@
-﻿using DevComponents.DotNetBar;
-using Dll;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using DevComponents.DotNetBar;
+using Dll;
 
 namespace Winform
 {
@@ -27,7 +27,9 @@ namespace Winform
 
             IEnumerable<ActionLog> items;
 
-            items = App.CurrentUser.User.RoleClass.Can("SysAdmin") ? ActionLog.GetAllLogs() : ActionLog.GetAllLogs(App.CurrentUser.User.Username);
+            items = App.CurrentUser.User.RoleClass.Can("SysAdmin")
+                ? ActionLog.GetAllLogs()
+                : ActionLog.GetAllLogs(App.CurrentUser.User.Username);
 
 
             //dataGridView1.DataSource = items;

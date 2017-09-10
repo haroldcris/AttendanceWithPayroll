@@ -1,18 +1,18 @@
-﻿using AiTech.Tools.Winform;
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.SuperGrid;
-using Dll.SMS;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO.Ports;
 using System.Windows.Forms;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.SuperGrid;
+using Dll.SMS;
 
 namespace Winform.SMS
 {
     public partial class frmSMS : FormWithHeader
     {
-        private SerialPort Port = null;
-        private SmsSender MySms = new SmsSender();
+        private readonly SmsSender MySms = new SmsSender();
+        private SerialPort Port;
 
         public frmSMS()
         {
@@ -22,21 +22,18 @@ namespace Winform.SMS
             //this.ConvertEnterKeyToTab();
 
             #region Display all available COM Ports
-            string[] ports = SerialPort.GetPortNames();
+
+            var ports = SerialPort.GetPortNames();
 
             // Add all port names to the combo box:
-            foreach (string port in ports)
-            {
+            foreach (var port in ports)
                 cboPort.Items.Add(port);
-            }
+
             #endregion
 
             FormClosed += (s, e) => { Disconnect(); };
 
             btnConnect.Click += (s, e) => { OnButtonConnectionClick(); };
-
-
-            btnSend.Click += (s, e) => { SendSMS(); };
 
             tabInbox.Click += (s, e) => { CheckInbox(); };
 
@@ -64,7 +61,6 @@ namespace Winform.SMS
             {
                 Connect();
                 btnConnect.Text = @" Disconnect ";
-
             }
             else
             {
@@ -75,8 +71,8 @@ namespace Winform.SMS
             }
 
             tabControl1.Visible = Port != null;
-
         }
+
         private void CheckInbox()
         {
             try
@@ -96,7 +92,6 @@ namespace Winform.SMS
                     row["Sender"].Value = item.Sender;
                     row["Message"].Value = item.Message;
                 }
-
             }
             catch (Exception ex)
             {
@@ -153,7 +148,6 @@ namespace Winform.SMS
         {
             try
             {
-
                 if (Port == null) return;
 
                 if (Port.IsOpen)
@@ -163,6 +157,11 @@ namespace Winform.SMS
             {
                 MessageDialog.ShowError(ex, this);
             }
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            SendSMS();
         }
     }
 }

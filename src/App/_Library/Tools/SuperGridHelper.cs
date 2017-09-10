@@ -1,10 +1,10 @@
-﻿using AiTech.LiteOrm;
-using DevComponents.DotNetBar.SuperGrid;
-using DevComponents.DotNetBar.SuperGrid.Style;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
+using AiTech.LiteOrm;
+using DevComponents.DotNetBar.SuperGrid;
+using DevComponents.DotNetBar.SuperGrid.Style;
 
 internal static class SuperGridHelper
 {
@@ -16,8 +16,6 @@ internal static class SuperGridHelper
 
         col = control.CreateColumn("ModifiedBy", "Modified By", 80);
         col.Visible = false;
-
-
 
 
         col = control.CreateColumn("Created", "Created", 130);
@@ -34,10 +32,12 @@ internal static class SuperGridHelper
 
     public static void ShowRecordInfo(this GridRow row, Entity item)
     {
-        row.Cells["Created"].Value = item.Created.Year <= 1920 ? (object)"---" : item.Created;//.ToString("dd-MMM-yyyy hh:mm:ss tt");
+        row.Cells["Created"].Value =
+            item.Created.Year <= 1920 ? (object) "---" : item.Created; //.ToString("dd-MMM-yyyy hh:mm:ss tt");
         row.Cells["CreatedBy"].Value = item.Created.Year <= 1920 ? "---" : item.CreatedBy;
 
-        row.Cells["Modified"].Value = item.Modified.Year <= 1920 ? (object)"---" : item.Modified;//.ToString("dd-MMM-yyyy hh:mm:ss tt"); ;
+        row.Cells["Modified"].Value =
+            item.Modified.Year <= 1920 ? (object) "---" : item.Modified; //.ToString("dd-MMM-yyyy hh:mm:ss tt"); ;
         row.Cells["ModifiedBy"].Value = item.Modified.Year <= 1920 ? "---" : item.ModifiedBy;
     }
 
@@ -54,7 +54,8 @@ internal static class SuperGridHelper
     }
 
 
-    public static GridColumn CreateColumn(this GridPanel control, string name, string text, int width = 50, Alignment alignment = Alignment.MiddleLeft)
+    public static GridColumn CreateColumn(this GridPanel control, string name, string text, int width = 50,
+        Alignment alignment = Alignment.MiddleLeft)
     {
         var col = new GridColumn(name)
         {
@@ -67,7 +68,8 @@ internal static class SuperGridHelper
     }
 
 
-    public static GridColumn CreateColumn(this SuperGridControl control, string name, string text, int width = 50, Alignment alignment = Alignment.MiddleLeft)
+    public static GridColumn CreateColumn(this SuperGridControl control, string name, string text, int width = 50,
+        Alignment alignment = Alignment.MiddleLeft)
     {
         var grid = control.PrimaryGrid;
         var col = new GridColumn(name)
@@ -115,7 +117,7 @@ internal static class SuperGridHelper
             if (e.Control && e.KeyCode == Keys.A)
             {
                 e.SuppressKeyPress = true;
-                ((SuperGridControl)s).PrimaryGrid.SelectAll();
+                ((SuperGridControl) s).PrimaryGrid.SelectAll();
             }
         };
     }
@@ -136,13 +138,13 @@ internal static class SuperGridHelper
             if (!e.Control || e.KeyCode != Keys.C) return;
 
             e.SuppressKeyPress = true;
-            var panel = ((SuperGridControl)s).PrimaryGrid;
+            var panel = ((SuperGridControl) s).PrimaryGrid;
 
-            var groupBy = panel.GetSelectedCells().GroupBy(_ => ((GridCell)_).RowIndex);
+            var groupBy = panel.GetSelectedCells().GroupBy(_ => ((GridCell) _).RowIndex);
 
             var selectedText = string.Join("\n",
                 groupBy.Select(groupCell => string.Join("\t",
-                    groupCell.Select(v => ((GridCell)v).Value.ToString()).ToArray())).ToArray());
+                    groupCell.Select(v => ((GridCell) v).Value.ToString()).ToArray())).ToArray());
 
             if (!string.IsNullOrEmpty(selectedText))
                 Clipboard.SetText(selectedText);
@@ -160,7 +162,7 @@ internal static class SuperGridHelper
 
             e.SuppressKeyPress = true;
 
-            var clipBoard = System.Windows.Forms.Clipboard.GetText();
+            var clipBoard = Clipboard.GetText();
 
             var lines = clipBoard.Split('\n');
 
@@ -170,7 +172,6 @@ internal static class SuperGridHelper
 
             for (var row = 0; row < lines.Length - 1; row++)
             {
-
                 var cells = lines[row].Split('\t');
 
                 for (var col = 0; col < cells.Length; col++)
@@ -190,10 +191,7 @@ internal static class SuperGridHelper
                     activeCell.EditorDirty = true;
                     activeCell.IsSelected = true;
                 }
-
             }
         };
     }
-
 }
-

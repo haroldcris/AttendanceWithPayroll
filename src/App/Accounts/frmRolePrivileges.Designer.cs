@@ -66,7 +66,7 @@
             this.SGrid.PrimaryGrid.Rows.Add(this.gridRow2);
             this.SGrid.PrimaryGrid.SelectionGranularity = DevComponents.DotNetBar.SuperGrid.SelectionGranularity.Row;
             this.SGrid.PrimaryGrid.UseAlternateColumnStyle = true;
-            this.SGrid.Size = new System.Drawing.Size(367, 458);
+            this.SGrid.Size = new System.Drawing.Size(367, 487);
             this.SGrid.TabIndex = 0;
             this.SGrid.Text = "superGridControl1";
             // 
@@ -133,7 +133,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.SGrid);
             this.splitContainer1.Panel2.Padding = new System.Windows.Forms.Padding(5);
             this.splitContainer1.Size = new System.Drawing.Size(377, 561);
-            this.splitContainer1.SplitterDistance = 89;
+            this.splitContainer1.SplitterDistance = 60;
             this.splitContainer1.TabIndex = 6;
             // 
             // frmRolePrivileges

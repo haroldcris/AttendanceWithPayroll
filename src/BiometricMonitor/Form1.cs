@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using AiTech.Tools.Winform;
+using Biometric;
+using DevComponents.DotNetBar;
+using Dll.Biometric;
+using Dll.Employee;
+using Dll.SMS;
+using System;
+using System.IO.Ports;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AiTech.Biometric;
-using DevComponents.DotNetBar;
-using System.IO.Ports;
-using Dll.SMS;
 
 namespace BiometricMonitor
 {
@@ -21,10 +18,11 @@ namespace BiometricMonitor
         private SerialPort Port = null;
         private SmsSender MySms = new SmsSender();
 
+        private string _redirectedSmsNumber = "";
+
         public Form1()
         {
             InitializeComponent();
-
 
             #region Display all available COM Ports
             string[] ports = SerialPort.GetPortNames();
@@ -37,14 +35,25 @@ namespace BiometricMonitor
             #endregion
 
             MySms = new SmsSender();
+
+
+            var isRedirect = false;
+            isRedirect = Dll.Settings.Get("RedirectSMS", "0") == "1" ? true : false;
+
+            if (isRedirect)
+            {
+                _redirectedSmsNumber = Dll.Settings.Get("RedirectSmsNumber", "");
+            }
         }
+
+
 
         private async void btnConnect_Click(object sender, EventArgs e)
         {
 
             try
             {
-                if (btnConnect.Text == "Connect")
+                if (btnConnect.Text == @"Connect")
                 {
                     if (string.IsNullOrEmpty(txtIp.Text))
                     {
@@ -53,7 +62,7 @@ namespace BiometricMonitor
                         return;
                     }
 
-                    txtStatus.Text = "Connecting to Device " + txtIp.Text + "\n";
+                    txtStatus.Text = @"Connecting to Device " + txtIp.Text + @"\n";
 
                     btnConnect.Enabled = false;
 
@@ -76,21 +85,22 @@ namespace BiometricMonitor
                 }
 
 
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            } finally
+            }
+            finally
             {
                 btnConnect.Enabled = true;
             }
         }
 
 
-
         private void MyDevice_Disconnected(object sender, EventArgs e)
         {
             txtStatus.AppendText("Disconnected From Device\n");
-            btnConnect.Text = "Connect";
+            btnConnect.Text = @"Connect";
         }
 
         private void MyDevice_Connected(object sender, EventArgs e)
@@ -98,11 +108,8 @@ namespace BiometricMonitor
 
             Invoke((MethodInvoker)delegate
             {
-                btnConnect.Text = "Disconnect";
-                txtStatus.AppendText("Connected To Device\n");
-
-
-                
+                btnConnect.Text = @"Disconnect";
+                txtStatus.AppendText(@"Connected To Device\n");
                 //txtStatus.AppendText("Date" + MyDevice.Settings.GetCurrentTime().ToString());
             });
 
@@ -110,7 +117,7 @@ namespace BiometricMonitor
 
         private void MyDevice_TransactionEvent(object sender, TransactionEventArgs e)
         {
-            txtStatus.AppendText (String.Format("-> Device {0} : {1} - {2} :state {3} -> {4}\n",
+            txtStatus.AppendText(string.Format("-> Device {0} : {1} - {2} :state {3} -> {4}\n",
                                         MyDevice.IpAddress,
                                         e.UserData.BiometricId,
                                         e.TransactionDate.ToString(),
@@ -120,39 +127,70 @@ namespace BiometricMonitor
 
             txtStatus.AppendText("Writing To dabase...");
 
-            var item = new Transaction()
+            //var item = new Transaction()
+            //{
+            //    IPAddress = MyDevice.IpAddress,
+            //    BiometricId = e.UserData.BiometricId,
+            //    EntryType = "Device",
+            //    InOut = e.State == 0 ? "In" : "Out",
+            //    Station = MyDevice.IpAddress,
+            //    TimeLog = e.TransactionDate
+            //};
+
+
+            var item = new BiometricTransaction
             {
-                IPAddress = MyDevice.IpAddress,
                 BiometricId = e.UserData.BiometricId,
-                EntryType = "Device",
-                InOut = e.State == 0 ? "In" : "Out",
+                TimeLog = e.TransactionDate,
                 Station = MyDevice.IpAddress,
-                TimeLog = e.TransactionDate
+                IpAddress = MyDevice.IpAddress,
+                InOut = e.State == 0 ? "In" : "Out",
+                SmsDate = new DateTime(1920, 1, 1)
             };
 
-
             SaveChanges(item);
+
             txtStatus.AppendText("Done.\n");
 
-            if(Port == null)
+            if (Port == null)
             {
                 txtStatus.AppendText("NO Connected GSM Modem !!!\n");
                 return;
             }
 
+
             txtStatus.AppendText("Sending SMS...\n");
-            System.Threading.Thread.Sleep(1000);
-            SendSMS(item);
+            //System.Threading.Thread.Sleep(500);
+
+            if (SendSMS(item))
+            {
+                item.StartTrackingChanges();
+                var sendDate = DateTime.Now;
+                item.SmsDate = DateTime.Now;
+
+                SaveChanges(item);
+            }
 
         }
 
 
-
-
-        private void SaveChanges(Transaction item)
+        private void SaveChanges(BiometricTransaction item)
         {
-            var writer = new TransactionDataWriter(item);
-            writer.SaveChanges();
+
+            try
+            {
+                var reader = new EmployeeDataReader();
+                var emp = reader.GetBasicProfileOf(10);
+
+
+                var writer = new BiometricTransactionDataWriter("Device", item);
+                writer.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
+
         }
 
 
@@ -171,13 +209,13 @@ namespace BiometricMonitor
             if (Port == null)
             {
                 ConnectToGSM();
-                btnSMSConnect.Text = " Disconnect ";
+                btnSMSConnect.Text = @" Disconnect ";
 
             }
             else
             {
                 DisconnectToGSM();
-                btnSMSConnect.Text = " Connect ";
+                btnSMSConnect.Text = @" Connect ";
 
                 Port = null;
             }
@@ -185,36 +223,63 @@ namespace BiometricMonitor
         }
 
 
-        private void SendSMS(Transaction transaction)
+        private bool SendSMS(BiometricTransaction transaction)
         {
             try
             {
-                
+
                 Cursor.Current = Cursors.WaitCursor;
 
-                var cellNum = TransactionDataReader.GetCellnumOfBiometricId(transaction.BiometricId);
-                    cellNum = cellNum.Replace(" ", "").Replace("-", "");
+
+                var reader = new BiometricUserDataReader();
+
+                var data = reader.GetBasicInfoForSmsOf(transaction.BiometricId);
+
+
+                data.PhoneNumber = data.PhoneNumber.Replace(" ", "").Replace("-", "");
+                //var cellNum = reader.GetPhoneNumberOf(transaction.BiometricId);
+                //cellNum = cellNum.Replace(" ", "").Replace("-", "");
 
                 var message = "%date%\n\n";
-                message += "Good day! This confirms your biometric entry on the above mentioned time.\n";
+                message += "Name: %name%\n";
+                message += "Biometric Id: %biometricid%\n";
+
+                //message += "Good day! This confirms your biometric entry on the above mentioned time.\n";
                 message += "This is a system generated message. Do not reply";
 
-                message = message.Replace("%date%", transaction.TimeLog.ToString("dd MMM yyyy, hh:mm:ss tt"));
 
-                if (MySms.SendSms(Port, cellNum, message))
-                    txtStatus.AppendText ("Message has sent successfully\n");
-                else
+                message = message.Replace("%date%", transaction.TimeLog.ToString("dd MMM yyyy, hh:mm:ss tt"));
+                message = message.Replace("%name%", data.PersonClass.Name.Fullname);
+
+
+
+                var cellNum = data.PhoneNumber;
+                if (_redirectedSmsNumber.Length > 2)
+                {
+                    cellNum = _redirectedSmsNumber;
+                }
+
+                txtStatus.AppendText(@"Sending SMS...to: " + cellNum);
+
+
+                if (!MySms.SendSms(Port, cellNum, message))
+                {
                     txtStatus.AppendText("Failed to send message");
 
-                //ToastNotification.DefaultToastGlowColor = eToastGlowColor.Green;
-                //ToastNotification.ToastBackColor = Color.Green;
-                //ToastNotification.Show(this, result, eToastPosition.MiddleCenter);
+                    // MySms.SendSms(Port, cellNum, "Good day!This confirms your biometric entry on the above mentioned time.\n");
+                    return true;
+                }
+
+                // MySms.SendSms(Port, cellNum, "Good day!This confirms your biometric entry on the above mentioned time.\n");
                 //Console.WriteLine(result);
+                txtStatus.AppendText("Message has sent successfully\n");
+                return true;
             }
             catch (Exception ex)
             {
                 //MessageBox.Show(ex.Message);
                 txtStatus.AppendText(ex.Message + "\n");
+                return false;
             }
         }
 
@@ -252,9 +317,20 @@ namespace BiometricMonitor
             }
         }
 
-        private void btnConnect_Click_1(object sender, EventArgs e)
+        private void buttonX1_Click(object sender, EventArgs e)
         {
 
+            var message = "%date%\n\n";
+            message += "Name: %name%";
+            message += "Biometric Id: %biometricid%\n";
+
+            message += "This is a system generated message. Do not reply";
+
+
+            message = message.Replace("%date%", DateTime.Now.ToString("dd MMM yyyy, hh:mm:ss tt"));
+            message = message.Replace("%name%", "Fullname here");
+
+            MySms.SendSms(this.Port, "09277746758", message);
         }
     }
 }

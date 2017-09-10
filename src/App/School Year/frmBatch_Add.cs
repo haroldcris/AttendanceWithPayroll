@@ -1,24 +1,13 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using DevComponents.DotNetBar;
-using System.Linq;
 using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
 using Dll.SchoolYear;
-using Library.Tools;
 
 namespace Winform
 {
     public partial class frmBatch_Add : OfficeForm
     {
-        public new frmBatch ParentForm { get; set; }
-
-        public Batch Batch { get; set; }
-
         public frmBatch_Add(frmBatch parent)
         {
             InitializeComponent();
@@ -34,6 +23,10 @@ namespace Winform
             LoadBatch();
         }
 
+        public new frmBatch ParentForm { get; set; }
+
+        public Batch Batch { get; set; }
+
         private void form_Load(object sender, EventArgs e)
         {
             if (Batch == null) return;
@@ -48,7 +41,7 @@ namespace Winform
 
         private void frmBatch_Add_KeyPress(object sender, KeyPressEventArgs e)
         {
-           //
+            //
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -61,26 +54,24 @@ namespace Winform
             if (!ValidInputs()) return;
 
             Cursor.Current = Cursors.WaitCursor;
-            
+
             Batch.BatchName = txtBatchName.Text;
             Batch.Semester = cboSemester.Text;
-            
-            
+
+
             if (ParentForm.ContainsData(Batch))
             {
                 MessageDialog.ShowValidationError(txtBatchName, "Duplicate Record!", errorProvider1, highlighterError);
                 return;
             }
-            
+
 
             DialogResult = DialogResult.OK;
         }
 
-   
 
         private bool ValidInputs()
         {
-            
             //My.App.ClearErrorDisplay(txtBatchName, errorProvider1, highlighterError);
             if (txtBatchName.Text.Length == 0)
             {
@@ -98,20 +89,28 @@ namespace Winform
             var start = 0;
             var finish = 0;
 
-            if(!Int32.TryParse(b.GetValue(0).ToString(), out start))
+            if (!int.TryParse(b.GetValue(0).ToString(), out start))
             {
                 MessageDialog.ShowValidationError(txtBatchName, "Invalid Batch Format");
                 return false;
             }
 
-            if (!Int32.TryParse(b.GetValue(1).ToString(), out finish))
+            if (!int.TryParse(b.GetValue(1).ToString(), out finish))
             {
                 MessageDialog.ShowValidationError(txtBatchName, "Invalid Batch Format");
                 return false;
             }
 
-            if (start < 1920) { MessageDialog.ShowValidationError(txtBatchName, "Invalid Batch Format. Batch starts at 1950"); return false; }
-            if (start + 1 != finish) { MessageDialog.ShowValidationError(txtBatchName, "Invalid Batch Format"); return false; }
+            if (start < 1920)
+            {
+                MessageDialog.ShowValidationError(txtBatchName, "Invalid Batch Format. Batch starts at 1950");
+                return false;
+            }
+            if (start + 1 != finish)
+            {
+                MessageDialog.ShowValidationError(txtBatchName, "Invalid Batch Format");
+                return false;
+            }
 
 
             //My.App.ClearErrorDisplay(cboSemester, errorProvider1, highlighterError);

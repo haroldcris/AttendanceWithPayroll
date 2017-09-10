@@ -1,8 +1,8 @@
 ﻿using System;
-using zkemkeeper;
 using System.Runtime.InteropServices;
+using zkemkeeper;
 
-namespace AiTech.Biometric
+namespace Biometric
 {
     [ComVisible(true)]
     public class Device
@@ -25,7 +25,7 @@ namespace AiTech.Biometric
         //public DeviceUserManager Users { get; set; }
         //public AttendanceManager Attendance { get; set; }
 
-        public Device( string ipAddress)
+        public Device(string ipAddress)
         {
             MachineId = 1;
             ZApi = new CZKEMClass();
@@ -45,7 +45,7 @@ namespace AiTech.Biometric
             //if (!IsConnected) return;
             //if (!ZApi.RegEvent(MachineId, 65535)) return false;
 
-            if (!ZApi.RegEvent (MachineId, 1)) throw new Exception("Events NOt Registered");
+            if (!ZApi.RegEvent(MachineId, 1)) throw new Exception("Events NOt Registered");
 
             Console.WriteLine("Registering Events");
 

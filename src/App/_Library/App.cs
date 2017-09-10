@@ -1,22 +1,19 @@
-﻿using AiTech.Security;
+﻿using System.Diagnostics;
+using System.Reflection;
+using AiTech.Security;
 using Dll;
-using System.Diagnostics;
+using Winform;
 
 public static partial class App
 {
+    public static frmMain MdiMainForm;
+
     public static string CurrentVersion()
     {
-        System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-        FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-        string version = fvi.FileVersion;
+        var assembly = Assembly.GetExecutingAssembly();
+        var fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+        var version = fvi.FileVersion;
         return version;
-    }
-
-
-    public static class CurrentUser
-    {
-        internal static UserAccount User { get; set; }
-        internal static CredentialToken Token { get; set; }
     }
 
 
@@ -25,6 +22,10 @@ public static partial class App
         ActionLog.Log(module, action, CurrentUser.User.Username);
     }
 
-    public static Winform.frmMain MdiMainForm;
 
+    public static class CurrentUser
+    {
+        internal static UserAccount User { get; set; }
+        internal static CredentialToken Token { get; set; }
+    }
 }

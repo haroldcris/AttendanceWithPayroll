@@ -1,11 +1,12 @@
-﻿using AiTech.Security;
-using AiTech.Tools.Winform;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using AiTech.Security;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
 
 namespace Idms
 {
-    public partial class frmChangePassword : DevComponents.DotNetBar.Office2007Form
+    public partial class frmChangePassword : Office2007Form
     {
         public frmChangePassword()
         {
@@ -61,9 +62,6 @@ namespace Idms
 
         private void frmChangePassword_Load(object sender, EventArgs e)
         {
-
         }
-
-
     }
 }

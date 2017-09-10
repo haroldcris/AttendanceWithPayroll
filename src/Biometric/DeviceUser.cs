@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AiTech.Biometric
+namespace Biometric
 {
     [Serializable]
-    public class DeviceUser 
+    public class DeviceUser
     {
         public int BiometricId { get; set; }
         public string Name { get; set; }
@@ -20,7 +16,7 @@ namespace AiTech.Biometric
 
         public DeviceUser()
         {
-           // FingerPrints = new FingerPrintManager();
+            // FingerPrints = new FingerPrintManager();
         }
     }
 }

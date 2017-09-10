@@ -1,19 +1,17 @@
-﻿using AiTech.LiteOrm.Database.Search;
-using AiTech.Tools.Winform;
-using DevComponents.DotNetBar;
-using Dll.Contacts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AiTech.LiteOrm.Database.Search;
+using AiTech.Tools.Winform;
+using C1.Win.C1FlexGrid;
+using DevComponents.DotNetBar;
+using Dll.Contacts;
 
 namespace Winform.Contacts
 {
-
     public partial class frmContacts_Open : Office2007Form
     {
-        public Person ItemData { get; set; }
-
         public frmContacts_Open()
         {
             InitializeComponent();
@@ -30,19 +28,19 @@ namespace Winform.Contacts
             cboSearchType.Items.Add("Starts With");
             cboSearchType.Items.Add("Ends With");
             cboSearchType.SelectedIndex = 0;
-
         }
+
+        public Person ItemData { get; set; }
 
         private void InitializeGrid()
         {
             FlexGrid.Rows.Count = 1;
             FlexGrid.RowColChange += FlexGrid_RowColChange;
-            FlexGrid.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row;
+            FlexGrid.SelectionMode = SelectionModeEnum.Row;
 
             FlexGrid.AllowFiltering = false;
-            FlexGrid.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop;
-            FlexGrid.KeyActionEnter = C1.Win.C1FlexGrid.KeyActionEnum.None;
-
+            FlexGrid.AutoSearch = AutoSearchEnum.FromTop;
+            FlexGrid.KeyActionEnter = KeyActionEnum.None;
         }
 
         private void FlexGrid_RowColChange(object sender, EventArgs e)
@@ -89,13 +87,11 @@ namespace Winform.Contacts
                 return false;
             }
             return true;
-
         }
 
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-
             var id = 0;
             if (!int.TryParse(txtIdNum.Text, out id))
             {
@@ -119,7 +115,6 @@ namespace Winform.Contacts
         }
 
 
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             FlexGrid.Rows.Count = 1;
@@ -129,9 +124,15 @@ namespace Winform.Contacts
             var searchStyle = new SearchStyleEnum();
             switch (cboSearchType.Text)
             {
-                case "Contains": searchStyle = SearchStyleEnum.Contains; break;
-                case "Starts With": searchStyle = SearchStyleEnum.StartsWith; break;
-                case "Ends With": searchStyle = SearchStyleEnum.EndsWith; break;
+                case "Contains":
+                    searchStyle = SearchStyleEnum.Contains;
+                    break;
+                case "Starts With":
+                    searchStyle = SearchStyleEnum.StartsWith;
+                    break;
+                case "Ends With":
+                    searchStyle = SearchStyleEnum.EndsWith;
+                    break;
             }
 
             var reader = new PersonDataReader();
@@ -146,7 +147,6 @@ namespace Winform.Contacts
             }
 
 
-
             FlexGrid.Rows.Count = enumerable.Count() + 1;
             var row = 0;
             foreach (var item in enumerable.OrderBy(_ => _.Name.Fullname))
@@ -159,14 +159,8 @@ namespace Winform.Contacts
                 FlexGrid[row, "birthdate"] = item.BirthDate.ToString("yyyy MMM dd");
 
                 FlexGrid.Select(1, 0);
-
             }
             FlexGrid.Focus();
-
-
-
         }
-
-
     }
 }

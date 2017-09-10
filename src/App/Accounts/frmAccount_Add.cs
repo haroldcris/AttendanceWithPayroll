@@ -1,18 +1,14 @@
-﻿using AiTech.Security;
-using AiTech.Tools.Winform;
-using Library.Tools;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using AiTech.Security;
+using AiTech.Tools.Winform;
+using Library.Tools;
 
 namespace Winform.Accounts
 {
     public partial class frmAccount_Add : FormWithHeader, ISave
     {
-        public DirtyFormHandler DirtyStatus { get; }
-
-        public UserAccount ItemData { get; set; }
-
         public frmAccount_Add()
         {
             InitializeComponent();
@@ -36,7 +32,39 @@ namespace Winform.Accounts
             btnOk.Click += (s, e) => FileSave();
 
             #endregion
+        }
 
+        public UserAccount ItemData { get; set; }
+        public DirtyFormHandler DirtyStatus { get; }
+
+
+        public bool FileSave()
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (!DataIsValid()) return false;
+
+                ItemData.Username = txtUsername.Text.Trim();
+                ItemData.Password = txtPassword.Text;
+                ItemData.RoleClass = (Role) cboRole.SelectedItem;
+                ItemData.RoleId = ((Role) cboRole.SelectedItem).Id;
+
+
+                var dataWriter = new UserAccountDataWriter(App.CurrentUser.User.Username, ItemData);
+                dataWriter.SaveChanges();
+
+                DirtyStatus.Clear();
+
+                DialogResult = DialogResult.OK;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+                return false;
+            }
         }
 
         private void LoadRoles()
@@ -105,38 +133,5 @@ namespace Winform.Accounts
 
             return true;
         }
-
-
-        public bool FileSave()
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                if (!DataIsValid()) return false;
-
-                ItemData.Username = txtUsername.Text.Trim();
-                ItemData.Password = txtPassword.Text;
-                ItemData.RoleClass = (Role)cboRole.SelectedItem;
-                ItemData.RoleId = ((Role)cboRole.SelectedItem).Id;
-
-
-                var dataWriter = new UserAccountDataWriter(App.CurrentUser.User.Username, ItemData);
-                dataWriter.SaveChanges();
-
-                DirtyStatus.Clear();
-
-                DialogResult = DialogResult.OK;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageDialog.ShowError(ex, this);
-                return false;
-            }
-
-        }
-
-
     }
 }

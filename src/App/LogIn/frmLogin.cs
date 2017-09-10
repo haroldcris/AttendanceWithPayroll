@@ -1,19 +1,25 @@
 ﻿using AiTech.LiteOrm.Database;
 using AiTech.Security;
 using AiTech.Tools.Winform;
+using DevComponents.DotNetBar.Metro;
 using System;
 using System.Windows.Forms;
 
 namespace Winform
 {
-    public sealed partial class frmLogin : DevComponents.DotNetBar.Metro.MetroForm //DevComponents.DotNetBar.OfficeForm
+    public sealed partial class frmLogin : MetroForm //DevComponents.DotNetBar.OfficeForm
     {
         public frmLogin()
         {
             InitializeComponent();
             Text = @"Megabyte College";
 
-            lblStatus.Text = "";
+
+            using (var db = Connection.CreateConnection())
+            {
+            }
+
+            lblStatus.Text = "Server : " + Connection.MyDbCredential.ServerName;
             //lblStatus.Text = "Version : " + My.App.CurrentVersion();
 
             this.ConvertEnterToTab();
@@ -43,7 +49,6 @@ namespace Winform
         {
             try
             {
-
                 lblError.Text = @"<b>Connecting to Server.</b><br/>Please Wait...";
                 OnConnectingProcess(true);
 
@@ -54,8 +59,10 @@ namespace Winform
                 if (user == null)
                 {
                     OnConnectingProcess(false);
-                    lblError.Text = @"<font color='Red'><b>Invalid Credential.</b><br/>Username or Password is Invalid</font>";
-                    txtUsername.Focus(); txtUsername.SelectAll();
+                    lblError.Text =
+                        @"<font color='Red'><b>Invalid Credential.</b><br/>Username or Password is Invalid</font>";
+                    txtUsername.Focus();
+                    txtUsername.SelectAll();
                     txtPassword.SelectAll();
                     return;
                 }
@@ -73,16 +80,14 @@ namespace Winform
 
                 pbLogin.Visible = false;
                 DialogResult = DialogResult.OK;
-
             }
             catch (Exception ex)
             {
                 OnConnectingProcess(false);
-                lblError.Text = $@"<font color='Red'>{ex.GetBaseException().Message}</font>";// ex.GetBaseException().Message;
+                lblError.Text =
+                    $@"<font color='Red'>{ex.GetBaseException().Message}</font>"; // ex.GetBaseException().Message;
                 txtUsername.Focus();
             }
         }
-
-       
     }
 }

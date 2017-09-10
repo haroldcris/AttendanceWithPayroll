@@ -1,29 +1,29 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Windows.Forms;
+using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Payroll;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmTaxTable : MdiClientGridForm
     {
         internal TaxCollection ItemDataCollection = new TaxCollection();
+
         public frmTaxTable()
         {
             InitializeComponent();
 
             Header = " TAX TABLE ";
             HeaderColor = App.BarColor.PayrollTaxColor;
-            HeaderTextColor = System.Drawing.Color.Black;
+            HeaderTextColor = Color.Black;
 
             Load += (s, e) => { RefreshData(); };
         }
-
-
 
 
         protected override IEnumerable<Entity> LoadItems()
@@ -47,7 +47,7 @@ namespace Winform.Payroll
             var col = new GridColumn();
 
             col = grid.CreateColumn("TaxId", "Tax Id", 80);
-            col.DataType = typeof(Int32);
+            col.DataType = typeof(int);
 
             grid.CreateColumn("Description", "Description", 200);
             grid.CreateColumn("Short", "Short Description", 100);
@@ -65,13 +65,12 @@ namespace Winform.Payroll
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["TaxId"]);
-
         }
 
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (Tax)item;
+            var currentItem = (Tax) item;
 
             row.Cells["TaxId"].Value = currentItem.Id;
             row.Cells["Description"].Value = currentItem.Description;
@@ -101,10 +100,9 @@ namespace Winform.Payroll
         }
 
 
-
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (Tax)item;
+            var selectedItem = (Tax) item;
 
             using (var frm = new frmTaxTable_Add())
             {
@@ -119,18 +117,17 @@ namespace Winform.Payroll
         }
 
 
-
         protected override void OnDelete(Entity item, out string message, ref Action<Entity> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((Tax)item).Description;
+            message = ((Tax) item).Description;
 
-            afterConfirm = (currentItem) =>
+            afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (Tax)currentItem;
+                    var deletedItem = (Tax) currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -140,10 +137,9 @@ namespace Winform.Payroll
                     dataWriter.SaveChanges();
 
 
-                    ItemDataCollection.Remove((Tax)currentItem);
+                    ItemDataCollection.Remove((Tax) currentItem);
 
                     App.LogAction("Tax Table", "Deleted Tax Code : " + deletedItem.ShortDesc);
-
                 }
                 catch (Exception ex)
                 {
@@ -151,6 +147,5 @@ namespace Winform.Payroll
                 }
             };
         }
-
     }
 }

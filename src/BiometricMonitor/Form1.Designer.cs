@@ -54,6 +54,7 @@
             // 
             // styleManager1
             // 
+            this.styleManager1.ManagerColorTint = System.Drawing.Color.White;
             this.styleManager1.ManagerStyle = DevComponents.DotNetBar.eStyle.Metro;
             this.styleManager1.MetroColorParameters = new DevComponents.DotNetBar.Metro.ColorTables.MetroColorGeneratorParameters(System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242))))), System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(122)))), ((int)(((byte)(204))))));
             // 
@@ -68,7 +69,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedTabFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold);
             this.tabControl1.SelectedTabIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(515, 486);
+            this.tabControl1.Size = new System.Drawing.Size(600, 486);
             this.tabControl1.Style = DevComponents.DotNetBar.eTabStripStyle.Metro;
             this.tabControl1.TabIndex = 6;
             this.tabControl1.TabLayoutType = DevComponents.DotNetBar.eTabLayoutType.FixedWithNavigationBox;
@@ -85,7 +86,7 @@
             this.tabControlPanel1.Location = new System.Drawing.Point(0, 27);
             this.tabControlPanel1.Name = "tabControlPanel1";
             this.tabControlPanel1.Padding = new System.Windows.Forms.Padding(10);
-            this.tabControlPanel1.Size = new System.Drawing.Size(515, 459);
+            this.tabControlPanel1.Size = new System.Drawing.Size(600, 459);
             this.tabControlPanel1.Style.BackColor1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.tabControlPanel1.Style.Border = DevComponents.DotNetBar.eBorderType.SingleLine;
             this.tabControlPanel1.Style.BorderColor.Color = System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(196)))), ((int)(((byte)(198)))));
@@ -104,7 +105,7 @@
             this.txtStatus.Location = new System.Drawing.Point(10, 130);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
-            this.txtStatus.Size = new System.Drawing.Size(495, 319);
+            this.txtStatus.Size = new System.Drawing.Size(580, 319);
             this.txtStatus.TabIndex = 8;
             this.txtStatus.Text = "";
             // 
@@ -116,7 +117,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(10, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(495, 120);
+            this.panel1.Size = new System.Drawing.Size(580, 120);
             this.panel1.TabIndex = 11;
             // 
             // groupPanel2
@@ -128,7 +129,7 @@
             this.groupPanel2.Controls.Add(this.label3);
             this.groupPanel2.Controls.Add(this.cboPort);
             this.groupPanel2.DisabledBackColor = System.Drawing.Color.Empty;
-            this.groupPanel2.Location = new System.Drawing.Point(273, 13);
+            this.groupPanel2.Location = new System.Drawing.Point(300, 13);
             this.groupPanel2.Name = "groupPanel2";
             this.groupPanel2.Size = new System.Drawing.Size(211, 84);
             // 
@@ -205,7 +206,7 @@
             this.groupPanel1.DisabledBackColor = System.Drawing.Color.Empty;
             this.groupPanel1.Location = new System.Drawing.Point(14, 13);
             this.groupPanel1.Name = "groupPanel1";
-            this.groupPanel1.Size = new System.Drawing.Size(253, 84);
+            this.groupPanel1.Size = new System.Drawing.Size(280, 84);
             // 
             // 
             // 
@@ -250,7 +251,7 @@
             this.txtIp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtIp.Location = new System.Drawing.Point(12, 25);
             this.txtIp.Name = "txtIp";
-            this.txtIp.Size = new System.Drawing.Size(129, 24);
+            this.txtIp.Size = new System.Drawing.Size(159, 24);
             this.txtIp.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.txtIp.TabIndex = 6;
             // 
@@ -258,7 +259,7 @@
             // 
             this.btnConnect.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(239)))), ((int)(((byte)(242)))));
             this.btnConnect.ForeColor = System.Drawing.Color.Black;
-            this.btnConnect.Location = new System.Drawing.Point(147, 25);
+            this.btnConnect.Location = new System.Drawing.Point(177, 25);
             this.btnConnect.Name = "btnConnect";
             this.btnConnect.Size = new System.Drawing.Size(88, 27);
             this.btnConnect.TabIndex = 7;
@@ -285,7 +286,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(535, 506);
+            this.ClientSize = new System.Drawing.Size(620, 506);
             this.Controls.Add(this.tabControl1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -293,6 +294,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Padding = new System.Windows.Forms.Padding(10);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Biometric Monitor";
             ((System.ComponentModel.ISupportInitialize)(this.tabControl1)).EndInit();
             this.tabControl1.ResumeLayout(false);

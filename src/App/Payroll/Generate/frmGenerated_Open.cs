@@ -1,17 +1,16 @@
-﻿using AiTech.LiteOrm;
-using DevComponents.DotNetBar.SuperGrid;
-using Dll.Payroll;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using AiTech.LiteOrm;
+using DevComponents.DotNetBar.SuperGrid;
+using Dll.Payroll;
 
 namespace Winform.Payroll
 {
     public partial class frmGenerated_Open : FormWithHeader
     {
-        public PayrollPeriod ItemData { get; private set; }
-
         private PayrollPeriodCollection ItemDataCollection;
+
         public frmGenerated_Open()
         {
             InitializeComponent();
@@ -25,6 +24,7 @@ namespace Winform.Payroll
             Shown += (s, e) => Show_Data(ItemDataCollection.Items);
         }
 
+        public PayrollPeriod ItemData { get; private set; }
 
 
         private void InitializeGrid()
@@ -66,7 +66,6 @@ namespace Winform.Payroll
             grid.SetSort(SGrid.PrimaryGrid.Columns["SortOrder"]);
 
             grid.InsertGroup(col, 0);
-
         }
 
         private void Grid_ColumnGrouped(object sender, GridColumnGroupedEventArgs e)
@@ -75,9 +74,15 @@ namespace Winform.Payroll
 
             switch (e.GridGroup.Text)
             {
-                case "0": caption = "This Month"; break;
-                case "1": caption = "This Year"; break;
-                default: caption = "Year " + e.GridGroup.Text; break;
+                case "0":
+                    caption = "This Month";
+                    break;
+                case "1":
+                    caption = "This Year";
+                    break;
+                default:
+                    caption = "Year " + e.GridGroup.Text;
+                    break;
             }
 
             e.GridGroup.Text = caption;
@@ -116,15 +121,9 @@ namespace Winform.Payroll
 
             if (period.DateCovered.Year.Equals(DateTime.Today.Year) &&
                 period.DateCovered.Month.Equals(DateTime.Today.Month))
-            {
                 row["SortOrder"].Value = 0;
-            }
             else if (period.DateCovered.Year == DateTime.Today.Year)
-            {
                 row["SortOrder"].Value = 1;
-            }
-
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -136,7 +135,7 @@ namespace Winform.Payroll
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            var item = (PayrollPeriod)SGrid?.ActiveRow?.Tag;
+            var item = (PayrollPeriod) SGrid?.ActiveRow?.Tag;
 
 
             if (item == null) return;
@@ -147,6 +146,4 @@ namespace Winform.Payroll
             Close();
         }
     }
-
-
 }

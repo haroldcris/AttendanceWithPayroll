@@ -1,19 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AiTech.Biometric
+namespace Biometric
 {
     public class AttendanceManager
     {
         protected ICollection<Attendance> ListOfItems;
         protected Device _Device;
         public IEnumerable<Attendance> Items;
-        
+
         public AttendanceManager(Device device)
         {
             _Device = device;
@@ -31,13 +26,13 @@ namespace AiTech.Biometric
         /// </summary>
         public void ClearDataLog()
         {
-            if (!_Device.IsConnected) throw new InvalidOperationException ("Not Connected");
+            if (!_Device.IsConnected) throw new InvalidOperationException("Not Connected");
 
             int errorCode = 0;
             string platform = _Device.GetPlatform();
 
             //var result = false;
-            
+
             switch (platform)
             {
                 case DevicePlatform.ZEM560: //Mr. Sy
@@ -56,7 +51,7 @@ namespace AiTech.Biometric
                     }
                     break;
             }
-            
+
         }
 
 
@@ -65,7 +60,7 @@ namespace AiTech.Biometric
         /// </summary>
         public void ReadDataLog()
         {
-            if(!_Device.IsConnected) throw new InvalidOperationException("Not Connected");
+            if (!_Device.IsConnected) throw new InvalidOperationException("Not Connected");
 
             int errorCode = 0;
             string platform = _Device.GetPlatform();
@@ -81,12 +76,12 @@ namespace AiTech.Biometric
             string sEnrollId = "";
 
             while (result)
-            {                
-                
+            {
+
                 switch (platform)
                 {
                     case "ZEM560": //Mr. Sy
-                        result = _Device.ZApi.GetGeneralLogData(iMachineId, ref iMachineId, ref enrollId, ref iMachineId, ref verifyMode, 
+                        result = _Device.ZApi.GetGeneralLogData(iMachineId, ref iMachineId, ref enrollId, ref iMachineId, ref verifyMode,
                                                                 ref inOutMode, ref year, ref month, ref day, ref hour, ref minute);
                         biometricId = enrollId;
                         break;

@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Winform;
 
 namespace BiometricMonitor
 {
@@ -16,7 +14,27 @@ namespace BiometricMonitor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+
+
+            using (var frm = new frmOption())
+            {
+                var optionSelected = 0;
+                if (frm.ShowDialog() != DialogResult.OK) return;
+
+                optionSelected = frm.OptionSelected;
+                if (optionSelected == 1)
+                {
+                    Application.Run(new Form1());
+                }
+                else
+                {
+                    Application.Run(new frmOutputWindow());
+                }
+
+            }
+
+
         }
     }
 }

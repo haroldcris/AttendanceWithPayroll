@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.btnChangePassword = new DevComponents.DotNetBar.ButtonItem();
             this.ribbonBarMergeContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,8 +79,6 @@
             // 
             // 
             this.ribbonBar6.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.ribbonBar6.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnChangePassword});
             this.ribbonBar6.Size = new System.Drawing.Size(254, 77);
             // 
             // 
@@ -98,20 +95,11 @@
             this.imageList1.ImageSize = new System.Drawing.Size(24, 24);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // btnChangePassword
-            // 
-            this.btnChangePassword.BeginGroup = true;
-            this.btnChangePassword.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnChangePassword.Image = global::Winform.Properties.Resources.User_Credentials_30px;
-            this.btnChangePassword.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnChangePassword.Name = "btnChangePassword";
-            this.btnChangePassword.SubItemsExpandWidth = 14;
-            this.btnChangePassword.Text = "Change Password";
-            // 
             // frmAccounts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(1173, 686);
+            this.Location = new System.Drawing.Point(0, 0);
             this.Name = "frmAccounts";
             this.ribbonBarMergeContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -121,6 +109,5 @@
         #endregion
 
         private System.Windows.Forms.ImageList imageList1;
-        private DevComponents.DotNetBar.ButtonItem btnChangePassword;
     }
 }

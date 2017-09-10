@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.1623</AssemblyVersion>
+    <AssemblyVersion>1.0.0.1789</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -39,9 +39,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icons8_Fingerprint.ico</ApplicationIcon>
+    <ApplicationIcon>icons8_Natural_User_Interface_2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -68,8 +69,13 @@
       <HintPath>..\..\library\AiTech.Tools.dll</HintPath>
     </Reference>
     <Reference Include="C1.C1Excel.4, Version=4.0.20172.271, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.4, Version=4.0.20172.271, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
     <Reference Include="C1.Win.Bitmap.4, Version=4.0.20172.271, Culture=neutral, PublicKeyToken=944ae1ea0e47ca04" />
-    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20132.786, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.0.20172.271, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\ComponentOne\WinForms Edition\bin\v4.0\C1.Win.C1FlexGrid.4.dll</HintPath>
+    </Reference>
+    <Reference Include="C1.Win.C1Schedule.4, Version=4.0.20172.271, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.Layout, Version=14.1.0.0, Culture=neutral, PublicKeyToken=7eb7c3a35b91de04, processorArchitecture=MSIL" />
     <Reference Include="DevComponents.DotNetBar.SuperGrid, Version=12.7.0.2, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -81,6 +87,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -115,6 +122,18 @@
     </Compile>
     <Compile Include="Biometric\frmBiometricUser_Add.Designer.cs">
       <DependentUpon>frmBiometricUser_Add.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Biometric\frmBiometric_Log.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Biometric\frmBiometric_Log.Designer.cs">
+      <DependentUpon>frmBiometric_Log.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Biometric\frmBiometric_Open.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Biometric\frmBiometric_Open.Designer.cs">
+      <DependentUpon>frmBiometric_Open.cs</DependentUpon>
     </Compile>
     <Compile Include="Contacts\frmContacts.cs">
       <SubType>Form</SubType>
@@ -353,6 +372,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Biometric\frmBiometricUser_Add.resx">
       <DependentUpon>frmBiometricUser_Add.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Biometric\frmBiometric_Log.resx">
+      <DependentUpon>frmBiometric_Log.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Biometric\frmBiometric_Open.resx">
+      <DependentUpon>frmBiometric_Open.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Contacts\frmContacts.resx">
       <DependentUpon>frmContacts.cs</DependentUpon>
@@ -682,6 +707,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icons8_Fingerprint.ico" />
+    <Content Include="icons8_Natural_User_Interface_2.ico" />
+    <None Include="Resources\Schedule_40px.png" />
     <None Include="Resources\Natural User Interface 2_40px.png" />
     <None Include="Resources\Documents Folder_40px.png" />
     <None Include="Resources\Documents Folder_24px.png" />

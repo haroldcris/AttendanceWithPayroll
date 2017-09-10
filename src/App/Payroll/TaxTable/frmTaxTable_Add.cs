@@ -1,13 +1,11 @@
-﻿using AiTech.Tools.Winform;
+﻿using System.Windows.Forms;
+using AiTech.Tools.Winform;
 using Dll.Payroll;
-using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmTaxTable_Add : FormWithHeader
     {
-        public Tax ItemData { get; set; }
-
         public frmTaxTable_Add()
         {
             InitializeComponent();
@@ -21,8 +19,9 @@ namespace Winform.Payroll
 
             for (var c = 0; c <= 4; c++)
                 cboDependent.Items.Add(c);
-
         }
+
+        public Tax ItemData { get; set; }
 
         private void ShowData()
         {
@@ -79,7 +78,7 @@ namespace Winform.Payroll
             ItemData.Description = txtDescription.Text.Trim();
 
             ItemData.Dependent = int.Parse(cboDependent.Text.Trim());
-            ItemData.Exemption = (int)txtExemption.Value;
+            ItemData.Exemption = (int) txtExemption.Value;
 
 
             var dataWriter = new TaxDataWriter(App.CurrentUser.User.Username, ItemData);
@@ -88,7 +87,5 @@ namespace Winform.Payroll
 
             DialogResult = DialogResult.OK;
         }
-
-
     }
 }

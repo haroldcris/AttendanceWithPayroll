@@ -1,23 +1,18 @@
-﻿using AiTech.Tools.Winform;
+﻿using System;
+using System.Windows.Forms;
+using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Payroll;
-using System;
-using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmSalarySchedule_Add : FormWithHeader, ISave
     {
-        public SalarySchedule ItemData { get; set; }
-
-        public DirtyFormHandler DirtyStatus { get; private set; }
-
-
         public frmSalarySchedule_Add()
         {
             InitializeComponent();
-            this.StartPosition = FormStartPosition.CenterParent;
+            StartPosition = FormStartPosition.CenterParent;
 
 
             #region Initialize DirtyHandler
@@ -38,17 +33,74 @@ namespace Winform.Payroll
             #endregion
 
 
-
             InitializeSGGrid();
 
             InitializePositionGrid();
 
             tabControl1.SelectedTabChanged += (s, e) =>
-             {
-                 SelectNextControl(e.NewTab.AttachedControl, true, true, true, true);
-             };
+            {
+                SelectNextControl(e.NewTab.AttachedControl, true, true, true, true);
+            };
+        }
+
+        public SalarySchedule ItemData { get; set; }
+
+        public DirtyFormHandler DirtyStatus { get; }
 
 
+        public bool FileSave()
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                if (!DataIsValid()) return false;
+
+                ItemData.Effectivity = dtEffectivityDate.Value;
+                ItemData.Remarks = txtRemarks.Text;
+
+                //SalaryGrades 
+                foreach (var gridElement in SGGrid.PrimaryGrid.Rows)
+                {
+                    var row = (GridRow) gridElement;
+                    var rowData = (SalaryGrade) row.Tag;
+                    if (rowData == null) continue;
+
+                    rowData.Step1 = decimal.Parse(row["Step1"].Value.ToString());
+                    rowData.Step2 = decimal.Parse(row["Step2"].Value.ToString());
+                    rowData.Step3 = decimal.Parse(row["Step3"].Value.ToString());
+                    rowData.Step4 = decimal.Parse(row["Step4"].Value.ToString());
+                    rowData.Step5 = decimal.Parse(row["Step5"].Value.ToString());
+                    rowData.Step6 = decimal.Parse(row["Step6"].Value.ToString());
+                    rowData.Step7 = decimal.Parse(row["Step7"].Value.ToString());
+                    rowData.Step8 = decimal.Parse(row["Step8"].Value.ToString());
+                }
+
+
+                //Position Salary Grade 
+                foreach (var gridElement in PositionGrid.PrimaryGrid.Rows)
+                {
+                    var row = (GridRow) gridElement;
+                    var rowData = (PositionSalaryGrade) row.Tag;
+                    if (rowData == null) continue;
+
+                    rowData.SG = int.Parse(row["SalaryGrade"].Value.ToString());
+                }
+
+
+                //Save to the Database
+                var dataWriter = new SalaryScheduleDataWriter(App.CurrentUser.User.Username, ItemData);
+                dataWriter.SaveChanges();
+
+                DirtyStatus.Clear();
+                DialogResult = DialogResult.OK;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+                return false;
+            }
         }
 
         private bool DataIsValid()
@@ -82,64 +134,6 @@ namespace Winform.Payroll
         }
 
 
-        public bool FileSave()
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-                if (!DataIsValid()) return false;
-
-                ItemData.Effectivity = dtEffectivityDate.Value;
-                ItemData.Remarks = txtRemarks.Text;
-
-                //SalaryGrades 
-                foreach (var gridElement in SGGrid.PrimaryGrid.Rows)
-                {
-                    var row = (GridRow)gridElement;
-                    var rowData = (SalaryGrade)row.Tag;
-                    if (rowData == null) continue;
-
-                    rowData.Step1 = decimal.Parse(row["Step1"].Value.ToString());
-                    rowData.Step2 = decimal.Parse(row["Step2"].Value.ToString());
-                    rowData.Step3 = decimal.Parse(row["Step3"].Value.ToString());
-                    rowData.Step4 = decimal.Parse(row["Step4"].Value.ToString());
-                    rowData.Step5 = decimal.Parse(row["Step5"].Value.ToString());
-                    rowData.Step6 = decimal.Parse(row["Step6"].Value.ToString());
-                    rowData.Step7 = decimal.Parse(row["Step7"].Value.ToString());
-                    rowData.Step8 = decimal.Parse(row["Step8"].Value.ToString());
-                }
-
-
-                //Position Salary Grade 
-                foreach (var gridElement in PositionGrid.PrimaryGrid.Rows)
-                {
-                    var row = (GridRow)gridElement;
-                    var rowData = (PositionSalaryGrade)row.Tag;
-                    if (rowData == null) continue;
-
-                    rowData.SG = int.Parse(row["SalaryGrade"].Value.ToString());
-                }
-
-
-                //Save to the Database
-                var dataWriter = new SalaryScheduleDataWriter(App.CurrentUser.User.Username, ItemData);
-                dataWriter.SaveChanges();
-
-                DirtyStatus.Clear();
-                DialogResult = DialogResult.OK;
-                return true;
-
-            }
-            catch (Exception ex)
-            {
-                MessageDialog.ShowError(ex, this);
-                return false;
-            }
-        }
-
-
-
         private void InitializePositionGrid()
         {
             PositionGrid.InitializeGrid();
@@ -167,7 +161,6 @@ namespace Winform.Payroll
                     MessageDialog.ShowValidationError(this, "Number must be 1 - 50 only", focusControl: false);
                     e.Cancel = true;
                 }
-
             };
 
             var col = grid.CreateColumn("Code", "Code", 80);
@@ -181,9 +174,7 @@ namespace Winform.Payroll
 
 
             col.EditorType = typeof(GridDoubleIntInputEditControl);
-
         }
-
 
 
         private void InitializeSGGrid()
@@ -213,8 +204,6 @@ namespace Winform.Payroll
                 col.RenderType = typeof(GridDoubleInputEditControl);
                 col.EditorType = typeof(GridDoubleIntInputEditControl);
             }
-
-
         }
 
 
@@ -269,10 +258,6 @@ namespace Winform.Payroll
 
                 row.Tag = itemPosition;
             }
-
-
         }
-
-
     }
 }

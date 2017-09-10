@@ -3,7 +3,7 @@ using Dapper.Contrib.Extensions;
 using System;
 using System.Collections.Generic;
 
-namespace AiTech.Biometric
+namespace Biometric
 {
 
     public interface ITransaction

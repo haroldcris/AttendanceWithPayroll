@@ -1,20 +1,18 @@
-﻿using AiTech.LiteOrm.Database.Search;
-using AiTech.Tools.Winform;
-using DevComponents.DotNetBar;
-using Dll.Contacts;
-using Dll.Employee;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AiTech.LiteOrm.Database.Search;
+using AiTech.Tools.Winform;
+using C1.Win.C1FlexGrid;
+using DevComponents.DotNetBar;
+using Dll.Contacts;
+using Dll.Employee;
 
 namespace Winform.Employee
 {
-
     public partial class frmEmployee_Open : Office2007Form
     {
-        public int EmployeeId { get; private set; }
-
         public frmEmployee_Open()
         {
             InitializeComponent();
@@ -31,19 +29,19 @@ namespace Winform.Employee
             cboSearchType.Items.Add("Starts With");
             cboSearchType.Items.Add("Ends With");
             cboSearchType.SelectedIndex = 0;
-
         }
+
+        public int EmployeeId { get; private set; }
 
         private void InitializeGrid()
         {
             FlexGrid.Rows.Count = 1;
             FlexGrid.RowColChange += FlexGrid_RowColChange;
-            FlexGrid.SelectionMode = C1.Win.C1FlexGrid.SelectionModeEnum.Row;
+            FlexGrid.SelectionMode = SelectionModeEnum.Row;
 
             FlexGrid.AllowFiltering = false;
-            FlexGrid.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop;
-            FlexGrid.KeyActionEnter = C1.Win.C1FlexGrid.KeyActionEnum.None;
-
+            FlexGrid.AutoSearch = AutoSearchEnum.FromTop;
+            FlexGrid.KeyActionEnter = KeyActionEnum.None;
         }
 
         private void FlexGrid_RowColChange(object sender, EventArgs e)
@@ -77,7 +75,6 @@ namespace Winform.Employee
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-
             Cursor.Current = Cursors.WaitCursor;
 
             var empnum = 0;
@@ -86,9 +83,10 @@ namespace Winform.Employee
                 MessageDialog.Show("Invalid Employee Number", "You have entered an Invalid Number");
                 txtIdNum.SelectAll();
                 return;
-            };
+            }
+            ;
 
-            var empId = (new EmployeeDataReader()).GetIdOf(empnum);
+            var empId = new EmployeeDataReader().GetIdOf(empnum);
 
             if (empId == 0)
             {
@@ -121,9 +119,7 @@ namespace Winform.Employee
 
 
             return true;
-
         }
-
 
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -135,9 +131,15 @@ namespace Winform.Employee
             var searchStyle = new SearchStyleEnum();
             switch (cboSearchType.Text)
             {
-                case "Contains": searchStyle = SearchStyleEnum.Contains; break;
-                case "Starts With": searchStyle = SearchStyleEnum.StartsWith; break;
-                case "Ends With": searchStyle = SearchStyleEnum.EndsWith; break;
+                case "Contains":
+                    searchStyle = SearchStyleEnum.Contains;
+                    break;
+                case "Starts With":
+                    searchStyle = SearchStyleEnum.StartsWith;
+                    break;
+                case "Ends With":
+                    searchStyle = SearchStyleEnum.EndsWith;
+                    break;
             }
 
 
@@ -153,7 +155,6 @@ namespace Winform.Employee
             }
 
 
-
             FlexGrid.Rows.Count = enumerable.Count() + 1;
             var row = 0;
             foreach (var item in enumerable.OrderBy(_ => _.PersonClass.Name.Fullname))
@@ -164,13 +165,8 @@ namespace Winform.Employee
                 FlexGrid[row, "gender"] = item.PersonClass.Gender == GenderType.Male ? "Male" : "Female";
 
                 FlexGrid.Select(1, 0);
-
             }
             FlexGrid.Focus();
-
-
         }
-
-
     }
 }

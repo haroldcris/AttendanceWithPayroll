@@ -2,6 +2,7 @@
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.Metro.ColorTables;
+using Dll.Biometric;
 using Dll.Contacts;
 using Dll.Employee;
 using Dll.Payroll;
@@ -14,8 +15,8 @@ using Winform.Accounts;
 using Winform.Biometric;
 using Winform.Contacts;
 using Winform.Employee;
-
-
+using Winform.Payroll;
+using Winform.SMS;
 
 namespace Winform
 {
@@ -43,23 +44,22 @@ namespace Winform
 
             #region Event handler
 
-
             btnBatch.Click += (s, ev) => OpenForm(new frmBatch(), "Batch Management");
             btnCourse.Click += (s, ev) => OpenForm(new frmCourse(), "Course Management");
 
 
-            btnPayMasterList.Click += (s, ev) => OpenForm(new Payroll.frmMasterFile(), "Payroll Master List");
-            btnPayPositions.Click += (s, ev) => OpenForm(new Payroll.frmPosition(), "Payroll Positions");
-            btnPayDeductions.Click += (s, ev) => OpenForm(new Payroll.frmDeduction(), "Payroll Deductions");
+            btnPayMasterList.Click += (s, ev) => OpenForm(new frmMasterFile(), "Payroll Master List");
+            btnPayPositions.Click += (s, ev) => OpenForm(new frmPosition(), "Payroll Positions");
+            btnPayDeductions.Click += (s, ev) => OpenForm(new frmDeduction(), "Payroll Deductions");
             //btnPayTax.Click += (s, ev) => OpenForm(new Payroll.frmTaxTable(), "Payroll Tax Table");
 
 
-            btnPaySalarySchedule.Click += (s, ev) => OpenForm(new Payroll.frmSalarySchedule(), "Payroll Salary Schedule");
+            btnPaySalarySchedule.Click += (s, ev) => OpenForm(new frmSalarySchedule(), "Payroll Salary Schedule");
 
 
             btnSms.Click += (s, e) =>
             {
-                using (var f = new SMS.frmSMS())
+                using (var f = new frmSMS())
                 {
                     f.ShowDialog();
                 }
@@ -71,6 +71,8 @@ namespace Winform
 
             btnChangePassword.Click += (s, e) =>
             {
+                Cursor.Current = Cursors.WaitCursor;
+
                 if (!InputControls.UserCanAccess(this, "ChangePassword")) return;
 
                 using (var f = new frmChangePassword())
@@ -79,11 +81,9 @@ namespace Winform
                 }
             };
 
-
             #endregion
 
             btnContextMdiTabs.PopupOpen += (s, e) => CreateContextTabMenu();
-
 
 
             // SETTINGS TAB
@@ -95,7 +95,6 @@ namespace Winform
 
             RibbonPayroll.Enabled = canViewPayroll;
             RibbonPayroll.Visible = canViewPayroll;
-
 
 
             // Handle Contacts
@@ -114,14 +113,30 @@ namespace Winform
             btnEmployee.Enabled = canViewEmployee;
 
 
+            //Biometric User
+            var canViewBiometricUser = App.CurrentUser.User.RoleClass.Can("ViewBiometricUser");
+            RibbonBarBiometric.Visible = canViewBiometricUser;
+            RibbonBarBiometric.Enabled = canViewBiometricUser;
+
+
+            // CAN SEND SMS
+            var canSendSms = App.CurrentUser.User.RoleClass.Can("AccessSendSms");
+            RibbonBarDevices.Visible = canSendSms;
+            RibbonBarDevices.Enabled = canSendSms;
+
+
+            //RibbonBar STUDENT
+            var canViewStudentMenu = App.CurrentUser.User.RoleClass.Can("ViewStudentMenu");
+            RibbonBarStudent.Visible = canViewStudentMenu;
+            RibbonBarStudent.Enabled = canViewStudentMenu;
         }
+
 
         private void BtnUserAccounts_Click(object sender, EventArgs e)
         {
             if (!InputControls.UserCanAccess(this, "SysAdmin")) return;
 
             OpenForm(new frmAccounts(), "User Account Management");
-
         }
 
         private void cmdSave_Executed(object sender, EventArgs e)
@@ -130,9 +145,7 @@ namespace Winform
             {
                 var active = ActiveMdiChild;
                 if (active is ISave)
-                {
                     ((ISave)active).FileSave();
-                }
             }
             catch (Exception ex)
             {
@@ -145,7 +158,7 @@ namespace Winform
             AppButton.Visible = false;
 
             btnProfile.Text = string.Format("Welcome {0} [{1}]", App.CurrentUser.User.Username.ToUpper()
-                                                               , App.CurrentUser.User.RoleClass.RoleName);
+                , App.CurrentUser.User.RoleClass.RoleName);
 
             //if (App.CurrentUser.SecurityLevel.ToLower() == "admin") {
             //    ribbonTabHomeAdmin.Select();
@@ -153,7 +166,6 @@ namespace Winform
             //}
 
             App.MdiMainForm = this;
-
         }
 
 
@@ -169,119 +181,30 @@ namespace Winform
         }
 
 
-        #region Common Scripts
-
-        internal void OpenForm(IMdiForm form, string title)
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-
-
-                var formTitle = " " + title + " ";
-
-                if (MdiChildren.Count() != 0)
-                {
-                    if (FindWindow(formTitle))
-                    {
-                        ((Form)form).Dispose();
-                        return;
-                    }
-                }
-
-                var frm = (Form)form;
-                frm.MdiParent = this;
-                ((MdiClientForm)frm).Title = formTitle;
-                frm.Tag = formTitle;
-
-
-                frm.WindowState = FormWindowState.Minimized;
-                frm.Show();
-                frm.WindowState = FormWindowState.Maximized;
-                frm.Update();
-
-
-                App.LogAction("Main", "Opened " + title);
-                Cursor.Current = Cursors.Default;
-            }
-            catch (Exception ex)
-            {
-                MessageDialog.ShowError(ex, this);
-            }
-        }
-
-        private bool FindWindow(string tag)
-        {
-            //Find if window is already open
-            var foundWindow = MdiChildren.FirstOrDefault(o => o.Tag != null && o.Tag.ToString() == tag);
-            if (foundWindow != null)
-            {
-                foundWindow.Focus();
-                return true;
-            }
-            return false;
-        }
-
-        private void btnLogout_Click(object sender, EventArgs e)
-        {
-
-            foreach (var frm in this.MdiChildren)
-            {
-                frm.Close();
-            }
-
-            if (!MdiChildren.Any())
-                Application.Restart();
-        }
-
-        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (e.CloseReason == CloseReason.TaskManagerClosing) return;
-
-            if (!MdiChildren.Any()) return;
-
-            foreach (var frm in MdiChildren)
-            {
-                ActivateMdiChild(frm);
-                frm.Close();
-
-                if (!frm.IsDisposed)
-                {
-                    e.Cancel = true;
-                    return;
-                }
-            }
-        }
-
-        #endregion
-
-
         private void CreateContextTabMenu()
         {
             btnContextMdiTabs.SubItems.Clear();
 
             if (!MdiChildren.Any())
-            {
                 return;
-            }
 
             foreach (var child in MdiChildren)
             {
                 var buttonItem = new ButtonItem("btn" + child.Name, child.Text)
                 {
-                    Tag = child,
+                    Tag = child
                 };
 
                 buttonItem.Click += (s, e) =>
                 {
-                    var frm = ((Form)((ButtonItem)s).Tag);
+                    var frm = (Form)((ButtonItem)s).Tag;
                     frm?.Activate();
                 };
 
                 btnContextMdiTabs.SubItems.Add(buttonItem);
             }
 
-            var btnCloseAll = new ButtonItem()
+            var btnCloseAll = new ButtonItem
             {
                 Text = @"Close All Tabs",
                 BeginGroup = true
@@ -304,7 +227,7 @@ namespace Winform
         {
             try
             {
-                var frm = this.ActiveMdiChild;
+                var frm = ActiveMdiChild;
                 frm.MdiParent = null;
             }
             catch (Exception ex)
@@ -312,8 +235,6 @@ namespace Winform
                 MessageDialog.ShowError(ex, this);
             }
         }
-
-
 
 
         private void btnContactsCreate_Click(object sender, EventArgs e)
@@ -366,8 +287,6 @@ namespace Winform
         }
 
 
-
-
         private void btnAuditTrail_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -381,20 +300,17 @@ namespace Winform
             }
             catch (Exception ex)
             {
-
                 MessageDialog.ShowError(ex, this);
             }
         }
 
 
-
         private void btnGenerated_Click(object sender, EventArgs e)
         {
-
             Cursor.Current = Cursors.WaitCursor;
 
             var period = new PayrollPeriod();
-            using (var f = new Payroll.frmGenerated_Open())
+            using (var f = new frmGenerated_Open())
             {
                 f.ShowDialog();
                 period = f.ItemData;
@@ -403,7 +319,7 @@ namespace Winform
 
             if (period == null) return;
 
-            var frm = new Payroll.frmPayroll
+            var frm = new frmPayroll
             {
                 ItemData = period,
                 Header = $" PAYROLL - {period.DateCovered:MMMM dd, yyyy} [{period.Remarks}]"
@@ -421,11 +337,10 @@ namespace Winform
                 if (!InputControls.UserCanAccess(this, "SysAdmin")) return;
 
 
-                using (var frm = new Accounts.frmRolePrivileges())
+                using (var frm = new frmRolePrivileges())
                 {
                     frm.ShowDialog();
                 }
-
             }
             catch (Exception ex)
             {
@@ -445,13 +360,113 @@ namespace Winform
             if (!InputControls.UserCanAccess(this, "ViewBiometricUser")) return;
 
             OpenForm(new frmBiometricUser(), "Biometric User Management");
+        }
 
+        private void lblVersion_DoubleClick(object sender, EventArgs e)
+        {
+            if (_buttonPress)
+            {
+                _buttonPress = false;
+                MessageBoxEx.Show(this, InputControls.RenderDisplay(), "Application", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+        }
+
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            _buttonPress = e.Control && e.Alt && e.Shift;
+        }
+
+        private void Form_KeyUp(object sender, KeyEventArgs e)
+        {
+            _buttonPress = false;
         }
 
 
+        #region Common Scripts
+
+        internal void OpenForm(IMdiForm form, string title)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+
+                var formTitle = " " + title + " ";
+
+                if (MdiChildren.Count() != 0)
+                    if (FindWindow(formTitle))
+                    {
+                        ((Form)form).Dispose();
+                        return;
+                    }
+
+                var frm = (Form)form;
+                frm.MdiParent = this;
+                ((MdiClientForm)frm).Title = formTitle;
+                frm.Tag = formTitle;
+
+
+                frm.WindowState = FormWindowState.Minimized;
+                frm.Show();
+                frm.WindowState = FormWindowState.Maximized;
+                frm.Update();
+
+
+                App.LogAction("Main", "Opened " + title);
+                Cursor.Current = Cursors.Default;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
+        }
+
+        private bool FindWindow(string tag)
+        {
+            //Find if window is already open
+            var foundWindow = MdiChildren.FirstOrDefault(o => o.Tag != null && o.Tag.ToString() == tag);
+            if (foundWindow != null)
+            {
+                foundWindow.Focus();
+                return true;
+            }
+            return false;
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            foreach (var frm in MdiChildren)
+                frm.Close();
+
+            if (!MdiChildren.Any())
+                Application.Restart();
+        }
+
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.TaskManagerClosing) return;
+
+            if (!MdiChildren.Any()) return;
+
+            foreach (var frm in MdiChildren)
+            {
+                ActivateMdiChild(frm);
+                frm.Close();
+
+                if (!frm.IsDisposed)
+                {
+                    e.Cancel = true;
+                    return;
+                }
+            }
+        }
+
+        #endregion
 
 
         #region Employee Module
+
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -468,7 +483,6 @@ namespace Winform
             {
                 MessageDialog.ShowError(ex, this);
             }
-
         }
 
         private void btnOpenEmployee_Click(object sender, EventArgs e)
@@ -485,8 +499,7 @@ namespace Winform
                 }
 
 
-                var employee = (new EmployeeDataReader()).GetItemOf(empId);
-
+                var employee = new EmployeeDataReader().GetItemOf(empId);
 
 
                 using (var frm = new frmEmployee_Add())
@@ -494,7 +507,6 @@ namespace Winform
                     frm.ItemData = employee;
                     frm.ShowDialog();
                 }
-
             }
             catch (Exception ex)
             {
@@ -507,27 +519,24 @@ namespace Winform
             OpenForm(new frmEmployee(), "Employees");
         }
 
-
         #endregion
 
-        private void lblVersion_DoubleClick(object sender, EventArgs e)
+        private void btnBiometricLog_Click(object sender, EventArgs e)
         {
-            if (_buttonPress)
+
+            var biometricUser = new Dll.Biometric.BiometricUser();
+
+            using (var frmOpen = new Biometric.frmBiometric_Open())
             {
-                _buttonPress = false;
-                MessageBoxEx.Show(this, InputControls.RenderDisplay(), "Application", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (frmOpen.ShowDialog() != DialogResult.OK) return;
+
+                var reader = new BiometricUserDataReader();
+                biometricUser = reader.GetBasicInfoForSmsOf(frmOpen.BiometricId);
             }
 
-        }
-
-        private void Form_KeyDown(object sender, KeyEventArgs e)
-        {
-            _buttonPress = e.Control && e.Alt && e.Shift;
-        }
-
-        private void Form_KeyUp(object sender, KeyEventArgs e)
-        {
-            _buttonPress = false;
+            var frm = new frmBiometric_Log();
+            frm.ItemData = biometricUser;
+            OpenForm(frm, @"Biometric Log\" + biometricUser.BiometricId.ToString());
         }
     }
 }

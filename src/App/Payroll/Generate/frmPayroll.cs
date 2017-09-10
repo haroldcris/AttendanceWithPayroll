@@ -6,6 +6,7 @@ using Dll.Contacts;
 using Dll.Payroll;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,8 +16,6 @@ namespace Winform.Payroll
 {
     public partial class frmPayroll : MdiClientForm, IMdiForm
     {
-        public PayrollPeriod ItemData { get; set; }
-
         public frmPayroll()
         {
             InitializeComponent();
@@ -24,12 +23,10 @@ namespace Winform.Payroll
             InitializeGrid();
 
 
-            Load += (s, e) =>
-            {
-                RefreshData();
-            };
+            Load += (s, e) => { RefreshData(); };
         }
 
+        public PayrollPeriod ItemData { get; set; }
 
 
         protected void InitializeGrid()
@@ -92,7 +89,6 @@ namespace Winform.Payroll
 
             //Define Sort
             //grid.SetSort(SGrid.PrimaryGrid.Columns["Name"]);
-
         }
 
 
@@ -101,8 +97,6 @@ namespace Winform.Payroll
             ItemData.Employees.LoadAllItems();
             return ItemData.Employees.Items;
         }
-
-
 
 
         private void Show_Data(IEnumerable<PeriodEmployee> items)
@@ -123,7 +117,7 @@ namespace Winform.Payroll
 
         protected void Show_DataOnRow(GridRow row, PeriodEmployee item)
         {
-            var currentItem = (PeriodEmployee)item;
+            var currentItem = item;
 
             row.Cells["Empnum"].Value = currentItem.EmpNum;
 
@@ -138,7 +132,6 @@ namespace Winform.Payroll
 
             row.Cells["Position"].Value = currentItem.CurrentPosition;
             row.Cells["SG"].Value = currentItem.SG;
-
 
 
             row.Cells["Step"].Value = currentItem.Step;
@@ -161,6 +154,11 @@ namespace Winform.Payroll
 
 
             row.ShowRecordInfo(currentItem);
+
+
+
+
+
         }
 
 
@@ -174,17 +172,14 @@ namespace Winform.Payroll
                 grid.Rows.Clear();
 
                 var items = Enumerable.Empty<PeriodEmployee>();
-                await Task.Factory.StartNew(() =>
-                {
-                    items = LoadItems();
-                });
+                await Task.Factory.StartNew(() => { items = LoadItems(); });
 
                 //progressBarX1.Visible = false;
                 Show_Data(items);
             });
         }
 
-        private void btnPrint_Click(object sender, System.EventArgs e)
+        private void btnPrint_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
@@ -194,8 +189,9 @@ namespace Winform.Payroll
             var header = sh.PrintSettings.Header;
 
             header = header.Replace("%Date%", DateTime.Now.ToString("dd-MMM-yy hh:mm tt"));
-            header = header.Replace("%Title%", ItemData.DateCovered.ToString("dd MMMM yyyy"));
-            header = header.Replace("%Title2%", ItemData.Remarks);
+            header = header.Replace("%Title%", ItemData.Remarks);
+            //header = header.Replace("%Title%", ItemData.DateCovered.ToString("dd MMMM yyyy"));
+
 
             sh.PrintSettings.Header = header;
 
@@ -227,23 +223,21 @@ namespace Winform.Payroll
                 sh[row, 12].Value = item.TaxExemption;
 
 
-
                 //0111    Medicare(PhilHealth)
                 //0222    PAG - IBIG Premium
                 //0036    BIR Withholding Tax
                 //0001    SSS
-                sh[row, 13].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0036")?.Amount;  // SSS
-                sh[row, 14].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0001")?.Amount;  // SSS
-                sh[row, 15].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0111")?.Amount;  // PhilHealth
-                sh[row, 16].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0222")?.Amount;  // Pagibig
+                sh[row, 13].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0036")?.Amount; // SSS
+                sh[row, 14].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0001")?.Amount; // SSS
+                sh[row, 15].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0111")?.Amount; // PhilHealth
+                sh[row, 16].Value = item.Deductions.Items.FirstOrDefault(_ => _.Code == "0222")?.Amount; // Pagibig
 
                 sh[row, 17].Formula = string.Format("=SUM(N{0}:Q{0})", row + 1);
 
                 sh[row, 18].Value = item.BasicSalary;
-
             }
 
-
+            sh.PrintSettings.FitPagesAcross = 1;
             sh.Locked = true;
 
 
@@ -256,9 +250,8 @@ namespace Winform.Payroll
             xl.Save(Path.Combine(targetFolder, filename));
 
             //System.Threading.Thread.Sleep(1000);
-            System.Diagnostics.Process.Start(Path.Combine(targetFolder, filename));
+            Process.Start(Path.Combine(targetFolder, filename));
         }
-
 
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -270,7 +263,7 @@ namespace Winform.Payroll
             var grid = SGrid.PrimaryGrid;
 
 
-            string deleteMessage = ItemData.DateCovered.ToShortDateString();
+            var deleteMessage = ItemData.DateCovered.ToShortDateString();
 
 
             var ret = MessageDialog.AskToDelete("<b>" + deleteMessage.ToUpper() + "</b>");

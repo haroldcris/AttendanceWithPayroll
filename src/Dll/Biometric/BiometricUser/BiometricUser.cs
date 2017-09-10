@@ -31,9 +31,13 @@ namespace Dll.Biometric
 
         public Person PersonClass { get; set; }
 
+        public BiometricLogCollection BiometricLogs { get; set; }
+
         public BiometricUser()
         {
             PersonClass = new Person();
+
+            BiometricLogs = new BiometricLogCollection(this);
         }
 
         public override void StartTrackingChanges()

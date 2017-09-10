@@ -1,19 +1,15 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using Dll.Payroll;
 using Library.Tools;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
     public partial class frmPayrollEmployee_Add : FormWithRecordInfo, ISave
     {
-
-        public DirtyFormHandler DirtyStatus { get; }
-
-
         public PayrollEmployee ItemData;
 
         //private PayrollEmployeeDeductionCollection _tempPayEmpDeductions;
@@ -29,9 +25,62 @@ namespace Winform.Payroll
             Load_Tax();
 
             Load += (s, e) => ShowData();
-
         }
 
+        public DirtyFormHandler DirtyStatus { get; }
+
+
+        public bool FileSave()
+        {
+            if (!DataIsValid()) return false;
+
+
+            //ItemData.EmployeeId = record.EmployeeId;
+            ItemData.DateHired = dtDateHired.Value;
+            ItemData.Department = cboDepartment.Text;
+
+
+            ItemData.Tin = txtTin.Text;
+            ItemData.PhilHealth = txtPhilHealth.Text;
+            ItemData.PagIbig = txtPagIbig.Text;
+
+
+            //Position
+            var selectedPSG = (PositionSalaryGrade) cboPosition.SelectedItem;
+            ItemData.SG = selectedPSG.SG;
+            ItemData.PositionId = selectedPSG.PositionId;
+            ItemData.PositionClass = selectedPSG.PositionClass;
+
+
+            ItemData.Step = cboStep.SelectedIndex + 1;
+
+
+            //Tax
+            var selectedTax = (Tax) cboTax.SelectedItem;
+            ItemData.TaxClass = selectedTax;
+            ItemData.TaxId = selectedTax.Id;
+
+
+            ItemData.Active = switchActive.Value;
+
+
+            //Deductions
+            //ItemData.Deductions;
+
+
+            //UPdate BASIC SALARY
+            ItemData.UpdateBasicSalary(DateTime.Now);
+
+
+            var writer = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, ItemData);
+            writer.SaveChanges();
+
+
+            DirtyStatus.Clear();
+
+            DialogResult = DialogResult.OK;
+            return true;
+        }
 
 
         private void Load_Tax()
@@ -56,7 +105,7 @@ namespace Winform.Payroll
         {
             if (cboPosition.SelectedIndex == -1) return;
 
-            var item = (PositionSalaryGrade)cboPosition.SelectedItem;
+            var item = (PositionSalaryGrade) cboPosition.SelectedItem;
 
             txtSG.Text = item.SG.ToString();
         }
@@ -65,14 +114,10 @@ namespace Winform.Payroll
         {
             if (cboTax.SelectedIndex == -1) return;
 
-            var item = (Tax)cboTax.SelectedItem;
+            var item = (Tax) cboTax.SelectedItem;
 
             txtExemption.Text = item.Exemption.ToString("0,000.00");
-
         }
-
-
-
 
 
         private void btnOk_Click(object sender, EventArgs e)
@@ -82,7 +127,6 @@ namespace Winform.Payroll
 
         private bool DataIsValid()
         {
-
             if (dtDateHired.Value.Date.Year < 1950)
             {
                 MessageDialog.ShowValidationError(dtDateHired, "Date Hired is Invalid");
@@ -157,7 +201,7 @@ namespace Winform.Payroll
             // Match Position 
             foreach (var p in cboPosition.Items)
             {
-                if (((PositionSalaryGrade)p).PositionId != ItemData.PositionId) continue;
+                if (((PositionSalaryGrade) p).PositionId != ItemData.PositionId) continue;
                 cboPosition.SelectedItem = p;
                 break;
             }
@@ -167,7 +211,7 @@ namespace Winform.Payroll
             // Match Tax Code
             foreach (var t in cboTax.Items)
             {
-                if (((Tax)t).Id != ItemData.TaxId) continue;
+                if (((Tax) t).Id != ItemData.TaxId) continue;
                 cboTax.SelectedItem = t;
                 break;
             }
@@ -188,7 +232,6 @@ namespace Winform.Payroll
         }
 
 
-
         private void Show_NameProfile()
         {
             var template = @"Name:<br/>
@@ -201,63 +244,6 @@ Employee No.:<br/>
             template = template.Replace("%empnum%", ItemData.EmployeeClass.EmpNum.ToString());
 
             lblNameProfile.Text = template;
-        }
-
-
-
-        public bool FileSave()
-        {
-            if (!DataIsValid()) return false;
-
-
-
-            //ItemData.EmployeeId = record.EmployeeId;
-            ItemData.DateHired = dtDateHired.Value;
-            ItemData.Department = cboDepartment.Text;
-
-
-            ItemData.Tin = txtTin.Text;
-            ItemData.PhilHealth = txtPhilHealth.Text;
-            ItemData.PagIbig = txtPagIbig.Text;
-
-
-            //Position
-            var selectedPSG = ((PositionSalaryGrade)cboPosition.SelectedItem);
-            ItemData.SG = selectedPSG.SG;
-            ItemData.PositionId = selectedPSG.PositionId;
-            ItemData.PositionClass = selectedPSG.PositionClass;
-
-
-            ItemData.Step = cboStep.SelectedIndex + 1;
-
-
-            //Tax
-            var selectedTax = (Tax)cboTax.SelectedItem;
-            ItemData.TaxClass = selectedTax;
-            ItemData.TaxId = selectedTax.Id;
-
-
-            ItemData.Active = switchActive.Value;
-
-
-            //Deductions
-            //ItemData.Deductions;
-
-
-
-            //UPdate BASIC SALARY
-            ItemData.UpdateBasicSalary(DateTime.Now);
-
-
-            var writer = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, ItemData);
-            writer.SaveChanges();
-
-
-            DirtyStatus.Clear();
-
-            DialogResult = DialogResult.OK;
-            return true;
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -286,8 +272,8 @@ Employee No.:<br/>
                 FlexGridDeductions[row, "amount"] = item.Amount;
 
 
-                FlexGridDeductions[row, "startdate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateFrom;
-                FlexGridDeductions[row, "enddate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateTo;
+                FlexGridDeductions[row, "startdate"] = item.DeductionClass.Mandatory ? (object) "---" : item.DateFrom;
+                FlexGridDeductions[row, "enddate"] = item.DeductionClass.Mandatory ? (object) "---" : item.DateTo;
 
                 FlexGridDeductions.Rows[row].UserData = item;
             }
@@ -319,7 +305,7 @@ Employee No.:<br/>
         {
             if (FlexGridDeductions.Row < 1) return;
 
-            var item = (PayrollEmployeeDeduction)FlexGridDeductions.Rows[FlexGridDeductions.Row].UserData;
+            var item = (PayrollEmployeeDeduction) FlexGridDeductions.Rows[FlexGridDeductions.Row].UserData;
 
 
             if (item.DeductionClass.Mandatory)

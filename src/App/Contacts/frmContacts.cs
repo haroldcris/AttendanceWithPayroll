@@ -1,20 +1,21 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Contacts;
 using Library.Tools;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Winform.Contacts
 {
     public partial class frmContacts : MdiClientGridForm
     {
         internal PersonCollection ItemDataCollection = new PersonCollection();
+
         public frmContacts()
         {
             InitializeComponent();
@@ -22,10 +23,7 @@ namespace Winform.Contacts
             Header = " CONTACTS MANAGEMENT ";
             HeaderColor = App.BarColor.ContactColor;
 
-            Shown += (s, e) =>
-            {
-                RefreshData();
-            };
+            Shown += (s, e) => { RefreshData(); };
 
             //Image Size
             imageList1.ImageSize = new Size(30, 30);
@@ -33,10 +31,7 @@ namespace Winform.Contacts
 
             btnAdd.Enabled = App.CurrentUser.User.RoleClass.Can("AddContacts");
             btnDelete.Enabled = App.CurrentUser.User.RoleClass.Can("DeleteContacts");
-
         }
-
-
 
 
         protected override IEnumerable<Entity> LoadItems()
@@ -53,9 +48,7 @@ namespace Winform.Contacts
                     var img = InputControls.GetImage(currentItem.CameraCounter);
 
                     if (img != null)
-                    {
                         imageList1.Images.Add(currentItem.CameraCounter, img);
-                    }
                 }
             });
 
@@ -68,7 +61,6 @@ namespace Winform.Contacts
             base.InitializeGrid();
 
             SGrid.InitializeGrid();
-
 
 
             var grid = SGrid.PrimaryGrid;
@@ -94,19 +86,16 @@ namespace Winform.Contacts
             grid.CreateRecordInfoColumns();
 
             // Create COntext Menu;
-            this.CreateGridContextMenu();
+            CreateGridContextMenu();
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["Lastname"]);
-
-
-
         }
 
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (Person)item;
+            var currentItem = (Person) item;
 
             row.Cells["Id"].Value = currentItem.Id.ToString("0000");
 
@@ -148,28 +137,7 @@ namespace Winform.Contacts
             // row.Cells["CameraCounter"].CellStyles.Default.ImageAlignment = Alignment.MiddleCenter;
 
             row.ShowRecordInfo(currentItem);
-
         }
-
-        #region MyGridImageEditControl
-
-        /// <summary>
-        /// GridImageEditControl with the ability
-        /// to pass in a default ImageList and ImageBoxSizeMode
-        /// </summary>
-        private class MyGridImageEditControl : GridImageEditControl
-        {
-            public MyGridImageEditControl(
-                ImageList imageList, ImageSizeMode sizeMode)
-            {
-                ImageList = imageList;
-                ImageSizeMode = sizeMode;
-                ((GridImageEditControl)this).ImageSizeMode = sizeMode;
-            }
-        }
-
-        #endregion
-
 
 
         protected override Entity OnAdd()
@@ -192,10 +160,9 @@ namespace Winform.Contacts
         }
 
 
-
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (Person)item;
+            var selectedItem = (Person) item;
 
             using (var frm = new frmContacts_Add())
             {
@@ -211,18 +178,17 @@ namespace Winform.Contacts
         }
 
 
-
         protected override void OnDelete(Entity item, out string message, ref Action<Entity> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((Person)item).Name.Fullname;
+            message = ((Person) item).Name.Fullname;
 
-            afterConfirm = (currentItem) =>
+            afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (Person)currentItem;
+                    var deletedItem = (Person) currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -230,10 +196,9 @@ namespace Winform.Contacts
                     var dataWriter = new PersonDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
 
-                    ItemDataCollection.Remove((Person)currentItem);
+                    ItemDataCollection.Remove((Person) currentItem);
 
-                    App.LogAction("Contacts", "Deleted Contact: " + ((Person)currentItem).Name.Fullname);
-
+                    App.LogAction("Contacts", "Deleted Contact: " + ((Person) currentItem).Name.Fullname);
                 }
                 catch (Exception ex)
                 {
@@ -242,7 +207,23 @@ namespace Winform.Contacts
             };
         }
 
+        #region MyGridImageEditControl
 
+        /// <summary>
+        ///     GridImageEditControl with the ability
+        ///     to pass in a default ImageList and ImageBoxSizeMode
+        /// </summary>
+        private class MyGridImageEditControl : GridImageEditControl
+        {
+            public MyGridImageEditControl(
+                ImageList imageList, ImageSizeMode sizeMode)
+            {
+                ImageList = imageList;
+                ImageSizeMode = sizeMode;
+                ImageSizeMode = sizeMode;
+            }
+        }
 
+        #endregion
     }
 }

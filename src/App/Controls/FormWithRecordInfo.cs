@@ -1,8 +1,10 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using AiTech.LiteOrm;
+using DevComponents.DotNetBar;
 
 namespace Winform
 {
-    public partial class FormWithRecordInfo : DevComponents.DotNetBar.Office2007Form //DevComponents.DotNetBar.Metro.MetroForm
+    public partial class FormWithRecordInfo : Office2007Form //DevComponents.DotNetBar.Metro.MetroForm
     {
         public FormWithRecordInfo()
         {
@@ -12,7 +14,7 @@ namespace Winform
             Load += FormWithRecordInfo_Load;
         }
 
-        protected void FormWithRecordInfo_Load(object sender, System.EventArgs e)
+        protected void FormWithRecordInfo_Load(object sender, EventArgs e)
         {
             //BarImage.Visible = false;
         }
@@ -37,8 +39,6 @@ namespace Winform
             str = str.Replace("{Time}", info.Modified.ToString("hh:mm:ss tt"));
 
             lblModified.Text = str;
-
         }
-
     }
 }

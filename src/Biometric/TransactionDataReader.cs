@@ -2,7 +2,7 @@
 using Dapper;
 using System.Linq;
 
-namespace AiTech.Biometric
+namespace Biometric
 {
     public class TransactionDataReader
     {

@@ -1,16 +1,12 @@
-﻿using AiTech.Tools.Winform;
-using Dll.Payroll;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using AiTech.Tools.Winform;
+using Dll.Payroll;
 
 namespace Winform.Payroll
 {
     public partial class frmPosition_Add : FormWithHeader, ISave
     {
-        public DirtyFormHandler DirtyStatus { get; }
-
-        public Position ItemData { get; set; }
-
         public frmPosition_Add()
         {
             InitializeComponent();
@@ -31,6 +27,36 @@ namespace Winform.Payroll
             btnOk.Click += (s, e) => FileSave();
 
             #endregion
+        }
+
+        public Position ItemData { get; set; }
+        public DirtyFormHandler DirtyStatus { get; }
+
+
+        public bool FileSave()
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                if (!DataIsValid()) return false;
+
+                ItemData.Code = txtCode.Text.Trim();
+                ItemData.Description = txtDescription.Text.Trim();
+
+                var dataWriter = new PositionDataWriter(App.CurrentUser.User.Username, ItemData);
+                dataWriter.SaveChanges();
+
+                DirtyStatus.Clear();
+
+                DialogResult = DialogResult.OK;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+                return false;
+            }
         }
 
         private void ShowData()
@@ -67,35 +93,5 @@ namespace Winform.Payroll
 
             return true;
         }
-
-
-        public bool FileSave()
-        {
-            try
-            {
-                Cursor.Current = Cursors.WaitCursor;
-                if (!DataIsValid()) return false;
-
-                ItemData.Code = txtCode.Text.Trim();
-                ItemData.Description = txtDescription.Text.Trim();
-
-                var dataWriter = new PositionDataWriter(App.CurrentUser.User.Username, ItemData);
-                dataWriter.SaveChanges();
-
-                DirtyStatus.Clear();
-
-                DialogResult = DialogResult.OK;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageDialog.ShowError(ex, this);
-                return false;
-            }
-
-        }
-
-
     }
 }

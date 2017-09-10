@@ -1,16 +1,16 @@
-using AiTech.Tools.Winform;
-using DevComponents.DotNetBar;
-using Dll.SchoolYear;
 using System;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using Dll.SchoolYear;
 
 namespace Winform
 {
     public partial class frmCourse : MdiClientForm
     {
-        CourseCollection CourseItems = new CourseCollection();
+        private readonly CourseCollection CourseItems = new CourseCollection();
 
         public frmCourse()
         {
@@ -45,7 +45,6 @@ namespace Winform
         }
 
 
-
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var newItem = new Course();
@@ -66,7 +65,7 @@ namespace Winform
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var itemToEdit = (Course)flexGrid.GetUserData(flexGrid.Row, 0);
+            var itemToEdit = (Course) flexGrid.GetUserData(flexGrid.Row, 0);
             if (itemToEdit == null) return;
 
             var frm = new frmCourse_Add(this);
@@ -84,15 +83,12 @@ namespace Winform
 
         private void btnRefresh_Click(object sender, EventArgs e)
         {
-            DoRefresh(() =>
-            {
-                LoadItems();
-            });
+            DoRefresh(() => { LoadItems(); });
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            var item = (Course)flexGrid.GetUserData(flexGrid.Row, 0);
+            var item = (Course) flexGrid.GetUserData(flexGrid.Row, 0);
 
             if (item == null) return;
 
@@ -127,13 +123,12 @@ namespace Winform
         internal bool ContainsData(Course item)
         {
             var foundItem = CourseItems.Items.FirstOrDefault(_ => _.CourseCode == item.CourseCode &&
-                                                                            _.RowId != item.RowId);
+                                                                  _.RowId != item.RowId);
 
             if (foundItem == null) return false;
             if (foundItem.Id == item.Id && foundItem.Id != 0) return false;
 
             return true;
         }
-
     }
 }

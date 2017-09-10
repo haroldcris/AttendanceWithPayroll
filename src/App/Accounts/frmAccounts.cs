@@ -1,17 +1,18 @@
-﻿using AiTech.LiteOrm;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
+using AiTech.LiteOrm;
 using AiTech.Security;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 
 namespace Winform.Accounts
 {
     public partial class frmAccounts : MdiClientGridForm
     {
         internal UserAccountCollection ItemDataCollection = new UserAccountCollection();
+
         public frmAccounts()
         {
             InitializeComponent();
@@ -21,8 +22,6 @@ namespace Winform.Accounts
 
             Load += (s, e) => { RefreshData(); };
         }
-
-
 
 
         protected override IEnumerable<Entity> LoadItems()
@@ -39,7 +38,6 @@ namespace Winform.Accounts
             SGrid.InitializeGrid();
 
 
-
             var grid = SGrid.PrimaryGrid;
 
 
@@ -52,17 +50,16 @@ namespace Winform.Accounts
             grid.CreateRecordInfoColumns();
 
             // Create COntext Menu;
-            this.CreateGridContextMenu();
+            CreateGridContextMenu();
 
             //Define Sort
             grid.SetSort(SGrid.PrimaryGrid.Columns["Username"]);
-
         }
 
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (UserAccount)item;
+            var currentItem = (UserAccount) item;
 
             row.Cells["Id"].Value = currentItem.Id.ToString("0000");
 
@@ -84,28 +81,7 @@ namespace Winform.Accounts
             row.RowHeight = row.GetMaximumRowHeight();
 
             row.ShowRecordInfo(currentItem);
-
         }
-
-        #region MyGridImageEditControl
-
-        /// <summary>
-        /// GridImageEditControl with the ability
-        /// to pass in a default ImageList and ImageBoxSizeMode
-        /// </summary>
-        private class MyGridImageEditControl : GridImageEditControl
-        {
-            public MyGridImageEditControl(
-                ImageList imageList, ImageSizeMode sizeMode)
-            {
-                ImageList = imageList;
-                ImageSizeMode = sizeMode;
-                ((GridImageEditControl)this).ImageSizeMode = sizeMode;
-            }
-        }
-
-        #endregion
-
 
 
         protected override Entity OnAdd()
@@ -125,10 +101,9 @@ namespace Winform.Accounts
         }
 
 
-
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (UserAccount)item;
+            var selectedItem = (UserAccount) item;
 
             using (var frm = new frmAccount_Add())
             {
@@ -142,18 +117,17 @@ namespace Winform.Accounts
         }
 
 
-
         protected override void OnDelete(Entity item, out string message, ref Action<Entity> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((UserAccount)item).Username;
+            message = ((UserAccount) item).Username;
 
-            afterConfirm = (currentItem) =>
+            afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (UserAccount)currentItem;
+                    var deletedItem = (UserAccount) currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -161,7 +135,7 @@ namespace Winform.Accounts
                     var dataWriter = new UserAccountDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
 
-                    ItemDataCollection.Remove((UserAccount)currentItem);
+                    ItemDataCollection.Remove((UserAccount) currentItem);
                 }
                 catch (Exception ex)
                 {
@@ -170,7 +144,23 @@ namespace Winform.Accounts
             };
         }
 
+        #region MyGridImageEditControl
 
+        /// <summary>
+        ///     GridImageEditControl with the ability
+        ///     to pass in a default ImageList and ImageBoxSizeMode
+        /// </summary>
+        private class MyGridImageEditControl : GridImageEditControl
+        {
+            public MyGridImageEditControl(
+                ImageList imageList, ImageSizeMode sizeMode)
+            {
+                ImageList = imageList;
+                ImageSizeMode = sizeMode;
+                ImageSizeMode = sizeMode;
+            }
+        }
 
+        #endregion
     }
 }

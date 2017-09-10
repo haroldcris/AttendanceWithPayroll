@@ -1,21 +1,19 @@
-﻿using AiTech.Tools.Winform;
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using AiTech.Tools.Winform;
 using Dll.Biometric;
 using Dll.Contacts;
 using Library.Tools;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using Winform.Contacts;
 
 namespace Winform.Biometric
 {
     public partial class frmBiometricUser_Add : FormWithRecordInfo, ISave
     {
-        public DirtyFormHandler DirtyStatus { get; }
+        private Person _tempPerson;
 
         public BiometricUser ItemData;
-
-        private Person _tempPerson = null;
 
         public frmBiometricUser_Add()
         {
@@ -28,31 +26,9 @@ namespace Winform.Biometric
             lblName.Text = "";
 
             Load += (s, e) => ShowData();
-
         }
 
-        private void ShowData()
-        {
-            ShowPersonInfo(ItemData.PersonClass);
-
-            //= ItemData.Id;
-            _tempPerson = ItemData.PersonClass;
-            txtBiometricId.Text = ItemData.BiometricId.ToString();
-
-
-            if (ItemData.PersonClass.Id != 0)
-            {
-                ItemData.PersonClass.MobileNumbers.LoadItemsFromDb();
-                InputControls.LoadToComboBox(cboPhoneNumber, ItemData.PersonClass.MobileNumbers.Items);
-
-            }
-
-            cboCategory.Text = ItemData.Category;
-            cboPhoneNumber.Text = ItemData.PhoneNumber;
-
-            ShowFileInfo(ItemData);
-            DirtyStatus.Clear();
-        }
+        public DirtyFormHandler DirtyStatus { get; }
 
 
         public bool FileSave()
@@ -71,13 +47,34 @@ namespace Winform.Biometric
             ItemData.PhoneNumber = cboPhoneNumber.Text;
 
 
-
             var writer = new BiometricUserDataWriter(App.CurrentUser.User.Username, ItemData);
             writer.SaveChanges();
 
             DirtyStatus.Clear();
 
             return true;
+        }
+
+        private void ShowData()
+        {
+            ShowPersonInfo(ItemData.PersonClass);
+
+            //= ItemData.Id;
+            _tempPerson = ItemData.PersonClass;
+            txtBiometricId.Text = ItemData.BiometricId.ToString();
+
+
+            if (ItemData.PersonClass.Id != 0)
+            {
+                ItemData.PersonClass.MobileNumbers.LoadItemsFromDb();
+                InputControls.LoadToComboBox(cboPhoneNumber, ItemData.PersonClass.MobileNumbers.Items);
+            }
+
+            cboCategory.Text = ItemData.Category;
+            cboPhoneNumber.Text = ItemData.PhoneNumber;
+
+            ShowFileInfo(ItemData);
+            DirtyStatus.Clear();
         }
 
         private bool DataIsValid()
@@ -89,14 +86,13 @@ namespace Winform.Biometric
             }
 
 
-            if (Int32.Parse(txtBiometricId.Text) <= 0)
+            if (int.Parse(txtBiometricId.Text) <= 0)
             {
                 txtBiometricId.Focus();
 
                 MessageDialog.ShowValidationError(txtBiometricId, "Invalid Biometric Id");
                 return false;
             }
-
 
 
             if (_tempPerson == null)
@@ -107,7 +103,8 @@ namespace Winform.Biometric
 
 
             var reader = new BiometricUserDataReader();
-            if (reader.HasExistingBiometricId(Convert.ToInt32(txtBiometricId.Text)) && Convert.ToInt32(txtBiometricId.Text) != ItemData.BiometricId)
+            if (reader.HasExistingBiometricId(Convert.ToInt32(txtBiometricId.Text)) &&
+                Convert.ToInt32(txtBiometricId.Text) != ItemData.BiometricId)
             {
                 MessageDialog.ShowValidationError(txtBiometricId, "Biometric Id already exists!");
                 return false;
@@ -122,9 +119,6 @@ namespace Winform.Biometric
             var reader = new BiometricUserDataReader();
             return reader.HasExistingPersonId(personId);
         }
-
-
-
 
 
         private void ShowPersonInfo(Person personInfo)
@@ -151,7 +145,9 @@ Gender:
 
             template = template.Replace("%extension%", person.Name.NameExtension.ToUpper());
 
-            template = !person.Name.Lastname.Any() ? template.Replace("%gender%", "") : template.Replace("%gender%", person.Gender == GenderType.Male ? "Male" : "Female");
+            template = !person.Name.Lastname.Any()
+                ? template.Replace("%gender%", "")
+                : template.Replace("%gender%", person.Gender == GenderType.Male ? "Male" : "Female");
 
             if (person.Name.MaidenMiddlename.Length == 0)
             {
@@ -169,7 +165,7 @@ Gender:
             lblName.Text = template;
         }
 
-        private void btnContactsNew_Click(object sender, System.EventArgs e)
+        private void btnContactsNew_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
@@ -188,7 +184,7 @@ Gender:
         }
 
 
-        private void btnContactsSelect_Click(object sender, System.EventArgs e)
+        private void btnContactsSelect_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
@@ -202,7 +198,8 @@ Gender:
             if (ExistingPersonId(_tempPerson.Id))
             {
                 _tempPerson = null;
-                MessageDialog.Show(this, "Existing Record", "An existing Record associated with this contact already exists!");
+                MessageDialog.Show(this, "Existing Record",
+                    "An existing Record associated with this contact already exists!");
                 return;
             }
 
@@ -211,12 +208,12 @@ Gender:
             ShowPersonInfo(_tempPerson);
         }
 
-        private void btnCancel_Click(object sender, System.EventArgs e)
+        private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void btnOk_Click(object sender, System.EventArgs e)
+        private void btnOk_Click(object sender, EventArgs e)
         {
             if (!FileSave()) return;
 

@@ -1,6 +1,6 @@
 using AiTech.LiteOrm;
 
-namespace AiTech.Biometric
+namespace Biometric
 {
     public class TransactionCollection : EntityCollection<Transaction>
     {

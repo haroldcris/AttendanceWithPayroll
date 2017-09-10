@@ -1,25 +1,21 @@
-﻿using AForge.Video;
-using AForge.Video.DirectShow;
-using AiTech.Tools.Winform;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
+using AForge.Video;
+using AForge.Video.DirectShow;
+using DevComponents.DotNetBar.Metro;
 
 namespace Devices
 {
-    public partial class frmCaptureDevice : DevComponents.DotNetBar.Metro.MetroForm
+    public partial class frmCaptureDevice : MetroForm
     {
-        private FilterInfoCollection videoDevices;
-        private VideoCaptureDevice videoDevice;
-        private VideoCapabilities[] videoCapabilities;
+        private bool CaptureDevicePreviewIsReady;
         private VideoCapabilities[] snapshotCapabilities;
-
-
-        private bool CaptureDevicePreviewIsReady = false;
-
-        public FileInfo File { get; set; }
+        private VideoCapabilities[] videoCapabilities;
+        private VideoCaptureDevice videoDevice;
+        private FilterInfoCollection videoDevices;
 
         public frmCaptureDevice()
         {
@@ -33,6 +29,8 @@ namespace Devices
             //picImage.MouseUp += ImageOnMouseUp;
             //picImage.Paint += ImageOnPaint;
         }
+
+        public FileInfo File { get; set; }
 
         // Main form is loaded
         private void MainForm_Load(object sender, EventArgs e)
@@ -55,9 +53,8 @@ namespace Devices
             connectButton.Enabled = enable;
             disconnectButton.Enabled = !enable;
 
-            triggerButton.Enabled = (!enable) && (snapshotCapabilities.Length != 0);
-
-
+            triggerButton.Enabled = !enable;
+            // triggerButton.Enabled = (!enable) && (snapshotCapabilities.Length != 0);
         }
 
         // New video device is selected
@@ -73,7 +70,7 @@ namespace Devices
         // Collect supported video and snapshot sizes
         private void EnumeratedSupportedFrameSizes(VideoCaptureDevice videoDevice)
         {
-            this.Cursor = Cursors.WaitCursor;
+            Cursor = Cursors.WaitCursor;
 
             videoResolutionsCombo.Items.Clear();
             snapshotResolutionsCombo.Items.Clear();
@@ -83,33 +80,27 @@ namespace Devices
                 videoCapabilities = videoDevice.VideoCapabilities;
                 snapshotCapabilities = videoDevice.SnapshotCapabilities;
 
-                foreach (VideoCapabilities capabilty in videoCapabilities)
-                {
+                foreach (var capabilty in videoCapabilities)
                     videoResolutionsCombo.Items.Add(string.Format("{0} x {1}",
                         capabilty.FrameSize.Width, capabilty.FrameSize.Height));
-                }
 
-                foreach (VideoCapabilities capabilty in snapshotCapabilities)
-                {
+                foreach (var capabilty in snapshotCapabilities)
                     snapshotResolutionsCombo.Items.Add(string.Format("{0} x {1}",
                         capabilty.FrameSize.Width, capabilty.FrameSize.Height));
-                }
 
                 if (videoCapabilities.Length == 0)
-                {
                     videoResolutionsCombo.Items.Add("Not supported");
-                }
                 if (snapshotCapabilities.Length == 0)
-                {
-                    snapshotResolutionsCombo.Items.Add("Not supported");
-                }
-
+                    if (videoResolutionsCombo.Items.Count != 0)
+                        snapshotResolutionsCombo.Items.Add(videoResolutionsCombo.Items[0]);
+                    else
+                        snapshotResolutionsCombo.Items.Add("Not Supported");
                 videoResolutionsCombo.SelectedIndex = 0;
                 snapshotResolutionsCombo.SelectedIndex = 0;
             }
             finally
             {
-                this.Cursor = Cursors.Default;
+                Cursor = Cursors.Default;
             }
         }
 
@@ -121,16 +112,14 @@ namespace Devices
 
             if (videoDevice != null)
             {
-                if ((videoCapabilities != null) && (videoCapabilities.Length != 0))
-                {
+                if (videoCapabilities != null && videoCapabilities.Length != 0)
                     videoDevice.VideoResolution = videoCapabilities[videoResolutionsCombo.SelectedIndex];
-                }
 
-                if ((snapshotCapabilities != null) && (snapshotCapabilities.Length != 0))
+                if (snapshotCapabilities != null && snapshotCapabilities.Length != 0)
                 {
                     videoDevice.ProvideSnapshots = true;
                     videoDevice.SnapshotResolution = snapshotCapabilities[snapshotResolutionsCombo.SelectedIndex];
-                    videoDevice.SnapshotFrame += new NewFrameEventHandler(videoDevice_SnapshotFrame);
+                    videoDevice.SnapshotFrame += videoDevice_SnapshotFrame;
                 }
 
                 EnableConnectionControls(false);
@@ -139,7 +128,6 @@ namespace Devices
                 videoSourcePlayer.Start();
 
                 videoSourcePlayer.NewFrame += VideoSourcePlayer_NewFrame;
-
             }
         }
 
@@ -148,7 +136,6 @@ namespace Devices
         {
             //throw new NotImplementedException();
             if (!CaptureDevicePreviewIsReady) CaptureDevicePreviewIsReady = true;
-
         }
 
 
@@ -169,9 +156,7 @@ namespace Devices
                 videoSourcePlayer.VideoSource = null;
 
                 if (videoDevice.ProvideSnapshots)
-                {
-                    videoDevice.SnapshotFrame -= new NewFrameEventHandler(videoDevice_SnapshotFrame);
-                }
+                    videoDevice.SnapshotFrame -= videoDevice_SnapshotFrame;
 
                 EnableConnectionControls(true);
             }
@@ -182,23 +167,21 @@ namespace Devices
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            if ((videoDevice != null) && (videoDevice.ProvideSnapshots))
-            {
-                videoDevice.SimulateTrigger();
-                return;
-            }
-            else
-            {
-                MessageDialog.ShowValidationError(triggerButton, "Device Capture NOT Ready!");
-                return;
-            }
+            //if ((videoDevice != null) && (videoDevice.ProvideSnapshots))
+            //{
 
-            //if (!CaptureDevicePreviewIsReady)
+            //    videoDevice.SimulateTrigger();
+            //}
+
+
+            var img = videoSourcePlayer.GetCurrentVideoFrame();
+            ShowSnapshot(img);
+
+
             //{
             //    MessageDialog.ShowValidationError(triggerButton, "Device Preview NOT Ready!");
             //    return;
             //}
-
         }
 
         // New snapshot frame is available
@@ -206,8 +189,9 @@ namespace Devices
         {
             //Console.WriteLine(eventArgs.Frame.Size);
 
-            ShowSnapshot((Bitmap)eventArgs.Frame.Clone());
+            ShowSnapshot((Bitmap) eventArgs.Frame.Clone());
         }
+
 
         private void ShowSnapshot(Bitmap snapshot)
         {
@@ -217,7 +201,6 @@ namespace Devices
             }
             else
             {
-
                 picImage.Image = snapshot;
                 tabControl1.SelectedTab = tabItem2;
 
@@ -227,31 +210,22 @@ namespace Devices
         }
 
 
-
         private void MainForm_Shown(object sender, EventArgs e)
         {
             // enumerate video devices
             videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
             if (videoDevices.Count != 0)
-            {
-                // add all devices to combo
                 foreach (FilterInfo device in videoDevices)
-                {
                     devicesCombo.Items.Add(device.Name);
-                }
-            }
             else
-            {
                 devicesCombo.Items.Add("No DirectShow devices found");
-            }
 
             devicesCombo.SelectedIndex = 0;
 
             EnableConnectionControls(true);
 
             PanelLoading.Visible = false;
-
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -264,13 +238,13 @@ namespace Devices
 
         private void btnSelect_Click(object sender, EventArgs e)
         {
-            ImageFormat format = ImageFormat.Jpeg;
+            var format = ImageFormat.Jpeg;
 
             try
             {
                 lock (this)
                 {
-                    Bitmap image = (Bitmap)picImage.Image;
+                    var image = (Bitmap) picImage.Image;
 
 
                     var targetFolder = Path.Combine(Path.GetTempPath(), "amwp");
@@ -284,10 +258,9 @@ namespace Devices
                     Console.WriteLine("Saving Image...");
                     image.Save(Path.Combine(targetFolder, filename), format);
 
-                    this.File = new FileInfo(Path.Combine(targetFolder, filename));
+                    File = new FileInfo(Path.Combine(targetFolder, filename));
 
                     DialogResult = DialogResult.OK;
-
                 }
             }
             catch (Exception ex)
@@ -295,7 +268,6 @@ namespace Devices
                 MessageBox.Show("Failed saving the snapshot.\n" + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
 
         //private bool UploadImage(string fullFilename)
@@ -313,9 +285,7 @@ namespace Devices
         //}
 
 
-
         #region Cropping Image
-
 
         private bool _selecting;
         private Rectangle _selection;
@@ -350,7 +320,7 @@ namespace Devices
                 _selection.Size != new Size())
             {
                 // Create cropped image:
-                Image img = picImage.Image.Crop(_selection);
+                var img = picImage.Image.Crop(_selection);
 
 
                 // Fit image to the picturebox:
@@ -359,7 +329,9 @@ namespace Devices
                 _selecting = false;
             }
             else
+            {
                 _selecting = false;
+            }
         }
 
         private void ImageOnPaint(object sender, PaintEventArgs e)
@@ -367,13 +339,11 @@ namespace Devices
             if (_selecting)
             {
                 // Draw a rectangle displaying the current selection
-                Pen pen = Pens.GreenYellow;
+                var pen = Pens.GreenYellow;
                 e.Graphics.DrawRectangle(pen, _selection);
             }
         }
 
-
         #endregion
-
     }
 }

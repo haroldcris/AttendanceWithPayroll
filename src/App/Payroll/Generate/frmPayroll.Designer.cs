@@ -31,9 +31,14 @@
             this.SGrid = new DevComponents.DotNetBar.SuperGrid.SuperGridControl();
             this.ribbonBarMergeContainer1 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
             this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
-            this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
             this.btnPrint = new DevComponents.DotNetBar.ButtonItem();
+            this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
             this.xl = new C1.C1Excel.C1XLBook();
+            this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridColumn2 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridColumn3 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridColumn4 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.gridColumn5 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.ribbonBarMergeContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +51,14 @@
             this.SGrid.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.SGrid.Location = new System.Drawing.Point(0, 28);
             this.SGrid.Name = "SGrid";
+            // 
+            // 
+            // 
+            this.SGrid.PrimaryGrid.Columns.Add(this.gridColumn1);
+            this.SGrid.PrimaryGrid.Columns.Add(this.gridColumn2);
+            this.SGrid.PrimaryGrid.Columns.Add(this.gridColumn3);
+            this.SGrid.PrimaryGrid.Columns.Add(this.gridColumn4);
+            this.SGrid.PrimaryGrid.Columns.Add(this.gridColumn5);
             this.SGrid.Size = new System.Drawing.Size(919, 549);
             this.SGrid.TabIndex = 20;
             this.SGrid.Text = "superGridControl1";
@@ -54,7 +67,7 @@
             // 
             this.ribbonBarMergeContainer1.ColorSchemeStyle = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.ribbonBarMergeContainer1.Controls.Add(this.ribbonBar6);
-            this.ribbonBarMergeContainer1.Location = new System.Drawing.Point(24, 53);
+            this.ribbonBarMergeContainer1.Location = new System.Drawing.Point(24, 66);
             this.ribbonBarMergeContainer1.Name = "ribbonBarMergeContainer1";
             this.ribbonBarMergeContainer1.RibbonTabText = "Action";
             this.ribbonBarMergeContainer1.Size = new System.Drawing.Size(281, 77);
@@ -89,8 +102,8 @@
             this.ribbonBar6.Dock = System.Windows.Forms.DockStyle.Left;
             this.ribbonBar6.DragDropSupport = true;
             this.ribbonBar6.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
-            this.btnDelete,
-            this.btnPrint});
+            this.btnPrint,
+            this.btnDelete});
             this.ribbonBar6.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.ribbonBar6.Location = new System.Drawing.Point(0, 0);
             this.ribbonBar6.Name = "ribbonBar6";
@@ -107,17 +120,6 @@
             // 
             this.ribbonBar6.TitleStyleMouseOver.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             // 
-            // btnDelete
-            // 
-            this.btnDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnDelete.Image = global::Winform.Properties.Resources.Delete_File_40px;
-            this.btnDelete.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F3);
-            this.btnDelete.SubItemsExpandWidth = 14;
-            this.btnDelete.Text = "Delete Entire Payroll";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // btnPrint
             // 
             this.btnPrint.BeginGroup = true;
@@ -130,6 +132,41 @@
             this.btnPrint.SubItemsExpandWidth = 14;
             this.btnPrint.Text = "Print";
             this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnDelete.Image = global::Winform.Properties.Resources.Delete_File_40px;
+            this.btnDelete.ImagePosition = DevComponents.DotNetBar.eImagePosition.Top;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F3);
+            this.btnDelete.SubItemsExpandWidth = 14;
+            this.btnDelete.Text = "Delete Entire Payroll";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // xl
+            // 
+            this.xl.CompatibilityMode = C1.C1Excel.CompatibilityMode.Excel2007;
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Name = "gridColumn1";
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Name = "gridColumn2";
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Name = "gridColumn3";
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Name = "gridColumn4";
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Name = "gridColumn5";
             // 
             // frmPayroll
             // 
@@ -154,7 +191,12 @@
         protected DevComponents.DotNetBar.RibbonBarMergeContainer ribbonBarMergeContainer1;
         protected DevComponents.DotNetBar.RibbonBar ribbonBar6;
         private DevComponents.DotNetBar.ButtonItem btnPrint;
-        private C1.C1Excel.C1XLBook xl;
         private DevComponents.DotNetBar.ButtonItem btnDelete;
+        private C1.C1Excel.C1XLBook xl;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn1;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn2;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn3;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn4;
+        private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn5;
     }
 }

@@ -1,11 +1,11 @@
-﻿using AiTech.Security;
+﻿using System;
+using System.Linq;
+using System.Windows.Forms;
+using AiTech.Security;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Library.Tools;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 
 namespace Winform.Accounts
 {
@@ -73,36 +73,32 @@ namespace Winform.Accounts
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            GridRow row = e.GridCell.GridRow;
+            var row = e.GridCell.GridRow;
             if (row?.Tag == null) return;
 
-            var item = (IRolePrivilege)row.Tag;
+            var item = (IRolePrivilege) row.Tag;
 
-            item.Enable = (bool)e.GridCell.Value;
+            item.Enable = (bool) e.GridCell.Value;
 
 
-            var writer = new RoleDataWriter(App.CurrentUser.User.Username, (Role)cboRole.SelectedItem);
+            var writer = new RoleDataWriter(App.CurrentUser.User.Username, (Role) cboRole.SelectedItem);
             writer.SaveChanges();
         }
 
         private void frmRolePrivileges_Load(object sender, EventArgs e)
         {
-
-
         }
 
 
         private void Show_RolePrivileges(Role selectedRole)
         {
-
-
             var grid = SGrid.PrimaryGrid;
 
             grid.Rows.Clear();
             grid.ClearAll();
 
             var list = selectedRole.RolePrivileges.Items.OrderBy(_ => _.PrivilegeClass.Category)
-                                                        .ThenBy(_ => _.PrivilegeClass.DisplayOrder).ToList();
+                .ThenBy(_ => _.PrivilegeClass.DisplayOrder).ToList();
 
             foreach (var item in list)
             {
@@ -124,12 +120,11 @@ namespace Winform.Accounts
         {
             if (cboRole.SelectedIndex < 0) return;
 
-            var selectedRole = (Role)cboRole.SelectedItem;
+            var selectedRole = (Role) cboRole.SelectedItem;
 
             selectedRole.RolePrivileges.LoadItemsFromDb();
 
             Show_RolePrivileges(selectedRole);
-
         }
     }
 }

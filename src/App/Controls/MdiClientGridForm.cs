@@ -1,18 +1,17 @@
-﻿using AiTech.LiteOrm;
-using AiTech.Tools.Winform;
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.SuperGrid;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.SuperGrid;
 
 namespace Winform
 {
     public partial class MdiClientGridForm : MdiClientForm
     {
-
         public MdiClientGridForm()
         {
             InitializeComponent();
@@ -65,27 +64,28 @@ namespace Winform
                     AutoCheckOnClick = true,
                     AutoCollapseOnClick = false,
                     HotTrackingStyle = eHotTrackingStyle.Color,
-                    Checked = col.Visible == true,
+                    Checked = col.Visible,
                     ThemeAware = true,
                     Enabled = c > 1,
-                    Tag = col,
+                    Tag = col
                 };
 
                 btn.Command = cmdContext;
 
                 mnuGridColumn.SubItems.Add(btn);
             }
-
         }
 
 
         /// <summary>
-        /// Load all the Item Collection. Common Code:
-        /// 
-        /// ItemDataCollection = new PersonCollection();
-        /// ItemDataCollection.LoadAllItemsFromDb();
+        ///     Load all the Item Collection. Common Code:
+        ///     ItemDataCollection = new PersonCollection();
+        ///     ItemDataCollection.LoadAllItemsFromDb();
         /// </summary>
-        protected virtual IEnumerable<Entity> LoadItems() { return null; }
+        protected virtual IEnumerable<Entity> LoadItems()
+        {
+            return null;
+        }
 
         private void Show_Data(IEnumerable<Entity> items)
         {
@@ -102,13 +102,24 @@ namespace Winform
             }
         }
 
-        protected virtual void Show_DataOnRow(GridRow row, Entity item) { }
+        protected virtual void Show_DataOnRow(GridRow row, Entity item)
+        {
+        }
 
-        protected virtual Entity OnAdd() { throw new NotImplementedException(); }
+        protected virtual Entity OnAdd()
+        {
+            throw new NotImplementedException();
+        }
 
-        protected virtual bool OnEdit(Entity item) { throw new NotImplementedException(); }
+        protected virtual bool OnEdit(Entity item)
+        {
+            throw new NotImplementedException();
+        }
 
-        protected virtual void OnDelete(Entity item, out string message, ref Action<Entity> AfterConfirm) { message = ""; }
+        protected virtual void OnDelete(Entity item, out string message, ref Action<Entity> AfterConfirm)
+        {
+            message = "";
+        }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -136,13 +147,11 @@ namespace Winform
                 row.SetActive();
                 row.IsSelected = true;
                 row.EnsureVisible();
-
             }
             catch (Exception ex)
             {
                 MessageDialog.ShowError(ex, this);
             }
-
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -153,10 +162,9 @@ namespace Winform
 
             var grid = SGrid.PrimaryGrid;
 
-            var item = (Entity)grid.ActiveRow?.Tag;
+            var item = (Entity) grid.ActiveRow?.Tag;
 
             if (item == null) return;
-
 
 
             string deleteMessage;
@@ -168,7 +176,7 @@ namespace Winform
 
             if (ret != MessageDialogResult.Yes) return;
 
-            string[] strType = item.GetType().ToString().Split('.');
+            var strType = item.GetType().ToString().Split('.');
 
             App.LogAction(strType[strType.Length - 1], "Deleted " + deleteMessage);
 
@@ -187,7 +195,7 @@ namespace Winform
 
                 var grid = SGrid.PrimaryGrid;
 
-                var item = (Entity)grid.ActiveRow?.Tag;
+                var item = (Entity) grid.ActiveRow?.Tag;
 
                 if (item == null) return;
                 if (!OnEdit(item)) return;
@@ -199,8 +207,7 @@ namespace Winform
                     return;
                 }
 
-                Show_DataOnRow((GridRow)grid.ActiveRow, item);
-
+                Show_DataOnRow((GridRow) grid.ActiveRow, item);
             }
             catch (Exception ex)
             {
@@ -224,10 +231,7 @@ namespace Winform
                 grid.Rows.Clear();
 
                 var items = Enumerable.Empty<Entity>();
-                await Task.Factory.StartNew(() =>
-                {
-                    items = LoadItems();
-                });
+                await Task.Factory.StartNew(() => { items = LoadItems(); });
 
                 progressBarX1.Visible = false;
                 Show_Data(items);
@@ -236,8 +240,8 @@ namespace Winform
 
         private void cmdContext_Executed(object sender, EventArgs e)
         {
-            var button = (ButtonItem)sender;
-            var col = (GridColumn)button.Tag;
+            var button = (ButtonItem) sender;
+            var col = (GridColumn) button.Tag;
 
             col.Visible = button.Checked;
         }

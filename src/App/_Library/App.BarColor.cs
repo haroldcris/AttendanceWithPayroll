@@ -20,5 +20,6 @@ public static partial class App
         public static readonly Color EmployeeProfileColor = Color.CornflowerBlue;
 
         public static readonly Color BiometricUser = Color.Brown;
+        public static readonly Color AttendanceMonitoring = Color.MediumSlateBlue;
     }
 }
