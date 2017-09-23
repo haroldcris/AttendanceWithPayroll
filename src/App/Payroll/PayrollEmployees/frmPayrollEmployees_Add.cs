@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using AiTech.LiteOrm;
+﻿using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using Dll.Payroll;
 using Library.Tools;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
@@ -46,7 +46,7 @@ namespace Winform.Payroll
 
 
             //Position
-            var selectedPSG = (PositionSalaryGrade) cboPosition.SelectedItem;
+            var selectedPSG = (PositionSalaryGrade)cboPosition.SelectedItem;
             ItemData.SG = selectedPSG.SG;
             ItemData.PositionId = selectedPSG.PositionId;
             ItemData.PositionClass = selectedPSG.PositionClass;
@@ -56,7 +56,7 @@ namespace Winform.Payroll
 
 
             //Tax
-            var selectedTax = (Tax) cboTax.SelectedItem;
+            var selectedTax = (Tax)cboTax.SelectedItem;
             ItemData.TaxClass = selectedTax;
             ItemData.TaxId = selectedTax.Id;
 
@@ -105,7 +105,7 @@ namespace Winform.Payroll
         {
             if (cboPosition.SelectedIndex == -1) return;
 
-            var item = (PositionSalaryGrade) cboPosition.SelectedItem;
+            var item = (PositionSalaryGrade)cboPosition.SelectedItem;
 
             txtSG.Text = item.SG.ToString();
         }
@@ -114,7 +114,7 @@ namespace Winform.Payroll
         {
             if (cboTax.SelectedIndex == -1) return;
 
-            var item = (Tax) cboTax.SelectedItem;
+            var item = (Tax)cboTax.SelectedItem;
 
             txtExemption.Text = item.Exemption.ToString("0,000.00");
         }
@@ -201,7 +201,7 @@ namespace Winform.Payroll
             // Match Position 
             foreach (var p in cboPosition.Items)
             {
-                if (((PositionSalaryGrade) p).PositionId != ItemData.PositionId) continue;
+                if (((PositionSalaryGrade)p).PositionId != ItemData.PositionId) continue;
                 cboPosition.SelectedItem = p;
                 break;
             }
@@ -211,7 +211,7 @@ namespace Winform.Payroll
             // Match Tax Code
             foreach (var t in cboTax.Items)
             {
-                if (((Tax) t).Id != ItemData.TaxId) continue;
+                if (((Tax)t).Id != ItemData.TaxId) continue;
                 cboTax.SelectedItem = t;
                 break;
             }
@@ -252,6 +252,8 @@ Employee No.:<br/>
         }
 
 
+
+
         private void Show_Deductions()
         {
             FlexGridDeductions.Rows.Count = 1;
@@ -267,16 +269,23 @@ Employee No.:<br/>
             foreach (var item in ItemData.Deductions.Items)
             {
                 row++;
-                FlexGridDeductions[row, "code"] = item.DeductionClass.Code;
-                FlexGridDeductions[row, "description"] = item.DeductionClass.Description;
-                FlexGridDeductions[row, "amount"] = item.Amount;
 
-
-                FlexGridDeductions[row, "startdate"] = item.DeductionClass.Mandatory ? (object) "---" : item.DateFrom;
-                FlexGridDeductions[row, "enddate"] = item.DeductionClass.Mandatory ? (object) "---" : item.DateTo;
-
-                FlexGridDeductions.Rows[row].UserData = item;
+                Show_Deduction_OnRow(row, item);
             }
+        }
+
+
+        private void Show_Deduction_OnRow(int row, PayrollEmployeeDeduction item)
+        {
+            FlexGridDeductions[row, "code"] = item.DeductionClass.Code;
+            FlexGridDeductions[row, "description"] = item.DeductionClass.Description;
+            FlexGridDeductions[row, "amount"] = item.Amount;
+
+
+            FlexGridDeductions[row, "startdate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateFrom;
+            FlexGridDeductions[row, "enddate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateTo;
+
+            FlexGridDeductions.Rows[row].UserData = item;
         }
 
         private void Load_Deductions()
@@ -305,7 +314,7 @@ Employee No.:<br/>
         {
             if (FlexGridDeductions.Row < 1) return;
 
-            var item = (PayrollEmployeeDeduction) FlexGridDeductions.Rows[FlexGridDeductions.Row].UserData;
+            var item = (PayrollEmployeeDeduction)FlexGridDeductions.Rows[FlexGridDeductions.Row].UserData;
 
 
             if (item.DeductionClass.Mandatory)
@@ -318,6 +327,31 @@ Employee No.:<br/>
             item.RowStatus = RecordStatus.DeletedRecord;
 
             FlexGridDeductions.RemoveItem(FlexGridDeductions.Row);
+        }
+
+
+        private void btnEditDeduction_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            if (FlexGridDeductions.Row < 1) return;
+
+            var item = (PayrollEmployeeDeduction)FlexGridDeductions.Rows[FlexGridDeductions.Row].UserData;
+
+
+            using (var frm = new frmEmployeeDeduction_Add())
+            {
+                frm.ItemData = item;
+                if (frm.ShowDialog() != DialogResult.OK) return;
+            }
+
+            Show_Deduction_OnRow(FlexGridDeductions.Row, item);
+            DirtyStatus.SetDirty();
+        }
+
+        private void FlexGridDeductions_DoubleClick(object sender, EventArgs e)
+        {
+            btnEditDeduction.RaiseClick();
         }
     }
 }

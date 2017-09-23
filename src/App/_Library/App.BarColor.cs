@@ -19,7 +19,16 @@ public static partial class App
         public static readonly Color EmployeeColor = Color.DarkOrchid;
         public static readonly Color EmployeeProfileColor = Color.CornflowerBlue;
 
+        public static readonly Color StudentColor = Color.Bisque;
+
         public static readonly Color BiometricUser = Color.Brown;
         public static readonly Color AttendanceMonitoring = Color.MediumSlateBlue;
+
+
+        //School Year
+        public static readonly Color BatchColor = Color.Indigo;
+        public static readonly Color CourseColor = Color.Maroon;
+        public static readonly Color SubjectColor = Color.DarkGoldenrod;
+        public static readonly Color SectionColor = Color.Sienna;
     }
 }

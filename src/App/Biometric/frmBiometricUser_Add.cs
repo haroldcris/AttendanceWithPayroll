@@ -1,10 +1,10 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using AiTech.Tools.Winform;
+﻿using AiTech.Tools.Winform;
 using Dll.Biometric;
 using Dll.Contacts;
 using Library.Tools;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 using Winform.Contacts;
 
 namespace Winform.Biometric
@@ -47,6 +47,27 @@ namespace Winform.Biometric
             ItemData.PhoneNumber = cboPhoneNumber.Text;
 
 
+
+            ItemData.MonIn = dtMonIn.Value;
+            ItemData.MonOut = dtMonOut.Value;
+
+            ItemData.TueIn = dtTueIn.Value;
+            ItemData.TueOut = dtTueOut.Value;
+
+            ItemData.WedIn = dtWedIn.Value;
+            ItemData.WedOut = dtWedOut.Value;
+
+            ItemData.ThuIn = dtThuIn.Value;
+            ItemData.ThuOut = dtThuOut.Value;
+
+            ItemData.FriIn = dtFriIn.Value;
+            ItemData.FriOut = dtFriOut.Value;
+
+            ItemData.SatIn = dtSatIn.Value;
+            ItemData.SatOut = dtSatOut.Value;
+
+
+
             var writer = new BiometricUserDataWriter(App.CurrentUser.User.Username, ItemData);
             writer.SaveChanges();
 
@@ -72,6 +93,26 @@ namespace Winform.Biometric
 
             cboCategory.Text = ItemData.Category;
             cboPhoneNumber.Text = ItemData.PhoneNumber;
+
+
+            dtMonIn.Value = ItemData.MonIn;
+            dtMonOut.Value = ItemData.MonOut;
+
+            dtTueIn.Value = ItemData.TueIn;
+            dtTueOut.Value = ItemData.TueOut;
+
+            dtWedIn.Value = ItemData.WedIn;
+            dtWedOut.Value = ItemData.WedOut;
+
+            dtThuIn.Value = ItemData.ThuIn;
+            dtThuOut.Value = ItemData.ThuOut;
+
+            dtFriIn.Value = ItemData.FriIn;
+            dtFriOut.Value = ItemData.FriOut;
+
+            dtSatIn.Value = ItemData.SatIn;
+            dtSatOut.Value = ItemData.SatOut;
+
 
             ShowFileInfo(ItemData);
             DirtyStatus.Clear();

@@ -41,6 +41,7 @@
             this.labelX1 = new DevComponents.DotNetBar.LabelX();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCancel = new DevComponents.DotNetBar.ButtonX();
+            this.cboCategory = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FlexGrid)).BeginInit();
             this.panelEx1.SuspendLayout();
@@ -74,6 +75,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.cboCategory);
             this.groupBox1.Controls.Add(this.cboSearchType);
             this.groupBox1.Controls.Add(this.FlexGrid);
             this.groupBox1.Controls.Add(this.txtSearch);
@@ -97,10 +99,10 @@
             "Plate No.",
             "Motor No.",
             "Chassis No."});
-            this.cboSearchType.Location = new System.Drawing.Point(221, 19);
+            this.cboSearchType.Location = new System.Drawing.Point(270, 19);
             this.cboSearchType.Name = "cboSearchType";
-            this.cboSearchType.Size = new System.Drawing.Size(115, 21);
-            this.cboSearchType.TabIndex = 1;
+            this.cboSearchType.Size = new System.Drawing.Size(86, 21);
+            this.cboSearchType.TabIndex = 2;
             // 
             // FlexGrid
             // 
@@ -141,7 +143,7 @@
             this.txtSearch.Location = new System.Drawing.Point(8, 19);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.PreventEnterBeep = true;
-            this.txtSearch.Size = new System.Drawing.Size(207, 20);
+            this.txtSearch.Size = new System.Drawing.Size(164, 20);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.WatermarkText = "Type Search Item";
             // 
@@ -151,12 +153,12 @@
             this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSearch.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnSearch.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSearch.Location = new System.Drawing.Point(342, 17);
+            this.btnSearch.Location = new System.Drawing.Point(362, 17);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.ShowSubItems = false;
-            this.btnSearch.Size = new System.Drawing.Size(74, 22);
+            this.btnSearch.Size = new System.Drawing.Size(54, 23);
             this.btnSearch.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
-            this.btnSearch.TabIndex = 2;
+            this.btnSearch.TabIndex = 3;
             this.btnSearch.Text = "Search";
             this.btnSearch.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
@@ -242,6 +244,21 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
             // 
+            // cboCategory
+            // 
+            this.cboCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cboCategory.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.cboCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCategory.ForeColor = System.Drawing.Color.Black;
+            this.cboCategory.FormattingEnabled = true;
+            this.cboCategory.Items.AddRange(new object[] {
+            "Student",
+            "Employee"});
+            this.cboCategory.Location = new System.Drawing.Point(178, 19);
+            this.cboCategory.Name = "cboCategory";
+            this.cboCategory.Size = new System.Drawing.Size(86, 21);
+            this.cboCategory.TabIndex = 1;
+            // 
             // frmBiometric_Open
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,5 +304,6 @@
         private DevComponents.DotNetBar.PanelEx panelEx1;
         private DevComponents.DotNetBar.LabelX labelX1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ComboBox cboCategory;
     }
 }

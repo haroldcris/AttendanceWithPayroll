@@ -1,8 +1,8 @@
-﻿using System;
-using System.Windows.Forms;
-using AiTech.Tools.Winform;
+﻿using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
 using Dll.Payroll;
+using System;
+using System.Windows.Forms;
 
 namespace Winform.Payroll
 {
@@ -24,7 +24,20 @@ namespace Winform.Payroll
             txtAmount.Value = 0;
         }
 
+
         public PayrollEmployeeDeduction ItemData { get; set; }
+
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+
+            if (ItemData.Id == 0) return;
+
+            btnSelectDeduction.Enabled = false;
+
+            _tempDeduction = ItemData.DeductionClass;
+            ShowData();
+        }
 
 
         private void btnSelectDeduction_Click(object sender, EventArgs e)
@@ -69,7 +82,16 @@ Description: <br/>
         public void ShowData()
         {
             //
+            Show_Deduction(ItemData.DeductionClass);
+
+            txtAmount.Value = (double)ItemData.Amount;
+            dtStart.Value = ItemData.DateFrom;
+            dtEnd.Value = ItemData.DateTo;
+
+            txtRemarks.Text = ItemData.Remarks;
+
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -84,10 +106,13 @@ Description: <br/>
                 ItemData.DeductionId = _tempDeduction.Id;
                 ItemData.DeductionClass = _tempDeduction;
 
-                ItemData.Amount = (decimal) txtAmount.Value;
+                ItemData.Amount = (decimal)txtAmount.Value;
+
+                ItemData.DateReceived = dtDateReceived.Value;
 
                 ItemData.DateFrom = dtStart.Value;
                 ItemData.DateTo = dtEnd.Value;
+
 
                 ItemData.Remarks = txtRemarks.Text;
 
@@ -100,5 +125,6 @@ Description: <br/>
                 MessageDialog.ShowError(ex, this);
             }
         }
+
     }
 }

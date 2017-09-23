@@ -71,6 +71,7 @@
             this.itemPanel1 = new DevComponents.DotNetBar.ItemPanel();
             this.btnAddDeduction = new DevComponents.DotNetBar.ButtonItem();
             this.btnDeleteDeduction = new DevComponents.DotNetBar.ButtonItem();
+            this.btnEditDeduction = new DevComponents.DotNetBar.ButtonItem();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.btnOk = new DevComponents.DotNetBar.ButtonItem();
@@ -755,6 +756,7 @@
             this.FlexGridDeductions.Size = new System.Drawing.Size(524, 408);
             this.FlexGridDeductions.StyleInfo = resources.GetString("FlexGridDeductions.StyleInfo");
             this.FlexGridDeductions.TabIndex = 0;
+            this.FlexGridDeductions.DoubleClick += new System.EventHandler(this.FlexGridDeductions_DoubleClick);
             // 
             // superTabControl1
             // 
@@ -812,6 +814,7 @@
             this.itemPanel1.DragDropSupport = true;
             this.itemPanel1.Items.AddRange(new DevComponents.DotNetBar.BaseItem[] {
             this.btnAddDeduction,
+            this.btnEditDeduction,
             this.btnDeleteDeduction});
             this.itemPanel1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
             this.itemPanel1.Location = new System.Drawing.Point(0, 0);
@@ -836,6 +839,14 @@
             this.btnDeleteDeduction.Name = "btnDeleteDeduction";
             this.btnDeleteDeduction.Text = "Delete Deduction";
             this.btnDeleteDeduction.Click += new System.EventHandler(this.btnDeleteDeduction_Click);
+            // 
+            // btnEditDeduction
+            // 
+            this.btnEditDeduction.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnEditDeduction.Image = global::Winform.Properties.Resources.Edit_File_24px;
+            this.btnEditDeduction.Name = "btnEditDeduction";
+            this.btnEditDeduction.Text = "Edit Deduction";
+            this.btnEditDeduction.Click += new System.EventHandler(this.btnEditDeduction_Click);
             // 
             // superTabItem1
             // 
@@ -1100,5 +1111,6 @@
         private System.Windows.Forms.Label label12;
         private DevComponents.DotNetBar.Controls.TextBoxX txtTin;
         private System.Windows.Forms.Label label11;
+        private DevComponents.DotNetBar.ButtonItem btnEditDeduction;
     }
 }

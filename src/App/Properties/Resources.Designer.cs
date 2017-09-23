@@ -19,7 +19,7 @@ namespace Winform.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -166,6 +166,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Administrator_Male_30 {
             get {
                 object obj = ResourceManager.GetObject("Administrator_Male_30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Binder_40px {
+            get {
+                object obj = ResourceManager.GetObject("Binder_40px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -886,6 +896,16 @@ namespace Winform.Properties {
         internal static System.Drawing.Bitmap Save_30 {
             get {
                 object obj = ResourceManager.GetObject("Save_30", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Saving_Book_24px {
+            get {
+                object obj = ResourceManager.GetObject("Saving Book_24px", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -16,6 +16,7 @@ namespace Dll.Payroll
                 new SqlParameter( "@EmpId", SqlDbType.Int) ,
                 new SqlParameter( "@DeductionId", SqlDbType.Int) ,
                 new SqlParameter( "@Amount", SqlDbType.Decimal) ,
+                new SqlParameter( "@DateReceived", SqlDbType.Date) ,
                 new SqlParameter( "@DateFrom", SqlDbType.Date) ,
                 new SqlParameter( "@DateTo", SqlDbType.Date) ,
                 new SqlParameter( "@Remarks", SqlDbType.NVarChar, 100) ,
@@ -26,6 +27,7 @@ namespace Dll.Payroll
             cmd.Parameters["@EmpId"].Value = item.EmpId;
             cmd.Parameters["@DeductionId"].Value = item.DeductionId;
             cmd.Parameters["@Amount"].Value = item.Amount;
+            cmd.Parameters["@DateReceived"].Value = item.DateReceived;
             cmd.Parameters["@DateFrom"].Value = item.DateFrom;
             cmd.Parameters["@DateTo"].Value = item.DateTo;
             cmd.Parameters["@Remarks"].Value = item.Remarks;
@@ -37,9 +39,9 @@ namespace Dll.Payroll
         protected override string CreateSqlInsertQuery()
         {
             return @"DECLARE @output table ( Id int, Created Datetime, CreatedBy nvarchar(20), Modified DateTime, ModifiedBy nvarchar(20)); 
-                          INSERT INTO [Payroll_EmployeeDeduction] ([EmpId],[DeductionId],[Amount],[DateFrom],[DateTo],[Remarks],[CreatedBy],[ModifiedBy]) 
+                          INSERT INTO [Payroll_EmployeeDeduction] ([EmpId],[DeductionId],[Amount],[DateReceived],[DateFrom],[DateTo],[Remarks],[CreatedBy],[ModifiedBy]) 
                              OUTPUT inserted.Id, inserted.Created, inserted.CreatedBy, inserted.Modified, inserted.ModifiedBy into @output
-                          VALUES (@EmpId,@DeductionId,@Amount,@DateFrom,@DateTo,@Remarks,@CreatedBy,@ModifiedBy)
+                          VALUES (@EmpId,@DeductionId,@Amount,@DateReceived,@DateFrom,@DateTo,@Remarks,@CreatedBy,@ModifiedBy)
                           SELECT * from @output";
         }
 

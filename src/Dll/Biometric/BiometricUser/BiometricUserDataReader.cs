@@ -83,12 +83,15 @@ namespace Dll.Biometric
 
 
 
-        public IEnumerable<BiometricUser> SearchItem(string searchItem, SearchStyleEnum searchStyle)
+        public IEnumerable<BiometricUser> SearchItem(string searchItem, string category, SearchStyleEnum searchStyle)
         {
-            const string query = @"SELECT b.Id, b.BiometricId
-                                , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender]
+            var query = @"SELECT b.Id, b.BiometricId
+                                , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], [Gender], Category
                                 from person p inner join Biometric_User b on p.Id = b.PersonId 
-                                where Replace(DBO.FULLNAME(LASTNAME, FIRSTNAME, MIDDLENAME, MiddleInitial, 0, NAMEEXTENSION),' ','') like @Criteria";
+                                where Category = '@Category' and Replace(DBO.FULLNAME(LASTNAME, FIRSTNAME, MIDDLENAME, MiddleInitial, 0, NAMEEXTENSION),' ','') like @Criteria";
+
+
+            query = query.Replace("@Category", category);
 
             var results = Search.SearchData<dynamic>(searchItem, query, searchStyle);
 

@@ -177,7 +177,6 @@
             this.dtEnd.MonthCalendar.NavigationBackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.dtEnd.MonthCalendar.TodayButtonVisible = true;
             this.dtEnd.Name = "dtEnd";
-            this.dtEnd.ShowCheckBox = true;
             this.dtEnd.Size = new System.Drawing.Size(132, 22);
             this.dtEnd.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.dtEnd.TabIndex = 5;
@@ -321,9 +320,11 @@
             // 
             this.txtAmount.BackgroundStyle.Class = "DateTimeInputBackground";
             this.txtAmount.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtAmount.ButtonFreeText.Checked = true;
             this.txtAmount.ButtonFreeText.Shortcut = DevComponents.DotNetBar.eShortcut.F2;
             this.txtAmount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAmount.ForeColor = System.Drawing.Color.Blue;
+            this.txtAmount.FreeTextEntryMode = true;
             this.txtAmount.Increment = 1D;
             this.txtAmount.Location = new System.Drawing.Point(15, 40);
             this.txtAmount.Name = "txtAmount";
@@ -421,6 +422,7 @@
             this.Name = "frmEmployeeDeduction_Add";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Deduction Info";
+            this.Load += new System.EventHandler(this.Form_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateReceived)).EndInit();

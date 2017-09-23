@@ -1,32 +1,25 @@
 ﻿using DevComponents.DotNetBar;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using SmartData;
 
 namespace SmartApp
 {
-    public partial class frmSection : MDIClientForm
+    public partial class frmSection : MdiClientForm
     {
         public frmSection()
         {
             InitializeComponent();
             Title = "Section Management";
-            HeaderColor = Color.Sienna;
+            HeaderColor = App.BarColor.SectionColor;
 
-            CourseOfferedViewer.UseSmallIcons = true;
+            OfferedCourseViewer.UseSmallIcons = true;
 
             this.Load += Form_Load;
 
             BatchViewer.TreeView.NodeClick += BatchViewer_NodeClick;
-            CourseOfferedViewer.TreeView.NodeClick += CourseOffered_NodeClick;
-            
+            OfferedCourseViewer.TreeView.NodeClick += CourseOffered_NodeClick;
+
             SectionViewer.AfterCellEdit += SectionViewer_AfterCellEdit;
         }
 
@@ -34,8 +27,8 @@ namespace SmartApp
         {
             BatchViewer.LoadBatchItems();
 
-            CourseOfferedViewer.TreeView.Nodes.Clear();
-            SectionViewer.TreeView.Nodes.Clear();            
+            OfferedCourseViewer.TreeView.Nodes.Clear();
+            SectionViewer.TreeView.Nodes.Clear();
         }
 
 
@@ -49,14 +42,14 @@ namespace SmartApp
         {
             SectionViewer.TreeView.Nodes.Clear();
 
-            var node = CourseOfferedViewer.TreeView.SelectedNode;
-            var courseOffered = CourseOfferedViewer.SelectedOfferedCourse;
+            var node = OfferedCourseViewer.TreeView.SelectedNode;
+            var courseOffered = OfferedCourseViewer.SelectedOfferedCourse;
 
             if (courseOffered == null) return;
 
             SectionViewer.OfferedCourseItem = courseOffered;
 
-            if(CourseOfferedViewer.IsActiveNodeSelectedBefore)
+            if (OfferedCourseViewer.IsActiveNodeSelectedBefore)
             {
                 Console.WriteLine("From Cache");
                 SectionViewer.LoadItems();
@@ -65,13 +58,13 @@ namespace SmartApp
             {
                 Console.WriteLine("From Database");
                 SectionViewer.LoadItems(true);
-                CourseOfferedViewer.IsActiveNodeSelectedBefore = true;
+                OfferedCourseViewer.IsActiveNodeSelectedBefore = true;
             }
         }
 
         private void BatchViewer_NodeClick(object sender, DevComponents.AdvTree.TreeNodeMouseEventArgs e)
         {
-            CourseOfferedViewer.TreeView.Nodes.Clear();
+            OfferedCourseViewer.TreeView.Nodes.Clear();
             SectionViewer.TreeView.Nodes.Clear();
 
             var node = BatchViewer.TreeView.SelectedNode;
@@ -82,12 +75,12 @@ namespace SmartApp
             if (BatchViewer.IsActiveNodeSelectedBefore)
             {
                 Console.WriteLine("Batch From Cache");
-                CourseOfferedViewer.LoadItems(batch);
+                OfferedCourseViewer.LoadItems(batch);
             }
             else
             {
                 Console.WriteLine("Batch From Database");
-                CourseOfferedViewer.LoadItems(batch, true);
+                OfferedCourseViewer.LoadItems(batch, true);
                 BatchViewer.IsActiveNodeSelectedBefore = true;
             }
 
@@ -95,16 +88,16 @@ namespace SmartApp
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (CourseOfferedViewer.SelectedOfferedCourse == null)
+            if (OfferedCourseViewer.SelectedOfferedCourse == null)
             {
-                ToastNotification.Show(CourseOfferedViewer, "Select Year Level Item in order to Add", eToastPosition.TopCenter);
+                ToastNotification.Show(OfferedCourseViewer, "Select Year Level Item in order to Add", eToastPosition.TopCenter);
                 return;
             }
 
-            SectionViewer.OfferedCourseItem = CourseOfferedViewer.SelectedOfferedCourse;
+            SectionViewer.OfferedCourseItem = OfferedCourseViewer.SelectedOfferedCourse;
             SectionViewer.IsDirty = false;
             SectionViewer.AddSection();
-           
+
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -115,13 +108,13 @@ namespace SmartApp
                 return;
             }
 
-            SectionViewer.OfferedCourseItem = CourseOfferedViewer.SelectedOfferedCourse;
+            SectionViewer.OfferedCourseItem = OfferedCourseViewer.SelectedOfferedCourse;
             SectionViewer.IsDirty = false;
             SectionViewer.EditSection();
             if (SectionViewer.IsDirty)
                 DirtyStatus.SetDirty();
 
-            
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -136,7 +129,7 @@ namespace SmartApp
 
             if (App.Message.AskToDelete() == eTaskDialogResult.No) return;
 
-            SectionViewer.OfferedCourseItem = CourseOfferedViewer.SelectedOfferedCourse;
+            SectionViewer.OfferedCourseItem = OfferedCourseViewer.SelectedOfferedCourse;
             SectionViewer.RemoveSelectedNode();
             DirtyStatus.SetDirty();
         }
@@ -158,7 +151,7 @@ namespace SmartApp
                 foreach (var item in sections)
                     item.CommitChanges();
 
-                CourseOfferedViewer.ClearTrackingChanges();
+                OfferedCourseViewer.ClearTrackingChanges();
                 DirtyStatus.Clear();
 
                 CourseOffered_NodeClick(null, null);
@@ -170,7 +163,7 @@ namespace SmartApp
             DoRefresh(() =>
             {
                 SectionViewer.TreeView.Nodes.Clear();
-                CourseOfferedViewer.ClearAll();
+                OfferedCourseViewer.ClearAll();
                 BatchViewer.LoadBatchItems();
             });
         }
@@ -179,6 +172,6 @@ namespace SmartApp
         {
 
         }
-        
+
     }
 }

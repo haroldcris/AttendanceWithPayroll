@@ -22,7 +22,7 @@ namespace Dll
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                db.Query(query, new { Module = module, Action = action, Username = username });
+                db.QueryAsync(query, new { Module = module, Action = action, Username = username });
             }
         }
 

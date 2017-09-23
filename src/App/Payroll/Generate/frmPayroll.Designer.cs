@@ -29,17 +29,21 @@
         private void InitializeComponent()
         {
             this.SGrid = new DevComponents.DotNetBar.SuperGrid.SuperGridControl();
-            this.ribbonBarMergeContainer1 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
-            this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
-            this.btnPrint = new DevComponents.DotNetBar.ButtonItem();
-            this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
-            this.xl = new C1.C1Excel.C1XLBook();
             this.gridColumn1 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn2 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn3 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn4 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
             this.gridColumn5 = new DevComponents.DotNetBar.SuperGrid.GridColumn();
+            this.ribbonBarMergeContainer1 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
+            this.ribbonBar6 = new DevComponents.DotNetBar.RibbonBar();
+            this.btnPrint = new DevComponents.DotNetBar.ButtonItem();
+            this.btnDelete = new DevComponents.DotNetBar.ButtonItem();
+            this.xl = new C1.C1Excel.C1XLBook();
+            this.pb = new DevComponents.DotNetBar.Controls.ProgressBarX();
+            this.panelStatus = new System.Windows.Forms.Panel();
+            this.lblStatus = new System.Windows.Forms.Label();
             this.ribbonBarMergeContainer1.SuspendLayout();
+            this.panelStatus.SuspendLayout();
             this.SuspendLayout();
             // 
             // SGrid
@@ -62,6 +66,27 @@
             this.SGrid.Size = new System.Drawing.Size(919, 549);
             this.SGrid.TabIndex = 20;
             this.SGrid.Text = "superGridControl1";
+            this.SGrid.DoubleClick += new System.EventHandler(this.SGrid_DoubleClick);
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Name = "gridColumn1";
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Name = "gridColumn2";
+            // 
+            // gridColumn3
+            // 
+            this.gridColumn3.Name = "gridColumn3";
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Name = "gridColumn4";
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Name = "gridColumn5";
             // 
             // ribbonBarMergeContainer1
             // 
@@ -148,31 +173,43 @@
             // 
             this.xl.CompatibilityMode = C1.C1Excel.CompatibilityMode.Excel2007;
             // 
-            // gridColumn1
+            // pb
             // 
-            this.gridColumn1.Name = "gridColumn1";
             // 
-            // gridColumn2
             // 
-            this.gridColumn2.Name = "gridColumn2";
             // 
-            // gridColumn3
+            this.pb.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.pb.Location = new System.Drawing.Point(33, 48);
+            this.pb.Name = "pb";
+            this.pb.Size = new System.Drawing.Size(412, 15);
+            this.pb.TabIndex = 24;
+            this.pb.Text = "progressBarX1";
             // 
-            this.gridColumn3.Name = "gridColumn3";
+            // panelStatus
             // 
-            // gridColumn4
+            this.panelStatus.Controls.Add(this.lblStatus);
+            this.panelStatus.Controls.Add(this.pb);
+            this.panelStatus.Location = new System.Drawing.Point(103, 274);
+            this.panelStatus.Name = "panelStatus";
+            this.panelStatus.Size = new System.Drawing.Size(499, 97);
+            this.panelStatus.TabIndex = 25;
+            this.panelStatus.Visible = false;
             // 
-            this.gridColumn4.Name = "gridColumn4";
+            // lblStatus
             // 
-            // gridColumn5
-            // 
-            this.gridColumn5.Name = "gridColumn5";
+            this.lblStatus.AutoSize = true;
+            this.lblStatus.Location = new System.Drawing.Point(30, 32);
+            this.lblStatus.Name = "lblStatus";
+            this.lblStatus.Size = new System.Drawing.Size(13, 13);
+            this.lblStatus.TabIndex = 25;
+            this.lblStatus.Text = "  ";
             // 
             // frmPayroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(919, 577);
+            this.Controls.Add(this.panelStatus);
             this.Controls.Add(this.ribbonBarMergeContainer1);
             this.Controls.Add(this.SGrid);
             this.DoubleBuffered = true;
@@ -180,7 +217,10 @@
             this.Text = "frmPayroll";
             this.Controls.SetChildIndex(this.SGrid, 0);
             this.Controls.SetChildIndex(this.ribbonBarMergeContainer1, 0);
+            this.Controls.SetChildIndex(this.panelStatus, 0);
             this.ribbonBarMergeContainer1.ResumeLayout(false);
+            this.panelStatus.ResumeLayout(false);
+            this.panelStatus.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -198,5 +238,8 @@
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn3;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn4;
         private DevComponents.DotNetBar.SuperGrid.GridColumn gridColumn5;
+        private DevComponents.DotNetBar.Controls.ProgressBarX pb;
+        private System.Windows.Forms.Panel panelStatus;
+        private System.Windows.Forms.Label lblStatus;
     }
 }

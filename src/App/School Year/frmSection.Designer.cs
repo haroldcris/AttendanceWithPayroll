@@ -30,7 +30,7 @@
         {
             this.BatchViewer = new SmartApp.UC.ucBatchViewer();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.CourseOfferedViewer = new SmartApp.UC.ucCourseOfferedViewer();
+            this.OfferedCourseViewer = new SmartApp.UC.ucCourseOfferedViewer();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.SectionViewer = new SmartApp.UC.ucSectionViewer();
             this.ribbonBarMergeContainer2 = new DevComponents.DotNetBar.RibbonBarMergeContainer();
@@ -64,13 +64,13 @@
             // 
             // CourseOfferedViewer
             // 
-            this.CourseOfferedViewer.Dock = System.Windows.Forms.DockStyle.Left;
-            this.CourseOfferedViewer.IsActiveNodeSelectedBefore = false;
-            this.CourseOfferedViewer.Location = new System.Drawing.Point(180, 20);
-            this.CourseOfferedViewer.Name = "CourseOfferedViewer";
-            this.CourseOfferedViewer.Size = new System.Drawing.Size(360, 509);
-            this.CourseOfferedViewer.TabIndex = 22;
-            this.CourseOfferedViewer.UseSmallIcons = false;
+            this.OfferedCourseViewer.Dock = System.Windows.Forms.DockStyle.Left;
+            this.OfferedCourseViewer.IsActiveNodeSelectedBefore = false;
+            this.OfferedCourseViewer.Location = new System.Drawing.Point(180, 20);
+            this.OfferedCourseViewer.Name = "CourseOfferedViewer";
+            this.OfferedCourseViewer.Size = new System.Drawing.Size(360, 509);
+            this.OfferedCourseViewer.TabIndex = 22;
+            this.OfferedCourseViewer.UseSmallIcons = false;
             // 
             // splitter2
             // 
@@ -218,7 +218,7 @@
             this.Controls.Add(this.ribbonBarMergeContainer2);
             this.Controls.Add(this.SectionViewer);
             this.Controls.Add(this.splitter2);
-            this.Controls.Add(this.CourseOfferedViewer);
+            this.Controls.Add(this.OfferedCourseViewer);
             this.Controls.Add(this.splitter1);
             this.Controls.Add(this.BatchViewer);
             this.DoubleBuffered = true;
@@ -227,7 +227,7 @@
             this.Text = "frmSection";
             this.Controls.SetChildIndex(this.BatchViewer, 0);
             this.Controls.SetChildIndex(this.splitter1, 0);
-            this.Controls.SetChildIndex(this.CourseOfferedViewer, 0);
+            this.Controls.SetChildIndex(this.OfferedCourseViewer, 0);
             this.Controls.SetChildIndex(this.splitter2, 0);
             this.Controls.SetChildIndex(this.SectionViewer, 0);
             this.Controls.SetChildIndex(this.ribbonBarMergeContainer2, 0);
@@ -240,7 +240,7 @@
 
         private UC.ucBatchViewer BatchViewer;
         private System.Windows.Forms.Splitter splitter1;
-        private UC.ucCourseOfferedViewer CourseOfferedViewer;
+        private UC.ucCourseOfferedViewer OfferedCourseViewer;
         private System.Windows.Forms.Splitter splitter2;
         private UC.ucSectionViewer SectionViewer;
         private DevComponents.DotNetBar.RibbonBarMergeContainer ribbonBarMergeContainer2;

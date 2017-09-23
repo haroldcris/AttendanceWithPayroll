@@ -72,6 +72,9 @@
     <Compile Include="Biometric\BiometricUser\BiometricUserCollection.cs" />
     <Compile Include="Biometric\BiometricUser\BiometricUserDataReader.cs" />
     <Compile Include="Biometric\BiometricUser\BiometricUserDataWriter.cs" />
+    <Compile Include="Biometric\BiometricUser\Schedule\BiometricUserSchedule.cs" />
+    <Compile Include="Biometric\BiometricUser\Schedule\BiometricUserScheduleCollection.cs" />
+    <Compile Include="Biometric\BiometricUser\Schedule\BiometricUserScheduleDataWriter.cs" />
     <Compile Include="Contacts\MobileNumber\MobileNumber.cs" />
     <Compile Include="Contacts\Enums\GenderType.cs" />
     <Compile Include="Contacts\MobileNumber\MobileNumberCollection.cs" />
@@ -144,18 +147,34 @@
     <Compile Include="Payroll\Position\Position.cs" />
     <Compile Include="Payroll\Position\PositionCollection.cs" />
     <Compile Include="Payroll\Position\PositionDataWriter.cs" />
+    <Compile Include="SchoolYear\Batch\BatchDataReader.cs" />
     <Compile Include="SchoolYear\Course\Course.cs" />
     <Compile Include="SchoolYear\Course\CourseCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolYear\Batch\Batch.cs" />
     <Compile Include="SchoolYear\Batch\BatchCollection.cs" />
     <Compile Include="SchoolYear\Batch\BatchDataWriter.cs" />
+    <Compile Include="SchoolYear\Course\CourseDataReader.cs" />
     <Compile Include="SchoolYear\Course\CourseDataWriter.cs" />
+    <Compile Include="SchoolYear\OfferedCourse\OfferedCourse.cs" />
+    <Compile Include="SchoolYear\OfferedCourse\OfferedCourseCollection.cs" />
+    <Compile Include="SchoolYear\OfferedCourse\OfferedCourseDataReader.cs" />
+    <Compile Include="SchoolYear\OfferedCourse\OfferedCourseDataWriter.cs" />
+    <Compile Include="SchoolYear\Section\Section.cs" />
+    <Compile Include="SchoolYear\Section\SectionCollection.cs" />
+    <Compile Include="SchoolYear\Section\SectionDataWriter.cs" />
+    <Compile Include="SchoolYear\Subject\Subject.cs" />
+    <Compile Include="SchoolYear\Subject\SubjectCollection.cs" />
+    <Compile Include="SchoolYear\Subject\SubjectDataReader.cs" />
+    <Compile Include="SchoolYear\Subject\SubjectDataWriter.cs" />
     <Compile Include="Security\Account.cs" />
     <Compile Include="Settings\Settings.cs" />
     <Compile Include="SMS\SmsSender.cs" />
     <Compile Include="SMS\ShortMessage.cs" />
     <Compile Include="SMS\ShortMessageCollection.cs" />
+    <Compile Include="Student\Student.cs" />
+    <Compile Include="Student\StudentCollection.cs" />
+    <Compile Include="Student\StudentDataWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

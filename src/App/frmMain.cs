@@ -44,8 +44,8 @@ namespace Winform
 
             #region Event handler
 
-            btnBatch.Click += (s, ev) => OpenForm(new frmBatch(), "Batch Management");
-            btnCourse.Click += (s, ev) => OpenForm(new frmCourse(), "Course Management");
+            btnBatch.Click += (s, ev) => OpenForm(new SchoolYear.frmBatch(), "Batch Management");
+            btnCourse.Click += (s, ev) => OpenForm(new SchoolYear.frmCourse(), "Course Management");
 
 
             btnPayMasterList.Click += (s, ev) => OpenForm(new frmMasterFile(), "Payroll Master List");
@@ -222,6 +222,8 @@ namespace Winform
             btnContextMdiTabs.ShowSubItems = true;
             btnContextMdiTabs.RecalcSize();
         }
+
+
 
         private void mdiTab_DoubleClick(object sender, EventArgs e)
         {
@@ -537,6 +539,36 @@ namespace Winform
             var frm = new frmBiometric_Log();
             frm.ItemData = biometricUser;
             OpenForm(frm, @"Biometric Log\" + biometricUser.BiometricId.ToString());
+        }
+
+
+
+        #region Students Data
+
+        private void btnStudents_Click(object sender, EventArgs e)
+        {
+            OpenForm(new Student.frmStudent(), "Students");
+        }
+
+
+
+
+        #endregion
+
+
+        private void btnCourseOffered_Click(object sender, EventArgs e)
+        {
+            OpenForm(new SchoolYear.frmOfferedCourse(), "Offered Courses");
+        }
+
+        private void btnSubjects_Click(object sender, EventArgs e)
+        {
+            OpenForm(new SchoolYear.frmSubject(), "Subjects");
+        }
+
+        private void btnSections_Click(object sender, EventArgs e)
+        {
+            OpenForm(new SchoolYear.frmSection(), "Sections");
         }
     }
 }

@@ -1,12 +1,12 @@
-﻿using System;
+﻿using AiTech.LiteOrm;
+using AiTech.Tools.Winform;
+using DevComponents.DotNetBar;
+using DevComponents.DotNetBar.SuperGrid;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using AiTech.LiteOrm;
-using AiTech.Tools.Winform;
-using DevComponents.DotNetBar;
-using DevComponents.DotNetBar.SuperGrid;
 
 namespace Winform
 {
@@ -162,7 +162,7 @@ namespace Winform
 
             var grid = SGrid.PrimaryGrid;
 
-            var item = (Entity) grid.ActiveRow?.Tag;
+            var item = (Entity)grid.ActiveRow?.Tag;
 
             if (item == null) return;
 
@@ -195,7 +195,7 @@ namespace Winform
 
                 var grid = SGrid.PrimaryGrid;
 
-                var item = (Entity) grid.ActiveRow?.Tag;
+                var item = (Entity)grid.ActiveRow?.Tag;
 
                 if (item == null) return;
                 if (!OnEdit(item)) return;
@@ -207,7 +207,7 @@ namespace Winform
                     return;
                 }
 
-                Show_DataOnRow((GridRow) grid.ActiveRow, item);
+                Show_DataOnRow((GridRow)grid.ActiveRow, item);
             }
             catch (Exception ex)
             {
@@ -240,8 +240,8 @@ namespace Winform
 
         private void cmdContext_Executed(object sender, EventArgs e)
         {
-            var button = (ButtonItem) sender;
-            var col = (GridColumn) button.Tag;
+            var button = (ButtonItem)sender;
+            var col = (GridColumn)button.Tag;
 
             col.Visible = button.Checked;
         }

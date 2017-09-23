@@ -1,7 +1,6 @@
 ﻿using AiTech.LiteOrm.Database;
 using System.Data;
 using System.Data.SqlClient;
-using AiTech.LiteOrm;
 
 namespace Dll.Payroll
 {
@@ -68,11 +67,11 @@ namespace Dll.Payroll
 
             //if (item.RowStatus == RecordStatus.NewRecord)
             //{
-                //Update Id of Children
-                foreach (var o in item.Deductions.Items)
-                {
-                    o.EmpId = item.Id;
-                }
+            //Update Id of Children
+            foreach (var o in item.Deductions.Items)
+            {
+                o.EmpId = item.Id;
+            }
             //}
 
 

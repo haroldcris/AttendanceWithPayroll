@@ -7,12 +7,12 @@ namespace Dll.SchoolYear
 {
     public class CourseCollection : EntityCollection<Course>
     {
-        public bool LoadItemsFromDb()
+        public bool LoadAllItemsFromDb()
         {
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                var items = db.Query<Course>(@"Select * from Course").OrderBy(o => o.CourseCode);
+                var items = db.Query<Course>(@"Select * from Student_Course").OrderBy(o => o.CourseCode);
 
                 LoadItemsWith(items);
             }

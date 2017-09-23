@@ -51,6 +51,7 @@
             this.mnuGridColumn = new DevComponents.DotNetBar.ButtonItem();
             this.labelItem1 = new DevComponents.DotNetBar.LabelItem();
             this.cmdContext = new DevComponents.DotNetBar.Command(this.components);
+            this.superTooltip1 = new DevComponents.DotNetBar.SuperTooltip();
             this.ribbonBarMergeContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.contextMenuBar1)).BeginInit();
             this.SuspendLayout();
@@ -191,6 +192,7 @@
             this.btnAdd.RibbonWordWrap = false;
             this.btnAdd.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F3);
             this.btnAdd.SubItemsExpandWidth = 14;
+            this.superTooltip1.SetSuperTooltip(this.btnAdd, new DevComponents.DotNetBar.SuperTooltipInfo("Create New [ F3 ]", "", "Allows you to add new Record", global::Winform.Properties.Resources.Add_List_40px, global::Winform.Properties.Resources.Add_List_40px, DevComponents.DotNetBar.eTooltipColor.Gray));
             this.btnAdd.Text = "Create New";
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -222,6 +224,7 @@
             this.btnEdit.RibbonWordWrap = false;
             this.btnEdit.Shortcuts.Add(DevComponents.DotNetBar.eShortcut.F2);
             this.btnEdit.SubItemsExpandWidth = 14;
+            this.superTooltip1.SetSuperTooltip(this.btnEdit, new DevComponents.DotNetBar.SuperTooltipInfo("Modify [ F2 ]", "", "Allows you to modify the records", global::Winform.Properties.Resources.Edit_File_24px, null, DevComponents.DotNetBar.eTooltipColor.Gray));
             this.btnEdit.Text = "Modify";
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
@@ -307,6 +310,11 @@
             this.cmdContext.Name = "cmdContext";
             this.cmdContext.Executed += new System.EventHandler(this.cmdContext_Executed);
             // 
+            // superTooltip1
+            // 
+            this.superTooltip1.DefaultTooltipSettings = new DevComponents.DotNetBar.SuperTooltipInfo("", "", "", null, null, DevComponents.DotNetBar.eTooltipColor.Gray);
+            this.superTooltip1.LicenseKey = "F962CEC7-CD8F-4911-A9E9-CAB39962FC1F";
+            // 
             // MdiClientGridForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -355,5 +363,6 @@
         protected DevComponents.DotNetBar.ButtonItem btnAdd;
         protected DevComponents.DotNetBar.ButtonItem btnEdit;
         protected DevComponents.DotNetBar.ButtonItem btnDelete;
+        private DevComponents.DotNetBar.SuperTooltip superTooltip1;
     }
 }

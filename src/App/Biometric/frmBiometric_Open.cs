@@ -21,7 +21,6 @@ namespace Winform.Biometric
         {
             InitializeComponent();
 
-            InitializeGrid();
 
 
             KeyPreview = true;
@@ -33,6 +32,16 @@ namespace Winform.Biometric
             cboSearchType.Items.Add("Starts With");
             cboSearchType.Items.Add("Ends With");
             cboSearchType.SelectedIndex = 0;
+
+
+            cboCategory.Items.Clear();
+            cboCategory.Items.Add("Employee");
+            cboCategory.Items.Add("Student");
+            cboCategory.SelectedIndex = 0;
+
+
+            InitializeGrid();
+
         }
 
 
@@ -47,6 +56,8 @@ namespace Winform.Biometric
             FlexGrid.AutoSearch = AutoSearchEnum.FromTop;
             FlexGrid.KeyActionEnter = KeyActionEnum.None;
         }
+
+
 
         private void FlexGrid_RowColChange(object sender, EventArgs e)
         {
@@ -149,7 +160,7 @@ namespace Winform.Biometric
 
 
             var reader = new BiometricUserDataReader();
-            var items = reader.SearchItem(txtSearch.Text, searchStyle);
+            var items = reader.SearchItem(txtSearch.Text, cboCategory.Text, searchStyle);
 
             var enumerable = items as IList<BiometricUser> ?? items.ToList();
 
