@@ -573,6 +573,16 @@ namespace Winform.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Edit_File_40px {
+            get {
+                object obj = ResourceManager.GetObject("Edit File_40px", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Edit_User_Male_24px {
             get {
                 object obj = ResourceManager.GetObject("Edit_User_Male_24px", resourceCulture);

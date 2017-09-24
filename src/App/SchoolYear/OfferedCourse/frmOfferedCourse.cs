@@ -19,34 +19,35 @@ namespace Winform.SchoolYear
         {
             InitializeComponent();
 
-
-            Header = " COURSES OFFERED MANAGEMENT ";
+            Header = " OFFERED COURSES MANAGEMENT ";
             HeaderColor = App.BarColor.CourseColor;
 
             Load += (s, e) => { LoadData(); };
 
 
-            BatchViewer.TreeView.NodeClick += Batch_NodeClick;
+            BatchViewer.ItemSelected += BatchViewer_ItemSelected;
 
             tv.ExpandButtonType = eExpandButtonType.Triangle;
         }
+
 
         private void LoadData()
         {
             Cursor.Current = Cursors.WaitCursor;
 
             tv.Nodes.Clear();
-            BatchViewer.LoadBatchItems();
+
+            BatchViewer.LoadItems();
         }
 
 
-        private void Batch_NodeClick(object sender, DevComponents.AdvTree.TreeNodeMouseEventArgs e)
+        private void BatchViewer_ItemSelected(object sender, Batch e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
             tv.Nodes.Clear();
 
-            SelectedBatch = (Batch)e.Node.Tag;
+            SelectedBatch = e;
             if (SelectedBatch == null) return;
 
             SelectedBatch.OfferedCourses.LoadItems();
@@ -56,6 +57,9 @@ namespace Winform.SchoolYear
             Show_OfferedCourses(SelectedBatch);
 
         }
+
+
+
 
 
         private void Show_OfferedCourses(Batch batchItem)

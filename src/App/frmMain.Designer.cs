@@ -502,8 +502,8 @@
             this.btnBatch,
             this.btnCourse,
             this.btnCourseOffered,
-            this.btnSubjects,
-            this.btnSections});
+            this.btnSections,
+            this.btnSubjects});
             this.buttonItem5.SubItemsExpandWidth = 14;
             this.buttonItem5.Text = "Manage\r\nSchool Year";
             // 

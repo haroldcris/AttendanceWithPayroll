@@ -1,6 +1,8 @@
 ﻿using DevComponents.AdvTree;
 using Dll.SchoolYear;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,17 +10,18 @@ namespace Winform.Controls
 {
     public partial class ucBatchViewer : UserControl
     {
-        private Dictionary<string, bool> NodeDictionary;
 
-        public string Encoder { get; set; }
+        public event EventHandler<Batch> ItemSelected;
 
-        public BatchCollection BatchItems { get; private set; }
+        private BatchCollection ItemDataCollection;
+
+        private Node _batchNode;
+
+        public IEnumerable<Batch> Items;
+
         public ucBatchViewer()
         {
             InitializeComponent();
-
-            Encoder = "UserControl";
-            NodeDictionary = new Dictionary<string, bool>();
 
             TreeView.DragDropEnabled = false;
             TreeView.ExpandButtonType = eExpandButtonType.Triangle;
@@ -27,135 +30,140 @@ namespace Winform.Controls
             TreeView.NodeSpacing = 5;
             TreeView.SelectionFocusAware = false;
 
-            TreeView.KeyPress += TreeView_KeyPress;
-
             TreeView.Nodes.Clear();
 
+            TreeView.KeyPress += TreeView_KeyPress;
+            TreeView.AfterNodeSelect += TreeView_AfterNodeSelect; ;
+
+            ItemDataCollection = new BatchCollection();
+
+            Items = ItemDataCollection.Items;
+        }
+
+
+
+        public void LoadItems()
+        {
+            ItemDataCollection.LoadAllItemsFromDb();
+            ShowItems();
+        }
+
+
+        public bool SaveChanges(string username)
+        {
+            var writer = new BatchDataWriter(username, ItemDataCollection);
+            return writer.SaveChanges();
+        }
+
+
+        private void TreeView_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
+        {
+            var item = (Batch)e.Node?.Tag;
+
+            OnItemSelected(item);
         }
 
         private void TreeView_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
             {
-                System.Console.WriteLine("CLick");
+                Debug.WriteLine("CLick");
                 TreeView.SelectedNode.RaiseClick();
             }
         }
 
-        /// <summary>
-        /// Check if this item is already click before
-        /// </summary>
-        public bool IsActiveNodeSelectedBefore
+
+        private void ShowItems()
         {
-            get
-            {
-                if (TreeView.SelectedNode == null) return false;
-                if (!NodeDictionary.ContainsKey(TreeView.SelectedNode.Name)) return false;
-                return NodeDictionary[TreeView.SelectedNode.Name];
-            }
-            set
-            {
-                if (TreeView.SelectedNode == null) return;
+            if (ItemDataCollection == null) throw new Exception("Item Data Collection is NOT set");
 
-                if (!NodeDictionary.ContainsKey(TreeView.SelectedNode.Name))
-                {
-                    NodeDictionary.Add(TreeView.SelectedNode.Name, value);
-                }
-
-                NodeDictionary[TreeView.SelectedNode.Name] = value;
-            }
-        }
-
-        private void DisplayBatchItems(IEnumerable<Batch> items)
-        {
             TreeView.BeginUpdate();
             TreeView.Nodes.Clear();
             TreeView.ClearAndDisposeAllNodes();
 
             var root = new Node();
+            root.Name = "root";
             root.Text = "Batch";
             TreeView.Nodes.Add(root);
             root.ExpandAll();
 
-            foreach (var item in items)
+
+            foreach (var item in ItemDataCollection.Items)
             {
-                var batchNode = TreeView.FindNodeByName(item.BatchName);
-
-                if (batchNode == null)
-                {
-                    batchNode = new Node
-                    {
-                        Text = item.BatchName,
-                        Expanded = true,
-                        Name = item.BatchName
-
-                    };
-
-                    root.Nodes.Add(batchNode);
-                }
-
-                var semNode = TreeView.FindNodeByName(item.BatchName + item.Semester);
-                if (semNode == null)
-                {
-                    semNode = new Node
-                    {
-                        Name = item.BatchName + item.Semester, //Name must Match the BatchDictionary
-                        Text = item.Semester,
-                        Image = Properties.Resources.Address_Book_16,
-                        Tag = item,
-                        ExpandVisibility = eNodeExpandVisibility.Visible
-                    };
-
-                    batchNode.Nodes.Add(semNode);
-                }
+                CreateNode(item);
             }
+
+
             TreeView.EndUpdate();
         }
 
 
 
-        public virtual void LoadBatchItems()
+        private void CreateNode(Batch item)
         {
-            Cursor.Current = Cursors.WaitCursor;
 
-            BatchItems = new BatchCollection();
-            BatchItems.LoadAllItemsFromDb();
+            var root = TreeView.FindNodeByName("root");
 
-            NodeDictionary = new Dictionary<string, bool>();
+            _batchNode = TreeView.FindNodeByName(item.BatchName);
 
-            DisplayBatchItems(BatchItems.Items);
+            if (_batchNode == null)
+            {
+                _batchNode = new Node
+                {
+                    Text = item.BatchName,
+                    Expanded = true,
+                    Name = item.BatchName
+
+                };
+
+                root.Nodes.Add(_batchNode);
+            }
+
+            var semNode = TreeView.FindNodeByName(item.BatchName + item.Semester);
+            if (semNode == null)
+            {
+                semNode = new Node
+                {
+                    Name = item.BatchName + item.Semester,
+                    Text = item.Semester,
+                    Image = Properties.Resources.Address_Book_16,
+                    Tag = item,
+                    ExpandVisibility = eNodeExpandVisibility.Visible
+                };
+
+                _batchNode.Nodes.Add(semNode);
+            }
         }
 
 
-
-
-        public void LoadBatchItem(int batchId)
+        public void AddItem(Batch item)
         {
-            Cursor.Current = Cursors.WaitCursor;
+            if (item == null) throw new ArgumentNullException(nameof(item));
 
-            BatchItems.LoadItem(batchId);
 
-            NodeDictionary = new Dictionary<string, bool>();
+            ItemDataCollection.Add(item);
 
-            DisplayBatchItems(BatchItems.Items);
-
+            CreateNode(item);
         }
 
 
-        //public Batch SelectedBatch
-        //{
-        //    get
-        //    {
-        //        if (TreeView.SelectedNode == null) return null;
-        //        if (TreeView.SelectedNode.Tag == null) return null;
+        public Batch SelectedItem
+        {
+            get
+            {
+                var item = (Batch)TreeView.SelectedNode?.Tag;
 
-        //        if (TreeView.SelectedNode.Tag.GetType().ToString().ToLower().Equals("smartdata.batch"))
-        //            return (Batch)TreeView.SelectedNode.Tag;
+                if (item == null) return null;
 
-        //        return null;
-        //    }
-        //}
+                return item;
+            }
+        }
 
+
+        protected virtual void OnItemSelected(Batch item)
+        {
+            ItemSelected?.Invoke(this, item);
+        }
 
     }
 }

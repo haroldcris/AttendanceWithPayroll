@@ -33,5 +33,21 @@ namespace Dll.SchoolYear
             return true;
         }
 
+
+
+        public string GetNewSectionName()
+        {
+            var counter = 1;
+            var section = "Section " + counter.ToString();
+
+            while (ItemCollection.Any(_ => _.SectionName == section))
+            {
+                counter++;
+                section = "Section " + counter.ToString();
+                
+            }
+
+            return section;
+        }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using DevComponents.AdvTree;
 using DevComponents.DotNetBar;
 using Dll.SchoolYear;
+using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Winform.Controls
@@ -15,17 +17,13 @@ namespace Winform.Controls
         /// </summary>
         private Node YearLevelNode;
 
-        /// <summary>
-        /// Set Variable to True if in Cell Editing
-        /// </summary>
-        private bool InEditMode;
+        public event EventHandler<Section> ItemSelected;
+        public event EventHandler<Section> AfterItemEdit;
 
-
-        public event CellEditEventHandler AfterCellEdit;
-
-        public Dll.SchoolYear.OfferedCourse OfferedCourseItem { get; set; }
+        private OfferedCourse OfferedCourseItem;
 
         public bool IsDirty { get; set; }
+
 
         public ucSectionViewer()
         {
@@ -41,17 +39,87 @@ namespace Winform.Controls
             // TreeView.KeyPress += TreeView_KeyPress;
             // TreeView.CellEditEnding += TreeView_CellEditEnding;
 
+            TreeView.AfterNodeSelect += TreeView_AfterNodeSelect;
+            TreeView.AfterCellEdit += TreeView_AfterCellEdit;
+
             SubItemStyle = new ElementStyle { TextColor = Color.Gray /*Font = new Font(Font.FontFamily, Font.Size, FontStyle.Italic) */};
         }
 
-
-        public void LoadItems()
+        private void TreeView_AfterCellEdit(object sender, CellEditEventArgs e)
         {
-            Cursor.Current = Cursors.WaitCursor;
+            if (e.IsUserCanceled) return;
 
-            if (OfferedCourseItem == null) throw new System.Exception("OfferedCourse Item NOT Set");
+            var item = (Section)e.Cell.Tag;
 
-            OfferedCourseItem?.Sections.LoadItemsFromDb();
+
+            if (string.IsNullOrWhiteSpace(e.NewText))
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            // Check for Duplicate Record
+            var findItem = this.OfferedCourseItem.Sections.Items.Where(_ => _.SectionName == e.NewText && _.RowId != item.RowId);
+
+            if (findItem.Any())
+            {
+                e.Cancel = true;
+                FireEvent(AfterItemEdit, null);
+                return;
+            }
+
+
+
+            item.SectionName = e.NewText;
+
+            FireEvent(AfterItemEdit, item);
+
+        }
+
+        public void LoadItems(OfferedCourse item)
+        {
+            OfferedCourseItem = item;
+            OfferedCourseItem.Sections.LoadItemsFromDb();
+
+            ShowItems();
+        }
+
+
+        public bool SaveChanges(string username)
+        {
+            var writer = new SectionDataWriter(username, OfferedCourseItem.Sections);
+            var result = writer.SaveChanges();
+
+            UpdateFileInfo();
+
+            return result;
+        }
+
+
+        private void TreeView_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
+        {
+            var item = (Section)e.Node?.Tag;
+            if (item == null) return;
+
+            FireEvent(ItemSelected, item);
+
+        }
+
+
+        public void RefreshData()
+        {
+            YearLevelNode.Nodes.Clear();
+
+            foreach (var sectionItem in OfferedCourseItem.Sections.Items)
+            {
+                YearLevelNode.Nodes.Add(CreateNode(sectionItem));
+            }
+        }
+
+
+        public void ShowItems()
+        {
+            if (OfferedCourseItem == null) throw new System.Exception("Offered Course Item NOT Set");
 
             TreeView.BeginUpdate();
             TreeView.Nodes.Clear();
@@ -83,64 +151,61 @@ namespace Winform.Controls
             rootNode.Nodes.Add(YearLevelNode);
             TreeView.Nodes.Add(rootNode);
 
-
-            foreach (var sectionItem in OfferedCourseItem.Sections.Items)
-            {
-                YearLevelNode.Nodes.Add(CreateNode(sectionItem));
-            }
+            RefreshData();
 
             TreeView.EndUpdate();
 
         }
 
+
         private void TreeView_CellEditEnding(object sender, CellEditEventArgs e)
         {
-            var itemEvent = AfterCellEdit;
-            var section = (Dll.SchoolYear.Section)e.Cell.Tag;
+            //var itemEvent = AfterCellEdit;
+            //var section = (Section)e.Cell.Tag;
 
-            if (e.IsUserCanceled)
-            {
-                if (InEditMode)
-                {
-                    if (itemEvent != null) itemEvent.Invoke(sender, e);
-                    return;
-                }
-
-                OfferedCourseItem.Sections.Remove(section);
-                TreeView.SelectedNode.Remove();
-
-                if (itemEvent != null) itemEvent.Invoke(sender, e);
-                return;
-            }
-
-
-            ////var foundItem = OfferedCourseItem.Sections.Items.FirstOrDefault(o => o.SectionName == e.NewText);
-            //var foundItem = ItemDictionary.FirstOrDefault(o => o.Value.SectionName == e.NewText &&
-            //                                              o.Value.Token != section.Token &&
-            //                                              o.Value.RecordStatus != RecordStatus.DeletedRecord).Value;
-
-            //if (foundItem != null)
+            //if (e.IsUserCanceled)
             //{
-            //    ToastNotification.Show(this, "Similar Section Name Already Exists!", eToastPosition.TopCenter);
-            //    e.Cancel = true;
+            //    if (InEditMode)
+            //    {
+            //        if (itemEvent != null) itemEvent.Invoke(sender, e);
+            //        return;
+            //    }
+
+            //    OfferedCourseItem.Sections.Remove(section);
+            //    TreeView.SelectedNode.Remove();
+
             //    if (itemEvent != null) itemEvent.Invoke(sender, e);
             //    return;
             //}
 
 
-            section.SectionName = e.NewText;
-            IsDirty = true;
-            if (itemEvent != null) itemEvent.Invoke(sender, e);
+            //////var foundItem = OfferedCourseItem.Sections.Items.FirstOrDefault(o => o.SectionName == e.NewText);
+            ////var foundItem = ItemDictionary.FirstOrDefault(o => o.Value.SectionName == e.NewText &&
+            ////                                              o.Value.Token != section.Token &&
+            ////                                              o.Value.RecordStatus != RecordStatus.DeletedRecord).Value;
+
+            ////if (foundItem != null)
+            ////{
+            ////    ToastNotification.Show(this, "Similar Section Name Already Exists!", eToastPosition.TopCenter);
+            ////    e.Cancel = true;
+            ////    if (itemEvent != null) itemEvent.Invoke(sender, e);
+            ////    return;
+            ////}
+
+
+            //section.SectionName = e.NewText;
+            //IsDirty = true;
+            //if (itemEvent != null) itemEvent.Invoke(sender, e);
         }
 
 
 
         private void TreeView_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)13)
-            {
-                TreeView.SelectedNode.RaiseClick();
-            }
+            //if (e.KeyChar == (char)13)
+            //{
+            //    TreeView.SelectedNode.RaiseClick();
+            //}
         }
 
 
@@ -156,12 +221,12 @@ namespace Winform.Controls
 
 
 
-        private Node CreateNode(Dll.SchoolYear.Section item)
+        private Node CreateNode(Section item)
         {
-            var newNode = new Node { Text = item.SectionName, Image = Properties.Resources.Conference_Call_30 };
+            var newNode = new Node { Text = item.SectionName, Image = Properties.Resources.Classroom_24px };
 
-            newNode.Cells.Add(new Cell { Text = "Created by:" + item.CreatedBy, StyleNormal = SubItemStyle });
-            newNode.Cells.Add(new Cell { Text = item.Created.ToString("dd-MMM-yyyy  hh:mm tt"), StyleNormal = SubItemStyle });
+            newNode.Cells.Add(new Cell { Name = "Created", Text = "Created by:" + item.CreatedBy, StyleNormal = SubItemStyle });
+            newNode.Cells.Add(new Cell { Name = "Modified", Text = item.Created.ToString("dd-MMM-yyyy  hh:mm tt"), StyleNormal = SubItemStyle });
 
             newNode.Name = item.RowId;
             newNode.Tag = item;
@@ -169,47 +234,83 @@ namespace Winform.Controls
             return newNode;
         }
 
-        public void AddSection()
+
+        public void Clear()
         {
+            TreeView.Nodes.Clear();
+        }
+
+
+        public Section CreateNewItem(bool editItemAfterCreate = false)
+        {
+            if (YearLevelNode == null) throw new Exception("No Selected Year Level");
+
             var item = new Section();
-            item.SectionName = "New Section " + TreeView.Nodes.Count + 1;
+            item.OfferedCourseId = OfferedCourseItem.Id;
+            item.SectionName = OfferedCourseItem.Sections.GetNewSectionName();
 
-            OfferedCourseItem.Sections.Add(item);
+            var node = CreateNode(item);
 
-            var writer = new SectionDataWriter(App.CurrentUser.User.Username, item);
-            writer.SaveChanges();
+            TreeView.SelectNode(node, eTreeAction.Mouse);
 
-            var newNode = CreateNode(item);
-            YearLevelNode.Nodes.Add(newNode);
-            TreeView.SelectNode(newNode, eTreeAction.Mouse);
-            InEditMode = false;
-            newNode.BeginEdit();
+            YearLevelNode.Nodes.Add(node);
+
+            if (editItemAfterCreate)
+                node.BeginEdit();
+
+            return item;
         }
 
-        public void EditSection()
+
+        //public void UpdateSection(Section item)
+        //{
+
+        //}
+
+        public void RemoveSelectedItem()
         {
-            //if (this.SelectedSection == null)
-            //{
-            //    ToastNotification.Show(this, "Select an item to edit", eToastPosition.TopCenter);
-            //    return;
-            //}
+            var item = (Section)TreeView.SelectedNode?.Tag;
 
-            //InEditMode = true;
-            //TreeView.SelectedNode.BeginEdit();
+            if (item == null) return;
+
+            item.RowStatus = AiTech.LiteOrm.RecordStatus.DeletedRecord;
+
+            IsDirty = true;
+            TreeView.SelectedNode.Remove();
+
         }
 
-        public void RemoveSelectedNode()
+
+        public void EditSelectedItem()
         {
-            //if (this.SelectedSection == null)
-            //{
-            //    ToastNotification.Show(this, "Select an item to edit", eToastPosition.TopCenter);
-            //    return;
-            //}
+            var item = (Section)TreeView.SelectedNode?.Tag;
 
-            //OfferedCourseItem.Sections.Remove(this.SelectedSection);
+            if (item == null) return;
 
-            //IsDirty = true;
-            //TreeView.SelectedNode.Remove();
+            IsDirty = true;
+            TreeView.SelectedNode.BeginEdit();
         }
+
+
+        public void UpdateFileInfo()
+        {
+            foreach (Node node in YearLevelNode.Nodes)
+            {
+                var item = (Section)node?.Tag;
+
+                if (item == null) continue;
+
+                node.Cells["Created"].Text = "Created by:" + item.CreatedBy;
+                node.Cells["Modified"].Text = item.Created.ToString("dd-MMM-yyyy  hh:mm tt");
+            }
+        }
+
+
+        protected virtual void FireEvent(EventHandler<Section> eventHandler, Section args)
+        {
+            eventHandler?.Invoke(this, args);
+        }
+
+
     }
 }

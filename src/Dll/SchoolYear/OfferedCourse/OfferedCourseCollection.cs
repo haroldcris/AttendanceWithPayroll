@@ -1,7 +1,6 @@
 ﻿using AiTech.LiteOrm;
 using AiTech.LiteOrm.Database;
 using Dapper;
-using System.Linq;
 
 namespace Dll.SchoolYear
 {
@@ -25,22 +24,39 @@ namespace Dll.SchoolYear
         {
             ItemCollection.Clear();
 
+            var query = @"select oc.*
+                            , BatchName, Semester 
+                            , CourseCode, Description 
+
+                        from Student_OfferedCourse oc 
+                            inner join Student_Course c on oc.CourseId = c.Id 
+                            inner join Student_Batch b on oc.BatchId = b.Id
+                        where oc.BatchId = @BatchId";
 
             using (var db = Connection.CreateConnection())
             {
                 db.Open();
-                var items = db.Query<OfferedCourse>(@"Select * from Student_OfferedCourse where BatchId = @BatchId", new { BatchId = _parentBatch.Id });
 
-                if (items == null) return true;
+                var results = db.Query(query, new { BatchId = _parentBatch.Id });
 
-                foreach (var item in items)
+                if (results == null) return true;
+
+                foreach (var result in results)
                 {
-                    var multiple = db.QueryMultiple(@"Select * from Student_Batch where Id = @BatchId
-                                                    Select * from Student_Course where Id = @CourseId",
-                                                        new { BatchId = item.BatchId, CourseId = item.CourseId });
+                    var item = new OfferedCourse();
 
-                    item.BatchClass = multiple.Read<Batch>().Single();
-                    item.CourseClass = multiple.Read<Course>().Single();
+                    item.Map(result);
+
+                    //Batch
+                    item.BatchClass.Id = result.BatchId;
+                    item.BatchClass.BatchName = result.BatchName;
+                    item.BatchClass.Semester = result.Semester;
+
+                    //Course
+                    item.CourseClass.Id = result.CourseId;
+                    item.CourseClass.CourseCode = result.CourseCode;
+                    item.CourseClass.Description = result.Description;
+
 
                     item.RowStatus = RecordStatus.NoChanges;
                     item.StartTrackingChanges();

@@ -926,6 +926,26 @@
         cJ+InN4kVdVHHWLMdwAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="cmdSave.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAALFJREFUOE9j
+        GDzAZMbt/5oNO8F4w76jcLxw3db/TROmgdlxS678N5l++4DeoovcUG0IgMsAkGY1IwuEAUB1IEOg2hCA
+        JAOAGKoNAUCCWk17wQYs3H4EbgDMC+v3HfsfsOAafgNIwVBtCIBNET4M1YYAIMEfv//9JwRAanAaAAKv
+        3r3/f//pC6wYJAcCtDXgy7fv/99/+owVg+RAgHYGZGx68j9r81O8OB2oBqsBAwQYGAAGcsDzujh5FQAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnSave.ImageSmall" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAI1JREFUOE9j
+        oAroLl34HxnnV0/5n1bZj4HzgOK9lUuWQrUhAEjTnaufwBjEBik+cfE2BgaJT29Z+w3DEEIGwPgg+vq5
+        N5iGkGIASA3IEJA6qHZUA2a1bcAZBtWdC1AsgmpHNYBYTDsDCAH6GHDoBXYMAkQZgA8QZQA220EYBIgy
+        AB/AaQA5GKqdEsDAAAA/FnuXNY44cQAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="btnChangePassword.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAMlJREFUOE9j
@@ -946,26 +966,6 @@
         1KxWwR6NuO+7ATJ64+MAe3UmEzArFTDyeWqd6ZS3RZRw0FGUKwpw6BVozwgClgX2eEx9b7znfQX2D15U
         de8fHNJxJOL/B0T+9ROZeGdhhpzoSBQpIpb0/OMsMPFOI07iAvkBYn81jX8TQfgEbR4UNtJ+Om4AAAAA
         SUVORK5CYII=
-</value>
-  </data>
-  <metadata name="cmdSave.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="btnSave.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAALFJREFUOE9j
-        GDzAZMbt/5oNO8F4w76jcLxw3db/TROmgdlxS678N5l++4DeoovcUG0IgMsAkGY1IwuEAUB1IEOg2hCA
-        JAOAGKoNAUCCWk17wQYs3H4EbgDMC+v3HfsfsOAafgNIwVBtCIBNET4M1YYAIMEfv//9JwRAanAaAAKv
-        3r3/f//pC6wYJAcCtDXgy7fv/99/+owVg+RAgHYGZGx68j9r81O8OB2oBqsBAwQYGAAGcsDzujh5FQAA
-        AABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnSave.ImageSmall" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAI1JREFUOE9j
-        oAroLl34HxnnV0/5n1bZj4HzgOK9lUuWQrUhAEjTnaufwBjEBik+cfE2BgaJT29Z+w3DEEIGwPgg+vq5
-        N5iGkGIASA3IEJA6qHZUA2a1bcAZBtWdC1AsgmpHNYBYTDsDCAH6GHDoBXYMAkQZgA8QZQA220EYBIgy
-        AB/AaQA5GKqdEsDAAAA/FnuXNY44cQAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="styleManager1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -1512,4 +1512,7 @@
         /////wAAf///////gAB////////AAf////////AD/////////j///////////////////////////w==
 </value>
   </data>
+  <metadata name="MainSuperTooltip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>417, 13</value>
+  </metadata>
 </root>

@@ -18,7 +18,7 @@
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
     <AssemblyFileVersionSettings>None.None.None.Increment</AssemblyFileVersionSettings>
-    <AssemblyVersion>1.0.0.1966</AssemblyVersion>
+    <AssemblyVersion>1.0.0.2001</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -342,58 +342,58 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="School Year\OfferedCourse\frmOfferedCourse.cs">
+    <Compile Include="SchoolYear\OfferedCourse\frmOfferedCourse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\OfferedCourse\frmOfferedCourse.Designer.cs">
+    <Compile Include="SchoolYear\OfferedCourse\frmOfferedCourse.Designer.cs">
       <DependentUpon>frmOfferedCourse.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\OfferedCourse\frmOfferedCourse_Add.cs">
+    <Compile Include="SchoolYear\OfferedCourse\frmOfferedCourse_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\OfferedCourse\frmOfferedCourse_Add.Designer.cs">
+    <Compile Include="SchoolYear\OfferedCourse\frmOfferedCourse_Add.Designer.cs">
       <DependentUpon>frmOfferedCourse_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\Course\frmCourse.cs">
+    <Compile Include="SchoolYear\Course\frmCourse.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\Course\frmCourse.Designer.cs">
+    <Compile Include="SchoolYear\Course\frmCourse.Designer.cs">
       <DependentUpon>frmCourse.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\Batch\frmBatch_Add.cs">
+    <Compile Include="SchoolYear\Batch\frmBatch_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\Batch\frmBatch_Add.Designer.cs">
+    <Compile Include="SchoolYear\Batch\frmBatch_Add.Designer.cs">
       <DependentUpon>frmBatch_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\Batch\frmBatch.cs">
+    <Compile Include="SchoolYear\Batch\frmBatch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\Batch\frmBatch.Designer.cs">
+    <Compile Include="SchoolYear\Batch\frmBatch.Designer.cs">
       <DependentUpon>frmBatch.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\Course\frmCourse_Add.cs">
+    <Compile Include="SchoolYear\Course\frmCourse_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\Course\frmCourse_Add.Designer.cs">
+    <Compile Include="SchoolYear\Course\frmCourse_Add.Designer.cs">
       <DependentUpon>frmCourse_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\Section\frmSection.cs">
+    <Compile Include="SchoolYear\Section\frmSection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\Section\frmSection.Designer.cs">
+    <Compile Include="SchoolYear\Section\frmSection.Designer.cs">
       <DependentUpon>frmSection.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\Subject\frmSubject_Add.cs">
+    <Compile Include="SchoolYear\Subject\frmSubject_Add.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\Subject\frmSubject_Add.Designer.cs">
+    <Compile Include="SchoolYear\Subject\frmSubject_Add.Designer.cs">
       <DependentUpon>frmSubject_Add.cs</DependentUpon>
     </Compile>
-    <Compile Include="School Year\Subject\frmSubject.cs">
+    <Compile Include="SchoolYear\Subject\frmSubject.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="School Year\Subject\frmSubject.Designer.cs">
+    <Compile Include="SchoolYear\Subject\frmSubject.Designer.cs">
       <DependentUpon>frmSubject.cs</DependentUpon>
     </Compile>
     <Compile Include="SMS\frmSMS.cs">
@@ -546,31 +546,31 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="School Year\OfferedCourse\frmOfferedCourse.resx">
+    <EmbeddedResource Include="SchoolYear\OfferedCourse\frmOfferedCourse.resx">
       <DependentUpon>frmOfferedCourse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\OfferedCourse\frmOfferedCourse_Add.resx">
+    <EmbeddedResource Include="SchoolYear\OfferedCourse\frmOfferedCourse_Add.resx">
       <DependentUpon>frmOfferedCourse_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\Course\frmCourse.resx">
+    <EmbeddedResource Include="SchoolYear\Course\frmCourse.resx">
       <DependentUpon>frmCourse.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\Batch\frmBatch_Add.resx">
+    <EmbeddedResource Include="SchoolYear\Batch\frmBatch_Add.resx">
       <DependentUpon>frmBatch_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\Batch\frmBatch.resx">
+    <EmbeddedResource Include="SchoolYear\Batch\frmBatch.resx">
       <DependentUpon>frmBatch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\Course\frmCourse_Add.resx">
+    <EmbeddedResource Include="SchoolYear\Course\frmCourse_Add.resx">
       <DependentUpon>frmCourse_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\Section\frmSection.resx">
+    <EmbeddedResource Include="SchoolYear\Section\frmSection.resx">
       <DependentUpon>frmSection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\Subject\frmSubject_Add.resx">
+    <EmbeddedResource Include="SchoolYear\Subject\frmSubject_Add.resx">
       <DependentUpon>frmSubject_Add.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="School Year\Subject\frmSubject.resx">
+    <EmbeddedResource Include="SchoolYear\Subject\frmSubject.resx">
       <DependentUpon>frmSubject.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SMS\frmSMS.resx">
@@ -789,6 +789,7 @@
     </Content>
     <Content Include="icons8_Fingerprint.ico" />
     <Content Include="icons8_Natural_User_Interface_2.ico" />
+    <None Include="Resources\Edit File_40px.png" />
     <None Include="Resources\Address Book_16px.png" />
     <None Include="Resources\Saving Book_24px.png" />
     <None Include="Resources\Binder_40px.png" />
