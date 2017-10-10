@@ -20,6 +20,7 @@ namespace Winform.Student
 
             Header = " STUDENTS ";
             HeaderColor = App.BarColor.StudentColor;
+            HeaderTextColor = System.Drawing.Color.Black;
 
             Load += (s, e) => { RefreshData(); };
         }
@@ -55,11 +56,14 @@ namespace Winform.Student
 
             grid.CreateColumn("Gender", "Gender");
 
+            grid.CreateColumn("Section", "Section", 70);
+
             grid.CreateColumn("Birthdate", "Birthdate", 80, Alignment.MiddleCenter);
 
             grid.CreateColumn("BirthTown", "Town", 120);
             grid.CreateColumn("BirthProvince", "Province", 85);
             grid.CreateColumn("BirthCountry", "Country", 70);
+
 
 
             grid.CreateRecordInfoColumns();
@@ -92,6 +96,8 @@ namespace Winform.Student
             row.Cells["BirthTown"].Value = currentItem.PersonClass.BirthTown;
 
 
+            row.Cells["Section"].Value = currentItem.SectionClass.SectionName;
+
             row.ShowRecordInfo(currentItem);
         }
 
@@ -100,15 +106,15 @@ namespace Winform.Student
         {
             var newItem = new Dll.Student.Student();
 
-            //using (var frm = new frmEmployee_Add())
-            //{
-            //    frm.ItemData = newItem;
-            //    if (frm.ShowDialog() != DialogResult.OK) return null;
-            //}
+            using (var frm = new frmStudent_Add())
+            {
+                frm.ItemData = newItem;
+                if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK) return null;
+            }
 
-            //App.LogAction("Employee", "Created Employee : " + newItem.EmpNum);
+            App.LogAction("Student", "Created Student : " + newItem.StudentNumber.ToString());
 
-            //ItemDataCollection.Add(newItem);
+            ItemDataCollection.Add(newItem);
             return newItem;
         }
 
@@ -117,12 +123,12 @@ namespace Winform.Student
         {
             var selectedItem = (Dll.Student.Student)item;
 
-            //using (var frm = new frmEmployee_Add())
-            //{
-            //    if (selectedItem.Id != 0) selectedItem.RowStatus = RecordStatus.ModifiedRecord;
-            //    frm.ItemData = selectedItem;
-            //    if (frm.ShowDialog() != DialogResult.OK) return false;
-            //}
+            using (var frm = new frmStudent_Add())
+            {
+                if (selectedItem.Id != 0) selectedItem.RowStatus = RecordStatus.ModifiedRecord;
+                frm.ItemData = selectedItem;
+                if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK) return false;
+            }
 
             App.LogAction("Student", "Updated Student : " + selectedItem.StudentNumber.ToString());
 

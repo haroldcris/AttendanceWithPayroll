@@ -38,6 +38,11 @@
             this.btnContactsSelect = new DevComponents.DotNetBar.ButtonX();
             this.lblName = new DevComponents.DotNetBar.LabelX();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnSections = new System.Windows.Forms.Button();
+            this.txtSection = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.FlexGrid = new C1.Win.C1FlexGrid.C1FlexGrid();
             this.label4 = new System.Windows.Forms.Label();
             this.txtStudNum = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.listBoxItem1 = new DevComponents.DotNetBar.ListBoxItem();
@@ -53,6 +58,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bar1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.FlexGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // RecordInfoPanel
@@ -132,7 +139,7 @@
             this.btnCancel});
             this.bar1.Location = new System.Drawing.Point(0, 0);
             this.bar1.Name = "bar1";
-            this.bar1.Size = new System.Drawing.Size(534, 39);
+            this.bar1.Size = new System.Drawing.Size(491, 39);
             this.bar1.Stretch = true;
             this.bar1.Style = DevComponents.DotNetBar.eDotNetBarStyle.StyleManagerControlled;
             this.bar1.TabIndex = 36;
@@ -161,9 +168,9 @@
             this.groupBox3.Controls.Add(this.btnContactsSelect);
             this.groupBox3.Controls.Add(this.lblName);
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
-            this.groupBox3.Location = new System.Drawing.Point(11, 64);
+            this.groupBox3.Location = new System.Drawing.Point(14, 60);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(317, 211);
+            this.groupBox3.Size = new System.Drawing.Size(286, 211);
             this.groupBox3.TabIndex = 2;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Name Info:";
@@ -175,7 +182,7 @@
             this.btnContactsNew.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnContactsNew.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnContactsNew.Image = global::Winform.Properties.Resources.Add_List_16;
-            this.btnContactsNew.Location = new System.Drawing.Point(180, 12);
+            this.btnContactsNew.Location = new System.Drawing.Point(149, 12);
             this.btnContactsNew.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnContactsNew.Name = "btnContactsNew";
             this.btnContactsNew.ShowSubItems = false;
@@ -193,7 +200,7 @@
             this.btnContactsSelect.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnContactsSelect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnContactsSelect.Image = global::Winform.Properties.Resources.Open_16px;
-            this.btnContactsSelect.Location = new System.Drawing.Point(242, 12);
+            this.btnContactsSelect.Location = new System.Drawing.Point(211, 12);
             this.btnContactsSelect.Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             this.btnContactsSelect.Name = "btnContactsSelect";
             this.btnContactsSelect.ShowSubItems = false;
@@ -216,13 +223,17 @@
             this.lblName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblName.Location = new System.Drawing.Point(6, 30);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(302, 169);
+            this.lblName.Size = new System.Drawing.Size(263, 169);
             this.lblName.TabIndex = 28;
             this.lblName.Text = resources.GetString("lblName.Text");
             this.lblName.TextLineAlignment = System.Drawing.StringAlignment.Near;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnSections);
+            this.panel1.Controls.Add(this.txtSection);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.groupBox1);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.txtStudNum);
             this.panel1.Controls.Add(this.groupBox3);
@@ -230,8 +241,71 @@
             this.panel1.Location = new System.Drawing.Point(178, 39);
             this.panel1.Name = "panel1";
             this.panel1.Padding = new System.Windows.Forms.Padding(5);
-            this.panel1.Size = new System.Drawing.Size(356, 450);
+            this.panel1.Size = new System.Drawing.Size(313, 450);
             this.panel1.TabIndex = 38;
+            // 
+            // btnSections
+            // 
+            this.btnSections.Location = new System.Drawing.Point(194, 308);
+            this.btnSections.Name = "btnSections";
+            this.btnSections.Size = new System.Drawing.Size(56, 23);
+            this.btnSections.TabIndex = 17;
+            this.btnSections.Text = "Select...";
+            this.btnSections.UseVisualStyleBackColor = true;
+            this.btnSections.Click += new System.EventHandler(this.btnSections_Click);
+            // 
+            // txtSection
+            // 
+            this.txtSection.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSection.ForeColor = System.Drawing.Color.Blue;
+            this.txtSection.Location = new System.Drawing.Point(14, 308);
+            this.txtSection.Name = "txtSection";
+            this.txtSection.ReadOnly = true;
+            this.txtSection.Size = new System.Drawing.Size(174, 22);
+            this.txtSection.TabIndex = 16;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Location = new System.Drawing.Point(14, 291);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(51, 15);
+            this.label2.TabIndex = 15;
+            this.label2.Text = "Section:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.FlexGrid);
+            this.groupBox1.ForeColor = System.Drawing.Color.Black;
+            this.groupBox1.Location = new System.Drawing.Point(318, 60);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(457, 378);
+            this.groupBox1.TabIndex = 5;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Search:";
+            // 
+            // FlexGrid
+            // 
+            this.FlexGrid.AllowEditing = false;
+            this.FlexGrid.AllowFiltering = true;
+            this.FlexGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FlexGrid.AutoSearch = C1.Win.C1FlexGrid.AutoSearchEnum.FromTop;
+            this.FlexGrid.BackColor = System.Drawing.Color.White;
+            this.FlexGrid.BorderStyle = C1.Win.C1FlexGrid.Util.BaseControls.BorderStyleEnum.FixedSingle;
+            this.FlexGrid.ColumnInfo = resources.GetString("FlexGrid.ColumnInfo");
+            this.FlexGrid.ExtendLastCol = true;
+            this.FlexGrid.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.FlexGrid.ForeColor = System.Drawing.Color.Black;
+            this.FlexGrid.Location = new System.Drawing.Point(8, 46);
+            this.FlexGrid.Name = "FlexGrid";
+            this.FlexGrid.Rows.Count = 1;
+            this.FlexGrid.Rows.DefaultSize = 19;
+            this.FlexGrid.Size = new System.Drawing.Size(443, 319);
+            this.FlexGrid.StyleInfo = resources.GetString("FlexGrid.StyleInfo");
+            this.FlexGrid.TabIndex = 3;
             // 
             // label4
             // 
@@ -312,15 +386,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(534, 489);
+            this.ClientSize = new System.Drawing.Size(491, 489);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.bar1);
             this.DoubleBuffered = true;
+            this.EnableGlass = false;
             this.Location = new System.Drawing.Point(0, 0);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "frmStudent_Add";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Employee";
+            this.Text = "Student";
             this.Controls.SetChildIndex(this.bar1, 0);
             this.Controls.SetChildIndex(this.RecordInfoPanel, 0);
             this.Controls.SetChildIndex(this.expandableSplitter1, 0);
@@ -332,6 +407,8 @@
             this.groupBox3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.FlexGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -355,5 +432,10 @@
         private System.Windows.Forms.Label label4;
         private DevComponents.DotNetBar.Controls.TextBoxX txtStudNum;
         private DevComponents.DotNetBar.Validator.Highlighter highlighter1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private C1.Win.C1FlexGrid.C1FlexGrid FlexGrid;
+        private System.Windows.Forms.Button btnSections;
+        private System.Windows.Forms.TextBox txtSection;
+        private System.Windows.Forms.Label label2;
     }
 }

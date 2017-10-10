@@ -1,10 +1,10 @@
 ﻿using C1.C1Schedule;
 using Dll.Biometric;
 using Dll.Contacts;
+using Library.Tools;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Library.Tools;
 
 namespace Winform.Biometric
 {
@@ -115,7 +115,7 @@ namespace Winform.Biometric
                 node.Label = item.InOut == "In" ? new Label(Color.Lime, "In", "In") : new Label(Color.HotPink, "Out", "Out");
 
                 node.Start = item.CalendarDate;
-                node.Subject = item.InOut + "  " + item.TimeLog.ToString("hh:mm:ss tt");
+                node.Subject = string.Format("{0} {1:hh:mm:ss tt}", item.InOut, item.TimeLog);
             }
 
             c1Schedule1.Refresh();

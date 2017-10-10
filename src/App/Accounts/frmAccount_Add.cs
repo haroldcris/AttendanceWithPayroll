@@ -1,9 +1,11 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows.Forms;
-using AiTech.Security;
+﻿using AiTech.Security;
 using AiTech.Tools.Winform;
+using Dll.Employee;
 using Library.Tools;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Accounts
 {
@@ -29,8 +31,6 @@ namespace Winform.Accounts
             };
 
             CancelButton = btnCancel;
-            btnOk.Click += (s, e) => FileSave();
-
             #endregion
         }
 
@@ -47,8 +47,22 @@ namespace Winform.Accounts
 
                 ItemData.Username = txtUsername.Text.Trim();
                 ItemData.Password = txtPassword.Text;
-                ItemData.RoleClass = (Role) cboRole.SelectedItem;
-                ItemData.RoleId = ((Role) cboRole.SelectedItem).Id;
+                ItemData.RoleClass = (Role)cboRole.SelectedItem;
+                ItemData.RoleId = ((Role)cboRole.SelectedItem).Id;
+
+                //ItemData.EmployeeId = string.IsNullOrWhiteSpace(txtEmpNum.Text) ? 0 : Int32.Parse(txtEmpNum.Text);
+
+                ItemData.LinkAccounts.RemoveAll();
+
+                if (lblEmployee.Tag != null)
+                {
+                    var link = (LinkAccount)lblEmployee.Tag;
+                    link.UserId = ItemData.Id;
+                    ItemData.LinkAccounts.Add(link);
+                }
+
+
+                if (ItemData.Id != 0) ItemData.RowStatus = AiTech.LiteOrm.RecordStatus.ModifiedRecord;
 
 
                 var dataWriter = new UserAccountDataWriter(App.CurrentUser.User.Username, ItemData);
@@ -82,6 +96,15 @@ namespace Winform.Accounts
 
             txtPassword.Text = ItemData.Password;
             txtConfirmPassword.Text = ItemData.Password;
+
+            if (ItemData.LinkAccounts.Items.Any())
+            {
+                var link = ItemData.LinkAccounts.Items.First();
+
+                lblEmployee.Tag = link;
+                ShowLinkedEmployee(link);
+            }
+
 
             Debug.WriteLine(cboRole.Items.Count);
 
@@ -132,6 +155,41 @@ namespace Winform.Accounts
             }
 
             return true;
+        }
+
+        private void btnOk_Click(object sender, EventArgs e)
+        {
+            FileSave();
+        }
+
+
+        private void ShowLinkedEmployee(LinkAccount item)
+        {
+            lblEmployee.Text = "<font color='Blue' size='+2'>@</font>".Replace("@", item.Description);
+        }
+
+        private void cmdOpenEmployee_Click(object sender, EventArgs e)
+        {
+            int empId;
+            using (var frm = new Employee.frmEmployee_Open())
+            {
+                if (frm.ShowDialog() != DialogResult.OK) return;
+                empId = frm.EmployeeId;
+            }
+
+            var employee = new EmployeeDataReader().GetBasicProfileOf(empId);
+
+
+            var link = new LinkAccount() { LinkId = employee.Id, Description = employee.PersonClass.Name.Fullname };
+
+            ShowLinkedEmployee(link);
+            lblEmployee.Tag = link;
+        }
+
+        private void btnRemoveEmployee_Click(object sender, EventArgs e)
+        {
+            lblEmployee.Text = "";
+            lblEmployee.Tag = null;
         }
     }
 }

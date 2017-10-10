@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblEmployee = new DevComponents.DotNetBar.LabelX();
             this.btnRemoveEmployee = new System.Windows.Forms.Button();
             this.cmdOpenEmployee = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtEmpNum = new System.Windows.Forms.TextBox();
             this.cboRole = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -69,10 +69,10 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lblEmployee);
             this.groupBox3.Controls.Add(this.btnRemoveEmployee);
             this.groupBox3.Controls.Add(this.cmdOpenEmployee);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.txtEmpNum);
             this.groupBox3.Controls.Add(this.cboRole);
             this.groupBox3.Controls.Add(this.label10);
             this.groupBox3.Controls.Add(this.label3);
@@ -80,45 +80,52 @@
             this.groupBox3.ForeColor = System.Drawing.Color.Black;
             this.groupBox3.Location = new System.Drawing.Point(13, 67);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(201, 173);
+            this.groupBox3.Size = new System.Drawing.Size(201, 211);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "User Info:";
             // 
+            // lblEmployee
+            // 
+            // 
+            // 
+            // 
+            this.lblEmployee.BackgroundStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.lblEmployee.Location = new System.Drawing.Point(24, 164);
+            this.lblEmployee.Name = "lblEmployee";
+            this.lblEmployee.Size = new System.Drawing.Size(157, 35);
+            this.lblEmployee.TabIndex = 8;
+            this.lblEmployee.TextLineAlignment = System.Drawing.StringAlignment.Near;
+            this.lblEmployee.WordWrap = true;
+            // 
             // btnRemoveEmployee
             // 
             this.btnRemoveEmployee.Image = global::Winform.Properties.Resources.Cancel_16;
-            this.btnRemoveEmployee.Location = new System.Drawing.Point(156, 133);
+            this.btnRemoveEmployee.Location = new System.Drawing.Point(99, 137);
             this.btnRemoveEmployee.Name = "btnRemoveEmployee";
             this.btnRemoveEmployee.Size = new System.Drawing.Size(26, 23);
             this.btnRemoveEmployee.TabIndex = 7;
             this.btnRemoveEmployee.UseVisualStyleBackColor = true;
+            this.btnRemoveEmployee.Click += new System.EventHandler(this.btnRemoveEmployee_Click);
             // 
             // cmdOpenEmployee
             // 
-            this.cmdOpenEmployee.Location = new System.Drawing.Point(130, 133);
+            this.cmdOpenEmployee.Location = new System.Drawing.Point(20, 137);
             this.cmdOpenEmployee.Name = "cmdOpenEmployee";
-            this.cmdOpenEmployee.Size = new System.Drawing.Size(26, 23);
+            this.cmdOpenEmployee.Size = new System.Drawing.Size(75, 23);
             this.cmdOpenEmployee.TabIndex = 6;
-            this.cmdOpenEmployee.Text = "...";
+            this.cmdOpenEmployee.Text = "Select...";
             this.cmdOpenEmployee.UseVisualStyleBackColor = true;
+            this.cmdOpenEmployee.Click += new System.EventHandler(this.cmdOpenEmployee_Click);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(20, 119);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(113, 15);
+            this.label5.Size = new System.Drawing.Size(105, 15);
             this.label5.TabIndex = 4;
-            this.label5.Text = "Employee Number:";
-            // 
-            // txtEmpNum
-            // 
-            this.txtEmpNum.Location = new System.Drawing.Point(20, 135);
-            this.txtEmpNum.Name = "txtEmpNum";
-            this.txtEmpNum.ReadOnly = true;
-            this.txtEmpNum.Size = new System.Drawing.Size(108, 21);
-            this.txtEmpNum.TabIndex = 5;
+            this.label5.Text = "Linked Employee:";
             // 
             // cboRole
             // 
@@ -188,7 +195,7 @@
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::Winform.Properties.Resources.Cancel_24px;
-            this.btnCancel.Location = new System.Drawing.Point(363, 201);
+            this.btnCancel.Location = new System.Drawing.Point(363, 266);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.ShowSubItems = false;
             this.btnCancel.Size = new System.Drawing.Size(80, 39);
@@ -204,7 +211,7 @@
             this.btnOk.ColorTable = DevComponents.DotNetBar.eButtonColor.Office2007WithBackground;
             this.btnOk.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnOk.Image = global::Winform.Properties.Resources.Ok_24px;
-            this.btnOk.Location = new System.Drawing.Point(274, 201);
+            this.btnOk.Location = new System.Drawing.Point(274, 266);
             this.btnOk.Name = "btnOk";
             this.btnOk.ShowSubItems = false;
             this.btnOk.Size = new System.Drawing.Size(83, 39);
@@ -212,6 +219,7 @@
             this.btnOk.TabIndex = 2;
             this.btnOk.Text = "Save";
             this.btnOk.TextAlignment = DevComponents.DotNetBar.eButtonTextAlignment.Left;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click);
             // 
             // highlighter1
             // 
@@ -295,7 +303,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(454, 261);
+            this.ClientSize = new System.Drawing.Size(454, 326);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOk);
@@ -339,6 +347,6 @@
         private System.Windows.Forms.Button btnRemoveEmployee;
         private System.Windows.Forms.Button cmdOpenEmployee;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtEmpNum;
+        private DevComponents.DotNetBar.LabelX lblEmployee;
     }
 }

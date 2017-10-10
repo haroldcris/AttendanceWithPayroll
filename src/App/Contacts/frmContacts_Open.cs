@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using AiTech.LiteOrm.Database.Search;
+﻿using AiTech.LiteOrm.Database.Search;
 using AiTech.Tools.Winform;
 using C1.Win.C1FlexGrid;
 using DevComponents.DotNetBar;
 using Dll.Contacts;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Contacts
 {

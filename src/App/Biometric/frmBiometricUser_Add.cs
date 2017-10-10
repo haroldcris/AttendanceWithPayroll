@@ -95,23 +95,23 @@ namespace Winform.Biometric
             cboPhoneNumber.Text = ItemData.PhoneNumber;
 
 
-            dtMonIn.Value = ItemData.MonIn;
-            dtMonOut.Value = ItemData.MonOut;
+            dtMonIn.ValueObject = ItemData.MonIn.Hour == 0 ? (object)null : ItemData.MonIn;
+            dtMonOut.ValueObject = ItemData.MonOut.Hour == 0 ? (object)null : ItemData.MonOut;
 
-            dtTueIn.Value = ItemData.TueIn;
-            dtTueOut.Value = ItemData.TueOut;
+            dtTueIn.ValueObject = ItemData.TueIn.Hour == 0 ? (object)null : ItemData.TueIn;
+            dtTueOut.ValueObject = ItemData.TueOut.Hour == 0 ? (object)null : ItemData.TueOut;
 
-            dtWedIn.Value = ItemData.WedIn;
-            dtWedOut.Value = ItemData.WedOut;
+            dtWedIn.ValueObject = ItemData.WedIn.Hour == 0 ? (object)null : ItemData.WedIn;
+            dtWedOut.ValueObject = ItemData.WedOut.Hour == 0 ? (object)null : ItemData.WedOut;
 
-            dtThuIn.Value = ItemData.ThuIn;
-            dtThuOut.Value = ItemData.ThuOut;
+            dtThuIn.ValueObject = ItemData.ThuIn.Hour == 0 ? (object)null : ItemData.ThuIn;
+            dtThuOut.ValueObject = ItemData.ThuOut.Hour == 0 ? (object)null : ItemData.ThuOut;
 
-            dtFriIn.Value = ItemData.FriIn;
-            dtFriOut.Value = ItemData.FriOut;
+            dtFriIn.ValueObject = ItemData.FriIn.Hour == 0 ? (object)null : ItemData.FriIn;
+            dtFriOut.ValueObject = ItemData.FriOut.Hour == 0 ? (object)null : ItemData.FriOut;
 
-            dtSatIn.Value = ItemData.SatIn;
-            dtSatOut.Value = ItemData.SatOut;
+            dtSatIn.ValueObject = ItemData.SatIn.Hour == 0 ? (object)null : ItemData.SatIn;
+            dtSatOut.ValueObject = ItemData.SatOut.Hour == 0 ? (object)null : ItemData.SatOut;
 
 
             ShowFileInfo(ItemData);

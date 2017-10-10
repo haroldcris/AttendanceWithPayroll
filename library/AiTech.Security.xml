@@ -191,6 +191,11 @@
             
             </summary>
         </member>
+        <member name="P:AiTech.Security.UserAccount.LinkAccounts">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:AiTech.Security.UserAccount.#ctor">
             <summary>
             

@@ -9,11 +9,14 @@ namespace Dll.Student
 
         public void LoadAllItemsFromDb()
         {
-            const string query = @"select s.*
-                                , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], BirthDate, [Gender], [CameraCounter]
-                                , BirthCountry, BirthProvince, BirthTown
-                                from student s
-                                inner join person p on s.PersonId = p.Id";
+            const string query = @"select s.* 
+                                    , p.Id PersonId, [Lastname], [Firstname], [Middlename], [MiddleInitial], [NameExtension], [MaidenMiddlename], BirthDate, [Gender], [CameraCounter]
+                                    , BirthCountry, BirthProvince, BirthTown
+                                    , OfferedCourseId
+                                    , SectionName
+                                    from student s
+                                    inner join person p on s.PersonId = p.Id 
+                                    left join Student_Section sec on sec.Id = s.SectionId";
 
             ItemCollection.Clear();
 
@@ -29,8 +32,13 @@ namespace Dll.Student
 
                     item.Map(record);
 
+                    //Person
                     item.PersonClass.DataMapper.Map(record);
                     item.PersonClass.DataMapper.Map(_ => _.Id, (int)record.PersonId);
+
+                    //Section
+                    item.SectionClass.Map(record);
+                    item.SectionClass.Id = record.SectionId;
 
 
                     item.RowStatus = RecordStatus.NoChanges;

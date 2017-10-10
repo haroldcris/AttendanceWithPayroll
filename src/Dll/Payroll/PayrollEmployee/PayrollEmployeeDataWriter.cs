@@ -24,6 +24,7 @@ namespace Dll.Payroll
                 new SqlParameter( "@Tin", SqlDbType.NVarChar, 15) ,
                 new SqlParameter( "@PagIbig", SqlDbType.NVarChar, 15) ,
                 new SqlParameter( "@PhilHealth", SqlDbType.NVarChar, 15) ,
+                new SqlParameter( "@SSS", SqlDbType.NVarChar, 15) ,
                 new SqlParameter( "@Active", SqlDbType.Bit) ,
                 new SqlParameter( "@CreatedBy", SqlDbType.NVarChar, 20) ,
                 new SqlParameter( "@ModifiedBy", SqlDbType.NVarChar, 20)
@@ -38,6 +39,7 @@ namespace Dll.Payroll
             cmd.Parameters["@Tin"].Value = item.Tin;
             cmd.Parameters["@PagIbig"].Value = item.PagIbig;
             cmd.Parameters["@PhilHealth"].Value = item.PhilHealth;
+            cmd.Parameters["@SSS"].Value = item.SSS;
             cmd.Parameters["@Active"].Value = item.Active;
             cmd.Parameters["@CreatedBy"].Value = DataWriterUsername;
             cmd.Parameters["@ModifiedBy"].Value = DataWriterUsername;
@@ -57,7 +59,10 @@ namespace Dll.Payroll
         public override bool SaveChanges()
         {
             this.AfterItemSave += PayrollEmployeeDataWriter_AfterItemSave;
-            return Write(_ => _.EmployeeClass.PersonClass.Name.Fullname);
+            var result = Write(_ => _.EmployeeClass.PersonClass.Name.Fullname);
+
+            //CommitChanges();
+            return result;
         }
 
         private void PayrollEmployeeDataWriter_AfterItemSave(object sender, EntityEventArgs e)

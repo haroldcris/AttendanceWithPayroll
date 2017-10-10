@@ -90,6 +90,7 @@
     <Compile Include="Employee\EmployeeDataMapper.cs" />
     <Compile Include="Employee\EmployeeDataReader.cs" />
     <Compile Include="Employee\EmployeeDataWriter.cs" />
+    <Compile Include="Extension.cs" />
     <Compile Include="Location\Barangay\Barangay.cs" />
     <Compile Include="Location\Barangay\BarangayCollection.cs" />
     <Compile Include="Location\Barangay\BarangayDataReader.cs" />
@@ -156,6 +157,10 @@
     <Compile Include="SchoolYear\Batch\BatchDataWriter.cs" />
     <Compile Include="SchoolYear\Course\CourseDataReader.cs" />
     <Compile Include="SchoolYear\Course\CourseDataWriter.cs" />
+    <Compile Include="SchoolYear\OfferedClass\OfferedClass.cs" />
+    <Compile Include="SchoolYear\OfferedClass\OfferedClassCollection.cs" />
+    <Compile Include="SchoolYear\OfferedClass\OfferedClassDataReader.cs" />
+    <Compile Include="SchoolYear\OfferedClass\OfferedClassDataWriter.cs" />
     <Compile Include="SchoolYear\OfferedCourse\OfferedCourse.cs" />
     <Compile Include="SchoolYear\OfferedCourse\OfferedCourseCollection.cs" />
     <Compile Include="SchoolYear\OfferedCourse\OfferedCourseDataReader.cs" />
@@ -174,6 +179,7 @@
     <Compile Include="SMS\ShortMessageCollection.cs" />
     <Compile Include="Student\Student.cs" />
     <Compile Include="Student\StudentCollection.cs" />
+    <Compile Include="Student\StudentDataReader.cs" />
     <Compile Include="Student\StudentDataWriter.cs" />
   </ItemGroup>
   <ItemGroup>

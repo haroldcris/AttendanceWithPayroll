@@ -26,6 +26,7 @@ namespace BiometricMonitor
                 if (optionSelected == 1)
                 {
                     Application.Run(new Form1());
+                    //Application.Run(new frmSmsMonitor());
                 }
                 else
                 {

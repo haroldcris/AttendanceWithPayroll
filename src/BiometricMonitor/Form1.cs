@@ -70,6 +70,7 @@ namespace BiometricMonitor
                     MyDevice.Connected += MyDevice_Connected;
                     MyDevice.Disconnected += MyDevice_Disconnected;
                     MyDevice.TransactionEvent += MyDevice_TransactionEvent;
+                    
 
                     await Task.Run(() =>
                     {
@@ -111,6 +112,9 @@ namespace BiometricMonitor
                 btnConnect.Text = @"Disconnect";
                 txtStatus.AppendText(@"Connected To Device\n");
                 //txtStatus.AppendText("Date" + MyDevice.Settings.GetCurrentTime().ToString());
+
+                txtStatus.AppendText(Environment.NewLine + MyDevice.GetPlatform());
+                txtStatus.AppendText(Environment.NewLine + MyDevice.GetSerialNumber());
             });
 
         }

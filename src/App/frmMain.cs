@@ -16,7 +16,9 @@ using Winform.Biometric;
 using Winform.Contacts;
 using Winform.Employee;
 using Winform.Payroll;
+using Winform.SchoolYear;
 using Winform.SMS;
+using Winform.Student;
 
 namespace Winform
 {
@@ -445,6 +447,7 @@ namespace Winform
                 Application.Restart();
         }
 
+
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.TaskManagerClosing) return;
@@ -569,6 +572,24 @@ namespace Winform
         private void btnSections_Click(object sender, EventArgs e)
         {
             OpenForm(new SchoolYear.frmSection(), "Sections");
+        }
+
+        private void btnNewStudent_Click(object sender, EventArgs e)
+        {
+            var newItem = new Dll.Student.Student();
+
+            using (var frm = new frmStudent_Add())
+            {
+                frm.ItemData = newItem;
+                if (frm.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+            }
+
+            App.LogAction("Student", "Created Student : " + newItem.StudentNumber.ToString());
+        }
+
+        private void btnClassAssignment_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmOfferedClass(), "Class Assignment");
         }
     }
 }

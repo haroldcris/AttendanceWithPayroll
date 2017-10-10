@@ -42,6 +42,10 @@
             this.dtDateHired = new DevComponents.Editors.DateTimeAdv.DateTimeInput();
             this.cboStep = new System.Windows.Forms.ComboBox();
             this.switchActive = new DevComponents.DotNetBar.Controls.SwitchButton();
+            this.txtPagIbig = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.txtPhilHealth = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.txtTin = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.txtSSS = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.label19 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -70,21 +74,21 @@
             this.superTabControlPanel1 = new DevComponents.DotNetBar.SuperTabControlPanel();
             this.itemPanel1 = new DevComponents.DotNetBar.ItemPanel();
             this.btnAddDeduction = new DevComponents.DotNetBar.ButtonItem();
-            this.btnDeleteDeduction = new DevComponents.DotNetBar.ButtonItem();
             this.btnEditDeduction = new DevComponents.DotNetBar.ButtonItem();
+            this.btnDeleteDeduction = new DevComponents.DotNetBar.ButtonItem();
             this.superTabItem1 = new DevComponents.DotNetBar.SuperTabItem();
             this.bar1 = new DevComponents.DotNetBar.Bar();
             this.btnOk = new DevComponents.DotNetBar.ButtonItem();
             this.btnCancel = new DevComponents.DotNetBar.ButtonItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.txtPagIbig = new DevComponents.DotNetBar.Controls.TextBoxX();
+            this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtPhilHealth = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtTin = new DevComponents.DotNetBar.Controls.TextBoxX();
             this.label11 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.explorerBarGroupItem1 = new DevComponents.DotNetBar.ExplorerBarGroupItem();
+            this.lblSalary = new DevComponents.DotNetBar.LabelItem();
             ((System.ComponentModel.ISupportInitialize)(this.RecordInfoPanel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtDateHired)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -114,6 +118,8 @@
             this.RecordInfoPanel.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.ExplorerBarBackground;
             this.RecordInfoPanel.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
             this.RecordInfoPanel.Cursor = System.Windows.Forms.Cursors.Default;
+            this.RecordInfoPanel.Groups.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.explorerBarGroupItem1});
             this.RecordInfoPanel.Location = new System.Drawing.Point(0, 39);
             this.RecordInfoPanel.Size = new System.Drawing.Size(109, 497);
             // 
@@ -393,6 +399,7 @@
             this.cboStep.Name = "cboStep";
             this.cboStep.Size = new System.Drawing.Size(53, 23);
             this.cboStep.TabIndex = 9;
+            this.cboStep.SelectedIndexChanged += new System.EventHandler(this.cboStep_SelectedIndexChanged);
             // 
             // switchActive
             // 
@@ -414,6 +421,78 @@
             this.switchActive.TabIndex = 2;
             this.switchActive.Value = true;
             this.switchActive.ValueObject = "Y";
+            // 
+            // txtPagIbig
+            // 
+            this.txtPagIbig.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.txtPagIbig.Border.Class = "TextBoxBorder";
+            this.txtPagIbig.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtPagIbig.DisabledBackColor = System.Drawing.Color.White;
+            this.txtPagIbig.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPagIbig.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtPagIbig, true);
+            this.txtPagIbig.Location = new System.Drawing.Point(86, 73);
+            this.txtPagIbig.Name = "txtPagIbig";
+            this.txtPagIbig.PreventEnterBeep = true;
+            this.txtPagIbig.Size = new System.Drawing.Size(199, 22);
+            this.txtPagIbig.TabIndex = 13;
+            // 
+            // txtPhilHealth
+            // 
+            this.txtPhilHealth.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.txtPhilHealth.Border.Class = "TextBoxBorder";
+            this.txtPhilHealth.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtPhilHealth.DisabledBackColor = System.Drawing.Color.White;
+            this.txtPhilHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPhilHealth.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtPhilHealth, true);
+            this.txtPhilHealth.Location = new System.Drawing.Point(86, 46);
+            this.txtPhilHealth.Name = "txtPhilHealth";
+            this.txtPhilHealth.PreventEnterBeep = true;
+            this.txtPhilHealth.Size = new System.Drawing.Size(199, 22);
+            this.txtPhilHealth.TabIndex = 11;
+            // 
+            // txtTin
+            // 
+            this.txtTin.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.txtTin.Border.Class = "TextBoxBorder";
+            this.txtTin.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtTin.DisabledBackColor = System.Drawing.Color.White;
+            this.txtTin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTin.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtTin, true);
+            this.txtTin.Location = new System.Drawing.Point(86, 19);
+            this.txtTin.Name = "txtTin";
+            this.txtTin.PreventEnterBeep = true;
+            this.txtTin.Size = new System.Drawing.Size(199, 22);
+            this.txtTin.TabIndex = 9;
+            // 
+            // txtSSS
+            // 
+            this.txtSSS.BackColor = System.Drawing.Color.White;
+            // 
+            // 
+            // 
+            this.txtSSS.Border.Class = "TextBoxBorder";
+            this.txtSSS.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.txtSSS.DisabledBackColor = System.Drawing.Color.White;
+            this.txtSSS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSSS.ForeColor = System.Drawing.Color.Blue;
+            this.highlighter1.SetHighlightOnFocus(this.txtSSS, true);
+            this.txtSSS.Location = new System.Drawing.Point(86, 100);
+            this.txtSSS.Name = "txtSSS";
+            this.txtSSS.PreventEnterBeep = true;
+            this.txtSSS.Size = new System.Drawing.Size(199, 22);
+            this.txtSSS.TabIndex = 15;
             // 
             // label19
             // 
@@ -832,14 +911,6 @@
             this.btnAddDeduction.Text = "Add Deduction";
             this.btnAddDeduction.Click += new System.EventHandler(this.btnAddDeduction_Click);
             // 
-            // btnDeleteDeduction
-            // 
-            this.btnDeleteDeduction.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
-            this.btnDeleteDeduction.Image = global::Winform.Properties.Resources.Delete_File_24px;
-            this.btnDeleteDeduction.Name = "btnDeleteDeduction";
-            this.btnDeleteDeduction.Text = "Delete Deduction";
-            this.btnDeleteDeduction.Click += new System.EventHandler(this.btnDeleteDeduction_Click);
-            // 
             // btnEditDeduction
             // 
             this.btnEditDeduction.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
@@ -847,6 +918,14 @@
             this.btnEditDeduction.Name = "btnEditDeduction";
             this.btnEditDeduction.Text = "Edit Deduction";
             this.btnEditDeduction.Click += new System.EventHandler(this.btnEditDeduction_Click);
+            // 
+            // btnDeleteDeduction
+            // 
+            this.btnDeleteDeduction.ButtonStyle = DevComponents.DotNetBar.eButtonStyle.ImageAndText;
+            this.btnDeleteDeduction.Image = global::Winform.Properties.Resources.Delete_File_24px;
+            this.btnDeleteDeduction.Name = "btnDeleteDeduction";
+            this.btnDeleteDeduction.Text = "Delete Deduction";
+            this.btnDeleteDeduction.Click += new System.EventHandler(this.btnDeleteDeduction_Click);
             // 
             // superTabItem1
             // 
@@ -907,97 +986,59 @@
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox5.Controls.Add(this.txtSSS);
             this.groupBox5.Controls.Add(this.txtPagIbig);
+            this.groupBox5.Controls.Add(this.label14);
             this.groupBox5.Controls.Add(this.label13);
             this.groupBox5.Controls.Add(this.txtPhilHealth);
             this.groupBox5.Controls.Add(this.label12);
             this.groupBox5.Controls.Add(this.txtTin);
             this.groupBox5.Controls.Add(this.label11);
-            this.groupBox5.Location = new System.Drawing.Point(9, 360);
+            this.groupBox5.Location = new System.Drawing.Point(9, 355);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(308, 125);
+            this.groupBox5.Size = new System.Drawing.Size(308, 134);
             this.groupBox5.TabIndex = 3;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Reference Numbers:";
             // 
-            // txtPagIbig
+            // label14
             // 
-            this.txtPagIbig.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.txtPagIbig.Border.Class = "TextBoxBorder";
-            this.txtPagIbig.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtPagIbig.DisabledBackColor = System.Drawing.Color.White;
-            this.txtPagIbig.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPagIbig.ForeColor = System.Drawing.Color.Blue;
-            this.txtPagIbig.Location = new System.Drawing.Point(91, 86);
-            this.txtPagIbig.Name = "txtPagIbig";
-            this.txtPagIbig.PreventEnterBeep = true;
-            this.txtPagIbig.Size = new System.Drawing.Size(199, 22);
-            this.txtPagIbig.TabIndex = 13;
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.Color.Black;
+            this.label14.Location = new System.Drawing.Point(11, 100);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(34, 15);
+            this.label14.TabIndex = 14;
+            this.label14.Text = "SSS:";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.ForeColor = System.Drawing.Color.Black;
-            this.label13.Location = new System.Drawing.Point(10, 88);
+            this.label13.Location = new System.Drawing.Point(7, 74);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(52, 15);
             this.label13.TabIndex = 12;
             this.label13.Text = "PagIbig:";
             // 
-            // txtPhilHealth
-            // 
-            this.txtPhilHealth.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.txtPhilHealth.Border.Class = "TextBoxBorder";
-            this.txtPhilHealth.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtPhilHealth.DisabledBackColor = System.Drawing.Color.White;
-            this.txtPhilHealth.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPhilHealth.ForeColor = System.Drawing.Color.Blue;
-            this.txtPhilHealth.Location = new System.Drawing.Point(91, 58);
-            this.txtPhilHealth.Name = "txtPhilHealth";
-            this.txtPhilHealth.PreventEnterBeep = true;
-            this.txtPhilHealth.Size = new System.Drawing.Size(199, 22);
-            this.txtPhilHealth.TabIndex = 11;
-            // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.Color.Black;
-            this.label12.Location = new System.Drawing.Point(10, 60);
+            this.label12.Location = new System.Drawing.Point(7, 49);
             this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(67, 15);
             this.label12.TabIndex = 10;
             this.label12.Text = "PhilHealth:";
             // 
-            // txtTin
-            // 
-            this.txtTin.BackColor = System.Drawing.Color.White;
-            // 
-            // 
-            // 
-            this.txtTin.Border.Class = "TextBoxBorder";
-            this.txtTin.Border.CornerType = DevComponents.DotNetBar.eCornerType.Square;
-            this.txtTin.DisabledBackColor = System.Drawing.Color.White;
-            this.txtTin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTin.ForeColor = System.Drawing.Color.Blue;
-            this.txtTin.Location = new System.Drawing.Point(91, 30);
-            this.txtTin.Name = "txtTin";
-            this.txtTin.PreventEnterBeep = true;
-            this.txtTin.Size = new System.Drawing.Size(199, 22);
-            this.txtTin.TabIndex = 9;
-            // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.ForeColor = System.Drawing.Color.Black;
-            this.label11.Location = new System.Drawing.Point(10, 32);
+            this.label11.Location = new System.Drawing.Point(7, 21);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 15);
@@ -1013,6 +1054,63 @@
             this.panel2.Padding = new System.Windows.Forms.Padding(10);
             this.panel2.Size = new System.Drawing.Size(544, 497);
             this.panel2.TabIndex = 37;
+            // 
+            // explorerBarGroupItem1
+            // 
+            // 
+            // 
+            // 
+            this.explorerBarGroupItem1.BackStyle.BackColorSchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground;
+            this.explorerBarGroupItem1.BackStyle.BorderBottom = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.explorerBarGroupItem1.BackStyle.BorderBottomColor = System.Drawing.SystemColors.Window;
+            this.explorerBarGroupItem1.BackStyle.BorderBottomWidth = 1;
+            this.explorerBarGroupItem1.BackStyle.BorderColor = System.Drawing.Color.White;
+            this.explorerBarGroupItem1.BackStyle.BorderLeft = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.explorerBarGroupItem1.BackStyle.BorderLeftColor = System.Drawing.SystemColors.Window;
+            this.explorerBarGroupItem1.BackStyle.BorderLeftWidth = 1;
+            this.explorerBarGroupItem1.BackStyle.BorderRight = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.explorerBarGroupItem1.BackStyle.BorderRightColor = System.Drawing.SystemColors.Window;
+            this.explorerBarGroupItem1.BackStyle.BorderRightWidth = 1;
+            this.explorerBarGroupItem1.BackStyle.BorderTop = DevComponents.DotNetBar.eStyleBorderType.Solid;
+            this.explorerBarGroupItem1.BackStyle.BorderTopColor = System.Drawing.SystemColors.Window;
+            this.explorerBarGroupItem1.BackStyle.BorderTopWidth = 1;
+            this.explorerBarGroupItem1.BackStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.explorerBarGroupItem1.CanCustomize = false;
+            this.explorerBarGroupItem1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.explorerBarGroupItem1.ExpandButtonVisible = false;
+            this.explorerBarGroupItem1.Expanded = true;
+            this.explorerBarGroupItem1.Name = "explorerBarGroupItem1";
+            this.explorerBarGroupItem1.StockStyle = DevComponents.DotNetBar.eExplorerBarStockStyle.SystemColors;
+            this.explorerBarGroupItem1.SubItems.AddRange(new DevComponents.DotNetBar.BaseItem[] {
+            this.lblSalary});
+            this.explorerBarGroupItem1.Text = "Salary";
+            // 
+            // 
+            // 
+            this.explorerBarGroupItem1.TitleHotStyle.BackColor = System.Drawing.SystemColors.Window;
+            this.explorerBarGroupItem1.TitleHotStyle.BackColor2 = System.Drawing.SystemColors.InactiveCaption;
+            this.explorerBarGroupItem1.TitleHotStyle.CornerDiameter = 3;
+            this.explorerBarGroupItem1.TitleHotStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.explorerBarGroupItem1.TitleHotStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.explorerBarGroupItem1.TitleHotStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.explorerBarGroupItem1.TitleHotStyle.TextColor = System.Drawing.SystemColors.ActiveCaption;
+            // 
+            // 
+            // 
+            this.explorerBarGroupItem1.TitleStyle.BackColor = System.Drawing.SystemColors.Window;
+            this.explorerBarGroupItem1.TitleStyle.BackColor2SchemePart = DevComponents.DotNetBar.eColorSchemePart.BarBackground2;
+            this.explorerBarGroupItem1.TitleStyle.CornerDiameter = 3;
+            this.explorerBarGroupItem1.TitleStyle.CornerType = DevComponents.DotNetBar.eCornerType.Square;
+            this.explorerBarGroupItem1.TitleStyle.CornerTypeTopLeft = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.explorerBarGroupItem1.TitleStyle.CornerTypeTopRight = DevComponents.DotNetBar.eCornerType.Rounded;
+            this.explorerBarGroupItem1.TitleStyle.TextColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // lblSalary
+            // 
+            this.lblSalary.Name = "lblSalary";
+            this.lblSalary.Text = " ";
+            this.lblSalary.ThemeAware = true;
+            this.lblSalary.Click += new System.EventHandler(this.labelItem1_Click);
             // 
             // frmPayrollEmployee_Add
             // 
@@ -1112,5 +1210,9 @@
         private DevComponents.DotNetBar.Controls.TextBoxX txtTin;
         private System.Windows.Forms.Label label11;
         private DevComponents.DotNetBar.ButtonItem btnEditDeduction;
+        private DevComponents.DotNetBar.Controls.TextBoxX txtSSS;
+        private System.Windows.Forms.Label label14;
+        private DevComponents.DotNetBar.ExplorerBarGroupItem explorerBarGroupItem1;
+        private DevComponents.DotNetBar.LabelItem lblSalary;
     }
 }

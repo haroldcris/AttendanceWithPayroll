@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using AiTech.LiteOrm;
+﻿using AiTech.LiteOrm;
 using AiTech.Security;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Accounts
 {
@@ -44,7 +45,9 @@ namespace Winform.Accounts
             grid.CreateColumn("Id", "Id", 60, Alignment.MiddleCenter);
 
             grid.CreateColumn("Username", "Username", 80);
-            grid.CreateColumn("Role", "Role", 80);
+            grid.CreateColumn("Role", "Role", 150);
+
+            grid.CreateColumn("LinkedAccount", "Linked Employee", 200);
 
 
             grid.CreateRecordInfoColumns();
@@ -59,12 +62,15 @@ namespace Winform.Accounts
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (UserAccount) item;
+            var currentItem = (UserAccount)item;
 
             row.Cells["Id"].Value = currentItem.Id.ToString("0000");
 
             row.Cells["Username"].Value = currentItem.Username;
             row.Cells["Role"].Value = currentItem.RoleClass.RoleName;
+
+            if (currentItem.LinkAccounts.Items.Any())
+                row.Cells["LinkedAccount"].Value = currentItem.LinkAccounts.Items?.First()?.Description;
 
             //row.Cells["CameraCounter"].Value = currentItem.CameraCounter;
 
@@ -103,7 +109,7 @@ namespace Winform.Accounts
 
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (UserAccount) item;
+            var selectedItem = (UserAccount)item;
 
             using (var frm = new frmAccount_Add())
             {
@@ -121,13 +127,13 @@ namespace Winform.Accounts
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((UserAccount) item).Username;
+            message = ((UserAccount)item).Username;
 
             afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (UserAccount) currentItem;
+                    var deletedItem = (UserAccount)currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -135,7 +141,7 @@ namespace Winform.Accounts
                     var dataWriter = new UserAccountDataWriter(App.CurrentUser.User.Username, deletedItem);
                     dataWriter.SaveChanges();
 
-                    ItemDataCollection.Remove((UserAccount) currentItem);
+                    ItemDataCollection.Remove((UserAccount)currentItem);
                 }
                 catch (Exception ex)
                 {

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using AiTech.LiteOrm.Database.Search;
+﻿using AiTech.LiteOrm.Database.Search;
 using AiTech.Tools.Winform;
 using C1.Win.C1FlexGrid;
 using DevComponents.DotNetBar;
 using Dll.Contacts;
 using Dll.Employee;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Employee
 {
@@ -32,6 +32,8 @@ namespace Winform.Employee
         }
 
         public int EmployeeId { get; private set; }
+
+        public Dll.Employee.Employee ItemData { get; private set; }
 
         private void InitializeGrid()
         {
@@ -77,26 +79,39 @@ namespace Winform.Employee
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            var empnum = 0;
-            if (!int.TryParse(txtIdNum.Text, out empnum))
+            try
             {
-                MessageDialog.Show("Invalid Employee Number", "You have entered an Invalid Number");
-                txtIdNum.SelectAll();
-                return;
+                var empnum = 0;
+                if (!int.TryParse(txtIdNum.Text, out empnum))
+                {
+                    MessageDialog.Show("Invalid Employee Number", "You have entered an Invalid Number");
+                    txtIdNum.SelectAll();
+                    return;
+                }
+                ;
+
+                var empId = new EmployeeDataReader().GetIdOf(empnum);
+
+                if (empId == 0)
+                {
+                    MessageDialog.Show("Invalid Employee Number", "You have entered an Invalid Number");
+                    txtIdNum.SelectAll();
+                    return;
+                }
+
+                EmployeeId = empId;
+
+
+                ItemData = (new EmployeeDataReader()).GetItemOf(empId);
+
+
+                DialogResult = DialogResult.OK;
+
             }
-            ;
-
-            var empId = new EmployeeDataReader().GetIdOf(empnum);
-
-            if (empId == 0)
+            catch (Exception ex)
             {
-                MessageDialog.Show("Invalid Employee Number", "You have entered an Invalid Number");
-                txtIdNum.SelectAll();
-                return;
+                MessageDialog.ShowError(ex, this);
             }
-
-            EmployeeId = empId;
-            DialogResult = DialogResult.OK;
         }
 
 

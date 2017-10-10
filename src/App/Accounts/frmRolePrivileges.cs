@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
-using AiTech.Security;
+﻿using AiTech.Security;
 using DevComponents.DotNetBar;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Library.Tools;
+using System;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace Winform.Accounts
 {
@@ -76,13 +76,15 @@ namespace Winform.Accounts
             var row = e.GridCell.GridRow;
             if (row?.Tag == null) return;
 
-            var item = (IRolePrivilege) row.Tag;
+            var item = (RolePrivilege)row.Tag;
 
-            item.Enable = (bool) e.GridCell.Value;
+            item.Enable = (bool)e.GridCell.Value;
 
+            if (item.Id != 0) item.RowStatus = AiTech.LiteOrm.RecordStatus.ModifiedRecord;
 
-            var writer = new RoleDataWriter(App.CurrentUser.User.Username, (Role) cboRole.SelectedItem);
+            var writer = new RoleDataWriter(App.CurrentUser.User.Username, (Role)cboRole.SelectedItem);
             writer.SaveChanges();
+            item.StartTrackingChanges();
         }
 
         private void frmRolePrivileges_Load(object sender, EventArgs e)
@@ -120,7 +122,7 @@ namespace Winform.Accounts
         {
             if (cboRole.SelectedIndex < 0) return;
 
-            var selectedRole = (Role) cboRole.SelectedItem;
+            var selectedRole = (Role)cboRole.SelectedItem;
 
             selectedRole.RolePrivileges.LoadItemsFromDb();
 

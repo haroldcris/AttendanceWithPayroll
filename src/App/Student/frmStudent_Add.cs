@@ -1,19 +1,22 @@
 ﻿using AiTech.Tools.Winform;
 using Dll.Contacts;
+using Dll.SchoolYear;
 using Dll.Student;
 using Library.Tools;
 using System;
 using System.Linq;
 using System.Windows.Forms;
 using Winform.Contacts;
+using Winform.SchoolYear.Section;
 
 namespace Winform.Student
 {
     public partial class frmStudent_Add : FormWithRecordInfo, ISave
     {
-        private Person _tempPerson;
+        //private Person _tempPerson;
 
         public Dll.Student.Student ItemData;
+        public DirtyFormHandler DirtyStatus { get; }
 
         public frmStudent_Add()
         {
@@ -22,48 +25,67 @@ namespace Winform.Student
 
             DirtyStatus = new DirtyFormHandler(this);
 
-            //this.ConvertEnterToTab();
+            this.ConvertEnterToTab();
             this.AskToSaveOnDirtyClosing();
 
             lblName.Text = "";
             Load += (s, e) => ShowData();
         }
 
-        public DirtyFormHandler DirtyStatus { get; }
+
 
 
         public bool FileSave()
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             if (!DataIsValid()) return false;
+
+            var section = (Section)txtSection.Tag;
+            var person = (Person)lblName.Tag;
 
 
             var empnum = Convert.ToInt32(txtStudNum.Text.Replace("-", ""));
 
-            ItemData.PersonId = _tempPerson.Id;
-            ItemData.PersonClass = _tempPerson;
+            ItemData.PersonId = person.Id;
+            ItemData.PersonClass = person;
             ItemData.StudentNumber = empnum;
-            //ItemData.Height = (decimal)txtHeight.Value;
-            //ItemData.Weight = (decimal)txtWeight.Value;
 
+
+            ItemData.SectionId = section.Id;
+            ItemData.SectionClass = section;
+
+
+            if (ItemData.Id != 0) ItemData.RowStatus = AiTech.LiteOrm.RecordStatus.ModifiedRecord;
 
             var writer = new StudentDataWriter(App.CurrentUser.User.Username, ItemData);
-            writer.SaveChanges();
+            var result = writer.SaveChanges();
+
+            if (!result)
+            {
+                MessageDialog.ShowValidationError(this, "No detected changes to be saved");
+                return false;
+            }
 
             DirtyStatus.Clear();
 
+            DialogResult = DialogResult.OK;
             return true;
         }
 
         private void ShowData()
         {
+            if (ItemData.Id == 0) return;
+
+            InputControls.LoadImage(picImage, ItemData.PersonClass.CameraCounter);
+
             ShowPersonInfo(ItemData.PersonClass);
 
-            //= ItemData.Id;
-            _tempPerson = ItemData.PersonClass;
-            txtStudNum.Text = ItemData.EmpNum.ToString();
-            cboCivilStatus.Text = ItemData.CivilStatus;
-            txtHeight.Value = (double)ItemData.Height;
-            txtWeight.Value = (double)ItemData.Weight;
+            txtStudNum.Text = ItemData.StudentNumber.ToString();
+
+
+            txtSection.Tag = ItemData.SectionClass;
+            txtSection.Text = ItemData.SectionClass.SectionName;
 
 
             ShowFileInfo(ItemData);
@@ -80,7 +102,8 @@ namespace Winform.Student
             }
 
 
-            if (int.Parse(txtStudNum.Text) <= 0)
+            int studnum;
+            if (!int.TryParse(txtStudNum.Text, out studnum))
             {
                 txtStudNum.Focus();
 
@@ -89,30 +112,17 @@ namespace Winform.Student
             }
 
 
+            if (string.IsNullOrWhiteSpace(txtSection.Text))
+            {
+                MessageDialog.ShowValidationError(txtSection, "Section is Required. Specify Section");
+                return false;
+            }
+
+
             var reader = new StudentDataReader();
-            if (reader.HasExistingStudentNumber(Convert.ToInt32(txtStudNum.Text)) &&
-                ItemData.EmpNum != Convert.ToInt32(txtStudNum.Text))
+            if (reader.HasExistingStudentNumber(Convert.ToInt32(txtStudNum.Text), ItemData.Id))
             {
                 MessageDialog.ShowValidationError(txtStudNum, "Student Number already exists!");
-                return false;
-            }
-
-
-            if (string.IsNullOrEmpty(txtCitizenship.Text.Trim()))
-            {
-                MessageDialog.ShowValidationError(txtCitizenship, "Citizenship Data is Required");
-                return false;
-            }
-
-            if (txtHeight.Value <= 0)
-            {
-                MessageDialog.ShowValidationError(txtHeight, "Invalid Height Data");
-                return false;
-            }
-
-            if (txtWeight.Value <= 0)
-            {
-                MessageDialog.ShowValidationError(txtWeight, "Invalid Weight Data");
                 return false;
             }
 
@@ -132,21 +142,25 @@ namespace Winform.Student
         {
             Cursor.Current = Cursors.WaitCursor;
 
+            Person personItem;
+
             using (var frm = new frmContacts_Open())
             {
                 if (frm.ShowDialog() != DialogResult.OK) return;
 
-                _tempPerson = frm.ItemData;
+                personItem = frm.ItemData;
             }
 
-            if (ExistingPersonId(_tempPerson.Id))
+            if (ExistingPersonId(personItem.Id))
             {
                 MessageDialog.Show(this, "Existing Record",
                     "An existing Student Record associated with this contact already exists!");
+
+                lblName.Tag = null;
                 return;
             }
 
-            ShowPersonInfo(_tempPerson);
+            ShowPersonInfo(personItem);
         }
 
 
@@ -192,22 +206,25 @@ Gender:
             }
 
             lblName.Text = template;
+
+            lblName.Tag = person;
+
         }
 
         private void btnContactsNew_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
 
-            _tempPerson = new Person();
+            var personItem = new Person();
             using (var frm = new frmContacts_Add())
             {
-                frm.ItemData = _tempPerson;
+                frm.ItemData = personItem;
                 frm.Owner = this;
 
                 if (frm.ShowDialog() != DialogResult.OK) return;
             }
 
-            ShowPersonInfo(_tempPerson);
+            ShowPersonInfo(personItem);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -217,9 +234,29 @@ Gender:
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            if (!FileSave()) return;
+            FileSave();
+        }
 
-            DialogResult = DialogResult.OK;
+        private void btnSections_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                using (var frm = new frmSectionSelector())
+                {
+                    if (frm.ShowDialog() != DialogResult.OK) return;
+
+                    var item = frm.ItemData;
+
+                    txtSection.Text = item.SectionName;
+                    txtSection.Tag = item;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageDialog.ShowError(ex, this);
+            }
         }
     }
 }

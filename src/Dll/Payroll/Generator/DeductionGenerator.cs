@@ -66,9 +66,8 @@ namespace Dll.Payroll
             if (!hasPhilHealth) { }
 
 
-            if (!hasTax)
-                throw new Exception("NO Tax deduction");
-            else
+            if (hasTax)
+                //throw new Exception("NO Tax deduction");
                 taxDeduction.Amount = ComputeTax(employee.BasicSalary, totalDeduction, employee.TaxClass.Exemption);
 
 

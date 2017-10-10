@@ -25,7 +25,7 @@ namespace Winform.SchoolYear
             SectionViewer.AfterItemEdit += SectionViewer_AfterItemEdit;
         }
 
-        private void SectionViewer_AfterItemEdit(object sender, Section e)
+        private void SectionViewer_AfterItemEdit(object sender, Dll.SchoolYear.Section e)
         {
             try
             {
@@ -93,9 +93,9 @@ namespace Winform.SchoolYear
 
 
 
-        private Section GetSelectedItem()
+        private Dll.SchoolYear.Section GetSelectedItem()
         {
-            var item = (Section)SectionViewer.TreeView.SelectedNode?.Tag;
+            var item = (Dll.SchoolYear.Section)SectionViewer.TreeView.SelectedNode?.Tag;
 
             if (item == null)
             {
@@ -118,7 +118,7 @@ namespace Winform.SchoolYear
             try
             {
 
-                if (BatchViewer.SelectedItem == null)
+                if (BatchViewer.SelectedBatchItem == null)
                 {
                     MessageDialog.ShowValidationError(BatchViewer, "Select Batch First", null, null, 40, false);
                     return;
@@ -148,7 +148,7 @@ namespace Winform.SchoolYear
         }
 
 
-        private void OnDelete(Section item, out string deleteMessage, ref Action<Section> afterConfirm)
+        private void OnDelete(Dll.SchoolYear.Section item, out string deleteMessage, ref Action<Dll.SchoolYear.Section> afterConfirm)
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
@@ -182,7 +182,7 @@ namespace Winform.SchoolYear
 
 
                 string deleteMessage;
-                Action<Section> action = i => { };
+                Action<Dll.SchoolYear.Section> action = i => { };
 
                 OnDelete(item, out deleteMessage, ref action);
 

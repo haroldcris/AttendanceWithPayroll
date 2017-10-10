@@ -245,5 +245,24 @@ namespace Winform
 
             col.Visible = button.Checked;
         }
+
+
+        /// <summary>
+        /// Get the Selected Entity Item.
+        /// Returns NULL if tag of row is null
+        /// </summary>
+        public Entity SelectedItem
+        {
+
+            get
+            {
+                Cursor.Current = Cursors.WaitCursor;
+
+                if (SGrid.ActiveFilterPanel != null) return null;
+
+                var grid = SGrid.PrimaryGrid;
+                return (Entity)grid.ActiveRow?.Tag;
+            }
+        }
     }
 }

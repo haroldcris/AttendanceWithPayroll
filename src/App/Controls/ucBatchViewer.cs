@@ -42,7 +42,7 @@ namespace Winform.Controls
 
 
 
-        public void LoadItems()
+        public virtual void LoadItems()
         {
             ItemDataCollection.LoadAllItemsFromDb();
             ShowItems();
@@ -56,7 +56,7 @@ namespace Winform.Controls
         }
 
 
-        private void TreeView_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
+        protected virtual void TreeView_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
         {
             var item = (Batch)e.Node?.Tag;
 
@@ -147,13 +147,16 @@ namespace Winform.Controls
         }
 
 
-        public Batch SelectedItem
+        public Batch SelectedBatchItem
         {
             get
             {
-                var item = (Batch)TreeView.SelectedNode?.Tag;
+                var node = TreeView.SelectedNode;
+                if (node == null) return null;
 
-                if (item == null) return null;
+                if (node.Level > 2) return null;
+
+                var item = (Batch)TreeView.SelectedNode?.Tag;
 
                 return item;
             }

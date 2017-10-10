@@ -1,4 +1,5 @@
 ﻿using AiTech.LiteOrm;
+using System;
 
 namespace Dll.Employee
 {
@@ -9,6 +10,8 @@ namespace Dll.Employee
         {
         }
 
+
+        [Obsolete("Use Employee Class Map function")]
         public void Map(dynamic recordSource)
         {
             if (recordSource.Id != null) ItemData.Id = recordSource.Id;

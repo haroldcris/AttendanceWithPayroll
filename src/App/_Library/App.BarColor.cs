@@ -30,5 +30,7 @@ public static partial class App
         public static readonly Color CourseColor = Color.Maroon;
         public static readonly Color SubjectColor = Color.DarkGoldenrod;
         public static readonly Color SectionColor = Color.Sienna;
+
+        public static readonly Color OfferedClassColor = Color.Aquamarine;
     }
 }

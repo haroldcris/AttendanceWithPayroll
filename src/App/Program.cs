@@ -15,6 +15,13 @@ namespace Winform
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+
+            //var frm = new Winform.SchoolYear.Section.frmSectionSelector();
+            //frm.ShowDialog();
+
+            //return;
+
+
             var login = new frmLogin();
             var response = login.ShowDialog();
 

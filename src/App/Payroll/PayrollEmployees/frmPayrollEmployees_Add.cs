@@ -43,6 +43,7 @@ namespace Winform.Payroll
             ItemData.Tin = txtTin.Text;
             ItemData.PhilHealth = txtPhilHealth.Text;
             ItemData.PagIbig = txtPagIbig.Text;
+            ItemData.SSS = txtSSS.Text + "";
 
 
             //Position
@@ -64,6 +65,8 @@ namespace Winform.Payroll
             ItemData.Active = switchActive.Value;
 
 
+
+
             //Deductions
             //ItemData.Deductions;
 
@@ -72,9 +75,10 @@ namespace Winform.Payroll
             ItemData.UpdateBasicSalary(DateTime.Now);
 
 
-            var writer = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, ItemData);
-            writer.SaveChanges();
+            if (ItemData.Id != 0) ItemData.RowStatus = RecordStatus.ModifiedRecord;
 
+            var writer = new PayrollEmployeeDataWriter(App.CurrentUser.User.Username, ItemData);
+            var result = writer.SaveChanges();
 
             DirtyStatus.Clear();
 
@@ -108,6 +112,21 @@ namespace Winform.Payroll
             var item = (PositionSalaryGrade)cboPosition.SelectedItem;
 
             txtSG.Text = item.SG.ToString();
+
+            ShowBasicSalary();
+        }
+
+
+        private void ShowBasicSalary()
+        {
+            if (cboStep.SelectedIndex == -1) return;
+
+            var reader = new SalaryScheduleDataReader();
+
+            var position = (PositionSalaryGrade)cboPosition.SelectedItem;
+
+            lblSalary.Text = reader.GetSalaryOfPositionId(position.PositionId, cboStep.SelectedIndex + 1, DateTime.Today).ToString("P#,###.00");
+
         }
 
         private void cboTax_SelectedIndexChanged(object sender, EventArgs e)
@@ -183,52 +202,61 @@ namespace Winform.Payroll
 
         private void ShowData()
         {
-            Show_NameProfile();
-
-            InputControls.LoadImage(picImage, ItemData.EmployeeClass.PersonClass.CameraCounter);
-
-            switchActive.Value = ItemData.Active;
-
-
-            txtTin.Text = ItemData.Tin;
-            txtPhilHealth.Text = ItemData.PhilHealth;
-            txtPagIbig.Text = ItemData.PagIbig;
-
-
-            dtDateHired.Value = ItemData.DateHired;
-            cboDepartment.Text = ItemData.Department;
-
-            // Match Position 
-            foreach (var p in cboPosition.Items)
+            try
             {
-                if (((PositionSalaryGrade)p).PositionId != ItemData.PositionId) continue;
-                cboPosition.SelectedItem = p;
-                break;
+                Show_NameProfile();
+
+                InputControls.LoadImage(picImage, ItemData.EmployeeClass.PersonClass.CameraCounter);
+
+                switchActive.Value = ItemData.Active;
+
+
+                txtTin.Text = ItemData.Tin;
+                txtPhilHealth.Text = ItemData.PhilHealth;
+                txtPagIbig.Text = ItemData.PagIbig;
+                txtSSS.Text = ItemData.SSS;
+
+                dtDateHired.Value = ItemData.DateHired;
+                cboDepartment.Text = ItemData.Department;
+
+                // Match Position 
+                foreach (var p in cboPosition.Items)
+                {
+                    if (((PositionSalaryGrade)p).PositionId != ItemData.PositionId) continue;
+                    cboPosition.SelectedItem = p;
+                    break;
+                }
+
+                cboStep.Text = ItemData.Step.ToString();
+
+                // Match Tax Code
+                foreach (var t in cboTax.Items)
+                {
+                    if (((Tax)t).Id != ItemData.TaxId) continue;
+                    cboTax.SelectedItem = t;
+                    break;
+                }
+
+
+                // Deductions
+                if (ItemData.Id != 0)
+                    Load_Deductions();
+
+                Show_Deductions();
+
+
+                expandableSplitter1.Expanded = ItemData.Id != 0;
+
+                ShowBasicSalary();
+
+                ShowFileInfo(ItemData);
+
+                DirtyStatus.Clear();
             }
-
-            cboStep.Text = ItemData.Step.ToString();
-
-            // Match Tax Code
-            foreach (var t in cboTax.Items)
+            catch (Exception ex)
             {
-                if (((Tax)t).Id != ItemData.TaxId) continue;
-                cboTax.SelectedItem = t;
-                break;
+                MessageDialog.ShowError(ex, this);
             }
-
-
-            // Deductions
-            if (ItemData.Id != 0)
-                Load_Deductions();
-
-            Show_Deductions();
-
-
-            expandableSplitter1.Expanded = ItemData.Id != 0;
-
-            ShowFileInfo(ItemData);
-
-            DirtyStatus.Clear();
         }
 
 
@@ -282,8 +310,8 @@ Employee No.:<br/>
             FlexGridDeductions[row, "amount"] = item.Amount;
 
 
-            FlexGridDeductions[row, "startdate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateFrom;
-            FlexGridDeductions[row, "enddate"] = item.DeductionClass.Mandatory ? (object)"---" : item.DateTo;
+            FlexGridDeductions[row, "startdate"] = item.DateFrom;
+            FlexGridDeductions[row, "enddate"] = item.DateTo;
 
             FlexGridDeductions.Rows[row].UserData = item;
         }
@@ -352,6 +380,19 @@ Employee No.:<br/>
         private void FlexGridDeductions_DoubleClick(object sender, EventArgs e)
         {
             btnEditDeduction.RaiseClick();
+        }
+
+        private void labelItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboStep_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboStep.SelectedIndex == -1) return;
+
+            ShowBasicSalary();
+
         }
     }
 }

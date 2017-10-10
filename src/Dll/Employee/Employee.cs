@@ -34,6 +34,9 @@ namespace Dll.Employee
 
 
         public Person PersonClass { get; set; }
+
+
+        [Obsolete("Replace with Map Function")]
         public EmployeeDataMapper DataMapper { get; }
 
         public Employee()
@@ -68,6 +71,24 @@ namespace Dll.Employee
             return changes;
         }
 
+
+
+        public void Map(dynamic recordSource)
+        {
+            if (recordSource.Id != null) Id = recordSource.Id;
+            if (recordSource.PersonId != null) PersonId = recordSource.PersonId;
+            if (recordSource.EmpNum != null) EmpNum = recordSource.EmpNum;
+            if (recordSource.CivilStatus != null) CivilStatus = recordSource.CivilStatus;
+            if (recordSource.Height != null) Height = recordSource.Height;
+            if (recordSource.Weight != null) Weight = recordSource.Weight;
+
+
+            if (recordSource.Created != null) Created = recordSource.Created;
+            if (recordSource.Modified != null) Modified = recordSource.Modified;
+            if (recordSource.CreatedBy != null) CreatedBy = recordSource.CreatedBy;
+            if (recordSource.ModifiedBy != null) ModifiedBy = recordSource.ModifiedBy;
+
+        }
 
     }
 

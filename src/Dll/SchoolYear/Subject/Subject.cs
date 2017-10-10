@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AiTech.LiteOrm;
 using Dapper.Contrib.Extensions;
-using AiTech.LiteOrm;
+using System.Collections.Generic;
 
 namespace Dll.SchoolYear
 {
@@ -54,6 +53,13 @@ namespace Dll.SchoolYear
             if (recordSource.ModifiedBy != null) ModifiedBy = recordSource.ModifiedBy;
         }
 
+
+
+
+        public override string ToString()
+        {
+            return $"{SubjectCode}  {Description}";
+        }
 
     }
 

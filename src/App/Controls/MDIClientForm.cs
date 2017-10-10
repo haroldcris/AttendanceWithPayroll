@@ -12,6 +12,27 @@ namespace Winform
     {
         private string _title;
 
+        const int WM_NCPAINT = 0x85;
+        const int WM_SIZE = 0x05;
+
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_NCPAINT)
+            {
+                if (this.WindowState == FormWindowState.Maximized)
+                    return;
+            }
+
+            if (m.Msg == WM_SIZE)
+            {
+                if (this.WindowState == FormWindowState.Maximized)
+                    return;
+            }
+
+            base.WndProc(ref m);
+        }
+
+
 
         public MdiClientForm()
         {

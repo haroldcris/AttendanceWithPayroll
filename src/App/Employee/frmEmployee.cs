@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
-using AiTech.LiteOrm;
+﻿using AiTech.LiteOrm;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar.SuperGrid;
 using DevComponents.DotNetBar.SuperGrid.Style;
 using Dll.Contacts;
 using Dll.Employee;
+using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Winform.Employee
 {
@@ -76,7 +76,7 @@ namespace Winform.Employee
 
         protected override void Show_DataOnRow(GridRow row, Entity item)
         {
-            var currentItem = (Dll.Employee.Employee) item;
+            var currentItem = (Dll.Employee.Employee)item;
 
             row.Cells["Empnum"].Value = currentItem.EmpNum;
 
@@ -123,7 +123,7 @@ namespace Winform.Employee
 
         protected override bool OnEdit(Entity item)
         {
-            var selectedItem = (Dll.Employee.Employee) item;
+            var selectedItem = (Dll.Employee.Employee)item;
 
             using (var frm = new frmEmployee_Add())
             {
@@ -142,13 +142,13 @@ namespace Winform.Employee
         {
             if (afterConfirm == null) throw new ArgumentNullException(nameof(afterConfirm));
 
-            message = ((Dll.Employee.Employee) item).PersonClass.Name.Fullname;
+            message = ((Dll.Employee.Employee)item).PersonClass.Name.Fullname;
 
             afterConfirm = currentItem =>
             {
                 try
                 {
-                    var deletedItem = (Dll.Employee.Employee) currentItem;
+                    var deletedItem = (Dll.Employee.Employee)currentItem;
 
 
                     deletedItem.RowStatus = RecordStatus.DeletedRecord;
@@ -158,7 +158,7 @@ namespace Winform.Employee
                     dataWriter.SaveChanges();
 
 
-                    ItemDataCollection.Remove((Dll.Employee.Employee) currentItem);
+                    ItemDataCollection.Remove((Dll.Employee.Employee)currentItem);
 
                     App.LogAction("Employee", "Deleted Employee : " + deletedItem.EmpNum);
                 }
@@ -167,6 +167,18 @@ namespace Winform.Employee
                     MessageDialog.ShowError(ex, this);
                 }
             };
+        }
+
+        private void btnAssign_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+
+            var item = (Dll.Employee.Employee)this.SelectedItem;
+            if (item == null) return;
+
+            //var frm = new frmAssignSubject(this);
+            //var result = frm.ShowDialog();
+            //if (result != DialogResult.OK) return;
         }
     }
 }

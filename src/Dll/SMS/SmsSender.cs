@@ -71,9 +71,9 @@ namespace Dll.SMS
                     throw new ApplicationException("No success message was received.");
                 return input;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -284,30 +284,22 @@ namespace Dll.SMS
         {
             bool isSend = false;
 
-            try
-            {
 
-                string receivedData = ExecCommand(port, "AT", 300, "No phone connected");
-                receivedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
-                String command = "AT+CMGS=\"" + PhoneNo + "\"";
-                receivedData = ExecCommand(port, command, 300, "Failed to accept phoneNo");
-                command = Message + char.ConvertFromUtf32(26) + "\r";
-                receivedData = ExecCommand(port, command, 3000, "Failed to send message"); //3 seconds
-                if (receivedData.EndsWith("\r\nOK\r\n"))
-                {
-                    isSend = true;
-                }
-                else if (receivedData.Contains("ERROR"))
-                {
-                    isSend = false;
-                }
-                return isSend;
-            }
-            catch (Exception ex)
+            string receivedData = ExecCommand(port, "AT", 300, "No phone connected");
+            receivedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
+            String command = "AT+CMGS=\"" + PhoneNo + "\"";
+            receivedData = ExecCommand(port, command, 300, "Failed to accept phoneNo");
+            command = Message + char.ConvertFromUtf32(26) + "\r";
+            receivedData = ExecCommand(port, command, 3000, "Failed to send message"); //3 seconds
+            if (receivedData.EndsWith("\r\nOK\r\n"))
             {
-                throw ex;
+                isSend = true;
             }
-
+            else if (receivedData.Contains("ERROR"))
+            {
+                isSend = false;
+            }
+            return isSend;
         }
 
 

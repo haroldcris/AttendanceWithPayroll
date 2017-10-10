@@ -99,7 +99,7 @@ namespace Winform.Controls
         private void TreeView_AfterNodeSelect(object sender, AdvTreeNodeEventArgs e)
         {
             var item = (Section)e.Node?.Tag;
-            if (item == null) return;
+            //if (item == null) return;
 
             FireEvent(ItemSelected, item);
 

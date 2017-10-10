@@ -1,5 +1,4 @@
 ﻿using AiTech.LiteOrm;
-using AiTech.LiteOrm.Database;
 using AiTech.Tools;
 using AiTech.Tools.Winform;
 using DevComponents.DotNetBar;
@@ -12,6 +11,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Windows.Forms;
+using AiTech.LiteOrm.Database;
 
 namespace Winform.Contacts
 {
@@ -99,11 +99,10 @@ namespace Winform.Contacts
             var username = "anonymous"; //AiTech.LiteOrm.Database.Connection.MyDbCredential.Username;
             var password = "user@yahoo.com"; //AiTech.LiteOrm.Database.Connection.MyDbCredential.Password;
 
-            var credential = new NetworkCredential { UserName = username, Password = password };
+            var credential = new NetworkCredential { UserName = username, Password = password, Domain = Connection.MyDbCredential.ServerName };
 
-
-            var ftp = new FtpClass(Connection.MyDbCredential.ServerName,
-                credential);
+            
+            var ftp = new FtpClass(credential);
 
 
             ftp.Progress += delegate (object sender, cFTPEventHandlerArgs args)

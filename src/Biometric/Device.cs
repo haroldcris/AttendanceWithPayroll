@@ -66,7 +66,14 @@ namespace Biometric
 
             ZApi.OnAttTransactionEx -= ZApi_OnAttTransactionEx;
             ZApi.OnAttTransactionEx += ZApi_OnAttTransactionEx;
+
+            ZApi.OnFinger += new _IZKEMEvents_OnFingerEventHandler(ZApi_OnFinger);
+            ZApi.OnAttTransactionEx += new _IZKEMEvents_OnAttTransactionExEventHandler(ZApi_OnAttTransactionEx);
+
+
+
         }
+
 
 
 
@@ -145,6 +152,9 @@ namespace Biometric
 
             int errorCode = 0;
 
+
+
+
             ZApi.MachineNumber = MachineId;
 
             IsConnected = ZApi.Connect_Net(IpAddress, port);
@@ -158,6 +168,9 @@ namespace Biometric
             RegisterEvent();
 
             FireEvent(ref Connected);
+
+
+
 
             return IsConnected;
         }
